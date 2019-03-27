@@ -1,38 +1,33 @@
 {
-  "name": "vsc-base",
-  "version": "0.0.1",
-  "description": "Common methods for vscode extensions",
-  "publisher": "alfnielsen",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node ./node_modules/vscode/bin/install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alfnielsen/vsc-base.git"
-  },
-  "keywords": [
-    "vscode"
-  ],
-  "author": "Alf Nielsen <alfnielsen@gmail.com>",
-  "license": "GPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/alfnielsen/vsc-base/issues"
-  },
-  "homepage": "https://github.com/alfnielsen/vsc-base#readme",
-  "dependencies": {
-    "fs-extra": "^7.0.1",
-    "path": "^0.12.7",
-    "typescript": "^3.3.3333",
-    "vscode": "^1.1.30"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^5.0.5",
-    "tslint": "^5.14.0"
-  },
-  "typings": "vcs-base.d.ts",
-  "engines": {
-		"vscode": "^1.32.0"
-	}
+   "name": "vsc-base",
+   "version": "0.0.5",
+   "description": "Base for vsc-script and other vscode extensions",
+   "publisher": "alfnielsen",
+   "main": "out/index.js",
+   "scripts": {
+      "build": "tsc"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/alfnielsen/vsc-base.git"
+   },
+   "keywords": [
+      "vscode"
+   ],
+   "author": "Alf Nielsen <alfnielsen@gmail.com>",
+   "license": "GPL-3.0-or-later",
+   "bugs": {
+      "url": "https://github.com/alfnielsen/vsc-base/issues"
+   },
+   "homepage": "https://github.com/alfnielsen/vsc-base#readme",
+   "dependencies": {
+      "fs-extra": "^7.0.1",
+      "typescript": "^3.3.3333"
+   },
+   "devDependencies": {
+      "@types/vscode": "^1.32.0",
+      "@types/fs-extra": "^5.0.5",
+      "tslint": "^5.14.0"
+   },
+   "typings": "out/vcs-base.d.ts"
 }

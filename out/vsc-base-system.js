@@ -97,8 +97,7 @@ const f = (path) => __awaiter(this, void 0, void 0, function* () {
     }
 });
 /**
- * Test is a path is directory
- * dependensies: { vscode.window.shoInputBox }
+ * Prompt user for a question
  * @param path
  */
 const ask = (question, defaultValue) => __awaiter(this, void 0, void 0, function* () {
@@ -109,7 +108,6 @@ const ask = (question, defaultValue) => __awaiter(this, void 0, void 0, function
 });
 /**
  * Does the folder/file exist
- * dependensies: { fs.existsSync(Faile access) }
  * @param path string
  */
 const doesExists = (path) => {
@@ -117,7 +115,6 @@ const doesExists = (path) => {
 };
 /**
  * Get a list off all filePaths in project the matches a glob pattern
- * dependensies: { vscode.workspace.findFiles(File access), methods.pathAsUnix }
  * @param include glob
  * @param exclude glob
  * @param maxResults
@@ -129,7 +126,6 @@ const findFilePaths = (include, exclude = '**/node_modules/**', maxResults = 100
 });
 /**
  * Get current open file path or undefioned if nonothing is open.
- * dependensies: { vscode.window.activeTextEditor }
  */
 const getActiveOpenPath = () => {
     const activeEditor = vscode.window.activeTextEditor;
@@ -138,7 +134,6 @@ const getActiveOpenPath = () => {
 };
 /**
  * Get vscode project config
- * dependensies: { vscode.window.getConfiguration }
  */
 const getConfig = (projectName, property, defaultValue) => {
     return vscode.workspace.getConfiguration(projectName).get(property, defaultValue);
@@ -152,7 +147,6 @@ const getFileContent = (path) => __awaiter(this, void 0, void 0, function* () { 
 /**
  * Find roots packages and collect the dependencies and devDependencies.
  * Return as: {dependencies:{names:version}[], devDependencies:{names:version}[]}
- * dependensies: { vscode.window.findFiles, methods.getFileContent(File access) }
  */
 const getPackageDependencies = () => __awaiter(this, void 0, void 0, function* () {
     const packageFiles = yield vscode.workspace.findFiles('**/package.json', '**/node_modules/**', 1000);
@@ -199,8 +193,16 @@ const isDir = (path) => {
     return fs.statSync(path).isDirectory();
 };
 /**
- * Wraps fs.move
+ * Make a folder
  * dependensies: { fs.move(File access) }
+ * @param path
+ * @param newPathstring
+ */
+const makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.mkdir(folderPath);
+});
+/**
+ * Move file/fodler
  * @param path
  * @param newPathstring
  */
@@ -209,14 +211,12 @@ const move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
 });
 /**
  * Save All files
- * dependensies: { vscode.workspace.saveAll(File access) }
  */
 const saveAll = () => __awaiter(this, void 0, void 0, function* () {
     yield vscode.workspace.saveAll(false);
 });
 /**
  * Save file
- * dependensies: { fs.writeFile(File access) }
  * @param path
  * @param content
  */
@@ -225,7 +225,6 @@ const saveFileContent = (path, content) => __awaiter(this, void 0, void 0, funct
 });
 /**
  * Show error message to user
- * dependensies: { vscode.window.showErrorMessage }
  * @param message
  */
 const showErrorMessage = (message) => __awaiter(this, void 0, void 0, function* () {
@@ -233,7 +232,6 @@ const showErrorMessage = (message) => __awaiter(this, void 0, void 0, function* 
 });
 /**
  * Show message to user
- * dependensies: { vscode.window.showErrorMessage }
  * @param message
  */
 const showMessage = (message) => __awaiter(this, void 0, void 0, function* () {
@@ -251,6 +249,7 @@ const vsc /* IVscBase */ = Object.assign({}, vsc_base_raw_1.default, { ask,
     getPackageDependencies,
     getRootPath,
     isDir,
+    makeDir,
     move,
     saveAll,
     saveFileContent,

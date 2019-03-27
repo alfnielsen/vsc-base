@@ -1,6 +1,6 @@
 {
    "name": "vsc-base",
-   "version": "0.0.5",
+   "version": "0.0.6",
    "description": "Base for vsc-script and other vscode extensions",
    "publisher": "alfnielsen",
    "main": "out/index.js",

@@ -1,0 +1,58 @@
+{
+   "name": "vsc-script",
+   "displayName": "vsc-script",
+   "description": "Create your own scripts on the fly and run them in vscode.",
+   "publisher": "alfnielsen",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/alfnielsen/vsc-script"
+   },
+   "homepage": "https://vsc-base.org",
+   "version": "0.0.6",
+   "engines": {
+      "vscode": "^1.32.0"
+   },
+   "categories": [
+      "Other"
+   ],
+   "activationEvents": [
+      "onCommand:extension.vscScript"
+   ],
+   "main": "./out/extension.js",
+   "contributes": {
+      "menus": {
+         "explorer/context": [
+            {
+               "command": "extension.vscScript",
+               "group": "1_modification",
+               "when": "explorerViewletVisible"
+            }
+         ]
+      },
+      "commands": [
+         {
+            "command": "extension.vscScript",
+            "title": "vsc Script"
+         }
+      ]
+   },
+   "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "postinstall": "node ./node_modules/vscode/bin/install",
+      "test": "npm run compile && node ./node_modules/vscode/bin/test"
+   },
+   "devDependencies": {
+      "@types/fs-extra": "^5.0.5",
+      "@types/mocha": "^2.2.42",
+      "@types/node": "^10.12.21",
+      "tslint": "^5.12.1",
+      "vscode": "^1.1.28"
+   },
+   "dependencies": {
+      "fs-extra": "^7.0.1",
+      "typescript": "^3.3.1",
+      "vsc-base": "0.0.5"
+   }
+}

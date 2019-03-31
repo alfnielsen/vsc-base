@@ -1,0 +1,74 @@
+@import 'style/mixins.scss';
+
+.wrapTop {
+   display: flex;
+   width: 100%;
+   margin: 3px 0px;
+   transition: margin 0.12s ease-in;
+}
+.wrapTopFull {
+   margin-top: 10px;
+}
+.wrapFull {
+   display: flex;
+   width: 100%;
+   margin: 10px 0px;
+}
+
+.annotation {
+   width: 310px;
+}
+
+.title {
+   @include noSelect;
+   display: block;
+   text-align: left;
+   padding-left: 10px;
+   font-size: 14px;
+   font-weight: bold;
+   line-height: 37px;
+   cursor: pointer;
+   color: #333;
+}
+.arrow {
+   color: #666;
+   font-size: 10px;
+   display: inline-block;
+   line-height: 30px;
+   margin-left: 10px;
+   text-align: center;
+}
+.description {
+   background: #e5e8e2;
+   font-size: 12px;
+   padding: 10px 10px 1px 10px;
+   margin: 0px 10px;
+   border-radius: 5px;
+}
+.test {
+   width: 250px;
+   background: #e5e8e2;
+   border-radius: 10px;
+   margin-right: 10px;
+}
+.codeArea {
+   position: relative;
+   flex: 1;
+   margin-right: 10px;
+}
+.copyArea {
+   position: absolute;
+   top: 5px;
+   right: 10px;
+   line-height: 25px;
+   font-size: 10px;
+   color: #666;
+}
+
+.seperator {
+   width: 100%;
+   display: block;
+   height: 1px;
+   background: #999;
+   opacity: 0.5;
+}

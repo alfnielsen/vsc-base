@@ -1,0 +1,51 @@
+@import './variables.scss';
+
+html {
+   height: 100%;
+}
+
+div#root {
+   height: 100%;
+}
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-family: 'Segoe UI', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+   height: 100%;
+   background: $light;
+}
+
+code {
+   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+ul {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+}
+h3,
+h4 {
+   margin-top: 20px;
+}
+
+a {
+   text-decoration: none;
+   color: #669;
+}
+a:hover {
+   color: #88a;
+   transform: color 0.08s ease-in;
+}
+
+p {
+   margin: 2px 0 10px 0;
+}

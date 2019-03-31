@@ -1,0 +1,69 @@
+.wrap {
+   display: block;
+   padding: 10px 20px;
+}
+.headline {
+   display: block;
+   text-align: center;
+   font-size: 12px;
+   font-weight: bold;
+   margin-bottom: 0px;
+   color: #666;
+}
+.inputWrap {
+   position: relative;
+   display: block;
+   height: 24px;
+}
+.resetter {
+   position: absolute;
+   top: 2px;
+   right: 2px;
+   font-size: 10px;
+   width: 14px;
+   height: 14px;
+   border-radius: 100%;
+   background: rgba(100, 100, 100, 0.1);
+   text-align: center;
+   cursor: pointer;
+   line-height: 14px;
+   font-family: arial;
+}
+.resetter:hover {
+   background: rgba(100, 100, 100, 0.2);
+}
+
+.textfieldLabel {
+   display: block;
+   width: 100%;
+   padding: 3px 0px;
+   font-weight: bold;
+   color: #666;
+   font-size: 12px;
+}
+.textfield {
+   display: block;
+   width: 100%;
+   padding: 3px 6px;
+   outline: none;
+   background: #f6f7f5;
+}
+
+.testResult {
+   display: block;
+   padding: 5px;
+   margin-top: 10px;
+   background: #e5e8e2;
+   min-height: 20px;
+}
+.testResultTitle {
+   display: block;
+   font-size: 10px;
+   color: #999;
+}
+.testResultBox {
+   display: block;
+   font-size: 12px;
+   padding: 4px;
+   color: #333;
+}

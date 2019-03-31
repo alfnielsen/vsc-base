@@ -1,0 +1,27 @@
+@import 'style/variables.scss';
+
+.App {
+   display: flex;
+   flex-direction: column;
+   width: 100vw;
+   height: 100vh;
+}
+.decsription {
+   padding: 30px;
+}
+
+.annotatedCode {
+   display: block;
+   background: $dark;
+   color: #fff;
+   padding: 10px 30px;
+}
+
+.titleNote {
+   font-size: 12px;
+}
+.warning {
+   background: #f99;
+   padding: 5px;
+   margin-bottom: 40px;
+}

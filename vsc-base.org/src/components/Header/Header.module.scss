@@ -1,0 +1,60 @@
+@import 'style/variables.scss';
+
+.header {
+   display: flex;
+   color: white;
+   padding-right: 15px;
+   padding-left: 15px;
+   background-color: $dark;
+   justify-content: space-between;
+}
+
+.logo {
+   display: block;
+   position: relative;
+   margin-left: 15px;
+   background-image: url('images/logo-white.png');
+   background-size: 24px 24px;
+   background-repeat: no-repeat;
+   background-position: left 50%;
+   padding-left: 35px;
+   font-size: 20px;
+   letter-spacing: -0.04rem;
+   color: white;
+   min-height: 50px;
+   padding-top: 15px;
+   line-height: 20px;
+}
+.logoNote {
+   font-size: 12px;
+   margin-left: 10px;
+}
+
+.mainNav {
+   display: flex;
+   margin-top: 5px;
+}
+.logo a,
+.mainNav a {
+   padding: 10px 15px;
+   text-align: center;
+   display: block;
+   color: #fff;
+}
+
+.mainNav a {
+   font-size: 0.99em;
+   opacity: 0.6;
+   transition: opacity 0.08s ease-in;
+}
+
+.mainNav a:hover {
+   opacity: 1;
+}
+.github {
+   background-image: url('images/gtihub.svg');
+   background-size: 18px 18px;
+   background-repeat: no-repeat;
+   background-position: left 50%;
+   padding-left: 20px !important;
+}

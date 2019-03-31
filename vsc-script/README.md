@@ -56,7 +56,20 @@ export async function run(uri: vscode.Uri) {
 }
 ```
 
+You can use these modules in your script: vsc-base, fs-extra, vscode and typescript:
+
+```typescript
+// documentation on http://vsc-base.org
+import vsc from 'vsc-base'
+import * vscode from 'vscode'
+import * ts from 'typescript'
+import * fs from 'fs-extra'
+
+export async function run(uri: vscode.Uri) {}
+```
+
 > You cannot use any other libs (modules)!
+
 > When this extension runs your scripts it actually doing it in its own context's which is the reason it only has these 4 libs.
 
 The script must export one async function named 'run' that takes an Uri (vscode.Uri).

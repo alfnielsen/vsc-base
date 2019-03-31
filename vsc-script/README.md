@@ -39,7 +39,7 @@ or
 
 A script file is written in typescript.
 
-**Ex:** test.vsc-script.ts
+**Ex:** replace.vsc-script.ts
 
 ```typescript
 // documentation on http://vsc-base.org
@@ -47,6 +47,11 @@ import vsc from 'vsc-base'
 import * vscode from 'vscode'
 
 export async function run(uri: vscode.Uri) {
+   const path = vsc.systemSavePath(uri.fsPath)
+   let source = await vsc.getFileContent(path)
+   source = source.replace(/something/,'SomeTing')
+   await vsc.saveFileContent(path, source)
+   vsc.showMessage('File Updated.')
    // happy hacking!
 }
 ```
@@ -60,18 +65,21 @@ The uri is the path to the file/folder right-clicked in vscode when the user run
 
 Full documentation for vsc-base can be found on http://vsc-base.org
 
-## Roadmap
+## vsc-base
 
-vsc-script is based on vsc-base.
+vsc-script is based on vsc-base. (And vsc-base, vsc-base.org and vsc-script shares one mono-respo)
 
 vsc-base will get more convenient method over time for working with folder/files,
 paths, strings and other elements that make it easier to create vscode extension and writen vsc-scripts.
 
-## Links and related Projects
+## Links
 
 > vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base) | [source-code](https://github.com/alfnielsen/vsc-base)
 
-> vsc-base.org: [documentation](http://vsc-base.org) | [source-code](https://github.com/alfnielsen/vsc-base.org)
+> vsc-base.org: [documentation](http://vsc-base.org)
+
+
+### Related projects
 
 > vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding) | [source-code](https://github.com/alfnielsen/vsc-scaffolding)
 

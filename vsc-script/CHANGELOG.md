@@ -2,6 +2,11 @@
 
 ## 0.0.7
 
+Update to use vsc-base 0.1.1
+(Better and more safe loading and tesing of script, and script can now use vsc-base 0.1.1 with new methods)
+
+Moved selecting of script to a user pick instead of writing the script name.
+
 Move vsc-base, vsc-base.org and vsc-script to one common repository.
 For testing of vsc-base and because its primary use is vsc-script,
 its easier to keep them as one mono-respo.

@@ -10,8 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs-extra");
 const ts = require("typescript");
+const pathModule = require("path");
 const vscode = require("vscode");
 const vsc_base_1 = require("vsc-base");
+const vsc_next_1 = require("./vsc-next");
 class Script {
     /**
      * Return a list of all project script files.
@@ -75,7 +77,7 @@ class Script {
             const scriptFileJs = ts.transpile(scriptFileTs);
             const scriptFileExport = eval(scriptFileJs);
             try {
-                const r = scriptFileExport(uri, { vsc: vsc_base_1.default, vscode, path, ts, fs });
+                const r = scriptFileExport(path, { vsc: vsc_base_1.default, vscode, pathModule, ts, fs, vscNext: vsc_next_1.default });
                 if (r instanceof Promise) {
                     r.then(() => {
                         vsc_base_1.default.showMessage('Script done.');

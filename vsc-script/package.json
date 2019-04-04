@@ -5,7 +5,7 @@
    "publisher": "alfnielsen",
    "repository": {
       "type": "git",
-      "url": "https://github.com/alfnielsen/vsc-script"
+      "url": "https://github.com/alfnielsen/vsc-base"
    },
    "homepage": "https://vsc-base.org",
    "version": "0.0.6",
@@ -18,7 +18,7 @@
    "activationEvents": [
       "onCommand:extension.vscScript"
    ],
-   "main": "./out/extension.js",
+   "main": "./dist/extension",
    "contributes": {
       "menus": {
          "explorer/context": [
@@ -37,22 +37,24 @@
       ]
    },
    "scripts": {
-      "vscode:prepublish": "npm run compile",
-      "compile": "tsc -p ./",
-      "watch": "tsc -watch -p ./",
-      "postinstall": "node ./node_modules/vscode/bin/install",
-      "test": "npm run compile && node ./node_modules/vscode/bin/test"
+      "vscode:prepublish": "webpack --mode production",
+      "compile": "webpack --mode none",
+      "watch": "webpack --mode none --watch",
+      "test-compile": "tsc -p ./"
    },
    "devDependencies": {
       "@types/fs-extra": "^5.0.5",
       "@types/mocha": "^2.2.42",
       "@types/node": "^10.12.21",
+      "ts-loader": "^5.3.3",
       "tslint": "^5.12.1",
-      "vscode": "^1.1.28"
+      "vscode": "^1.1.28",
+      "webpack": "^4.29.6",
+      "webpack-cli": "^3.3.0"
    },
    "dependencies": {
       "fs-extra": "^7.0.1",
       "typescript": "^3.3.1",
-      "vsc-base": "0.0.5"
+      "vsc-base": "^0.0.7"
    }
 }

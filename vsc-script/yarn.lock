@@ -3293,10 +3293,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vsc-base@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/vsc-base/-/vsc-base-0.0.7.tgz#e87d39f7864dc2177f8cc9c51c326e600bdddd9b"
-  integrity sha512-3O+nEiIxt4QcNxbcJzWuQgvS7KUnuj3KyOTL5tFq5FImAo+V3Ww4t8sPwUxUcXC7tmaJcStlehnpnfrnGkRr+A==
+vsc-base@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vsc-base/-/vsc-base-0.1.0.tgz#99db0f43a6cd28561ca914a4e0e4b2957e287d96"
+  integrity sha512-9hKMT3I7e02h72o4BdjWq513BD2L8Peoou2zZrsYBLNlZICC5qDqzFGA89Kk12h5RRrGDdiL0PsS9giReD0UsQ==
   dependencies:
     fs-extra "^7.0.1"
     typescript "^3.3.3333"

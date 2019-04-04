@@ -1,11 +1,11 @@
 {
    "name": "vsc-base",
-   "version": "0.0.7",
+   "version": "0.1.1",
    "description": "Base for vsc-script and other vscode extensions",
    "publisher": "alfnielsen",
-   "main": "out/index.js",
+   "main": "out/vsc-base.js",
    "scripts": {
-      "build": "tsc"
+      "build": "tsc --declaration"
    },
    "repository": {
       "type": "git",
@@ -25,9 +25,9 @@
       "typescript": "^3.3.3333"
    },
    "devDependencies": {
-      "@types/vscode": "^1.32.0",
       "@types/fs-extra": "^5.0.5",
+      "@types/vscode": "^1.32.0",
       "tslint": "^5.14.0"
    },
-   "typings": "out/vcs-base.d.ts"
+   "typings": "out/vsc-base.d.ts"
 }

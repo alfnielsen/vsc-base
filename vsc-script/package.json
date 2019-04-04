@@ -55,6 +55,6 @@
    "dependencies": {
       "fs-extra": "^7.0.1",
       "typescript": "^3.3.1",
-      "vsc-base": "^0.0.7"
+      "vsc-base": "^0.1.0"
    }
 }

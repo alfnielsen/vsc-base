@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.8
+
+Add icon
+
 ## 0.0.7
 
 Update to use vsc-base 0.1.1

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.9
+
+update to fix bug in vsc-base
+
 ## 0.0.8
 
 Add icon

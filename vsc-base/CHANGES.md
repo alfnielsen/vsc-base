@@ -1,3 +1,7 @@
+## 0.1.2
+
+Fix loadTsModule ref to vsc symbol
+
 ## 0.1.1
 
 Fix incorrect name of typings in package.json

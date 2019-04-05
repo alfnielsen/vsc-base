@@ -30,6 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs-extra");
 const vscode = require("vscode");
 const ts = require("typescript");
+const vsc_evel_1 = require("./vsc-evel");
 /**
  * Add './' to start of path
  * @param path
@@ -614,14 +615,14 @@ try {
  * @see http://vsc-base.org/#loadTsModule
  * @returns Promise<{ [key: string]: unknown; }>
  */
-exports.loadTsModule = (path, vsc) => __awaiter(this, void 0, void 0, function* () {
+exports.loadTsModule = (path) => __awaiter(this, void 0, void 0, function* () {
     const scriptFileTs = yield exports.getFileContent(path);
     const transpiledOutput = ts.transpileModule(scriptFileTs, {});
     const sourceJs = transpiledOutput.outputText;
     const wrapExports = `_exports = (function (vsc){var exports = {};${sourceJs};return exports})(vsc);`;
     let _exports = {};
     try {
-        eval(wrapExports);
+        _exports = vsc_evel_1.default(wrapExports);
     }
     catch (e) {
         throw e; // retrhow

@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra'
 import * as vscode from 'vscode'
 import * as ts from 'typescript'
-
+import evalWithVscEndExport from './vsc-evel'
 /**
 /**
  * VscTemplate types
@@ -700,8 +700,7 @@ try {
  * @returns Promise<{ [key: string]: unknown; }>
  */
 export const loadTsModule = async (
-   path: string,
-   vsc: any
+   path: string
 ): Promise<{ [key: string]: unknown }> => {
    const scriptFileTs = await getFileContent(path)
    const transpiledOutput = ts.transpileModule(scriptFileTs, {})
@@ -709,7 +708,7 @@ export const loadTsModule = async (
    const wrapExports = `_exports = (function (vsc){var exports = {};${sourceJs};return exports})(vsc);`
    let _exports: { [key: string]: unknown } = {}
    try {
-      eval(wrapExports)
+      _exports = evalWithVscEndExport(wrapExports)
    } catch (e) {
       throw e // retrhow
    }

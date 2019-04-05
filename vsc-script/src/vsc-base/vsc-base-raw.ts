@@ -141,8 +141,11 @@ export const pathAsUnix = (path: string): string => {
  * Generate relative path between two paths.
  * @param fromPath
  * @param toPath
- * @testPrinterArgument fromPath: 'c:/somefolder/sub1/sub2/someFile.js'
- * @testPrinterArgument toPath: 'c:/somefolder/other/someFile.js'
+ * @testPrinterArgument 
+ { 
+    fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
+    toPath: 'c:/somefolder/other/someFile.js'
+ }
  * @testPrinter
 ( 
    args = getRelativePath.testArguments, 

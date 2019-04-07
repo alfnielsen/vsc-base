@@ -10,10 +10,10 @@ import * as assert from 'assert'
 
 // import { mock } from 'simple-mock'
 
-import vsc from '../vsc-base/vsc-next'
+import vsc from '../vsc-base-development/vsc-base'
 
 // Defines a Mocha test suite to group tests of similar kind together
-suite('Vsc base Tests', function() {
+suite('Vsc base Tests', function () {
    // Defines a Mocha unit test
    suite('getSubrelativePathFromAbsoluteRootPath', () => {
       test(' 1', () => {

@@ -2,9 +2,7 @@ import React from 'react'
 import styles from './App.module.scss'
 import Header from 'components/Header/Header'
 import HighlightedCode from 'components/HighlightedCode/HighlightedCode';
-import RawDocs from 'documentation/RawDocs';
-import SystemDocs from 'documentation/SystemDocs';
-
+import AllAnnotations from 'allAnnotations/AllAnnotations'
 
 const App = () => (
    <div className={styles.App}>
@@ -134,16 +132,10 @@ import SystemDocs from '../documentation/SystemDocs';
          </p>
       </div>
       <div className={styles.annotatedCode}>
-         <h3>Methods (Raw) <span className={styles.titleNote}> + tests that you can experiment with</span></h3>
+         <h3>Methods<span className={styles.titleNote}> + tests that you can experiment with</span></h3>
       </div>
       <div>
-         <RawDocs />
-      </div>
-      <div className={styles.annotatedCode}>
-         <h3>Methods (System)</h3>
-      </div>
-      <div>
-         <SystemDocs />
+         <AllAnnotations />
       </div>
    </div>
 )

@@ -1,3 +1,12 @@
+## 0.2.0
+
+Change the base of vsc-base.
+It now compiled from a developer model in vsc-script (vsc-base, vsc-base.org and vsc-script are one mono-respo)
+
+The change is made to ensure correct type definition for better autocomplete and document ation in vscode.
+It also fix the way modules is loaded and evaluated in script.
+(Any extension can use vsc-base's loadTsModule method)
+
 ## 0.1.2
 
 Fix loadTsModule ref to vsc symbol

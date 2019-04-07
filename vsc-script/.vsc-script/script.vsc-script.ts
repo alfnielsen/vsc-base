@@ -1,4 +1,4 @@
-import vsc from '../src/vsc-base/vsc-next'
+import vsc from 'vsc-base'
 
 export async function run(path: string) {
    const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')

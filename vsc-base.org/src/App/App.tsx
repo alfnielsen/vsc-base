@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './App.module.scss'
+import useReactRouter from 'use-react-router';
 import Header from 'components/Header/Header'
 import HighlightedCode from 'components/HighlightedCode/HighlightedCode';
 import AllAnnotations from 'allAnnotations/AllAnnotations'
 
-const App = () => (
+const App = () => {
+   const { history, location, match } = useReactRouter();
+   useEffect(()=> {
+      const id = location.hash.replace('#', '')
+      const element = document.getElementById(id)
+      if (element) element.scrollIntoView()
+   },[location])
+   return (
    <div className={styles.App}>
       <Header />
       <div className={styles.decsription}>
@@ -28,8 +36,6 @@ const App = () => (
             The vsc-script must contains a single export that is an async function named run. <br/>
             The parameters for the run is a string, that is the file-path for the file that was clicked when runnning the vsc-script.
          </p>
-         <p>
-            
             <HighlightedCode code={`// replaceTest.vsc-script.ts
 import vsc from 'vsc-base'
 import * as vscode from 'vscode'
@@ -45,7 +51,6 @@ export async function run(uri: vscode.Uri) {
    vsc.showErrorMessage('Update file!')
 }
 `} />
-         </p>
          <p>
             vsc-script is great for project-scripts and smaller personal scripts. <br/>
             It can be used to create regexp's replace for a file, where you need a little more logic then vscode own replace provide, 
@@ -91,25 +96,20 @@ export async function run(uri: vscode.Uri) {
             <a href='https://prismjs.com/'>prism</a> for syntax highlighting of the code)
          </p>
          <h4>Links</h4>
-         <p>
-            <ul>
-               <li>
-               vsc-base.org: <a href='https://github.com/alfnielsen/vsc-base.org'>source-code</a>
-               </li>
-               <li>
-               vsc-base: <a href='https://www.npmjs.com/package/vsc-base'>npm-module</a> | <a href='https://github.com/alfnielsen/vsc-base'>source-code</a>
-               </li>
-               <li>
-               vsc-script: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script'>vscode-extension</a> | <a href='https://github.com/alfnielsen/vsc-script'>source-code</a>
-               </li>
-               <li>
-               vsc-move: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-move'>vscode-extension</a> | <a href='https://github.com/alfnielsen/vsc-move'>source-code</a>
-               </li>
-               <li>
-               vsc-scaffolding: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding'>vscode-extension</a> | <a href='https://github.com/alfnielsen/vsc-scaffolding'>source-code</a>
-               </li>
-            </ul>
-         </p>
+         <ul>
+            <li>
+            vsc-base, vsc-base.org and vsc-script: <a href='https://github.com/alfnielsen/vsc-base'>source-code</a>
+            </li>
+            <li>
+            vsc-base: <a href='https://www.npmjs.com/package/vsc-base'>npm-module</a> 
+            </li>
+            <li>
+            vsc-script: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script'>vscode-extension</a>
+            </li>
+            <li>
+            vsc-scaffolding: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding'>vscode-extension</a> | <a href='https://github.com/alfnielsen/vsc-scaffolding'>source-code</a>
+            </li>
+         </ul>
       </div>
       <div className={styles.annotatedCode}>
          <h2>Documentation</h2>
@@ -139,5 +139,5 @@ import SystemDocs from '../documentation/SystemDocs';
       </div>
    </div>
 )
-
+}
 export default App

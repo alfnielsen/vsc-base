@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetErrorInfoAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getErrorInfo'}
          title={'getErrorInfo'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetErrorInfoAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const info = vsc.getErrorInfo(e)`}
-         code={`export const getErrorInfo = (e: any): {
+         codeOneLineEx={`const info = vsc.getErrorInfo(e)`}
+         codeEx={``}
+         code={`/**
+ * Test if it an error. Return type (if one of es6 basic error type) return stack
+ * @see http://vsc-base.org/#getErrorInfo
+ * @param e error
+ * @oneLineEx const info = vsc.getErrorInfo(e)
+ * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
+ */
+export const getErrorInfo = (e: any): {
    isError: boolean;
    type: string;
    stack: string;

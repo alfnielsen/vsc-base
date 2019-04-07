@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const AppendLineToActiveDocumentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'appendLineToActiveDocument'}
          title={'appendLineToActiveDocument'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const AppendLineToActiveDocumentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const success = await vsc.appendLineToActiveDocument(content)`}
-         code={`export const appendLineToActiveDocument = async (
+         codeOneLineEx={`const success = await vsc.appendLineToActiveDocument(content)`}
+         codeEx={``}
+         code={`/**
+ * Append new line content in the end of the open document
+ * @see http://vsc-base.org/#appendLineToActiveDocument
+ * @param content
+ * @dependencyInternal appendToActiveDocument
+ * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @returns Promise<boolean>
+ */
+export const appendLineToActiveDocument = async (
    content: string
 ): Promise<boolean> => {
    return await vsc.appendToActiveDocument('\n' + content)

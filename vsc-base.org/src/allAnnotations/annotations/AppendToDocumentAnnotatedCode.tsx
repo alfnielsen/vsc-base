@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const AppendToDocumentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'appendToDocument'}
          title={'appendToDocument'}
          annotation={
             <>
@@ -16,8 +16,19 @@ const AppendToDocumentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await vsc.appendToDocument(editor, document, content)`}
-         code={`export const appendToDocument = async (
+         codeOneLineEx={`await vsc.appendToDocument(editor, document, content)`}
+         codeEx={``}
+         code={`/**
+ * Append new content in the end of the open document
+ * @see http://vsc-base.org/#appendToDocument
+ * @param editor
+ * @param document
+ * @param content
+ * @dependencyExternal vscode
+ * @oneLineEx await vsc.appendToDocument(editor, document, content)
+ * @returns Promise<void>
+ */
+export const appendToDocument = async (
    editor: vscode.TextEditor,
    document: vscode.TextDocument,
    content: string

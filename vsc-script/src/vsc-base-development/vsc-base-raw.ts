@@ -8,8 +8,18 @@ import * as vsc from './vsc-base'
  * @param absolutePathFromRoot
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
+ * @testPrinterArgument
+{
+   path: 'c:/root/module/file.ts',
+   absolutePathFromRoot: 'module/submodule/file2',
+   rootPath: 'c:/root'
+}
+ * @testPrinter 
+(args, setResult) => {
+   const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
+   setResult(res)
+}
  * @returns string
- * @test
  */
 export const getSubrelativePathFromAbsoluteRootPath = (
    path: string,
@@ -33,7 +43,7 @@ export const getSubrelativePathFromAbsoluteRootPath = (
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
- * @oneLineEx path = vsc.addLeadingLocalDash(path)
+ * @oneLineEx const path = vsc.addLeadingLocalDash(path)
  * @returns string
  */
 export const addLeadingLocalDash = (path: string): string => {
@@ -155,16 +165,12 @@ export const pathAsUnix = (path: string): string => {
  * @param fromPath
  * @param toPath
  * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
- * @testPrinterArgument 
+ * @testPrinterArgument
  { 
     fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
     toPath: 'c:/somefolder/other/someFile.js'
  }
- * @testPrinter
-( 
-   args = getRelativePath.testArguments, 
-   printResult: (str: string) => void
-) => {
+ * @testPrinter (args, printResult) => {
    const relativePath = vsc.getRelativePath(args.fromPath, args.toPath)
    printResult(relativePath)
 }
@@ -239,7 +245,7 @@ export const sharedPath = (path1: string, path2: string): string => {
  * await wrap for setTimeout. Mostly used for debug asyc.
  * @see http://vsc-base.org/#sleep
  * @param ms
- * @oneLineEx await vs.sleep(2000)
+ * @oneLineEx await vsc.sleep(2000)
  * @async
  * @returns Promise<void>
  */
@@ -303,7 +309,7 @@ export const toCamelcase = (str: string): string =>
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
- * @oneLineEx const path = trimDashes(foundPath)
+ * @oneLineEx const path = vsc.trimDashes(foundPath)
  * @returns string
  */
 export const trimDashes = (path: string): string => {

@@ -14,7 +14,7 @@ The extensions can be [installed from vscode marketplace](https://marketplace.vi
 
 1. Right a folder or file
 2. Click 'vsc Script'
-3. Write script name and press enter
+3. Select the script you want to run
 
 ## Why vsc Script?
 
@@ -90,7 +90,6 @@ paths, strings and other elements that make it easier to create vscode extension
 > vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base) | [source-code](https://github.com/alfnielsen/vsc-base)
 
 > vsc-base.org: [documentation](http://vsc-base.org)
-
 
 ### Related projects
 

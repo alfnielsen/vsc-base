@@ -26,7 +26,9 @@ export const ask = async (
  * @param path string[]
  * @dependencyExternal vscode
  * @oneLineEx const answer = await vsc.pick(answers)
- * @ex const answer = await ask(\['yes', 'no'\])
+ * @ex 
+ const list = \['yes', 'no']
+ const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */
 export const pick = async (answerList: string[]): Promise<string | undefined> =>
@@ -43,8 +45,9 @@ export const pick = async (answerList: string[]): Promise<string | undefined> =>
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex 
 const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles){ // <-- enable aync action for each filePath
-   // Do something with filePath
+for (const filePath of allTestFiles){
+   const source = await vsc.getFileContent()
+   // do something with the files...
 }
  * @returns Promise<string[]>
  */
@@ -73,7 +76,8 @@ export const findFilePaths = async (
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex 
 const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
-for (const filePath of storyFilesInModule1){ // <-- enable aync action for each filePath
+for (const filePath of storyFilesInModule1){
+   const source = await vsc.getFileContent()
    // Do something with filePath..
 }
  * @returns Promise<string[]>
@@ -137,7 +141,7 @@ export const findRelativeFilePaths = async (
 
 /**
  * Get vscode.activeTextEditor
- * @see http://vsc-base.org/#getActiveDocument
+ * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined

@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetReadStreamAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getReadStream'}
          title={'getReadStream'}
          annotation={
             <>
@@ -16,8 +16,25 @@ const GetReadStreamAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const readStream = getReadStream(path)`}
-         code={`export const getReadStream = (path: string) => {
+         codeOneLineEx={`const readStream = vsc.getReadStream(path)`}
+         codeEx={` const readStream = vsc.getReadStream(path)
+ for await (chunk of readStream) {
+   //do something with chunk
+ }`}
+         code={`/**
+ * Get a file ReadStream
+ * @see http://vsc-base.org/#getReadStream
+ * @param path
+ * @dependencyExternal fs
+ * @oneLineEx const readStream = vsc.getReadStream(path)
+ * @ex
+ const readStream = vsc.getReadStream(path)
+ for await (chunk of readStream) {
+   //do something with chunk
+ }
+ * @returns fs.ReadStream
+ */
+export const getReadStream = (path: string) => {
    const stream = fs.createReadStream(path, {
       flags: 'r',
       encoding: 'utf-8',

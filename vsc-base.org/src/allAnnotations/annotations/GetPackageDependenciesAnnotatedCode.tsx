@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetPackageDependenciesAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getPackageDependencies'}
          title={'getPackageDependencies'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const GetPackageDependenciesAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const [dependencies, devDependencies] = await vsc.getPackageDependencies()`}
-         code={`export const getPackageDependencies = async (): Promise<
+         codeOneLineEx={`const [dependencies, devDependencies] = await vsc.getPackageDependencies()`}
+         codeEx={``}
+         code={`/**
+ * Find package.json files and collect the dependencies and devDependencies.
+ * @see http://vsc-base.org/#getPackageDependencies
+ * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
+ * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
+ * @todo Use unknow guard check instead of any casting
+ * @returns Promise<{ [key: string]: string }[]
+ */
+export const getPackageDependencies = async (): Promise<
    { [key: string]: string }[]
 > => {
    let dependencies: { [k: string]: string } = {}

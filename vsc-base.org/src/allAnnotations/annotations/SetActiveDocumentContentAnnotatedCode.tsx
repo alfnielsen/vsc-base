@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SetActiveDocumentContentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'setActiveDocumentContent'}
          title={'setActiveDocumentContent'}
          annotation={
             <>
@@ -19,8 +19,19 @@ const SetActiveDocumentContentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const success = await vsc.setActiveDocumentContent(content)`}
-         code={`export const setActiveDocumentContent = async (
+         codeOneLineEx={`const success = await vsc.setActiveDocumentContent(content)`}
+         codeEx={``}
+         code={`/**
+ * Set current open file's content.
+ * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
+ * @see http://vsc-base.org/#setActiveDocumentContent
+ * @param content
+ * @dependencyInternal getActiveDocument, getActiveEditor
+ * @dependencyExternal vscode
+ * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
+ * @returns Promise<boolean>
+ */
+export const setActiveDocumentContent = async (
    content: string
 ): Promise<boolean> => {
    const document = vsc.getActiveDocument()

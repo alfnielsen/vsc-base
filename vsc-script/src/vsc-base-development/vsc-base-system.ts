@@ -8,10 +8,10 @@ import * as vsc from './vsc-base'
  * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
  * @dependencyExternal fs
- * @oneLineEx const lineReader = getLineStreamReader(readStream)
+ * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
  * @ex
- const readStream = getReadStream(path)
- const lineReader = getLineStreamReader(readStream)
+ const readStream = vsc.getReadStream(path)
+ const lineReader = vsc.getLineStreamReader(readStream)
  for await (line of lineReader) {
     //do something with the line
  }
@@ -39,9 +39,9 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
  * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
- * @oneLineEx const readStream = getReadStream(path)
+ * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
- const readStream = getReadStream(path)
+ const readStream = vsc.getReadStream(path)
  for await (chunk of readStream) {
    //do something with chunk
  }
@@ -181,7 +181,7 @@ export const getPackageDependencies = async (): Promise<
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
- * @oneLineEx const _isDir = vsc.isDir(path)
+ * @oneLineEx const isDir = vsc.isDir(path)
  * @see http://vsc-base.org/#isDir
  * @returns boolean
  */
@@ -296,7 +296,7 @@ export const loadTsModuleSourceCode = async (
  * Return the default module map of vsc-base (Used for ts compiling, module load ect)
  * @see http://vsc-base.org/#getVscDefaultModuleMap
  * @internal this method is primary used by vsc.loadTsModule
- * @oneLineEx const moduleMap = getVscDefaultModuleMap
+ * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
  * @returns \{ [key: string]: \{ name: string, module: any \} \}
  */
 export const getVscDefaultModuleMap = (): { key: string, name: string, module: any }[] => {
@@ -421,9 +421,9 @@ const loadTsModule_Eval = async (
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
  * return undefined if a method didnt exist.
  * @see http://vsc-base.org/#varifyModuleMethods
- * @oneLineEx const varifyModuleMethods = vsc.hasModuleFunction(_module, methodName)
+ * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
-const varifiedModule = vsc.hasModuleFunction(_module, \['run', 'getId'\])
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
 const result = varifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
@@ -446,11 +446,11 @@ export const varifyModuleMethods = (
  * Ensure that a method result that optional can be a promise is awaited.
  * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
- * @oneLineEx await awaitResult(result)
+ * @oneLineEx await vsc.awaitResult(result)
  * @ex 
-const varifiedModule = vsc.hasModuleFunction(_module, \['run'])
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
 const result = varifiedModule.run()
-await awaitResult(result)
+await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 export const awaitResult = async (result: any): Promise<any> => {
@@ -470,7 +470,7 @@ export const awaitResult = async (result: any): Promise<any> => {
  * @param userInputs An object with user inputs {[key: string]: string}
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
- * @oneLineEx await scaffoldTemplate(path, template)
+ * @oneLineEx await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
 export const scaffoldTemplate = async (

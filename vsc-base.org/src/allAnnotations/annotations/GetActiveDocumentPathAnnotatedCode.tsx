@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetActiveDocumentPathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getActiveDocumentPath'}
          title={'getActiveDocumentPath'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetActiveDocumentPathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const path = vsc.getActivegetActiveDocumentPath()`}
-         code={`export const getActiveDocumentPath = (): string | undefined => {
+         codeOneLineEx={`const path = vsc.getActivegetActiveDocumentPath()`}
+         codeEx={``}
+         code={`/**
+ * Get current open file path or undefined if nothing is open.
+ * @see http://vsc-base.org/#getActivegetActiveDocumentPath
+ * @dependencyInternal getActiveDocument
+ * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @returns string | undefined
+ */
+export const getActiveDocumentPath = (): string | undefined => {
    const document = vsc.getActiveDocument()
    return (document && document.fileName) || undefined
 }

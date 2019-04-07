@@ -62,7 +62,7 @@ import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
 
-const AllAnnotations = () => {
+const AllAnnotations = () =>
    <>
       <AddLeadingLocalDashAnnotatedCode />
       <AppendLineToActiveDocumentAnnotatedCode />
@@ -126,6 +126,6 @@ const AllAnnotations = () => {
       <TrimLeadingDashAnnotatedCode />
       <VarifyModuleMethodsAnnotatedCode />
    </>
-}
+
 export default AllAnnotations
    

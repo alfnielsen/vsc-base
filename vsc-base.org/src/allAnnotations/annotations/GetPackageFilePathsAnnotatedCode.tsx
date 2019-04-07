@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetPackageFilePathsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getPackageFilePaths'}
          title={'getPackageFilePaths'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetPackageFilePathsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const packageFilePaths = await vsc.getPackageFilePaths()`}
-         code={`export const getPackageFilePaths = async (): Promise<string[]> => {
+         codeOneLineEx={`const packageFilePaths = await vsc.getPackageFilePaths()`}
+         codeEx={``}
+         code={`/**
+ * Find packages file paths in project.
+ * @see http://vsc-base.org/#getPackageFilePaths
+ * @dependencyInternal findFilePaths
+ * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
+ * @returns Promise<string[]>
+ */
+export const getPackageFilePaths = async (): Promise<string[]> => {
    const packageFiles = await vsc.findFilePaths('**/package.json')
    return packageFiles
 }

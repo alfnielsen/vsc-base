@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const ScaffoldTemplateAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'scaffoldTemplate'}
          title={'scaffoldTemplate'}
          annotation={
             <>
@@ -16,8 +16,19 @@ const ScaffoldTemplateAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await scaffoldTemplate(path, template)`}
-         code={`export const scaffoldTemplate = async (
+         codeOneLineEx={`await vsc.scaffoldTemplate(path, template)`}
+         codeEx={``}
+         code={`/**
+ * Recurvice function that goes through a template tree
+ * @see http://vsc-base.org/#scaffoldTemplate
+ * @param path Full path to where the TemplateItem (file/folder) should be created
+ * @param userInputs An object with user inputs {[key: string]: string}
+ * @param templateItem An TemplateItem (folde/file)
+ * @dependencyInternal makeDir, saveFileContent
+ * @oneLineEx await vsc.scaffoldTemplate(path, template)
+ * @returns Promise<void>
+ */
+export const scaffoldTemplate = async (
    path: string,
    templateItem: vsc.vscTemplateItem,
    userInputs: vsc.vscUserInputs = {}

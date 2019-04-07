@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const TranspileTsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'transpileTs'}
          title={'transpileTs'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const TranspileTsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const sourceJs = vsc.transpileTs(sourceTs)`}
-         code={`export const transpileTs = (sourceTs: string,
+         codeOneLineEx={`const sourceJs = vsc.transpileTs(sourceTs)`}
+         codeEx={``}
+         code={`/**
+ * Transpile ts source to js
+ * @see http://vsc-base.org/#transpileTs
+ * @param sourceTs 
+ * @param compilerOptions 
+ * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
+ * @returns string
+ */
+export const transpileTs = (sourceTs: string,
    compilerOptions: ts.CompilerOptions = {
       module: ts.ModuleKind.CommonJS,
       target: ts.ScriptTarget.ES2015,

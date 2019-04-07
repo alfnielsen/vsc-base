@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetTimeStampAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getTimeStamp'}
          title={'getTimeStamp'}
          annotation={
             <>
@@ -16,8 +16,15 @@ const GetTimeStampAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const timestamp = vsc.getTimeStamp()`}
-         code={`export const getTimeStamp = (): string => {
+         codeOneLineEx={`const timestamp = vsc.getTimeStamp()`}
+         codeEx={``}
+         code={`/**
+ * return ISO timestamp
+ * @see http://vsc-base.org/#getTimeStamp
+ * @oneLineEx const timestamp = vsc.getTimeStamp()
+ * @returns string
+ */
+export const getTimeStamp = (): string => {
    return new Date().toISOString()
 }`}
       />

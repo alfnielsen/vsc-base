@@ -11,14 +11,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vsc = require("./vsc-base");
 /**
  * Transform an absolute path from root, to a sub-relative path.
+ * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
- * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
+ * @testPrinterArgument
+{
+   path: 'c:/root/module/file.ts',
+   absolutePathFromRoot: 'module/submodule/file2',
+   rootPath: 'c:/root'
+}
+ * @testPrinter
+(args, setResult) => {
+   const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
+   setResult(res)
+}
  * @returns string
- * @test
  */
 exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, rootPath) => {
     const [sourceDirPath] = vsc.splitPath(path);
@@ -32,9 +42,9 @@ exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
 };
 /**
  * Add './' to start of path
- * @param path
- * @oneLineEx path = vsc.addLeadingLocalDash(path)
  * @see http://vsc-base.org/#addLeadingLocalDash
+ * @param path
+ * @oneLineEx const path = vsc.addLeadingLocalDash(path)
  * @returns string
  */
 exports.addLeadingLocalDash = (path) => {
@@ -43,18 +53,18 @@ exports.addLeadingLocalDash = (path) => {
 /**
  * Format a string from camel-case to kebab-case.
  * Commonly used to define css class names. (SomeName => some-name)
+ * @see http://vsc-base.org/#camalcaseToKebabcase
  * @param str
  * @oneLineEx const cssName = vsc.camalcaseToKebabcase(name)
- * @see http://vsc-base.org/#camalcaseToKebabcase
  * @returns string
  */
 exports.camalcaseToKebabcase = (str) => str[0].toLowerCase() +
     str.substr(1).replace(/([A-Z])/g, ([letter]) => `-${letter.toLowerCase()}`);
 /**
  * Get clean path. folder/../folder/file => folder/file, folder/./file => file
+ * @see http://vsc-base.org/#cleanPath
  * @param path
  * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
- * @see http://vsc-base.org/#cleanPath
  * @returns string
  */
 exports.cleanPath = (path) => {
@@ -67,10 +77,10 @@ exports.cleanPath = (path) => {
 };
 /**
  * Get part of a json object.
+ * @see http://vsc-base.org/#getJsonParts
  * @param json
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
  * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
- * @see http://vsc-base.org/#getJsonParts
  * @returns any
  */
 exports.getJsonParts = (json, keyPath) => {
@@ -87,10 +97,10 @@ exports.getJsonParts = (json, keyPath) => {
 };
 /**
  * Does path start with charactor [a-zA-Z@] (not '/' or './' or '../')
+ * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
- * @see http://vsc-base.org/#isAbsolutePath
  * @returns boolean
  */
 exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
@@ -98,11 +108,11 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
 };
 /**
  * Does subpath start with parentPath
+ * @see http://vsc-base.org/#isSubPath
  * @param path
  * @param parentPath
  * @dependencyInternal trimDashes
  * @oneLineEx const isSubPath = vsc.isSubPath(path)
- * @see http://vsc-base.org/#isSubPath
  * @returns boolean
  */
 exports.isSubPath = (subPath, parentPath) => {
@@ -112,11 +122,11 @@ exports.isSubPath = (subPath, parentPath) => {
 };
 /**
  * Joins to paths.
+ * @see http://vsc-base.org/#joinPaths
  * @param path1
  * @param path2
  * @dependencyInternal trimDashes
  * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
- * @see http://vsc-base.org/#joinPaths
  * @returns string
  */
 exports.joinPaths = (path1, path2) => {
@@ -127,8 +137,8 @@ exports.joinPaths = (path1, path2) => {
 };
 /**
  * Reaplve all '\\'  with '/'
- * @param path
  * @see http://vsc-base.org/#pathAsUnix
+ * @param path
  * @oneLineEx const path = vsc.joinPaths(path1, path2)
  * @returns string
  */
@@ -137,6 +147,7 @@ exports.pathAsUnix = (path) => {
 };
 /**
  * Generate relative path between two paths.
+ * @see http://vsc-base.org/#relatrivePath
  * @param fromPath
  * @param toPath
  * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
@@ -145,16 +156,11 @@ exports.pathAsUnix = (path) => {
     fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
     toPath: 'c:/somefolder/other/someFile.js'
  }
- * @testPrinter
-(
-   args = getRelativePath.testArguments,
-   printResult: (str: string) => void
-) => {
+ * @testPrinter (args, printResult) => {
    const relativePath = vsc.getRelativePath(args.fromPath, args.toPath)
    printResult(relativePath)
 }
  * @dependencyInternal sharedPath, splitPath, subtractPath
- * @see http://vsc-base.org/#relatrivePath
  * @returns string
  */
 exports.getRelativePath = (fromPath, toPath) => {
@@ -172,13 +178,13 @@ exports.getRelativePath = (fromPath, toPath) => {
 };
 /**
  * Transform a relative path to an abspolute path.
+ * @see http://vsc-base.org/#relatrivePathToAbsolutePath
  * @param path File from where the relative path begins
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
  * @param realPathTest Test if the real  The root path
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
- * @see http://vsc-base.org/#relatrivePathToAbsolutePath
  * @returns string
  */
 exports.getAbsolutePathFromRelatrivePath = (path, pathRelatriveToPath, rootPath) => {
@@ -195,10 +201,10 @@ exports.getAbsolutePathFromRelatrivePath = (path, pathRelatriveToPath, rootPath)
 };
 /**
  * Return the path that are shared. (Return '' if no path are shared).
+ * @see http://vsc-base.org/#sharedPath
  * @param path1
  * @param path2
  * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
- * @see http://vsc-base.org/#sharedPath
  * @returns string
  */
 exports.sharedPath = (path1, path2) => {
@@ -216,9 +222,9 @@ exports.sharedPath = (path1, path2) => {
 };
 /**
  * await wrap for setTimeout. Mostly used for debug asyc.
- * @param ms
  * @see http://vsc-base.org/#sleep
- * @oneLineEx await vs.sleep(2000)
+ * @param ms
+ * @oneLineEx await vsc.sleep(2000)
  * @async
  * @returns Promise<void>
  */
@@ -227,10 +233,10 @@ exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
 });
 /**
  * Split filePath into dir and file
+ * @see http://vsc-base.org/#splitPath
  * @param path
  * @dependencyInternal pathAsUnix
  * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
- * @see http://vsc-base.org/#splitPath
  * @returns [string, string]
  */
 exports.splitPath = (path) => {
@@ -242,12 +248,12 @@ exports.splitPath = (path) => {
 };
 /**
  * Remove parent-path from a path
+ * @see http://vsc-base.org/#subtractPath
  * @param path
  * @param parentPath
  * @param trimDashes default true
  * @dependencyInternal trimDashes
  * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
- * @see http://vsc-base.org/#subtractPath
  * @returns string
  */
 exports.subtractPath = (path, parentPath, _trimDashes = true) => {
@@ -262,18 +268,18 @@ exports.subtractPath = (path, parentPath, _trimDashes = true) => {
  * Format a string to camal-case. Commonly used to define js/ts variable names.
  * (Some-Name => someName, some_name => someName, some.name => someName )
  * All non word seperators will be removed and the word charector after will be transforms to upper case
+ * @see http://vsc-base.org/#toCamelcase
  * @param str
  * @oneLineEx const name = vsc.toCamelcase(kebabName)
- * @see http://vsc-base.org/#toCamelcase
  * @returns string
  */
 exports.toCamelcase = (str) => str[0].toLowerCase() +
     str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
 /**
  * Remove '/' from start and end of path
- * @param path
- * @oneLineEx const path = trimDashes(foundPath)
  * @see http://vsc-base.org/#trimDashes
+ * @param path
+ * @oneLineEx const path = vsc.trimDashes(foundPath)
  * @returns string
  */
 exports.trimDashes = (path) => {
@@ -281,9 +287,9 @@ exports.trimDashes = (path) => {
 };
 /**
  * Remove '/' from start of path
+ * @see http://vsc-base.org/#trimLeadingDash
  * @param path
  * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
- * @see http://vsc-base.org/#trimLeadingDash
  * @returns string
  */
 exports.trimLeadingDash = (path) => {
@@ -291,9 +297,9 @@ exports.trimLeadingDash = (path) => {
 };
 /**
  * Test if it an error. Return type (if one of es6 basic error type) return stack
+ * @see http://vsc-base.org/#getErrorInfo
  * @param e error
  * @oneLineEx const info = vsc.getErrorInfo(e)
- * @see http://vsc-base.org/#getErrorInfo
  * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
  */
 exports.getErrorInfo = (e) => {
@@ -328,9 +334,8 @@ exports.getErrorInfo = (e) => {
 };
 /**
  * return ISO timestamp
- * @see
- * @oneLineEx const timestamp = vsc.getTimeStamp()
  * @see http://vsc-base.org/#getTimeStamp
+ * @oneLineEx const timestamp = vsc.getTimeStamp()
  * @returns string
  */
 exports.getTimeStamp = () => {

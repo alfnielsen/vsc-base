@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const FindRelativeFilePathsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'findRelativeFilePaths'}
          title={'findRelativeFilePaths'}
          annotation={
             <>
@@ -16,8 +16,45 @@ const FindRelativeFilePathsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)`}
-         code={`export const findRelativeFilePaths = async (
+         codeOneLineEx={`const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)`}
+         codeEx={`
+const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
+if(moduleFileInParentFolder.lenght===0){
+   vsc.showErrorMessage('Module file was not found in parent folder')
+   return
+}
+if(moduleFileInParentFolder.lenght>1){
+   vsc.showErrorMessage('More than one Module file was found in parent folder')
+   return
+}
+const modulePath = moduleFileInParentFolder[0];
+// Do something with modulePath..`}
+         code={`/**
+ * Find files based from a releative to a path
+ * @see http://vsc-base.org/#findRelativeFilePaths
+ * @param path
+ * @param relativePath
+ * @param includePattern
+ * @param exclude
+ * @param maxResults
+ * @dependencyExternal vscode
+ * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
+ * @ex 
+const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
+if(moduleFileInParentFolder.lenght===0){
+   vsc.showErrorMessage('Module file was not found in parent folder')
+   return
+}
+if(moduleFileInParentFolder.lenght>1){
+   vsc.showErrorMessage('More than one Module file was found in parent folder')
+   return
+}
+const modulePath = moduleFileInParentFolder[0];
+// Do something with modulePath..
+ * @returns Promise<string[]>
+ */
+export const findRelativeFilePaths = async (
    path: string,
    relativePath: string,
    includePattern: string = '**/*.{js,jsx,ts,tsx}',

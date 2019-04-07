@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SaveAllAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'saveAll'}
          title={'saveAll'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const SaveAllAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await vsc.saveAll()`}
-         code={`export const saveAll = async (): Promise<void> => {
+         codeOneLineEx={`await vsc.saveAll()`}
+         codeEx={``}
+         code={`/**
+ * Save All files
+ * @see http://vsc-base.org/#saveAll
+ * @dependencyExternal vscode
+ * @oneLineEx await vsc.saveAll()
+ * @returns Promise<void>
+ */
+export const saveAll = async (): Promise<void> => {
    await vscode.workspace.saveAll(false)
 }
 `}

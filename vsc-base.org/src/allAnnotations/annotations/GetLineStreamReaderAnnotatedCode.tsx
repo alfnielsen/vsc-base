@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetLineStreamReaderAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getLineStreamReader'}
          title={'getLineStreamReader'}
          annotation={
             <>
@@ -16,8 +16,27 @@ const GetLineStreamReaderAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const lineReader = getLineStreamReader(readStream)`}
-         code={`export const getLineStreamReader = (readStream: fs.ReadStream) =>
+         codeOneLineEx={`const lineReader = vsc.getLineStreamReader(readStream)`}
+         codeEx={` const readStream = vsc.getReadStream(path)
+ const lineReader = vsc.getLineStreamReader(readStream)
+ for await (line of lineReader) {
+    //do something with the line
+ }`}
+         code={`/**
+ * Create a LineReader (generator method) for a ReadStream
+ * @see http://vsc-base.org/#getLineStreamReader
+ * @param readStream
+ * @dependencyExternal fs
+ * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
+ * @ex
+ const readStream = vsc.getReadStream(path)
+ const lineReader = vsc.getLineStreamReader(readStream)
+ for await (line of lineReader) {
+    //do something with the line
+ }
+ * @returns () => AsyncIterableIterator<string>
+ */
+export const getLineStreamReader = (readStream: fs.ReadStream) =>
    async function* () {
       let read = ''
       for await (const chunk of readStream) {

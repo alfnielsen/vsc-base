@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetRootPathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getRootPath'}
          title={'getRootPath'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const GetRootPathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const rootPath = vsc.getRootPath()`}
-         code={`export const getRootPath = (path: string): string | undefined => {
+         codeOneLineEx={`const rootPath = vsc.getRootPath()`}
+         codeEx={``}
+         code={`/**
+ * Get project root for a path or undefined if no project was found.
+ * @see http://vsc-base.org/#getRootPath
+ * @param path
+ * @dependencyExternal vscode
+ * @dependencyInternal pathAsUnix
+ * @oneLineEx const rootPath = vsc.getRootPath()
+ * @returns string | undefined
+ */
+export const getRootPath = (path: string): string | undefined => {
    const uri = vscode.Uri.file(path)
    const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri)
    if (!workspaceFolder) {

@@ -86,7 +86,6 @@ ${part.meta}
 
    // --- vsc-base.org annoations:
 
-
    const orgDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
    const anoDir = orgDir + '/annotations'
    //Set endpoint in vsc-base.org project:
@@ -96,6 +95,7 @@ ${part.meta}
          part.annotationName,
          part.name,
          part.body,
+         part.meta,
          part.metaMap
       )
       await vsc.saveFileContent(`${anoDir}/${part.annotationName}.tsx`, ano)
@@ -104,14 +104,19 @@ ${part.meta}
 
 ${parts.map(part => `import ${part.annotationName} from './annotations/${part.annotationName}'`).join('\n')}
 
-const AllAnnotations = () => {
+const AllAnnotations = () =>
    <>
 ${parts.map(part => `      <${part.annotationName} />`).join('\n')}
    </>
-}
+
 export default AllAnnotations
    `
    await vsc.saveFileContent(`${orgDir}/AllAnnotations.tsx`, allAnnotationsContent)
+   // move raw to vsc-base.org (For testing. We connet use vsc-base becasue it need vscode!)
+   const rawPath = dir + '/vsc-base-raw.ts';
+   const newRawPath = rawPath.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
+   await vsc.copy(rawPath, newRawPath)
+
 
    // ----------------- copy to vsc-base project -------------------- //
 
@@ -130,14 +135,17 @@ const writeAnnotationComponent = (
    componentName: string,
    name: string,
    code: string,
+   meta: string,
    metaMap: { [key: string]: string }
 ) => {
    let descr = metaMap.description.trim();
    descr = `<p>
                   ${descr.replace(/\n/, '\n               </p>\n               <p>\n               ')}
                </p>`
-   const oneLineEx = metaMap.oneLineEx.replace(/`/g, '\\`')
-   code = code.replace(/`/g, '\\`')
+   const oneLineEx = metaMap.oneLineEx.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const codeEx = (metaMap.ex || '').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   code = code.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   meta = meta.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
    let test = ''
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {
@@ -153,22 +161,30 @@ const writeAnnotationComponent = (
 
    return `import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
-${test === '' ? '' : `import MethodTest from 'components/MethodTest/MethodTest'`}
+${test === '' ? '' : `
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+`}
 
 const ${componentName} = () => {
    return (
       <AnnotatedCode
+         id={'${name}'}
          title={'${name}'}
          annotation={
             <>
                ${descr}
             </>
          }
-         
-         codeEx={\`${oneLineEx}\`}
-         code={\`${code}\`}
+         ${test}
+         codeOneLineEx={\`${oneLineEx}\`}
+         codeEx={\`${codeEx}\`}
+         code={\`/**
+${meta}
+ */
+${code}\`}
       />
    )
 }

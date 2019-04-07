@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const TrimLeadingDashAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'trimLeadingDash'}
          title={'trimLeadingDash'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const TrimLeadingDashAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const path = vsc.trimLeadingDash(foundPath)`}
-         code={`export const trimLeadingDash = (path: string): string => {
+         codeOneLineEx={`const path = vsc.trimLeadingDash(foundPath)`}
+         codeEx={``}
+         code={`/**
+ * Remove '/' from start of path
+ * @see http://vsc-base.org/#trimLeadingDash
+ * @param path
+ * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
+ * @returns string
+ */
+export const trimLeadingDash = (path: string): string => {
    return path.replace(/^\//, '')
 }`}
       />

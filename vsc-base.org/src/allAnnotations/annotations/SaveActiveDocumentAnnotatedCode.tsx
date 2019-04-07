@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SaveActiveDocumentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'saveActiveDocument'}
          title={'saveActiveDocument'}
          annotation={
             <>
@@ -19,8 +19,17 @@ const SaveActiveDocumentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const success = await vsc.saveActiveDocument(content)`}
-         code={`export const saveActiveDocument = async (): Promise<boolean> => {
+         codeOneLineEx={`const success = await vsc.saveActiveDocument(content)`}
+         codeEx={``}
+         code={`/**
+ * Save active open file.
+ * Return true for succes, and false if there was no open document
+ * @see http://vsc-base.org/#saveActiveDocument
+ * @dependencyInternal getActiveDocument
+ * @oneLineEx const success = await vsc.saveActiveDocument(content)
+ * @returns Promise<boolean>
+ */
+export const saveActiveDocument = async (): Promise<boolean> => {
    const doc = vsc.getActiveDocument()
    if (doc) {
       await doc.save()

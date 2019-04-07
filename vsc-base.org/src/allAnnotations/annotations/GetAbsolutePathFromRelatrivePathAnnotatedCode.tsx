@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getAbsolutePathFromRelatrivePath'}
          title={'getAbsolutePathFromRelatrivePath'}
          annotation={
             <>
@@ -16,8 +16,20 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)`}
-         code={`export const getAbsolutePathFromRelatrivePath = (
+         codeOneLineEx={`const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)`}
+         codeEx={``}
+         code={`/**
+ * Transform a relative path to an abspolute path.
+ * @see http://vsc-base.org/#relatrivePathToAbsolutePath
+ * @param path File from where the relative path begins
+ * @param pathRelatriveToPath The relative path
+ * @param rootPath The root path
+ * @param realPathTest Test if the real  The root path
+ * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
+ * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
+ * @returns string
+ */
+export const getAbsolutePathFromRelatrivePath = (
    path: string,
    pathRelatriveToPath: string,
    rootPath: string

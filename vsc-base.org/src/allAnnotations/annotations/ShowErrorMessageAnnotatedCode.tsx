@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const ShowErrorMessageAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'showErrorMessage'}
          title={'showErrorMessage'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const ShowErrorMessageAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`vsc.showErrorMessage(message)`}
-         code={`export const showErrorMessage = async (message: string): Promise<void> => {
+         codeOneLineEx={`vsc.showErrorMessage(message)`}
+         codeEx={``}
+         code={`/**
+ * Show error message to user
+ * @see http://vsc-base.org/#showErrorMessage
+ * @param message
+ * @dependencyExternal vscode
+ * @oneLineEx vsc.showErrorMessage(message)
+ * @returns Promise<void>
+ */
+export const showErrorMessage = async (message: string): Promise<void> => {
    await vscode.window.showErrorMessage(message)
 }
 `}

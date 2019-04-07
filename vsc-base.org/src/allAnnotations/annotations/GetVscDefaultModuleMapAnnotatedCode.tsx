@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetVscDefaultModuleMapAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getVscDefaultModuleMap'}
          title={'getVscDefaultModuleMap'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const moduleMap = getVscDefaultModuleMap`}
-         code={`export const getVscDefaultModuleMap = (): { key: string, name: string, module: any }[] => {
+         codeOneLineEx={`const moduleMap = vsc.getVscDefaultModuleMap`}
+         codeEx={``}
+         code={`/**
+ * Return the default module map of vsc-base (Used for ts compiling, module load ect)
+ * @see http://vsc-base.org/#getVscDefaultModuleMap
+ * @internal this method is primary used by vsc.loadTsModule
+ * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
+ * @returns \{ [key: string]: \{ name: string, module: any \} \}
+ */
+export const getVscDefaultModuleMap = (): { key: string, name: string, module: any }[] => {
    return [
       { key: 'vsc', name: 'vsc-base', module: vsc },
       { key: 'ts', name: 'typescript', module: ts },

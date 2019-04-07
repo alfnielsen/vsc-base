@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.1.0
+
+Update vsc-base to version 0.2.0.
+This fix the primary vsc-base missing in module load methods.
+So vsc-script work again with all vsc-base's methods.
+
 ## 0.0.9
 
 update to fix bug in vsc-base

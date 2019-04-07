@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetConfigAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getConfig'}
          title={'getConfig'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const GetConfigAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const myOption = vsc.getConfig(projectName, optionName, defaultValue)`}
-         code={`export const getConfig = <T>(
+         codeOneLineEx={`const myOption = vsc.getConfig(projectName, optionName, defaultValue)`}
+         codeEx={`const myOption = vsc.getConfig('myExtension', 'doThisThing', false)`}
+         code={`/**
+ * Get vscode project config
+ * @see http://vsc-base.org/#getConfig
+ * @dependencyExternal vscode
+ * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
+ * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
+ * @returns T
+ */
+export const getConfig = <T>(
    projectName: string,
    property: string,
    defaultValue: T

@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const LoadTsModuleSourceCodeAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'loadTsModuleSourceCode'}
          title={'loadTsModuleSourceCode'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const LoadTsModuleSourceCodeAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const sourceJs = await vsc.loadTsModuleSourceCode(path)`}
-         code={`export const loadTsModuleSourceCode = async (
+         codeOneLineEx={`const sourceJs = await vsc.loadTsModuleSourceCode(path)`}
+         codeEx={``}
+         code={`/**
+ * Pre method for loadTsModule. (This methods load the ts source, transpile it to js and replace all 'require' instance)
+ * @see http://vsc-base.org/#loadTsModuleSourceCode
+ * @param path
+ * @param compilerOptions 
+ * @param moduleMap default = vsc.getVscDefaultModuleMap()
+ * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
+ * @returns Promise<string>
+ */
+export const loadTsModuleSourceCode = async (
    path: string,
    compilerOptions: ts.CompilerOptions = {
       module: ts.ModuleKind.CommonJS,

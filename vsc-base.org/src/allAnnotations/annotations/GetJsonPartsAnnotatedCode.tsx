@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetJsonPartsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getJsonParts'}
          title={'getJsonParts'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const GetJsonPartsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const startScript = vsc.getJsonParts(packageJson, 'scripts.start')`}
-         code={`export const getJsonParts = <TStructure = any>(
+         codeOneLineEx={`const startScript = vsc.getJsonParts(packageJson, 'scripts.start')`}
+         codeEx={``}
+         code={`/**
+ * Get part of a json object.
+ * @see http://vsc-base.org/#getJsonParts
+ * @param json
+ * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
+ * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
+ * @returns any
+ */
+export const getJsonParts = <TStructure = any>(
    json: { [name: string]: unknown },
    keyPath: string
 ): TStructure | undefined => {

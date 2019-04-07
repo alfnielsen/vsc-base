@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const FindFilePathsFromBaseAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'findFilePathsFromBase'}
          title={'findFilePathsFromBase'}
          annotation={
             <>
@@ -16,8 +16,31 @@ const FindFilePathsFromBaseAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const files = await vsc.findFilePathsFromBase(dir, includePattern)`}
-         code={`export const findFilePathsFromBase = async (
+         codeOneLineEx={`const files = await vsc.findFilePathsFromBase(dir, includePattern)`}
+         codeEx={`
+const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
+for (const filePath of storyFilesInModule1){
+   const source = await vsc.getFileContent()
+   // Do something with filePath..
+}`}
+         code={`/**
+ * Get a list off all filePaths from a basePath, in project the matches a glob pattern
+ * @see http://vsc-base.org/#findFilePathsFromBase
+ * @param include glob
+ * @param exclude glob
+ * @dependencyExternal vscode
+ * @dependencyInternal getDir, findFilePaths
+ * @param maxResults
+ * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
+ * @ex 
+const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
+for (const filePath of storyFilesInModule1){
+   const source = await vsc.getFileContent()
+   // Do something with filePath..
+}
+ * @returns Promise<string[]>
+ */
+export const findFilePathsFromBase = async (
    basePath: string,
    includePattern: string = '**/*.{js,jsx,ts,tsx}',
    exclude: vscode.GlobPattern = '**/node_modules/**',

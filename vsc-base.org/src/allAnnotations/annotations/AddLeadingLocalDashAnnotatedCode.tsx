@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const AddLeadingLocalDashAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'addLeadingLocalDash'}
          title={'addLeadingLocalDash'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const AddLeadingLocalDashAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`path = vsc.addLeadingLocalDash(path)`}
-         code={`export const addLeadingLocalDash = (path: string): string => {
+         codeOneLineEx={`const path = vsc.addLeadingLocalDash(path)`}
+         codeEx={``}
+         code={`/**
+ * Add './' to start of path
+ * @see http://vsc-base.org/#addLeadingLocalDash
+ * @param path
+ * @oneLineEx const path = vsc.addLeadingLocalDash(path)
+ * @returns string
+ */
+export const addLeadingLocalDash = (path: string): string => {
    return './' + path
 }
 `}

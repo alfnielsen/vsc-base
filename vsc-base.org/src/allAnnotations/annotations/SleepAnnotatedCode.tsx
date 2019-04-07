@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SleepAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'sleep'}
          title={'sleep'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const SleepAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await vs.sleep(2000)`}
-         code={`export const sleep = async (ms: number): Promise<void> => {
+         codeOneLineEx={`await vsc.sleep(2000)`}
+         codeEx={``}
+         code={`/**
+ * await wrap for setTimeout. Mostly used for debug asyc.
+ * @see http://vsc-base.org/#sleep
+ * @param ms
+ * @oneLineEx await vsc.sleep(2000)
+ * @async
+ * @returns Promise<void>
+ */
+export const sleep = async (ms: number): Promise<void> => {
    return new Promise(resolve => setTimeout(resolve, ms))
 }
 `}

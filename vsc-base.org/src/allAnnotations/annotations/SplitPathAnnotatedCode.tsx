@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SplitPathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'splitPath'}
          title={'splitPath'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const SplitPathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const [dir, file] = vsc.splitPath(filePath)`}
-         code={`export const splitPath = (path: string): [string, string] => {
+         codeOneLineEx={`const [dir, file] = vsc.splitPath(filePath)`}
+         codeEx={``}
+         code={`/**
+ * Split filePath into dir and file
+ * @see http://vsc-base.org/#splitPath
+ * @param path
+ * @dependencyInternal pathAsUnix
+ * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
+ * @returns [string, string]
+ */
+export const splitPath = (path: string): [string, string] => {
    path = vsc.pathAsUnix(path)
    const splits = path.split('/')
    const name = splits.pop() || ''

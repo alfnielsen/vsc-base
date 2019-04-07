@@ -4,92 +4,92 @@ import * as ts from 'typescript';
 import * as vsc from './vsc-base';
 /**
  * Create a LineReader (generator method) for a ReadStream
+ * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
  * @dependencyExternal fs
- * @oneLineEx const lineReader = getLineStreamReader(readStream)
+ * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
  * @ex
- const readStream = getReadStream(path)
- const lineReader = getLineStreamReader(readStream)
+ const readStream = vsc.getReadStream(path)
+ const lineReader = vsc.getLineStreamReader(readStream)
  for await (line of lineReader) {
     //do something with the line
  }
- * @see http://vsc-base.org/#getLineStreamReader
  * @returns () => AsyncIterableIterator<string>
  */
 export declare const getLineStreamReader: (readStream: fs.ReadStream) => () => AsyncIterableIterator<string>;
 /**
  * Get a file ReadStream
+ * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
- * @oneLineEx const readStream = getReadStream(path)
+ * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
- const readStream = getReadStream(path)
+ const readStream = vsc.getReadStream(path)
  for await (chunk of readStream) {
    //do something with chunk
  }
- * @see http://vsc-base.org/#getReadStream
  * @returns fs.ReadStream
  */
 export declare const getReadStream: (path: string) => fs.ReadStream;
 /**
  * Does the folder/file exist
+ * @see http://vsc-base.org/#doesExists
  * @param path string
  * @dependencyExternal fs
  * @oneLineEx const exist = vsc.doesExists(path)
- * @see http://vsc-base.org/#doesExists
  * @returns boolean
  */
 export declare const doesExists: (path: string) => boolean;
 /**
  * Get dir from path (If path is a dir return it)
+ * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath
  * @oneLineEx const dir = vsc.getDir(path)
- * @see http://vsc-base.org/#getDir
  * @returns string
  */
 export declare const getDir: (path: string) => string;
 /**
  * Get file source
+ * @see http://vsc-base.org/#getFileContent
  * @param path
  * @dependencyExternal fs
  * @oneLineEx const source = vsc.getFileContent(path)
- * @see http://vsc-base.org/#getFileContent
  * @returns Promise<string>
  */
 export declare const getFileContent: (path: string) => Promise<string>;
 /**
  * Get file source as json (return null on invalid json)
+ * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
  * @oneLineEx const json = await vsc.getJsonContent(path)
- * @see http://vsc-base.org/#getJsonContent
  * @returns unknown
  */
 export declare const getJsonContent: <TStructure = unknown>(path: string, throws?: boolean) => Promise<TStructure>;
 /**
  * Get vscode project config
+ * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode
  * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
  * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
- * @see http://vsc-base.org/#getConfig
  * @returns T
  */
 export declare const getConfig: <T>(projectName: string, property: string, defaultValue: T) => T;
 /**
  * Find packages file paths in project.
+ * @see http://vsc-base.org/#getPackageFilePaths
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
- * @see http://vsc-base.org/#getPackageFilePaths
  * @returns Promise<string[]>
  */
 export declare const getPackageFilePaths: () => Promise<string[]>;
 /**
  * Find package.json files and collect the dependencies and devDependencies.
+ * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknow guard check instead of any casting
- * @see http://vsc-base.org/#getPackageDependencies
  * @returns Promise<{ [key: string]: string }[]
  */
 export declare const getPackageDependencies: () => Promise<{
@@ -99,75 +99,75 @@ export declare const getPackageDependencies: () => Promise<{
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
- * @oneLineEx const _isDir = vsc.isDir(path)
+ * @oneLineEx const isDir = vsc.isDir(path)
  * @see http://vsc-base.org/#isDir
  * @returns boolean
  */
 export declare const isDir: (path: string) => boolean;
 /**
  * Make a folder
+ * @see http://vsc-base.org/#makeDir
  * @param path
  * @param newPathstring
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
- * @see http://vsc-base.org/#makeDir
  * @returns Promise<void>
  */
 export declare const makeDir: (folderPath: string) => Promise<void>;
 /**
  * Move file/fodler
+ * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
- * @see http://vsc-base.org/#move
  * @returns Promise<void>
  */
 export declare const move: (path: string, newPath: string) => Promise<void>;
 /**
  * Copy file/fodler
+ * @see http://vsc-base.org/#copy
  * @param path
  * @param newPathstring
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
- * @see http://vsc-base.org/#copy
  * @returns Promise<void>
  */
 export declare const copy: (path: string, newPath: string) => Promise<void>;
 /**
  * Save file
+ * @see http://vsc-base.org/#saveFileContent
  * @param path
  * @param content
  * @dependencyExternal fs
  * @oneLineEx await vsc.saveFileContent(path, source)
- * @see http://vsc-base.org/#saveFileContent
  * @returns Promise<void>
  */
 export declare const saveFileContent: (path: string, content: string) => Promise<void>;
 /**
  * Transpile ts source to js
+ * @see http://vsc-base.org/#transpileTs
  * @param sourceTs
  * @param compilerOptions
  * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
- * @see http://vsc-base.org/#transpileTs
  * @returns string
  */
 export declare const transpileTs: (sourceTs: string, compilerOptions?: ts.CompilerOptions) => string;
 /**
  * Pre method for loadTsModule. (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @param path $
+ * @see http://vsc-base.org/#loadTsModuleSourceCode
+ * @param path
  * @param compilerOptions
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
- * @see http://vsc-base.org/#loadTsModuleSourceCode
  * @returns Promise<string>
  */
 export declare const loadTsModuleSourceCode: (path: string, compilerOptions?: ts.CompilerOptions) => Promise<string>;
 /**
  * Return the default module map of vsc-base (Used for ts compiling, module load ect)
- * @internal this method is primary used by vsc.loadTsModule
- * @oneLineEx const moduleMap = getVscDefaultModuleMap
  * @see http://vsc-base.org/#getVscDefaultModuleMap
+ * @internal this method is primary used by vsc.loadTsModule
+ * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
  * @returns \{ [key: string]: \{ name: string, module: any \} \}
  */
 export declare const getVscDefaultModuleMap: () => {
@@ -177,6 +177,7 @@ export declare const getVscDefaultModuleMap: () => {
 }[];
 /**
  * Replace ts traspiles code's require for vsc, ts, fs and vscode.
+ * @see http://vsc-base.org/#rewriteTstranpiledCodeWithVscBaseModules
  * @internal this method is primary used by vsc.loadTsModule
  * @notes
  * ts.transpile as follows:
@@ -186,7 +187,6 @@ export declare const getVscDefaultModuleMap: () => {
  * const vscode = require("vscode");
  * @oneLineEx sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs
- * @see http://vsc-base.org/#rewriteTstranpiledCodeWithVscBaseModules
  * @returns string
  */
 export declare const rewriteTstranpiledCodeWithVscBaseModules: (sourceJs: string) => string;
@@ -197,6 +197,7 @@ export declare const rewriteTstranpiledCodeWithVscBaseModules: (sourceJs: string
  * IMPORTANT Dont just run code you dont now, this can cause injection!
  * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems!
  * (If you start a recursive change that dont stop..)
+ * @see http://vsc-base.org/#loadTsModule
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
@@ -221,7 +222,6 @@ try {
 } catch (e) {
    vsc.showErrorMessage('Error: ' + e)
 }
- * @see http://vsc-base.org/#loadTsModule
  * @returns Promise<{ [key: string]: unknown; }>
  */
 export declare const loadTsModule: (path: string, compilerOptions?: ts.CompilerOptions) => Promise<{
@@ -234,11 +234,11 @@ export declare class LoadTsModuleError extends Error {
 /**
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
  * return undefined if a method didnt exist.
- * @oneLineEx const varifyModuleMethods = vsc.hasModuleFunction(_module, methodName)
- * @ex
-const varifiedModule = vsc.hasModuleFunction(_module, \['run', 'getId'\])
-const result = varifiedModule.run()
  * @see http://vsc-base.org/#varifyModuleMethods
+ * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
+ * @ex
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const result = varifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
 export declare const varifyModuleMethods: (_module: {
@@ -249,23 +249,23 @@ export declare const varifyModuleMethods: (_module: {
 /**
  * Ensure that a method result that optional can be a promise is awaited.
  * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
- * @oneLineEx await awaitResult(result)
- * @ex
-const varifiedModule = vsc.hasModuleFunction(_module, \['run'])
-const result = varifiedModule.run()
-await awaitResult(result)
  * @see http://vsc-base.org/#awaitResult
+ * @oneLineEx await vsc.awaitResult(result)
+ * @ex
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
+const result = varifiedModule.run()
+await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 export declare const awaitResult: (result: any) => Promise<any>;
 /**
  * Recurvice function that goes through a template tree
+ * @see http://vsc-base.org/#scaffoldTemplate
  * @param path Full path to where the TemplateItem (file/folder) should be created
  * @param userInputs An object with user inputs {[key: string]: string}
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
- * @oneLineEx await scaffoldTemplate(path, template)
- * @see http://vsc-base.org/#scaffoldTemplate
+ * @oneLineEx await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
 export declare const scaffoldTemplate: (path: string, templateItem: vsc.vscTemplateItem, userInputs?: vsc.vscUserInputs) => Promise<void>;

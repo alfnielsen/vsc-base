@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const IsDirAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'isDir'}
          title={'isDir'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const IsDirAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const _isDir = vsc.isDir(path)`}
-         code={`export const isDir = (path: string): boolean => {
+         codeOneLineEx={`const isDir = vsc.isDir(path)`}
+         codeEx={``}
+         code={`/**
+ * Test is a path is directory
+ * @param path
+ * @dependencyExternal fs
+ * @oneLineEx const isDir = vsc.isDir(path)
+ * @see http://vsc-base.org/#isDir
+ * @returns boolean
+ */
+export const isDir = (path: string): boolean => {
    return fs.statSync(path).isDirectory()
 }
 `}

@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetActiveEditorAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getActiveEditor'}
          title={'getActiveEditor'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetActiveEditorAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const editor = vsc.getActiveEditor()`}
-         code={`export const getActiveEditor = (): vscode.TextEditor | undefined => {
+         codeOneLineEx={`const editor = vsc.getActiveEditor()`}
+         codeEx={``}
+         code={`/**
+ * Get vscode.activeTextEditor
+ * @see http://vsc-base.org/#getActiveEditor
+ * @dependencyExternal vscode
+ * @oneLineEx const editor = vsc.getActiveEditor()
+ * @returns vscode.TextEditor | undefined
+ */
+export const getActiveEditor = (): vscode.TextEditor | undefined => {
    return vscode.window.activeTextEditor
 }`}
       />

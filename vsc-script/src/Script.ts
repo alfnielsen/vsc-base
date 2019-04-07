@@ -3,7 +3,7 @@ import * as fs from 'fs-extra'
 import * as ts from 'typescript'
 import * as path from 'path'
 import * as vscode from 'vscode'
-import * as vsc from './vsc-base-development/vsc-base'
+import * as vsc from 'vsc-base'
 
 export default class Script {
    /**

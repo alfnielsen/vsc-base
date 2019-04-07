@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const AskAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'ask'}
          title={'ask'}
          annotation={
             <>
@@ -16,8 +16,19 @@ const AskAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const answer = await vsc.ask(question, defaultValue)`}
-         code={`export const ask = async (
+         codeOneLineEx={`const answer = await vsc.ask(question, defaultValue)`}
+         codeEx={`const answer = await ask('Where to move file?', currentFilePath)`}
+         code={`/**
+ * Prompt user for a question
+ * @see http://vsc-base.org/#ask
+ * @param question string
+ * @param defaultValue string
+ * @dependencyExternal vscode
+ * @oneLineEx const answer = await vsc.ask(question, defaultValue)
+ * @ex const answer = await ask('Where to move file?', currentFilePath)
+ * @returns Promise<string | undefined>
+ */
+export const ask = async (
    question: string,
    defaultValue: string
 ): Promise<string | undefined> =>

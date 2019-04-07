@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const MoveAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'move'}
          title={'move'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const MoveAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await vsc.move(oldPath, newPath)`}
-         code={`export const move = async (path: string, newPath: string): Promise<void> => {
+         codeOneLineEx={`await vsc.move(oldPath, newPath)`}
+         codeEx={``}
+         code={`/**
+ * Move file/fodler
+ * @see http://vsc-base.org/#move
+ * @param path
+ * @param newPathstring
+ * @oneLineEx await vsc.move(oldPath, newPath)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+export const move = async (path: string, newPath: string): Promise<void> => {
    await fs.move(path, newPath)
 }
 `}

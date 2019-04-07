@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const VarifyModuleMethodsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'varifyModuleMethods'}
          title={'varifyModuleMethods'}
          annotation={
             <>
@@ -19,8 +19,21 @@ const VarifyModuleMethodsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const varifyModuleMethods = vsc.hasModuleFunction(_module, methodName)`}
-         code={`export const varifyModuleMethods = (
+         codeOneLineEx={`const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)`}
+         codeEx={`
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const result = varifiedModule.run()`}
+         code={`/**
+ * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
+ * return undefined if a method didnt exist.
+ * @see http://vsc-base.org/#varifyModuleMethods
+ * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
+ * @ex 
+const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const result = varifiedModule.run()
+ * @returns { [key: string]: any } | undefined
+ */
+export const varifyModuleMethods = (
    _module: { [key: string]: unknown },
    methods: string[]
 ): { [key: string]: any } | undefined => {

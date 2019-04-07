@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetFileContentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getFileContent'}
          title={'getFileContent'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const GetFileContentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const source = vsc.getFileContent(path)`}
-         code={`export const getFileContent = async (path: string): Promise<string> =>
+         codeOneLineEx={`const source = vsc.getFileContent(path)`}
+         codeEx={``}
+         code={`/**
+ * Get file source
+ * @see http://vsc-base.org/#getFileContent
+ * @param path
+ * @dependencyExternal fs
+ * @oneLineEx const source = vsc.getFileContent(path)
+ * @returns Promise<string>
+ */
+export const getFileContent = async (path: string): Promise<string> =>
    await fs.readFile(path, 'utf8')
 `}
       />

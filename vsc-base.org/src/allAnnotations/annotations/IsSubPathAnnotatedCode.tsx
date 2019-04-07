@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const IsSubPathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'isSubPath'}
          title={'isSubPath'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const IsSubPathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const isSubPath = vsc.isSubPath(path)`}
-         code={`export const isSubPath = (subPath: string, parentPath: string): boolean => {
+         codeOneLineEx={`const isSubPath = vsc.isSubPath(path)`}
+         codeEx={``}
+         code={`/**
+ * Does subpath start with parentPath
+ * @see http://vsc-base.org/#isSubPath
+ * @param path
+ * @param parentPath
+ * @dependencyInternal trimDashes
+ * @oneLineEx const isSubPath = vsc.isSubPath(path)
+ * @returns boolean
+ */
+export const isSubPath = (subPath: string, parentPath: string): boolean => {
    parentPath = vsc.trimDashes(parentPath)
    const result = subPath.indexOf(parentPath + '/') === 0
    return result

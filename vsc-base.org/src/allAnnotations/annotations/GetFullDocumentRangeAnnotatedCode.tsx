@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetFullDocumentRangeAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getFullDocumentRange'}
          title={'getFullDocumentRange'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const GetFullDocumentRangeAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const fullRange = vsc.getFullDocumentRange(document)`}
-         code={`export const getFullDocumentRange = (
+         codeOneLineEx={`const fullRange = vsc.getFullDocumentRange(document)`}
+         codeEx={``}
+         code={`/**
+ * Get a vscodeRange for the entire document
+ * @see http://vsc-base.org/#getFullDocumentRange
+ * @param document
+ * @dependencyExternal vscode
+ * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
+ * @returns boolean
+ */
+export const getFullDocumentRange = (
    document: vscode.TextDocument
 ): vscode.Range => {
    const startPosition = new vscode.Position(0, 0)

@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SharedPathAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'sharedPath'}
          title={'sharedPath'}
          annotation={
             <>
@@ -16,8 +16,17 @@ const SharedPathAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const sharedPath = vsc.sharedPath(path1, path2)`}
-         code={`export const sharedPath = (path1: string, path2: string): string => {
+         codeOneLineEx={`const sharedPath = vsc.sharedPath(path1, path2)`}
+         codeEx={``}
+         code={`/**
+ * Return the path that are shared. (Return '' if no path are shared).
+ * @see http://vsc-base.org/#sharedPath
+ * @param path1
+ * @param path2
+ * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
+ * @returns string
+ */
+export const sharedPath = (path1: string, path2: string): string => {
    const path1Parts = path1.split(/\//)
    const path2Parts = path2.split(/\//)
    const shared = []

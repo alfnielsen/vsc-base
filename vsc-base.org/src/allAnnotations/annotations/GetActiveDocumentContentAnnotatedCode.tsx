@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const GetActiveDocumentContentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'getActiveDocumentContent'}
          title={'getActiveDocumentContent'}
          annotation={
             <>
@@ -16,8 +16,16 @@ const GetActiveDocumentContentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const content = vsc.getActiveDocumentContent()`}
-         code={`export const getActiveDocumentContent = (): string | undefined => {
+         codeOneLineEx={`const content = vsc.getActiveDocumentContent()`}
+         codeEx={``}
+         code={`/**
+ * Get current open file's content.
+ * @see http://vsc-base.org/#getActiveDocumentContent
+ * @dependencyInternal getActiveDocument
+ * @oneLineEx const content = vsc.getActiveDocumentContent()
+ * @returns string | undefined
+ */
+export const getActiveDocumentContent = (): string | undefined => {
    const document = vsc.getActiveDocument()
    return (document && document.getText()) || undefined
 }

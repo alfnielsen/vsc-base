@@ -4,6 +4,8 @@
 	"dependencies": {
 		"@types/prismjs": "^1.9.1",
 		"@types/react-copy-to-clipboard": "^4.2.6",
+		"@types/react-router": "^4.4.5",
+		"@types/react-router-dom": "^4.3.1",
 		"classnames": "^2.2.6",
 		"node-sass": "^4.11.0",
 		"prismjs": "^1.15.0",
@@ -13,9 +15,11 @@
 		"react-dom": "^16.8.5",
 		"react-router": "^5.0.0",
 		"react-router-dom": "^5.0.0",
+		"react-router-hash-link": "^1.2.1",
 		"react-scripts": "2.1.8",
 		"react-syntax-highlighter": "^10.2.1",
 		"typescript": "^3.3.4000",
+		"use-react-router": "^1.0.5",
 		"vscode": "^1.1.33"
 	},
 	"scripts": {

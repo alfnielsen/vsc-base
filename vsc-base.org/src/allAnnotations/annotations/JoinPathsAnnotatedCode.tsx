@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const JoinPathsAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'joinPaths'}
          title={'joinPaths'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const JoinPathsAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`const newPath = vsc.joinPaths(path1, path2)`}
-         code={`export const joinPaths = (path1: string, path2: string): string => {
+         codeOneLineEx={`const newPath = vsc.joinPaths(path1, path2)`}
+         codeEx={``}
+         code={`/**
+ * Joins to paths.
+ * @see http://vsc-base.org/#joinPaths
+ * @param path1
+ * @param path2
+ * @dependencyInternal trimDashes
+ * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
+ * @returns string
+ */
+export const joinPaths = (path1: string, path2: string): string => {
    path1 = vsc.trimDashes(path1)
    path2 = vsc.trimDashes(path2)
    const result = path1 + '/' + path2

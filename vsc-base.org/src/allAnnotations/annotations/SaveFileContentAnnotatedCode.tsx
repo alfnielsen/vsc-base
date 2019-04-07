@@ -1,12 +1,12 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
-import vsc from 'vsc-base'
 
 
 
 const SaveFileContentAnnotatedCode = () => {
    return (
       <AnnotatedCode
+         id={'saveFileContent'}
          title={'saveFileContent'}
          annotation={
             <>
@@ -16,8 +16,18 @@ const SaveFileContentAnnotatedCode = () => {
             </>
          }
          
-         codeEx={`await vsc.saveFileContent(path, source)`}
-         code={`export const saveFileContent = async (
+         codeOneLineEx={`await vsc.saveFileContent(path, source)`}
+         codeEx={``}
+         code={`/**
+ * Save file
+ * @see http://vsc-base.org/#saveFileContent
+ * @param path
+ * @param content
+ * @dependencyExternal fs
+ * @oneLineEx await vsc.saveFileContent(path, source)
+ * @returns Promise<void>
+ */
+export const saveFileContent = async (
    path: string,
    content: string
 ): Promise<void> => {

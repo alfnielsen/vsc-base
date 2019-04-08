@@ -2,7 +2,7 @@
 
 (vscode Extension)
 
-Run your own scripts with vscode, fs, path and other elements directly ind your project
+Run your own scripts with vsc-base (includes methods for vscode, fs.extra, ts).
 
 See .vsc-script folder in source for examples.
 
@@ -43,13 +43,12 @@ A script file is written in typescript.
 
 ```typescript
 // documentation on http://vsc-base.org
-import vsc from 'vsc-base'
-import * vscode from 'vscode'
+import * as vsc from 'vsc-base'
+import * as vscode from 'vscode'
 
-export async function run(uri: vscode.Uri) {
-   const path = vsc.systemSavePath(uri.fsPath)
+export async function run(path: string) {
    let source = await vsc.getFileContent(path)
-   source = source.replace(/something/,'SomeTing')
+   source = source.replace(/something/, 'SomeTing')
    await vsc.saveFileContent(path, source)
    vsc.showMessage('File Updated.')
    // happy hacking!
@@ -60,12 +59,12 @@ You can use these modules in your script: vsc-base, fs-extra, vscode and typescr
 
 ```typescript
 // documentation on http://vsc-base.org
-import vsc from 'vsc-base'
-import * vscode from 'vscode'
-import * ts from 'typescript'
-import * fs from 'fs-extra'
+import * as vsc from 'vsc-base'
+import * as vscode from 'vscode'
+import * as ts from 'typescript'
+import * as fs from 'fs-extra'
 
-export async function run(uri: vscode.Uri) {}
+export async function run(path: string) {}
 ```
 
 > You cannot use any other libs (modules)!

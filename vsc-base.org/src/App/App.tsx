@@ -17,7 +17,7 @@ const App = () => {
       <Header />
       <div className={styles.decsription}>
          <div className={styles.warning}>
-            Warning: vsc-base and vsc-script is still only in version 0.0.x and there will come changes to them and method described below before the final version 1.0.0!
+            Warning: vsc-base and vsc-script is still only in version 0.x.x and there will come changes to them and method described below before the final version 1.0.0!
          </div>
          <h2>vsc-base</h2>
          <p>vsc-base is a npm module that aims to make vsc-script's easy and fun to create.</p>
@@ -37,11 +37,9 @@ const App = () => {
             The parameters for the run is a string, that is the file-path for the file that was clicked when runnning the vsc-script.
          </p>
             <HighlightedCode code={`// replaceTest.vsc-script.ts
-import vsc from 'vsc-base'
-import * as vscode from 'vscode'
+import * as vsc from 'vsc-base'
 
-export async function run(uri: vscode.Uri) {
-   const path = uri.fsPath;
+export async function run(path: string) {
    if (vsc.isDir(path)) {
       vsc.showErrorMessage('Only works on files!')
    }
@@ -71,6 +69,18 @@ export async function run(uri: vscode.Uri) {
          <p>
             vsc-base is at the moment used as the base for two other extension, vsc-move and vsc-scaffolding, and will most likely provide the base for other extensions in the future.
          </p>
+         <h4>Correct documentation</h4>
+         <p>
+         The vsc-base documentation are created with a vsc-script (super meta!), 
+         that runs though the development code and generate both the vsc-base code and the documentation. (You can find the vsc-script in the source-code for vsc-script. Its called compileVsc.vsc-script.ts)
+         </p>
+         <p>
+         This guarantees that the source code you see in the documentation is one-to-one with the actual vsc-base source code.
+         </p>
+         <p>
+         The examples and all other code in this documententation is created from the JSDocs for each method.
+         </p>
+
          <h4>Open-source GPL-3</h4>
          <p>
          vsc-base, vsc-script ( and related extension project: vsc-scaffolding and vsc-move) are all open-source project

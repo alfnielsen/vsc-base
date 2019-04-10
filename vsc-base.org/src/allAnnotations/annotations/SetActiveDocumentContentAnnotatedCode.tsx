@@ -28,15 +28,16 @@ const SetActiveDocumentContentAnnotatedCode = () => {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
  * @returns Promise<boolean>
  */
 export const setActiveDocumentContent = async (
    content: string
-): Promise<boolean> => {
+): Promise<boolean> => \{
    const document = vsc.getActiveDocument()
    const editor = vsc.getActiveEditor()
-   if (editor && document) {
+   if (editor && document) \{
       const fullRange = vsc.getFullDocumentRange(document)
       const snippetString = new vscode.SnippetString(content)
       await editor.insertSnippet(snippetString, fullRange)

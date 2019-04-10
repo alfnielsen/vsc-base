@@ -23,13 +23,14 @@ const AppendLineToActiveDocumentAnnotatedCode = () => {
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
  * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
 export const appendLineToActiveDocument = async (
    content: string
-): Promise<boolean> => {
-   return await vsc.appendToActiveDocument('\n' + content)
+): Promise<boolean> => \{
+   return await vsc.appendToActiveDocument('\\n' + content)
 }
 `}
       />

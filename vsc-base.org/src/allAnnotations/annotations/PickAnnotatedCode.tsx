@@ -18,16 +18,17 @@ const PickAnnotatedCode = () => {
          
          codeOneLineEx={`const answer = await vsc.pick(answers)`}
          codeEx={`
- const list = \['yes', 'no']
+ const list = \\['yes', 'no']
  const answer = await vsc.pick(list)`}
          code={`/**
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
  * @param path string[]
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex 
- const list = \['yes', 'no']
+ const list = \\['yes', 'no']
  const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */

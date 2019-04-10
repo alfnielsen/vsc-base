@@ -22,10 +22,11 @@ const GetActiveDocumentAnnotatedCode = () => {
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
-export const getActiveDocument = (): vscode.TextDocument | undefined => {
+export const getActiveDocument = (): vscode.TextDocument | undefined => \{
    const activeEditor = vsc.getActiveEditor()
    const document = activeEditor && activeEditor.document
    return document

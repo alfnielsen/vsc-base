@@ -8,6 +8,7 @@ import * as vsc from './vsc-base'
  * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
  * @ex
  const readStream = vsc.getReadStream(path)
@@ -39,6 +40,7 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
  * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
  const readStream = vsc.getReadStream(path)
@@ -64,6 +66,7 @@ export const getReadStream = (path: string) => {
  * @see http://vsc-base.org/#doesExists
  * @param path string
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const exist = vsc.doesExists(path)
  * @returns boolean
  */
@@ -76,6 +79,7 @@ export const doesExists = (path: string): boolean => {
  * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath
+ * @vscType System
  * @oneLineEx const dir = vsc.getDir(path)
  * @returns string
  */
@@ -93,6 +97,7 @@ export const getDir = (path: string) => {
  * @see http://vsc-base.org/#getFileContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
@@ -104,6 +109,7 @@ export const getFileContent = async (path: string): Promise<string> =>
  * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
@@ -116,6 +122,7 @@ export const getJsonContent = async <TStructure = unknown>(
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode
+ * @vscType System
  * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
  * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
@@ -146,6 +153,7 @@ export const getPackageFilePaths = async (): Promise<string[]> => {
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
+ * @vscType System
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
@@ -181,6 +189,7 @@ export const getPackageDependencies = async (): Promise<
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const isDir = vsc.isDir(path)
  * @see http://vsc-base.org/#isDir
  * @returns boolean
@@ -194,6 +203,7 @@ export const isDir = (path: string): boolean => {
  * @see http://vsc-base.org/#makeDir
  * @param path
  * @param newPathstring
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
  * @returns Promise<void>
@@ -211,6 +221,7 @@ export const makeDir = async (folderPath: string): Promise<void> => {
  * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
+ * @vscType System
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
@@ -224,6 +235,7 @@ export const move = async (path: string, newPath: string): Promise<void> => {
  * @see http://vsc-base.org/#copy
  * @param path
  * @param newPathstring
+ * @vscType System
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
@@ -238,6 +250,7 @@ export const copy = async (path: string, newPath: string): Promise<void> => {
  * @see http://vsc-base.org/#saveFileContent
  * @param path
  * @param content
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
@@ -254,6 +267,7 @@ export const saveFileContent = async (
  * @see http://vsc-base.org/#transpileTs
  * @param sourceTs 
  * @param compilerOptions 
+ * @vscType System
  * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
  * @returns string
  */
@@ -275,6 +289,7 @@ export const transpileTs = (sourceTs: string,
  * @param path
  * @param compilerOptions 
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
+ * @vscType System
  * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
  * @returns Promise<string>
  */
@@ -296,6 +311,7 @@ export const loadTsModuleSourceCode = async (
  * Return the default module map of vsc-base (Used for ts compiling, module load ect)
  * @see http://vsc-base.org/#getVscDefaultModuleMap
  * @internal this method is primary used by vsc.loadTsModule
+ * @vscType System
  * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
  * @returns \{ [key: string]: \{ name: string, module: any \} \}
  */
@@ -320,6 +336,7 @@ export const getVscDefaultModuleMap = (): { key: string, name: string, module: a
  * const fs = require("fs-extra");
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
+ * @vscType System
  * @oneLineEx sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs 
  * @returns string
@@ -348,6 +365,7 @@ export const rewriteTstranpiledCodeWithVscBaseModules = (
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
+ * @vscType System
  * @oneLineEx const module = await vsc.loadTsModule(path)
  * @ex
 let _module
@@ -421,6 +439,7 @@ const loadTsModule_Eval = async (
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
  * return undefined if a method didnt exist.
  * @see http://vsc-base.org/#varifyModuleMethods
+ * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
 const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
@@ -446,6 +465,7 @@ export const varifyModuleMethods = (
  * Ensure that a method result that optional can be a promise is awaited.
  * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
+ * @vscType System
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
 const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
@@ -470,6 +490,7 @@ export const awaitResult = async (result: any): Promise<any> => {
  * @param userInputs An object with user inputs {[key: string]: string}
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
+ * @vscType System
  * @oneLineEx await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */

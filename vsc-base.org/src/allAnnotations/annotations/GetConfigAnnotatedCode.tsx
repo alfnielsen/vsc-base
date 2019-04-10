@@ -22,6 +22,7 @@ const GetConfigAnnotatedCode = () => {
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode
+ * @vscType System
  * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
  * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
@@ -30,7 +31,7 @@ export const getConfig = <T>(
    projectName: string,
    property: string,
    defaultValue: T
-): T => {
+): T => \{
    return vscode.workspace
       .getConfiguration(projectName)
       .get<T>(property, defaultValue)

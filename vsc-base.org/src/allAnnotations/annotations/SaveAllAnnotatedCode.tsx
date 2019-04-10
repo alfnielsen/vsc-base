@@ -22,10 +22,11 @@ const SaveAllAnnotatedCode = () => {
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
  * @returns Promise<void>
  */
-export const saveAll = async (): Promise<void> => {
+export const saveAll = async (): Promise<void> => \{
    await vscode.workspace.saveAll(false)
 }
 `}

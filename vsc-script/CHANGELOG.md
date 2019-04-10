@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.2.0
+
+Update vsc-base to version 0.3.x.
+(Vsc-base methos has small changes.)
+
 ## 0.1.0
 
 Update vsc-base to version 0.2.0.

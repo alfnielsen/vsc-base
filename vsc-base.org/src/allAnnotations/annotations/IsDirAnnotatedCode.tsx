@@ -22,11 +22,12 @@ const IsDirAnnotatedCode = () => {
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const isDir = vsc.isDir(path)
  * @see http://vsc-base.org/#isDir
  * @returns boolean
  */
-export const isDir = (path: string): boolean => {
+export const isDir = (path: string): boolean => \{
    return fs.statSync(path).isDirectory()
 }
 `}

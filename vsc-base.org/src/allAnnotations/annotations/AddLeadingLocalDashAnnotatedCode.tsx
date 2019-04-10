@@ -22,12 +22,15 @@ const AddLeadingLocalDashAnnotatedCode = () => {
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.addLeadingLocalDash(path)
  * @returns string
  */
-export const addLeadingLocalDash = (path: string): string => {
+export const addLeadingLocalDash = (path: string): string => \{
    return './' + path
 }
+
+
 `}
       />
    )

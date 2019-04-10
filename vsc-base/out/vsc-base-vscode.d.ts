@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.ask(question, defaultValue)
  * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
@@ -15,6 +16,7 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
  * @see http://vsc-base.org/#pick
  * @param path string[]
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex
  const list = \['yes', 'no']
@@ -30,6 +32,7 @@ export declare const pick: (answerList: string[]) => Promise<string | undefined>
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex
 const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
@@ -48,6 +51,7 @@ export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vsc
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex
 const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
@@ -68,6 +72,7 @@ export declare const findFilePathsFromBase: (basePath: string, includePattern?: 
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
@@ -88,6 +93,7 @@ export declare const findRelativeFilePaths: (path: string, relativePath: string,
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
@@ -96,6 +102,7 @@ export declare const getActiveEditor: () => vscode.TextEditor | undefined;
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
@@ -105,6 +112,7 @@ export declare const getActiveDocument: () => vscode.TextDocument | undefined;
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
  * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @vscType Vscode
  * @returns string | undefined
  */
 export declare const getActiveDocumentPath: () => string | undefined;
@@ -112,6 +120,7 @@ export declare const getActiveDocumentPath: () => string | undefined;
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const content = vsc.getActiveDocumentContent()
  * @returns string | undefined
  */
@@ -123,6 +132,7 @@ export declare const getActiveDocumentContent: () => string | undefined;
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
  * @returns Promise<boolean>
  */
@@ -132,6 +142,7 @@ export declare const setActiveDocumentContent: (content: string) => Promise<bool
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
@@ -143,6 +154,7 @@ export declare const getFullDocumentRange: (document: vscode.TextDocument) => vs
  * @param document
  * @param content
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
@@ -154,6 +166,7 @@ export declare const appendToDocument: (editor: vscode.TextEditor, document: vsc
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -163,6 +176,7 @@ export declare const appendToActiveDocument: (content: string) => Promise<boolea
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
  * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -172,6 +186,7 @@ export declare const appendLineToActiveDocument: (content: string) => Promise<bo
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -182,6 +197,7 @@ export declare const saveActiveDocument: () => Promise<boolean>;
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
@@ -190,6 +206,7 @@ export declare const getRootPath: (path: string) => string | undefined;
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
  * @returns Promise<void>
  */
@@ -199,6 +216,7 @@ export declare const saveAll: () => Promise<void>;
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
@@ -208,6 +226,7 @@ export declare const showErrorMessage: (message: string) => Promise<void>;
  * @see http://vsc-base.org/#showMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showMessage(message)
  * @returns Promise<void>
  */

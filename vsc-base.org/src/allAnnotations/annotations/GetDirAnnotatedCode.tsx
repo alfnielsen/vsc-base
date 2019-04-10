@@ -23,12 +23,13 @@ const GetDirAnnotatedCode = () => {
  * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath
+ * @vscType System
  * @oneLineEx const dir = vsc.getDir(path)
  * @returns string
  */
-export const getDir = (path: string) => {
+export const getDir = (path: string) => \{
    const _isDir = vsc.isDir(path)
-   if (_isDir) {
+   if (_isDir) \{
       return path
    }
    const [dir] = vsc.splitPath(path)

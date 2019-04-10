@@ -25,6 +25,7 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
  * @param realPathTest Test if the real  The root path
+ * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
  * @returns string
@@ -33,8 +34,8 @@ export const getAbsolutePathFromRelatrivePath = (
    path: string,
    pathRelatriveToPath: string,
    rootPath: string
-): string => {
-   if (vsc.isAbsolutePath(pathRelatriveToPath)) {
+): string => \{
+   if (vsc.isAbsolutePath(pathRelatriveToPath)) \{
       return pathRelatriveToPath
    }
    let [dir] = vsc.splitPath(path)

@@ -110,7 +110,7 @@ class Script {
             errorLogContent += `
 // ------------------ Error log from script -------------- //
 // type: ${errorDescription}
-// time: ${vsc.getTimeStamp()}
+// time: ${vsc.getTimestamp()}
 // selectedScript.path: ${selectedScriptPath}
 // path: ${path}
 // error 

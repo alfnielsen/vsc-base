@@ -23,6 +23,7 @@ const SaveFileContentAnnotatedCode = () => {
  * @see http://vsc-base.org/#saveFileContent
  * @param path
  * @param content
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
@@ -30,7 +31,7 @@ const SaveFileContentAnnotatedCode = () => {
 export const saveFileContent = async (
    path: string,
    content: string
-): Promise<void> => {
+): Promise<void> => \{
    await fs.writeFile(path, content)
 }
 `}

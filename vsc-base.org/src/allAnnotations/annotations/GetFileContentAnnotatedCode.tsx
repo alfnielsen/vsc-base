@@ -23,6 +23,7 @@ const GetFileContentAnnotatedCode = () => {
  * @see http://vsc-base.org/#getFileContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */

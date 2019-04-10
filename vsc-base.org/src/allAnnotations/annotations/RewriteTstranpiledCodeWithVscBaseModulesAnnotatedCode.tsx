@@ -28,18 +28,19 @@ const RewriteTstranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
  * const fs = require("fs-extra");
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
+ * @vscType System
  * @oneLineEx sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs 
  * @returns string
  */
 export const rewriteTstranpiledCodeWithVscBaseModules = (
    sourceJs: string,
-): string => {
+): string => \{
    const modulesMap = vsc.getVscDefaultModuleMap()
-   modulesMap.forEach(obj => {
-      const reg = new RegExp(\`\\bconst (\\w+) = require\\(\\"\${obj.name}\\"\\)\`, 'g')
+   modulesMap.forEach(obj => \{
+      const reg = new RegExp(\`\\\\bconst (\\\\w+) = require\\\\(\\\\"\$\{obj.name}\\\\"\\\\)\`, 'g')
       sourceJs = sourceJs.replace(reg, (str: string) =>
-         \`/* \${str} // vsc-base has change the ts transpiled code here. */\`
+         \`/* \$\{str} // vsc-base has change the ts transpiled code here. */\`
       )
    })
    return sourceJs

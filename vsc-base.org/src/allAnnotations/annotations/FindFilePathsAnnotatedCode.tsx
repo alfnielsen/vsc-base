@@ -18,8 +18,8 @@ const FindFilePathsAnnotatedCode = () => {
          
          codeOneLineEx={`const files = await vsc.findFilePaths(includePattern)`}
          codeEx={`
-const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles){
+const allTestFiles = await vsc.findFilePaths('**\\/*.test.\{ts,jsx,ts,tsx}')
+for (const filePath of allTestFiles)\{
    const source = await vsc.getFileContent()
    // do something with the files...
 }`}
@@ -31,20 +31,21 @@ for (const filePath of allTestFiles){
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex 
-const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles){
+const allTestFiles = await vsc.findFilePaths('**\\/*.test.\{ts,jsx,ts,tsx}')
+for (const filePath of allTestFiles)\{
    const source = await vsc.getFileContent()
    // do something with the files...
 }
  * @returns Promise<string[]>
  */
 export const findFilePaths = async (
-   include: vscode.GlobPattern = '**/*.{js,jsx,ts,tsx}',
+   include: vscode.GlobPattern = '**/*.\{js,jsx,ts,tsx}',
    exclude: vscode.GlobPattern = '**/node_modules/**',
    maxResults: number = 100000
-): Promise<string[]> => {
+): Promise<string[]> => \{
    const uriFiles = await vscode.workspace.findFiles(
       include,
       exclude,

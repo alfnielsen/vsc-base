@@ -79,17 +79,17 @@ suite('Vsc base Tests', function () {
             assert.equal(r1, 'c:/sub1/sub2/sub3/sub4/file1.js');
         });
     });
-    suite('camalcaseToKebabcase', () => {
+    suite('toKebabCase', () => {
         test('1', () => {
-            const r1 = vsc.camalcaseToKebabcase('myNameIsName');
+            const r1 = vsc.toKebabCase('myNameIsName');
             assert.equal(r1, 'my-name-is-name');
         });
         test('2', () => {
-            const r1 = vsc.camalcaseToKebabcase('MyNameIsName');
+            const r1 = vsc.toKebabCase('MyNameIsName');
             assert.equal(r1, 'my-name-is-name');
         });
         test('3', () => {
-            const r1 = vsc.camalcaseToKebabcase('my.NameIsName');
+            const r1 = vsc.toKebabCase('my.NameIsName');
             assert.equal(r1, 'my.-name-is-name');
         });
     });
@@ -177,17 +177,17 @@ suite('Vsc base Tests', function () {
             assert.equal(r, false);
         });
     });
-    suite('toCamelcase', () => {
+    suite('toCamelCase', () => {
         test('1', () => {
-            const r = vsc.toCamelcase('my-css-name');
+            const r = vsc.toCamelCase('my-css-name');
             assert.equal(r, 'myCssName');
         });
         test('2', () => {
-            const r = vsc.toCamelcase('my.css.name');
+            const r = vsc.toCamelCase('my.css.name');
             assert.equal(r, 'myCssName');
         });
         test('3', () => {
-            const r = vsc.toCamelcase('MyName');
+            const r = vsc.toCamelCase('MyName');
             assert.equal(r, 'myName');
         });
     });

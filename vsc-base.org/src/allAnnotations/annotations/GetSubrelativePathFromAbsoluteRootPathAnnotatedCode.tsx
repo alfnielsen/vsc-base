@@ -1,9 +1,11 @@
 import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
+
 import * as vsc from '../vsc-base-raw'
 
 import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
    return (
@@ -17,23 +19,21 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
                </p>
             </>
          }
-         test={
-            <MethodTest
-               initialArgs={{
-                  path: 'c:/root/module/file.ts',
-                  absolutePathFromRoot: 'module/submodule/file2',
-                  rootPath: 'c:/root'
-               }}
-               onClickCall={(args, setResult) => {
-                  const res = vsc.getSubrelativePathFromAbsoluteRootPath(
-                     args.path,
-                     args.absolutePathFromRoot,
-                     args.rootPath
-                  )
-                  setResult(res)
-               }}
-            />
-         }
+         
+      test={
+         <MethodTest
+            initialArgs={{
+   path: 'c:/root/module/file.ts',
+   absolutePathFromRoot: 'module/submodule/file2',
+   rootPath: 'c:/root'
+}}
+            onClickCall={(args, setResult) => {
+   const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
+   setResult(res)
+}}
+         />
+      }
+      
          codeOneLineEx={`const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
          codeEx={``}
          code={`/**
@@ -42,16 +42,16 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
+ * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
  * @testPrinterArgument
-{
+\{
    path: 'c:/root/module/file.ts',
    absolutePathFromRoot: 'module/submodule/file2',
    rootPath: 'c:/root'
 }
- * @testPrinter 
-(args, setResult) => {
+ * @testPrinter (args, setResult) => \{
    const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
    setResult(res)
 }
@@ -61,7 +61,7 @@ export const getSubrelativePathFromAbsoluteRootPath = (
    path: string,
    absolutePathFromRoot: string,
    rootPath: string
-): string => {
+): string => \{
    const [sourceDirPath] = vsc.splitPath(path)
    let sourceDirPathFromRoot = vsc.subtractPath(sourceDirPath, rootPath)
    sourceDirPathFromRoot = sourceDirPathFromRoot + '/'
@@ -69,7 +69,7 @@ export const getSubrelativePathFromAbsoluteRootPath = (
       absolutePathFromRoot,
       sourceDirPathFromRoot
    )
-   if (absolutePathFromSourceDir !== absolutePathFromRoot) {
+   if (absolutePathFromSourceDir !== absolutePathFromRoot) \{
       absolutePathFromSourceDir = vsc.addLeadingLocalDash(absolutePathFromSourceDir)
    }
    return absolutePathFromSourceDir
@@ -80,3 +80,4 @@ export const getSubrelativePathFromAbsoluteRootPath = (
 }
 
 export default GetSubrelativePathFromAbsoluteRootPathAnnotatedCode
+

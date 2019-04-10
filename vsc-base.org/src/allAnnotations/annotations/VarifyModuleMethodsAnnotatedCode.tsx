@@ -21,27 +21,28 @@ const VarifyModuleMethodsAnnotatedCode = () => {
          
          codeOneLineEx={`const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)`}
          codeEx={`
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const varifiedModule = vsc.varifyModuleMethods(_module, \\['run', 'getId'\\])
 const result = varifiedModule.run()`}
          code={`/**
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
  * return undefined if a method didnt exist.
  * @see http://vsc-base.org/#varifyModuleMethods
+ * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const varifiedModule = vsc.varifyModuleMethods(_module, \\['run', 'getId'\\])
 const result = varifiedModule.run()
- * @returns { [key: string]: any } | undefined
+ * @returns \{ [key: string]: any } | undefined
  */
 export const varifyModuleMethods = (
-   _module: { [key: string]: unknown },
+   _module: \{ [key: string]: unknown },
    methods: string[]
-): { [key: string]: any } | undefined => {
-   const map: { [key: string]: any } = {}
-   for (const key of methods) {
-      if (_module.hasOwnProperty(key) && _module[key] instanceof Function) {
+): \{ [key: string]: any } | undefined => \{
+   const map: \{ [key: string]: any } = \{}
+   for (const key of methods) \{
+      if (_module.hasOwnProperty(key) && _module[key] instanceof Function) \{
          map[key] = _module[key]
-      } else {
+      } else \{
          return undefined
       }
    }

@@ -18,7 +18,7 @@ const GetReadStreamAnnotatedCode = () => {
          
          codeOneLineEx={`const readStream = vsc.getReadStream(path)`}
          codeEx={` const readStream = vsc.getReadStream(path)
- for await (chunk of readStream) {
+ for await (chunk of readStream) \{
    //do something with chunk
  }`}
          code={`/**
@@ -26,16 +26,17 @@ const GetReadStreamAnnotatedCode = () => {
  * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
  const readStream = vsc.getReadStream(path)
- for await (chunk of readStream) {
+ for await (chunk of readStream) \{
    //do something with chunk
  }
  * @returns fs.ReadStream
  */
-export const getReadStream = (path: string) => {
-   const stream = fs.createReadStream(path, {
+export const getReadStream = (path: string) => \{
+   const stream = fs.createReadStream(path, \{
       flags: 'r',
       encoding: 'utf-8',
       fd: undefined,

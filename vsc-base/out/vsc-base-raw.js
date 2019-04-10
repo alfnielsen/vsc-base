@@ -15,6 +15,7 @@ const vsc = require("./vsc-base");
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
+ * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
  * @testPrinterArgument
@@ -23,8 +24,7 @@ const vsc = require("./vsc-base");
    absolutePathFromRoot: 'module/submodule/file2',
    rootPath: 'c:/root'
 }
- * @testPrinter
-(args, setResult) => {
+ * @testPrinter (args, setResult) => {
    const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
    setResult(res)
 }
@@ -44,6 +44,7 @@ exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.addLeadingLocalDash(path)
  * @returns string
  */
@@ -51,27 +52,117 @@ exports.addLeadingLocalDash = (path) => {
     return './' + path;
 };
 /**
- * Format a string from camel-case to kebab-case.
- * Commonly used to define css class names. (SomeName => some-name)
- * @see http://vsc-base.org/#camalcaseToKebabcase
+ * Format a string from camel-case to kebab-case
+ * Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+ * @see http://vsc-base.org/#toKebabCase
  * @param str
- * @oneLineEx const cssName = vsc.camalcaseToKebabcase(name)
+ * @vscType Raw
+ * @testPrinterArgument
+{
+   str: 'SomeName'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.toKebabCase(args.str)
+   printResult(result)
+ }
+ * @oneLineEx const cssName = vsc.toKebabCase(inputName)
  * @returns string
  */
-exports.camalcaseToKebabcase = (str) => str[0].toLowerCase() +
-    str.substr(1).replace(/([A-Z])/g, ([letter]) => `-${letter.toLowerCase()}`);
+exports.toKebabCase = (str) => str[0].toLowerCase() +
+    str.substr(1)
+        .replace(/([A-Z])/g, (_match, chr) => `-${chr.toLowerCase()}`)
+        .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => `-${chr.toLowerCase()}`);
 /**
- * Get clean path. folder/../folder/file => folder/file, folder/./file => file
+ * Format a string from camel-case to snake-case
+ * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
+ * @see http://vsc-base.org/#toSnakeCase
+ * @param str
+ * @param uppercase
+ * @vscType Raw
+ * @testPrinterArgument
+{
+   str: 'SomeName'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.toSnakeCase(args.str)
+   printResult(result)
+ }
+ * @oneLineEx const cssName = vsc.toSnakeCase(inputName)
+ * @returns string
+ */
+exports.toSnakeCase = (str, upperCase = false) => {
+    str = str[0].toLowerCase() +
+        str.substr(1)
+            .replace(/([A-Z])/g, (_match, chr) => `_${chr.toLowerCase()}`)
+            .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => `_${chr.toLowerCase()}`);
+    if (upperCase) {
+        str = str.toUpperCase();
+    }
+    return str;
+};
+/**
+ * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
+ * All non word seperators will be removed and the word charector after will be transforms to upper case.
+ * @see http://vsc-base.org/#toCamelCase
+ * @param str
+ * @vscType Raw
+ * @testPrinterArgument
+{
+   str: 'Some-name'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.toCamelCase(args.str)
+   printResult(result)
+}
+ * @oneLineEx const name = vsc.toCamelCase(inputName)
+ * @returns string
+ */
+exports.toCamelCase = (str) => str[0].toLowerCase() +
+    str.substr(1)
+        .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
+/**
+ * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
+ * All non word seperators will be removed and the word charector after will be transforms to upper case
+ * @see http://vsc-base.org/#toPascalCase
+ * @param str
+ * @vscType Raw
+ * @testPrinterArgument
+{
+   str: 'some-name'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.toPascalCase(args.str)
+   printResult(result)
+}
+ * @oneLineEx const name = vsc.toPascalCase(inputName)
+ * @returns string
+ */
+exports.toPascalCase = (str) => str[0].toUpperCase() +
+    str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
+/**
+ * Get clean path.
+ * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
  * @see http://vsc-base.org/#cleanPath
  * @param path
+ * @vscType Raw
+ * @testPrinterArgument
+{
+   path: 'folder/../folder/file'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.cleanPath(args.path)
+   printResult(result)
+}
  * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
  * @returns string
  */
 exports.cleanPath = (path) => {
     path = path.replace(/\/.\//g, '/');
-    const reg = /\/\w+\/\.\.\//;
+    const reg = /\b\w+\/\.\.\//;
     while (reg.test(path)) {
-        path = path.replace(reg, '/');
+        path = path.replace(reg, '');
     }
     return path;
 };
@@ -80,6 +171,7 @@ exports.cleanPath = (path) => {
  * @see http://vsc-base.org/#getJsonParts
  * @param json
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
+ * @vscType Raw
  * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
  * @returns any
  */
@@ -100,6 +192,7 @@ exports.getJsonParts = (json, keyPath) => {
  * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
+ * @vscType Raw
  * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
  * @returns boolean
  */
@@ -112,6 +205,7 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
  * @param path
  * @param parentPath
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const isSubPath = vsc.isSubPath(path)
  * @returns boolean
  */
@@ -126,6 +220,7 @@ exports.isSubPath = (subPath, parentPath) => {
  * @param path1
  * @param path2
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
  * @returns string
  */
@@ -136,9 +231,10 @@ exports.joinPaths = (path1, path2) => {
     return result;
 };
 /**
- * Reaplve all '\\'  with '/'
+ * Reaplve all '\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.joinPaths(path1, path2)
  * @returns string
  */
@@ -150,6 +246,7 @@ exports.pathAsUnix = (path) => {
  * @see http://vsc-base.org/#relatrivePath
  * @param fromPath
  * @param toPath
+ * @vscType Raw
  * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
  * @testPrinterArgument
  {
@@ -183,6 +280,7 @@ exports.getRelativePath = (fromPath, toPath) => {
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
  * @param realPathTest Test if the real  The root path
+ * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
  * @returns string
@@ -204,6 +302,7 @@ exports.getAbsolutePathFromRelatrivePath = (path, pathRelatriveToPath, rootPath)
  * @see http://vsc-base.org/#sharedPath
  * @param path1
  * @param path2
+ * @vscType Raw
  * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
  * @returns string
  */
@@ -225,6 +324,7 @@ exports.sharedPath = (path1, path2) => {
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
+ * @vscType Raw
  * @async
  * @returns Promise<void>
  */
@@ -236,6 +336,7 @@ exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
  * @see http://vsc-base.org/#splitPath
  * @param path
  * @dependencyInternal pathAsUnix
+ * @vscType Raw
  * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
  * @returns [string, string]
  */
@@ -253,6 +354,7 @@ exports.splitPath = (path) => {
  * @param parentPath
  * @param trimDashes default true
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
  * @returns string
  */
@@ -265,20 +367,10 @@ exports.subtractPath = (path, parentPath, _trimDashes = true) => {
     return newPath;
 };
 /**
- * Format a string to camal-case. Commonly used to define js/ts variable names.
- * (Some-Name => someName, some_name => someName, some.name => someName )
- * All non word seperators will be removed and the word charector after will be transforms to upper case
- * @see http://vsc-base.org/#toCamelcase
- * @param str
- * @oneLineEx const name = vsc.toCamelcase(kebabName)
- * @returns string
- */
-exports.toCamelcase = (str) => str[0].toLowerCase() +
-    str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
-/**
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.trimDashes(foundPath)
  * @returns string
  */
@@ -289,6 +381,7 @@ exports.trimDashes = (path) => {
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
  * @returns string
  */
@@ -299,6 +392,7 @@ exports.trimLeadingDash = (path) => {
  * Test if it an error. Return type (if one of es6 basic error type) return stack
  * @see http://vsc-base.org/#getErrorInfo
  * @param e error
+ * @vscType Raw
  * @oneLineEx const info = vsc.getErrorInfo(e)
  * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
  */
@@ -335,10 +429,11 @@ exports.getErrorInfo = (e) => {
 /**
  * return ISO timestamp
  * @see http://vsc-base.org/#getTimeStamp
+ * @vscType Raw
  * @oneLineEx const timestamp = vsc.getTimeStamp()
  * @returns string
  */
-exports.getTimeStamp = () => {
+exports.getTimestamp = () => {
     return new Date().toISOString();
 };
 //# sourceMappingURL=vsc-base-raw.js.map

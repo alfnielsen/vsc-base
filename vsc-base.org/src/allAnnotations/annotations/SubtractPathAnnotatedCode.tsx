@@ -25,6 +25,7 @@ const SubtractPathAnnotatedCode = () => {
  * @param parentPath
  * @param trimDashes default true
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
  * @returns string
  */
@@ -32,10 +33,10 @@ export const subtractPath = (
    path: string,
    parentPath: string,
    _trimDashes = true
-): string => {
-   const regexp = new RegExp(\`^\${parentPath}\`)
+): string => \{
+   const regexp = new RegExp(\`^\$\{parentPath}\`)
    let newPath = path.replace(regexp, '')
-   if (trimDashes) {
+   if (trimDashes) \{
       newPath = vsc.trimDashes(newPath)
    }
    return newPath

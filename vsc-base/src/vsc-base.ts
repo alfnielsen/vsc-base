@@ -1,7 +1,6 @@
 
 import {
    addLeadingLocalDash,
-   camalcaseToKebabcase,
    cleanPath,
    getJsonParts,
    isAbsolutePath,
@@ -15,11 +14,14 @@ import {
    sleep,
    splitPath,
    subtractPath,
-   toCamelcase,
+   toKebabCase,
+   toCamelCase,
+   toPascalCase,
+   toSnakeCase,
    trimDashes,
    trimLeadingDash,
    getErrorInfo,
-   getTimeStamp
+   getTimestamp
 } from './vsc-base-raw'
 
 import {
@@ -95,7 +97,6 @@ export {
 export {
    //raw
    addLeadingLocalDash,
-   camalcaseToKebabcase,
    cleanPath,
    getJsonParts,
    isAbsolutePath,
@@ -109,11 +110,14 @@ export {
    sleep,
    splitPath,
    subtractPath,
-   toCamelcase,
+   toKebabCase,
+   toCamelCase,
+   toPascalCase,
+   toSnakeCase,
    trimDashes,
    trimLeadingDash,
    getErrorInfo,
-   getTimeStamp,
+   getTimestamp,
    //vscode
    ask,
    pick,

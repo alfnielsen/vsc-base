@@ -26,16 +26,17 @@ const SaveActiveDocumentAnnotatedCode = () => {
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
-export const saveActiveDocument = async (): Promise<boolean> => {
+export const saveActiveDocument = async (): Promise<boolean> => \{
    const doc = vsc.getActiveDocument()
-   if (doc) {
+   if (doc) \{
       await doc.save()
       return true
    }
-   return new Promise(resolve => {
+   return new Promise(resolve => \{
       resolve(false)
    })
 }

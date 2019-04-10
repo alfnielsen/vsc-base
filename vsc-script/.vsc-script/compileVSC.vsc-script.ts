@@ -37,7 +37,8 @@ export async function run(path: string) {
          //meta map:
          const metaMap: { [key: string]: string } = {}
          const mapArgs = meta.split(/\n\s+\*\s+@/)
-         metaMap.description = mapArgs.shift().replace(/(^|\n)\s+\*/g, '\n')
+         // metaMap.description = mapArgs.shift().replace(/(^|\n)\s+\*/g, '\n')
+         mapArgs.shift() // remove leading empty area
          mapArgs.forEach(arg => {
             const argNameMatch = arg.match(/^\w+/)
             const argName = argNameMatch[0]
@@ -48,8 +49,7 @@ export async function run(path: string) {
                metaMap[argName] = argContent
             }
          })
-         let annotationName = vsc.toCamelcase(name + 'AnnotatedCode')
-         annotationName = annotationName[0].toUpperCase() + annotationName.substr(1)
+         let annotationName = vsc.toPascalCase(name + 'AnnotatedCode')
          if (!body.match(/^\s*$/)) {
             parts.push({ meta, body, name, metaMap, annotationName })
          }
@@ -57,34 +57,30 @@ export async function run(path: string) {
    }
    parts.sort((a, b) => a.body.localeCompare(b.body))
 
-   // --- definition file:
+   // ----------------- definition file ------------------
 
-   parts.map(p => {
+   //    const defFileContent = `
+   // // Type definitions for vsc-base
+   // // Project: vsc-base
+   // // Definitions by: alf nielsen <alfnielsen@gmail.com>
 
-   })
+   // declare namespace vsc {
 
-   const defFileContent = `
-// Type definitions for vsc-base
-// Project: vsc-base
-// Definitions by: alf nielsen <alfnielsen@gmail.com>
+   // ${parts.map(part => `
+   //  /**
+   // ${part.meta}
+   //  */
+   //    export ${part.metaMap.definition}
+   // `)}
 
-declare namespace vsc {
+   // }
 
-${parts.map(part => `
- /**
-${part.meta}
- */
-   export ${part.metaMap.definition}
-`)}
-   
-}
+   // `
+   //    const defPath = dir + '/vsc-base.d.ts';
+   //    const newDefPath = defPath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
+   //    await vsc.saveFileContent(newDefPath, defFileContent)
 
-`
-   const defPath = dir + '/vsc-base.d.ts';
-   const newDefPath = defPath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
-   await vsc.saveFileContent(newDefPath, defFileContent)
-
-   // --- vsc-base.org annoations:
+   // --------------------- vsc-base.org annoations ---------------------
 
    const orgDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
    const anoDir = orgDir + '/annotations'
@@ -115,7 +111,10 @@ export default AllAnnotations
    // move raw to vsc-base.org (For testing. We connet use vsc-base becasue it need vscode!)
    const rawPath = dir + '/vsc-base-raw.ts';
    const newRawPath = rawPath.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
-   await vsc.copy(rawPath, newRawPath)
+   let rawPathContent = await vsc.getFileContent(rawPath);
+   // reaplce import vsc-base to point to itself instead!
+   rawPathContent = rawPathContent.replace("import * as vsc from './vsc-base'", "import * as vsc from './vsc-base-raw'")
+   await vsc.saveFileContent(newRawPath, rawPathContent)
 
 
    // ----------------- copy to vsc-base project -------------------- //
@@ -140,12 +139,12 @@ const writeAnnotationComponent = (
 ) => {
    let descr = metaMap.description.trim();
    descr = `<p>
-                  ${descr.replace(/\n/, '\n               </p>\n               <p>\n               ')}
+                  ${descr.replace(/\\?\n/, '\n               </p>\n               <p>\n               ')}
                </p>`
-   const oneLineEx = metaMap.oneLineEx.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   const codeEx = (metaMap.ex || '').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   code = code.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   meta = meta.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const oneLineEx = metaMap.oneLineEx.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   code = code.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   meta = meta.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
    let test = ''
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {

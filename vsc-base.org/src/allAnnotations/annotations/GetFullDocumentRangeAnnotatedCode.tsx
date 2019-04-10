@@ -23,12 +23,13 @@ const GetFullDocumentRangeAnnotatedCode = () => {
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
 export const getFullDocumentRange = (
    document: vscode.TextDocument
-): vscode.Range => {
+): vscode.Range => \{
    const startPosition = new vscode.Position(0, 0)
    const endPosition = new vscode.Position(document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)

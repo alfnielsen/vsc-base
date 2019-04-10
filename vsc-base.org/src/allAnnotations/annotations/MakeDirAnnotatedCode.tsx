@@ -23,14 +23,15 @@ const MakeDirAnnotatedCode = () => {
  * @see http://vsc-base.org/#makeDir
  * @param path
  * @param newPathstring
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
  * @returns Promise<void>
  */
-export const makeDir = async (folderPath: string): Promise<void> => {
-   try {
+export const makeDir = async (folderPath: string): Promise<void> => \{
+   try \{
       await fs.mkdir(folderPath)
-   } catch (e) {
+   } catch (e) \{
       throw e
    }
 }

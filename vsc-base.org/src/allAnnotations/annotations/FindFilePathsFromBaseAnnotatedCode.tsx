@@ -18,8 +18,8 @@ const FindFilePathsFromBaseAnnotatedCode = () => {
          
          codeOneLineEx={`const files = await vsc.findFilePathsFromBase(dir, includePattern)`}
          codeEx={`
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
-for (const filePath of storyFilesInModule1){
+const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.\{ts,tsx}')
+for (const filePath of storyFilesInModule1)\{
    const source = await vsc.getFileContent()
    // Do something with filePath..
 }`}
@@ -31,10 +31,11 @@ for (const filePath of storyFilesInModule1){
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex 
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
-for (const filePath of storyFilesInModule1){
+const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.\{ts,tsx}')
+for (const filePath of storyFilesInModule1)\{
    const source = await vsc.getFileContent()
    // Do something with filePath..
 }
@@ -42,10 +43,10 @@ for (const filePath of storyFilesInModule1){
  */
 export const findFilePathsFromBase = async (
    basePath: string,
-   includePattern: string = '**/*.{js,jsx,ts,tsx}',
+   includePattern: string = '**/*.\{js,jsx,ts,tsx}',
    exclude: vscode.GlobPattern = '**/node_modules/**',
    maxResults: number = 100000
-): Promise<string[]> => {
+): Promise<string[]> => \{
    let baseDir = vsc.getDir(basePath)
    const include = new vscode.RelativePattern(baseDir, includePattern)
    const filePaths = await vsc.findFilePaths(include, exclude, maxResults)

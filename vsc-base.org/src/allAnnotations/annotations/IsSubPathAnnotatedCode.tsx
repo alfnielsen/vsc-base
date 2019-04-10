@@ -24,10 +24,11 @@ const IsSubPathAnnotatedCode = () => {
  * @param path
  * @param parentPath
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const isSubPath = vsc.isSubPath(path)
  * @returns boolean
  */
-export const isSubPath = (subPath: string, parentPath: string): boolean => {
+export const isSubPath = (subPath: string, parentPath: string): boolean => \{
    parentPath = vsc.trimDashes(parentPath)
    const result = subPath.indexOf(parentPath + '/') === 0
    return result

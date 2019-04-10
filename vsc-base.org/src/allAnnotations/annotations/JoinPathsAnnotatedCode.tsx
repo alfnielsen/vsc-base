@@ -24,10 +24,11 @@ const JoinPathsAnnotatedCode = () => {
  * @param path1
  * @param path2
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
  * @returns string
  */
-export const joinPaths = (path1: string, path2: string): string => {
+export const joinPaths = (path1: string, path2: string): string => \{
    path1 = vsc.trimDashes(path1)
    path2 = vsc.trimDashes(path2)
    const result = path1 + '/' + path2

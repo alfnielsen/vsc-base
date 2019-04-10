@@ -22,19 +22,20 @@ const GetJsonPartsAnnotatedCode = () => {
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
  * @param json
- * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
+ * @param keyPath Ex sub.sub.name >> \{sub:\{sub:\{name:'Foo'}}} >> Foo
+ * @vscType Raw
  * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
  * @returns any
  */
 export const getJsonParts = <TStructure = any>(
-   json: { [name: string]: unknown },
+   json: \{ [name: string]: unknown },
    keyPath: string
-): TStructure | undefined => {
+): TStructure | undefined => \{
    let current: any = json
-   const keySplit = keyPath.split(/\./)
-   for (let i = 0; i < keySplit.length; i++) {
+   const keySplit = keyPath.split(/\\./)
+   for (let i = 0; i < keySplit.length; i++) \{
       const key = keySplit[i]
-      if (current[key] === undefined) {
+      if (current[key] === undefined) \{
          return undefined
       }
       current = current[key]

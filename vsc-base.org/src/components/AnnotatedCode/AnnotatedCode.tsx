@@ -13,7 +13,7 @@ interface AnnotatedCodeProps {
    codeEx?: string
    title: string
    test?: ReactNode
-   small?: boolean
+   open?: boolean
    description?: ReactNode
 }
 
@@ -25,9 +25,9 @@ const AnnotatedCode = ({
    code,
    codeOneLineEx,
    codeEx,
-   small = true
+   open = false
 }: AnnotatedCodeProps) => {
-   const [showAll, setShowAll] = useState(!small)
+   const [showAll, setShowAll] = useState(open)
    return (
       <>
          <div

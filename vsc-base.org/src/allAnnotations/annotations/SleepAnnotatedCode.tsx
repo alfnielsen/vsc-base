@@ -23,10 +23,11 @@ const SleepAnnotatedCode = () => {
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
+ * @vscType Raw
  * @async
  * @returns Promise<void>
  */
-export const sleep = async (ms: number): Promise<void> => {
+export const sleep = async (ms: number): Promise<void> => \{
    return new Promise(resolve => setTimeout(resolve, ms))
 }
 `}

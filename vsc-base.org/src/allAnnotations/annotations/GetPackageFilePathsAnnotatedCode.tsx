@@ -25,7 +25,7 @@ const GetPackageFilePathsAnnotatedCode = () => {
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-export const getPackageFilePaths = async (): Promise<string[]> => {
+export const getPackageFilePaths = async (): Promise<string[]> => \{
    const packageFiles = await vsc.findFilePaths('**/package.json')
    return packageFiles
 }

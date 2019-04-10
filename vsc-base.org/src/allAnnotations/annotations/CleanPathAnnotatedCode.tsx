@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const CleanPathAnnotatedCode = () => {
    return (
@@ -11,25 +15,51 @@ const CleanPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get clean path. folder/../folder/file => folder/file, folder/./file => file
+                  Get clean path. 
+               </p>
+               <p>
+                Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
                </p>
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={
+{
+   path: 'folder/../folder/file'
+}}
+            onClickCall={(args, printResult) => {
+   const result = vsc.cleanPath(args.path)
+   printResult(result)
+}}
+         />
+      }
+      
          codeOneLineEx={`const newPath = vsc.cleanPath(concatenatedPath)`}
          codeEx={``}
          code={`/**
- * Get clean path. folder/../folder/file => folder/file, folder/./file => file
+ * Get clean path. 
+ * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
  * @see http://vsc-base.org/#cleanPath
  * @param path
+ * @vscType Raw
+ * @testPrinterArgument 
+\{
+   path: 'folder/../folder/file'
+}
+ * @testPrinter (args, printResult) => \{
+   const result = vsc.cleanPath(args.path)
+   printResult(result)
+}
  * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
  * @returns string
  */
-export const cleanPath = (path: string): string => {
-   path = path.replace(/\/.\//g, '/')
-   const reg = /\/\w+\/\.\.\//
-   while (reg.test(path)) {
-      path = path.replace(reg, '/')
+export const cleanPath = (path: string): string => \{
+   path = path.replace(/\\/.\\//g, '/')
+   const reg = /\\b\\w+\\/\\.\\.\\//
+   while (reg.test(path)) \{
+      path = path.replace(reg, '')
    }
    return path
 }

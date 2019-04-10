@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './App.module.scss'
 import useReactRouter from 'use-react-router';
 import Header from 'components/Header/Header'
@@ -7,10 +7,12 @@ import AllAnnotations from 'allAnnotations/AllAnnotations'
 
 const App = () => {
    const { history, location, match } = useReactRouter();
+   const [activeMethod, setActiveMethod] = useState('')
    useEffect(()=> {
       const id = location.hash.replace('#', '')
       const element = document.getElementById(id)
       if (element) element.scrollIntoView()
+      setActiveMethod(id);
    },[location])
    return (
    <div className={styles.App}>
@@ -69,18 +71,6 @@ export async function run(path: string) {
          <p>
             vsc-base is at the moment used as the base for two other extension, vsc-move and vsc-scaffolding, and will most likely provide the base for other extensions in the future.
          </p>
-         <h4>Correct documentation</h4>
-         <p>
-         The vsc-base documentation are created with a vsc-script (super meta!), 
-         that runs though the development code and generate both the vsc-base code and the documentation. (You can find the vsc-script in the source-code for vsc-script. Its called compileVsc.vsc-script.ts)
-         </p>
-         <p>
-         This guarantees that the source code you see in the documentation is one-to-one with the actual vsc-base source code.
-         </p>
-         <p>
-         The examples and all other code in this documententation is created from the JSDocs for each method.
-         </p>
-
          <h4>Open-source GPL-3</h4>
          <p>
          vsc-base, vsc-script ( and related extension project: vsc-scaffolding and vsc-move) are all open-source project
@@ -126,19 +116,38 @@ export async function run(path: string) {
       </div>
       <div className={styles.decsription}>
          <p>
-            vsc-base is split into two area: raw and system
+         The vsc-base documentation are created with a vsc-script (super meta!), 
+         that runs through the development code and generate both the vsc-base code and the documentation. (You can find the vsc-script in the source-code for vsc-script. Its called compileVsc.vsc-script.ts)
          </p>
          <p>
-            when using vsc-base it will be one import.
-         </p>import RawDocs from '../documentation/RawDocs';
-import SystemDocs from '../documentation/SystemDocs';
-
-         <p>
-            Raw is standalone methods that only depends on other raw methods.<br/>
-            (You can test all raw method directly here on vsc-base.org)
+         This guarantees that the source code you see in the documentation is one-to-one with the actual vsc-base source code.
          </p>
          <p>
-            System is methods that uses vscode and/or fs-extra as well as other vsc-base methods.
+         The examples and all other code in this documententation is created from the JSDocs for each method.
+         </p>
+         <p>
+            Vsc-base's source code are split into 3 areas: Raw, System and Vscode
+         </p>
+         <h4>Raw, System ans Vscode</h4>
+         <p>
+            Raw is standalone methods that only depends on other raw methods. (Mostly string manipulation)<br/>
+            (You can test all raw method directly here on vsc-base.org)<br/>
+            Raw methods can be tested directly here in the documentation.
+         </p>
+         <p>
+            Ex: <a href='/#isSubPath'>isSubPath</a> <a href='/#toCamelCase'>toCamelCase</a>, <a href='/#getRelativePath'>getRelativePath</a> and <a href='/#subtractPath'>subtractPath</a><br/>
+         </p>
+         <p>
+            System is methods that uses fs-extra or relates to file system (Can use Raw methods).<br></br>
+         </p>
+         <p>
+            Ex: <a href='/#getFileContent'>getFileContent</a>, <a href='/#saveFileContent'>saveFileContent</a>, <a href='/#isDir'>isDir</a>, <a href='/#move'>move</a> and <a href='/#copy'>copy</a>
+         </p>
+         <p>
+            Vscode is methods that uses vscode or relates to doing things in vscode (Can use both Raw and System methods).<br/>
+         </p>
+         <p>
+            Ex: <a href='/#showMessage'>showMessage</a>, <a href='/#ask'>ask</a>, <a href='/#pick'>pick</a>, <a href='/#findFilePaths'>findFilePaths</a>, <a href='/#getActiveDocumentContent'>getActiveDocumentContent</a> and <a href='/#appendLineToActiveDocument'>appendLineToActiveDocument</a>
          </p>
       </div>
       <div className={styles.annotatedCode}>

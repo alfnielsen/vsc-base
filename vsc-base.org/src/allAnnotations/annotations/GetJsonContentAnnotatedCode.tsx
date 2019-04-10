@@ -23,13 +23,14 @@ const GetJsonContentAnnotatedCode = () => {
  * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
 export const getJsonContent = async <TStructure = unknown>(
    path: string,
    throws = false
-): Promise<TStructure> => await fs.readJson(path, { throws })
+): Promise<TStructure> => await fs.readJson(path, \{ throws })
 `}
       />
    )

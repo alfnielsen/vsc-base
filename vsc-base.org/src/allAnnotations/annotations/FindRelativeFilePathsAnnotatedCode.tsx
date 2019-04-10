@@ -19,11 +19,11 @@ const FindRelativeFilePathsAnnotatedCode = () => {
          codeOneLineEx={`const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)`}
          codeEx={`
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.lenght===0){
+if(moduleFileInParentFolder.lenght===0)\{
    vsc.showErrorMessage('Module file was not found in parent folder')
    return
 }
-if(moduleFileInParentFolder.lenght>1){
+if(moduleFileInParentFolder.lenght>1)\{
    vsc.showErrorMessage('More than one Module file was found in parent folder')
    return
 }
@@ -39,14 +39,15 @@ const modulePath = moduleFileInParentFolder[0];
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex 
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.lenght===0){
+if(moduleFileInParentFolder.lenght===0)\{
    vsc.showErrorMessage('Module file was not found in parent folder')
    return
 }
-if(moduleFileInParentFolder.lenght>1){
+if(moduleFileInParentFolder.lenght>1)\{
    vsc.showErrorMessage('More than one Module file was found in parent folder')
    return
 }
@@ -57,10 +58,10 @@ const modulePath = moduleFileInParentFolder[0];
 export const findRelativeFilePaths = async (
    path: string,
    relativePath: string,
-   includePattern: string = '**/*.{js,jsx,ts,tsx}',
+   includePattern: string = '**/*.\{js,jsx,ts,tsx}',
    exclude: vscode.GlobPattern = '**/node_modules/**',
    maxResults: number = 100000
-): Promise<string[]> => {
+): Promise<string[]> => \{
    const dir = vsc.getDir(path)
    const joinPath = vsc.joinPaths(dir, relativePath)
    let base = vsc.cleanPath(joinPath + '/')

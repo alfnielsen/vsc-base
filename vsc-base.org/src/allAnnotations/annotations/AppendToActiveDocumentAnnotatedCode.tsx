@@ -28,15 +28,16 @@ const AppendToActiveDocumentAnnotatedCode = () => {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
 export const appendToActiveDocument = async (
    content: string
-): Promise<boolean> => {
+): Promise<boolean> => \{
    const document = vsc.getActiveDocument()
    const editor = vsc.getActiveEditor()
-   if (document && editor) {
+   if (document && editor) \{
       await vsc.appendToDocument(editor, document, content)
       return true
    }

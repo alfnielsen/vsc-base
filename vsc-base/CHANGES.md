@@ -1,3 +1,8 @@
+## 0.3.0
+
+BREAKING CAHNGES: camcalCaseToKebeb is now toKebabCase
+Added toSnakeCase, toPascalCase.
+
 ## 0.2.0
 
 Change the base of vsc-base.

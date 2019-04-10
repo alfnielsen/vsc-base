@@ -7,6 +7,7 @@ import * as vsc from './vsc-base'
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.ask(question, defaultValue)
  * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
@@ -25,6 +26,7 @@ export const ask = async (
  * @see http://vsc-base.org/#pick
  * @param path string[]
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex 
  const list = \['yes', 'no']
@@ -42,6 +44,7 @@ export const pick = async (answerList: string[]): Promise<string | undefined> =>
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex 
 const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
@@ -73,6 +76,7 @@ export const findFilePaths = async (
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex 
 const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
@@ -104,6 +108,7 @@ export const findFilePathsFromBase = async (
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex 
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
@@ -143,6 +148,7 @@ export const findRelativeFilePaths = async (
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
@@ -153,6 +159,7 @@ export const getActiveEditor = (): vscode.TextEditor | undefined => {
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
@@ -167,6 +174,7 @@ export const getActiveDocument = (): vscode.TextDocument | undefined => {
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
  * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @vscType Vscode
  * @returns string | undefined
  */
 export const getActiveDocumentPath = (): string | undefined => {
@@ -178,6 +186,7 @@ export const getActiveDocumentPath = (): string | undefined => {
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const content = vsc.getActiveDocumentContent()
  * @returns string | undefined
  */
@@ -193,6 +202,7 @@ export const getActiveDocumentContent = (): string | undefined => {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
  * @returns Promise<boolean>
  */
@@ -215,6 +225,7 @@ export const setActiveDocumentContent = async (
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
@@ -234,6 +245,7 @@ export const getFullDocumentRange = (
  * @param document
  * @param content
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
@@ -256,6 +268,7 @@ export const appendToDocument = async (
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -275,6 +288,7 @@ export const appendToActiveDocument = async (
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
  * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -289,6 +303,7 @@ export const appendLineToActiveDocument = async (
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -309,6 +324,7 @@ export const saveActiveDocument = async (): Promise<boolean> => {
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
@@ -327,6 +343,7 @@ export const getRootPath = (path: string): string | undefined => {
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
  * @returns Promise<void>
  */
@@ -339,6 +356,7 @@ export const saveAll = async (): Promise<void> => {
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
@@ -351,6 +369,7 @@ export const showErrorMessage = async (message: string): Promise<void> => {
  * @see http://vsc-base.org/#showMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showMessage(message)
  * @returns Promise<void>
  */

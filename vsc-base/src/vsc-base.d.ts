@@ -10,6 +10,7 @@ declare namespace vsc {
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.addLeadingLocalDash(path)
  * @returns string
  */
@@ -20,6 +21,7 @@ declare namespace vsc {
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
  * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -32,6 +34,7 @@ declare namespace vsc {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -44,6 +47,7 @@ declare namespace vsc {
  * @param document
  * @param content
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
@@ -55,6 +59,7 @@ declare namespace vsc {
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.ask(question, defaultValue)
  * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
@@ -65,6 +70,7 @@ declare namespace vsc {
  * Ensure that a method result that optional can be a promise is awaited.
  * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
+ * @vscType System
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
 const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
@@ -77,9 +83,10 @@ await vsc.awaitResult(result)
  /**
  * Format a string from camel-case to kebab-case. 
  * Commonly used to define css class names. (SomeName => some-name)
- * @see http://vsc-base.org/#camalcaseToKebabcase
+ * @see http://vsc-base.org/#camalCaseToKebabCase
  * @param str
- * @oneLineEx const cssName = vsc.camalcaseToKebabcase(name)
+ * @vscType Raw
+ * @oneLineEx const cssName = vsc.camalCaseToKebabCase(name)
  * @returns string
  */
    export undefined
@@ -88,6 +95,7 @@ await vsc.awaitResult(result)
  * Get clean path. folder/../folder/file => folder/file, folder/./file => file
  * @see http://vsc-base.org/#cleanPath
  * @param path
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
  * @returns string
  */
@@ -98,6 +106,7 @@ await vsc.awaitResult(result)
  * @see http://vsc-base.org/#copy
  * @param path
  * @param newPathstring
+ * @vscType System
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
@@ -109,6 +118,7 @@ await vsc.awaitResult(result)
  * @see http://vsc-base.org/#doesExists
  * @param path string
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const exist = vsc.doesExists(path)
  * @returns boolean
  */
@@ -122,6 +132,7 @@ await vsc.awaitResult(result)
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex 
 const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
@@ -141,6 +152,7 @@ for (const filePath of allTestFiles){
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex 
 const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
@@ -162,6 +174,7 @@ for (const filePath of storyFilesInModule1){
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex 
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
@@ -186,6 +199,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
  * @param realPathTest Test if the real  The root path
+ * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
  * @returns string
@@ -196,6 +210,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
@@ -205,6 +220,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const content = vsc.getActiveDocumentContent()
  * @returns string | undefined
  */
@@ -215,6 +231,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
  * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @vscType Vscode
  * @returns string | undefined
  */
    export undefined
@@ -223,6 +240,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
@@ -232,6 +250,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode
+ * @vscType System
  * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
  * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
@@ -243,6 +262,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath
+ * @vscType System
  * @oneLineEx const dir = vsc.getDir(path)
  * @returns string
  */
@@ -252,6 +272,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Test if it an error. Return type (if one of es6 basic error type) return stack
  * @see http://vsc-base.org/#getErrorInfo
  * @param e error
+ * @vscType Raw
  * @oneLineEx const info = vsc.getErrorInfo(e)
  * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
  */
@@ -262,6 +283,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getFileContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
@@ -272,6 +294,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
@@ -282,6 +305,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
@@ -292,6 +316,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getJsonParts
  * @param json
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
+ * @vscType Raw
  * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
  * @returns any
  */
@@ -302,6 +327,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
  * @ex
  const readStream = vsc.getReadStream(path)
@@ -317,6 +343,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
+ * @vscType System
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
@@ -337,6 +364,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
  const readStream = vsc.getReadStream(path)
@@ -352,6 +380,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#relatrivePath
  * @param fromPath
  * @param toPath
+ * @vscType Raw
  * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
  * @testPrinterArgument
  { 
@@ -373,6 +402,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
@@ -384,6 +414,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
+ * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
  * @testPrinterArgument
@@ -404,6 +435,7 @@ const modulePath = moduleFileInParentFolder[0];
  /**
  * return ISO timestamp
  * @see http://vsc-base.org/#getTimeStamp
+ * @vscType Raw
  * @oneLineEx const timestamp = vsc.getTimeStamp()
  * @returns string
  */
@@ -413,6 +445,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Return the default module map of vsc-base (Used for ts compiling, module load ect)
  * @see http://vsc-base.org/#getVscDefaultModuleMap
  * @internal this method is primary used by vsc.loadTsModule
+ * @vscType System
  * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
  * @returns \{ [key: string]: \{ name: string, module: any \} \}
  */
@@ -423,6 +456,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
+ * @vscType Raw
  * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
  * @returns boolean
  */
@@ -432,6 +466,7 @@ const modulePath = moduleFileInParentFolder[0];
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
+ * @vscType System
  * @oneLineEx const isDir = vsc.isDir(path)
  * @see http://vsc-base.org/#isDir
  * @returns boolean
@@ -444,6 +479,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param path
  * @param parentPath
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const isSubPath = vsc.isSubPath(path)
  * @returns boolean
  */
@@ -455,6 +491,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param path1
  * @param path2
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
  * @returns string
  */
@@ -471,6 +508,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
+ * @vscType System
  * @oneLineEx const module = await vsc.loadTsModule(path)
  * @ex
 let _module
@@ -502,6 +540,7 @@ try {
  * @param path
  * @param compilerOptions 
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
+ * @vscType System
  * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
  * @returns Promise<string>
  */
@@ -512,6 +551,7 @@ try {
  * @see http://vsc-base.org/#makeDir
  * @param path
  * @param newPathstring
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
  * @returns Promise<void>
@@ -523,6 +563,7 @@ try {
  * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
+ * @vscType System
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
@@ -530,9 +571,10 @@ try {
    export undefined
 ,
  /**
- * Reaplve all '\\'  with '/'
+ * Reaplve all '\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.joinPaths(path1, path2)
  * @returns string
  */
@@ -543,6 +585,7 @@ try {
  * @see http://vsc-base.org/#pick
  * @param path string[]
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex 
  const list = \['yes', 'no']
@@ -561,6 +604,7 @@ try {
  * const fs = require("fs-extra");
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
+ * @vscType System
  * @oneLineEx sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs 
  * @returns string
@@ -572,6 +616,7 @@ try {
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -581,6 +626,7 @@ try {
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
  * @returns Promise<void>
  */
@@ -591,6 +637,7 @@ try {
  * @see http://vsc-base.org/#saveFileContent
  * @param path
  * @param content
+ * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
@@ -604,6 +651,7 @@ try {
  * @param userInputs An object with user inputs {[key: string]: string}
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
+ * @vscType System
  * @oneLineEx await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
@@ -616,6 +664,7 @@ try {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
  * @returns Promise<boolean>
  */
@@ -626,6 +675,7 @@ try {
  * @see http://vsc-base.org/#sharedPath
  * @param path1
  * @param path2
+ * @vscType Raw
  * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
  * @returns string
  */
@@ -636,6 +686,7 @@ try {
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
@@ -646,6 +697,7 @@ try {
  * @see http://vsc-base.org/#showMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showMessage(message)
  * @returns Promise<void>
  */
@@ -656,6 +708,7 @@ try {
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
+ * @vscType Raw
  * @async
  * @returns Promise<void>
  */
@@ -666,6 +719,7 @@ try {
  * @see http://vsc-base.org/#splitPath
  * @param path
  * @dependencyInternal pathAsUnix
+ * @vscType Raw
  * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
  * @returns [string, string]
  */
@@ -678,6 +732,7 @@ try {
  * @param parentPath
  * @param trimDashes default true
  * @dependencyInternal trimDashes
+ * @vscType Raw
  * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
  * @returns string
  */
@@ -687,9 +742,10 @@ try {
  * Format a string to camal-case. Commonly used to define js/ts variable names.
  * (Some-Name => someName, some_name => someName, some.name => someName )
  * All non word seperators will be removed and the word charector after will be transforms to upper case
- * @see http://vsc-base.org/#toCamelcase
+ * @see http://vsc-base.org/#toCamelCase
  * @param str
- * @oneLineEx const name = vsc.toCamelcase(kebabName)
+ * @vscType Raw
+ * @oneLineEx const name = vsc.toCamelCase(kebabName)
  * @returns string
  */
    export undefined
@@ -699,6 +755,7 @@ try {
  * @see http://vsc-base.org/#transpileTs
  * @param sourceTs 
  * @param compilerOptions 
+ * @vscType System
  * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
  * @returns string
  */
@@ -708,6 +765,7 @@ try {
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.trimDashes(foundPath)
  * @returns string
  */
@@ -717,6 +775,7 @@ try {
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
  * @returns string
  */
@@ -726,6 +785,7 @@ try {
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
  * return undefined if a method didnt exist.
  * @see http://vsc-base.org/#varifyModuleMethods
+ * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
 const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])

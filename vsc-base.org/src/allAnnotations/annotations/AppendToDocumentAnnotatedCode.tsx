@@ -25,6 +25,7 @@ const AppendToDocumentAnnotatedCode = () => {
  * @param document
  * @param content
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
@@ -32,7 +33,7 @@ export const appendToDocument = async (
    editor: vscode.TextEditor,
    document: vscode.TextDocument,
    content: string
-): Promise<void> => {
+): Promise<void> => \{
    const startPosition = new vscode.Position(document.lineCount, 0)
    const endPosition = new vscode.Position(document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)

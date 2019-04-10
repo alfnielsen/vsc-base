@@ -23,10 +23,11 @@ const SplitPathAnnotatedCode = () => {
  * @see http://vsc-base.org/#splitPath
  * @param path
  * @dependencyInternal pathAsUnix
+ * @vscType Raw
  * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
  * @returns [string, string]
  */
-export const splitPath = (path: string): [string, string] => {
+export const splitPath = (path: string): [string, string] => \{
    path = vsc.pathAsUnix(path)
    const splits = path.split('/')
    const name = splits.pop() || ''

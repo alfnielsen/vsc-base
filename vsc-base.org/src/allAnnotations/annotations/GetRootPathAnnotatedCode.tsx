@@ -24,13 +24,14 @@ const GetRootPathAnnotatedCode = () => {
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
-export const getRootPath = (path: string): string | undefined => {
+export const getRootPath = (path: string): string | undefined => \{
    const uri = vscode.Uri.file(path)
    const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri)
-   if (!workspaceFolder) {
+   if (!workspaceFolder) \{
       return undefined
    }
    let rootPath = workspaceFolder.uri.fsPath

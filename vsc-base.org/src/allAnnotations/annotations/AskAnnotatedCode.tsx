@@ -24,6 +24,7 @@ const AskAnnotatedCode = () => {
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.ask(question, defaultValue)
  * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
@@ -32,7 +33,7 @@ export const ask = async (
    question: string,
    defaultValue: string
 ): Promise<string | undefined> =>
-   await vscode.window.showInputBox({
+   await vscode.window.showInputBox(\{
       prompt: question,
       value: defaultValue
    })

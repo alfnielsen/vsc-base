@@ -23,11 +23,12 @@ const CopyAnnotatedCode = () => {
  * @see http://vsc-base.org/#copy
  * @param path
  * @param newPathstring
+ * @vscType System
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export const copy = async (path: string, newPath: string): Promise<void> => {
+export const copy = async (path: string, newPath: string): Promise<void> => \{
    await fs.copy(path, newPath)
 }
 

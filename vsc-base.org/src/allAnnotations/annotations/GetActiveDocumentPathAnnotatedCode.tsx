@@ -23,9 +23,10 @@ const GetActiveDocumentPathAnnotatedCode = () => {
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
  * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @vscType Vscode
  * @returns string | undefined
  */
-export const getActiveDocumentPath = (): string | undefined => {
+export const getActiveDocumentPath = (): string | undefined => \{
    const document = vsc.getActiveDocument()
    return (document && document.fileName) || undefined
 }

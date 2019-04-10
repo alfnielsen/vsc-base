@@ -22,11 +22,12 @@ const TrimDashesAnnotatedCode = () => {
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
+ * @vscType Raw
  * @oneLineEx const path = vsc.trimDashes(foundPath)
  * @returns string
  */
-export const trimDashes = (path: string): string => {
-   return path.replace(/(^\/|\/$)/g, '')
+export const trimDashes = (path: string): string => \{
+   return path.replace(/(^\\/|\\/\$)/g, '')
 }
 `}
       />

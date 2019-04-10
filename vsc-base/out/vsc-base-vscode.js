@@ -16,6 +16,7 @@ const vsc = require("./vsc-base");
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.ask(question, defaultValue)
  * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
@@ -31,6 +32,7 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
  * @see http://vsc-base.org/#pick
  * @param path string[]
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex
  const list = \['yes', 'no']
@@ -46,6 +48,7 @@ exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { re
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePaths(includePattern)
  * @ex
 const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
@@ -68,6 +71,7 @@ exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_mo
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
  * @ex
 const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
@@ -93,6 +97,7 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
  * @param maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
@@ -120,6 +125,7 @@ exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
@@ -130,6 +136,7 @@ exports.getActiveEditor = () => {
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
@@ -143,6 +150,7 @@ exports.getActiveDocument = () => {
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
  * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @vscType Vscode
  * @returns string | undefined
  */
 exports.getActiveDocumentPath = () => {
@@ -153,6 +161,7 @@ exports.getActiveDocumentPath = () => {
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const content = vsc.getActiveDocumentContent()
  * @returns string | undefined
  */
@@ -167,6 +176,7 @@ exports.getActiveDocumentContent = () => {
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
  * @returns Promise<boolean>
  */
@@ -186,6 +196,7 @@ exports.setActiveDocumentContent = (content) => __awaiter(this, void 0, void 0, 
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
@@ -202,6 +213,7 @@ exports.getFullDocumentRange = (document) => {
  * @param document
  * @param content
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
@@ -219,6 +231,7 @@ exports.appendToDocument = (editor, document, content) => __awaiter(this, void 0
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -236,6 +249,7 @@ exports.appendToActiveDocument = (content) => __awaiter(this, void 0, void 0, fu
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
  * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -247,6 +261,7 @@ exports.appendLineToActiveDocument = (content) => __awaiter(this, void 0, void 0
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
+ * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
@@ -266,6 +281,7 @@ exports.saveActiveDocument = () => __awaiter(this, void 0, void 0, function* () 
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
+ * @vscType Vscode
  * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
@@ -283,6 +299,7 @@ exports.getRootPath = (path) => {
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
  * @returns Promise<void>
  */
@@ -294,6 +311,7 @@ exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
@@ -305,6 +323,7 @@ exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function
  * @see http://vsc-base.org/#showMessage
  * @param message
  * @dependencyExternal vscode
+ * @vscType Vscode
  * @oneLineEx vsc.showMessage(message)
  * @returns Promise<void>
  */

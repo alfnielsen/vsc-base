@@ -25,22 +25,22 @@ const LoadTsModuleAnnotatedCode = () => {
          
          codeOneLineEx={`const module = await vsc.loadTsModule(path)`}
          codeEx={`let _module
-try {
+try \{
    _module = await vsc.loadTsModule(path)
-} catch (e){
-   vsc.showErrorMessage(\`Loadeding module coused an error: \${e}\`)
+} catch (e)\{
+   vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
    return
 }
 const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
-if (!varifiedModule) {
-   vsc.showErrorMessage(\`Module didnt have 'run' :: \${JSON.stringify(_module)}\`)
+if (!varifiedModule) \{
+   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(_module)}\`)
    return
 }
-try {
+try \{
    const result = varifiedModule.run()
    await vsc.awaitResult(result)
-   vsc.showMessage(\`Loaded Run resulted with value: \${result}\`)
-} catch (e) {
+   vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
+} catch (e) \{
    vsc.showErrorMessage('Error: ' + e)
 }`}
          code={`/**
@@ -54,69 +54,70 @@ try {
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
+ * @vscType System
  * @oneLineEx const module = await vsc.loadTsModule(path)
  * @ex
 let _module
-try {
+try \{
    _module = await vsc.loadTsModule(path)
-} catch (e){
-   vsc.showErrorMessage(\`Loadeding module coused an error: \${e}\`)
+} catch (e)\{
+   vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
    return
 }
 const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
-if (!varifiedModule) {
-   vsc.showErrorMessage(\`Module didnt have 'run' :: \${JSON.stringify(_module)}\`)
+if (!varifiedModule) \{
+   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(_module)}\`)
    return
 }
-try {
+try \{
    const result = varifiedModule.run()
    await vsc.awaitResult(result)
-   vsc.showMessage(\`Loaded Run resulted with value: \${result}\`)
-} catch (e) {
+   vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
+} catch (e) \{
    vsc.showErrorMessage('Error: ' + e)
 }
- * @returns Promise<{ [key: string]: unknown; }>
+ * @returns Promise<\{ [key: string]: unknown; }>
  */
 export const loadTsModule = async (
    path: string,
-   compilerOptions: ts.CompilerOptions = {
+   compilerOptions: ts.CompilerOptions = \{
       module: ts.ModuleKind.CommonJS,
       target: ts.ScriptTarget.ES2015,
       libs: ['es6']
    },
-): Promise<{ [key: string]: unknown }> => {
+): Promise<\{ [key: string]: unknown }> => \{
    const sourceJs = await vsc.loadTsModuleSourceCode(path, compilerOptions)
-   let _exports: { [key: string]: unknown } = {}
-   try {
+   let _exports: \{ [key: string]: unknown } = \{}
+   try \{
       _exports = loadTsModule_Eval(sourceJs)
-   } catch (e) {
-      if (e instanceof LoadTsModuleError) {
+   } catch (e) \{
+      if (e instanceof LoadTsModuleError) \{
          throw e
-      } else {
+      } else \{
          throw new LoadTsModuleError(e, sourceJs)
       }
    }
    return _exports
 }
-export class LoadTsModuleError extends Error {
+export class LoadTsModuleError extends Error \{
    constructor(
       message: string,
       public transpiledCode: string
-   ) {
+   ) \{
       super(message)
    }
 }
 
 const loadTsModule_Eval = async (
    sourceJs: string
-): Promise<{ [key: string]: unknown }> => {
+): Promise<\{ [key: string]: unknown }> => \{
    //Wrap code in enclosed function. Add vsc as only dependency.
-   const wrapExports = \`_exports = (function(){var exports = {};\n\${sourceJs}\nreturn exports})()\`
+   const wrapExports = \`_exports = (function()\{var exports = \{};\\n\$\{sourceJs}\\nreturn exports})()\`
 
-   let _exports: { [key: string]: unknown } = {}
-   try {
+   let _exports: \{ [key: string]: unknown } = \{}
+   try \{
       eval(wrapExports)
-   } catch (e) {
+   } catch (e) \{
       throw new LoadTsModuleError(e, wrapExports)
    }
    return _exports

@@ -6,7 +6,6 @@ import AppendToActiveDocumentAnnotatedCode from './annotations/AppendToActiveDoc
 import AppendToDocumentAnnotatedCode from './annotations/AppendToDocumentAnnotatedCode'
 import AskAnnotatedCode from './annotations/AskAnnotatedCode'
 import AwaitResultAnnotatedCode from './annotations/AwaitResultAnnotatedCode'
-import CamalcaseToKebabcaseAnnotatedCode from './annotations/CamalcaseToKebabcaseAnnotatedCode'
 import CleanPathAnnotatedCode from './annotations/CleanPathAnnotatedCode'
 import CopyAnnotatedCode from './annotations/CopyAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
@@ -32,7 +31,7 @@ import GetReadStreamAnnotatedCode from './annotations/GetReadStreamAnnotatedCode
 import GetRelativePathAnnotatedCode from './annotations/GetRelativePathAnnotatedCode'
 import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
 import GetSubrelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubrelativePathFromAbsoluteRootPathAnnotatedCode'
-import GetTimeStampAnnotatedCode from './annotations/GetTimeStampAnnotatedCode'
+import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
 import GetVscDefaultModuleMapAnnotatedCode from './annotations/GetVscDefaultModuleMapAnnotatedCode'
 import IsAbsolutePathAnnotatedCode from './annotations/IsAbsolutePathAnnotatedCode'
 import IsDirAnnotatedCode from './annotations/IsDirAnnotatedCode'
@@ -56,7 +55,10 @@ import ShowMessageAnnotatedCode from './annotations/ShowMessageAnnotatedCode'
 import SleepAnnotatedCode from './annotations/SleepAnnotatedCode'
 import SplitPathAnnotatedCode from './annotations/SplitPathAnnotatedCode'
 import SubtractPathAnnotatedCode from './annotations/SubtractPathAnnotatedCode'
-import ToCamelcaseAnnotatedCode from './annotations/ToCamelcaseAnnotatedCode'
+import ToCamelCaseAnnotatedCode from './annotations/ToCamelCaseAnnotatedCode'
+import ToKebabCaseAnnotatedCode from './annotations/ToKebabCaseAnnotatedCode'
+import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
+import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
 import TranspileTsAnnotatedCode from './annotations/TranspileTsAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
@@ -70,7 +72,6 @@ const AllAnnotations = () =>
       <AppendToDocumentAnnotatedCode />
       <AskAnnotatedCode />
       <AwaitResultAnnotatedCode />
-      <CamalcaseToKebabcaseAnnotatedCode />
       <CleanPathAnnotatedCode />
       <CopyAnnotatedCode />
       <DoesExistsAnnotatedCode />
@@ -96,7 +97,7 @@ const AllAnnotations = () =>
       <GetRelativePathAnnotatedCode />
       <GetRootPathAnnotatedCode />
       <GetSubrelativePathFromAbsoluteRootPathAnnotatedCode />
-      <GetTimeStampAnnotatedCode />
+      <GetTimestampAnnotatedCode />
       <GetVscDefaultModuleMapAnnotatedCode />
       <IsAbsolutePathAnnotatedCode />
       <IsDirAnnotatedCode />
@@ -120,7 +121,10 @@ const AllAnnotations = () =>
       <SleepAnnotatedCode />
       <SplitPathAnnotatedCode />
       <SubtractPathAnnotatedCode />
-      <ToCamelcaseAnnotatedCode />
+      <ToCamelCaseAnnotatedCode />
+      <ToKebabCaseAnnotatedCode />
+      <ToPascalCaseAnnotatedCode />
+      <ToSnakeCaseAnnotatedCode />
       <TranspileTsAnnotatedCode />
       <TrimDashesAnnotatedCode />
       <TrimLeadingDashAnnotatedCode />

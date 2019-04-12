@@ -1,93 +1,125 @@
 import * as vsc from 'vsc-base'
 import * as ts from 'typescript'
 
-type vscTsTransformer = (node: ts.Node, typeChecker: ts.TypeChecker, program: ts.Program) => [boolean, ts.Node | undefined];
+type vscTsTransformer = (node: ts.Node, typeChecker: ts.TypeChecker, program: ts.Program) => [true, ts.Node | undefined] | undefined;
 
 let log = '';
 
 export async function run(_path: string) {
 	vsc.showMessage('Start transformer test')
-	// source file content
+	// Source file content
 	const testSource = `	const f = (num: number) => {
 		return [num, 'string']
 	}
 `
-	// compilerOptions
-	const compilerOptions = {
-		module: ts.ModuleKind.CommonJS,
-		target: ts.ScriptTarget.ES2015,
-		libs: ['es6']
-	}
-	// create a ts.SourceFile from content
+	const [sourceFile, program] = createTsProgramFromContent(testSource);
+	// Create transformer (ArrowMehtod Single Return statement transform to lambda)
+	const sourceFileTransformer = transformerArrowFunctionFactory(program)
+	// Do tranforming
+	// const transformResult = tsTransform(sourceFile, [sourceFileTransformer])
+	// // Get tranfor result
+	// const updatedSourceFile = transformResult.transformed[0]
+
+	const printed = tsTransform(testSource, [sourceFileTransformer]);
+	// Create printer
+	const printer: ts.Printer = ts.createPrinter();
+	// Print
+	// const printed = printer.printFile(updatedSourceFile)
+	// Dispose of transformer
+	// transformResult.dispose()
+
+	// Add result to log
+	log += `
+	/* Original:
+	${testSource}
+	*/
+	/* Trandformed:
+	${printed}
+	*/
+		`
+	// Add log to end of open document
+	vsc.appendLineToActiveDocument('// ' + log + '\n\n');
+}
+
+/**
+ * 
+ * @param sourceFile 
+ * @param transformers 
+ * @param compilerOptions 
+ */
+const tsTransform = (
+	source: string,
+	transformers: ts.TransformerFactory<ts.SourceFile>[],
+	compilerOptions: ts.CompilerOptions = VscDefaultTsCompilerOptions,
+	printer: ts.Printer = ts.createPrinter()
+): string => {
+	const sourceFile = createTsSourceFile(source)
+	const result = tsTransformBase<ts.SourceFile>(sourceFile, transformers, compilerOptions)
+	const transformedSourceFile = result.transformed[0];
+	const print = printer.printFile(transformedSourceFile)
+	result.dispose()
+	return print
+}
+
+/**
+ * 
+ * @param sourceFile 
+ * @param transformers 
+ * @param compilerOptions 
+ */
+const tsTransformBase = <T extends ts.Node = ts.SourceFile>(
+	sourceFile: T,
+	transformers: ts.TransformerFactory<T>[],
+	compilerOptions: ts.CompilerOptions = VscDefaultTsCompilerOptions
+) => {
+	return ts.transform<T>(sourceFile, transformers, compilerOptions)
+}
+
+/**
+ * 
+ */
+const VscDefaultTsCompilerOptions: Readonly<ts.CompilerOptions> = ({
+	module: ts.ModuleKind.CommonJS,
+	target: ts.ScriptTarget.ES2015,
+	libs: ['es6']
+})
+
+/**
+ * 
+ * @param content 
+ * @param sourceFileName 
+ */
+const createTsSourceFile = (
+	content: string,
+	sourceFileName = `sourcefile_${(new Date().getTime())}`
+): ts.SourceFile => {
 	let sourceFile = ts.createSourceFile(
-		'Name1',
-		testSource,
+		sourceFileName,
+		content,
 		ts.ScriptTarget.ES2015,
 		/*setParentNodes */ true
 	);
-	// create a ts.Program from sourcefile
-	const program = ts.createProgram(['Name1'], compilerOptions);
-	// Create program typechecker
-	const typeChecker = program.getTypeChecker()
-	// create transformer
-	const sourceFileTransformer = transformerArrowFunctionFactory(program)
-
-
-	//const checker = ts.getTypeChecker()
-	const printer: ts.Printer = ts.createPrinter();
-	const printerJS: ts.Printer = ts.createPrinter()
-
-	//const dummyContext = getTransformationContext(compilerOptions);
-	//const dummyTransformer = sourceFileTransformer(dummyContext);
-	// const updatedSourceFile = dummyTransformer(sourceFile)
-
-	const errors = [];
-	const transformResult = ts.transform(sourceFile, [sourceFileTransformer], compilerOptions)
-
-	const updatedSourceFile = transformResult.transformed[0]
-
-	const printed = printer.printFile(updatedSourceFile)
-
-
-	transformResult.dispose()
-
-	//const json = JSON.stringify(updatedSourceFile, null, 2)
-
-	log += `
-	/* Compiled ts (Including transformer)
-	
-	${updatedSourceFile.getText()}
-	
-	*/
-		`
-	log += `
-	/* printed::
-	
-	${printed}
-	
-	*/
-		`
-
-
-	// const customTransformers: ts.CustomTransformers = {
-	// 	before: [sourceFileTransformer]
-	// }
-	// const customTransformersNormal: ts.CustomTransformers = {
-	// 	before: []
-	// }
-
-
-	// const tst = ts.transpileModule(testSource, {
-	// 	compilerOptions,
-	// 	transformers: customTransformers
-	// })
-	// const tstNormal = ts.transpileModule(testSource, {
-	// 	compilerOptions,
-	// 	transformers: customTransformersNormal
-	// })
-
-
-	vsc.appendLineToActiveDocument('// ' + log + '\n\n');
+	return sourceFile;
+}
+/**
+ * 
+ * @param content 
+ * @param compilerOptions 
+ * @param sourceFileName 
+ */
+const createTsProgramFromContent = (
+	content: string,
+	compilerOptions: ts.CompilerOptions = VscDefaultTsCompilerOptions,
+	sourceFileName = `sourcefile_${(new Date().getTime())}`
+): [ts.SourceFile, ts.Program] => {
+	let sourceFile = ts.createSourceFile(
+		sourceFileName,
+		content,
+		ts.ScriptTarget.ES2015,
+		/*setParentNodes */ true
+	);
+	const program = ts.createProgram([sourceFileName], compilerOptions);
+	return [sourceFile, program]
 }
 
 /**
@@ -100,36 +132,29 @@ export async function run(_path: string) {
  * @ex 
  * @returns (callback: (node: ts.Node) => [boolean | undefined, ts.Node | undefined]) => <T extends ts.Node>() => ts.TransformerFactory<T>
  */
-const createTransformerFactory = <T extends ts.Node>(program: ts.Program, callback: vscTsTransformer): ts.TransformerFactory<T> => {
+const createTsTransformerFactory = <T extends ts.Node>(program: ts.Program, callback: vscTsTransformer): ts.TransformerFactory<T> => {
 	const typeChecker = program.getTypeChecker()
-	// function TsTransformer<T extends ts.Node>(): ts.TransformerFactory<T> {
-	// 	return (context) => {
-	// 		const visit: ts.Visitor = (node) => {
-	// 			log += `\n //####### ${JSON.stringify(node.getText())} \n//`
-	// 			const [replaceNode, tranformerResult] = callback(node, typeChecker, program);
-	// 			if (replaceNode) {
-	// 				return tranformerResult;
-	// 			}
-	// 			return ts.visitEachChild(node, (child) => visit(child), context);
-	// 		}
-	// 		return (node) => ts.visitNode(node, visit);
-	// 	};
-	// }
-	//return TsTransformer();
 	return (context) => {
 		const visit: ts.Visitor = (node) => {
-			log += `\n //####### ${JSON.stringify(node.getText())} \n//`
-			const [replaceNode, tranformerResult] = callback(node, typeChecker, program);
+			// log += `\n //####### ${JSON.stringify(node.getText())} \n//`
+			const result = callback(node, typeChecker, program);
+			if (result === undefined) {
+				return ts.visitEachChild(node, (child) => visit(child), context);
+			}
+			const [replaceNode, tranformerResult] = result;
 			if (replaceNode) {
 				return tranformerResult;
 			}
-			return ts.visitEachChild(node, (child) => visit(child), context);
 		}
 		return (node) => ts.visitNode(node, visit);
 	};
 }
-//const createTransformerFactory = (program: ts.Program, callback: vscTsTransformer) => createTransformerFactoryBase(program, callback);
 
+/**
+ * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes.
+ * So to get node count and 
+ * @param node $$
+ */
 const parsedNodeChildrenCount = (node: ts.Node): [number, ts.Node] => {
 	let count = 0;
 	let lastChild: ts.Node
@@ -144,36 +169,44 @@ const parsedNodeChildrenCount = (node: ts.Node): [number, ts.Node] => {
 // If it is we rewrite it to a lambda fundion: () =>  1
 
 const raw: vscTsTransformer = (node, typeChecker, program) => {
-	if (!node) { // is not an arrow funcion
-		return [false, undefined]
-	}
 	if (!ts.isArrowFunction(node)) { // is not an arrow funcion
-		return [false, undefined]
+		return
 	}
-	log += ` - isArrow`
+	// log += ` - isArrow`
+	//const children = node.body.getChildren();
+	// children.forEach(c => {
+	// 	log += `//c: ${c.getText()} \n`
+	// })
 	const [count, child] = parsedNodeChildrenCount(node.body)
-	log += ` childCount: '${count}' `
+	// log += ` childCount: '${count}' `
 	if (count !== 1) { // dont have one statement
-		return [false, undefined]
+		return
 	}
-	log += ` childType: '${ts.SyntaxKind[child.kind]}' `
+	// log += ` childType: '${ts.SyntaxKind[child.kind]}' `
 
 	if (!ts.isReturnStatement(child)) { // statement is not a return statement
-		return [false, undefined]
+		return
 	}
-	log += ` - Chils is Return statement`
+	// log += ` - Chils is Return statement`
 	const returnNode = child
 	const returnExpression = returnNode.expression
+
+	// const symbol = typeChecker.getSymbolAtLocation(returnNode);
+	// if (symbol) {
+	// 	const type = typeChecker.getDeclaredTypeOfSymbol(symbol);
+	// 	const properties = typeChecker.getPropertiesOfType(type);
+	// 	log += ' - type-properties: ' + properties.map(declaration => declaration.name).join(',');
+	// }
 	if (returnExpression === undefined) { // return statement is undefined
-		return [false, undefined]
+		return
 	}
-	log += ` - All good!!!`
+	// log += ` - All good!!!`
 	//return arrow function body with the return statement's expression
 	node.body = returnExpression
 	return [true, node]
 }
 
-const transformerArrowFunctionFactory = (program: ts.Program) => createTransformerFactory<ts.SourceFile>(program, raw);
+const transformerArrowFunctionFactory = (program: ts.Program) => createTsTransformerFactory<ts.SourceFile>(program, raw);
 
 // /**
 //  * Create a dummy context!
@@ -200,4 +233,22 @@ const transformerArrowFunctionFactory = (program: ts.Program) => createTransform
 // 	};
 // 	return context
 // }
+
+
+
+
+// 
+/* Original:
+
+const f = (num: number) => {
+	return [num, 'string']
+}
+
+*/
+/* Trandformed:
+
+const f = (num: number) => [num, 'string'];
+
+*/
+
 

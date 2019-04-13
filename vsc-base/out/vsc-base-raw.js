@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const vsc = require("./vsc-base");
 /**
+ * @description
  * Transform an absolute path from root, to a sub-relative path.
  * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
  * @param path
@@ -41,6 +42,7 @@ exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
     return absolutePathFromSourceDir;
 };
 /**
+ * @description
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
@@ -52,8 +54,10 @@ exports.addLeadingLocalDash = (path) => {
     return './' + path;
 };
 /**
- * Format a string from camel-case to kebab-case
- * Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+ * @description
+ * Format a string from camel-case to kebab-case \
+ * Commonly used to define css class names. \
+ * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
  * @see http://vsc-base.org/#toKebabCase
  * @param str
  * @vscType Raw
@@ -73,7 +77,8 @@ exports.toKebabCase = (str) => str[0].toLowerCase() +
         .replace(/([A-Z])/g, (_match, chr) => `-${chr.toLowerCase()}`)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => `-${chr.toLowerCase()}`);
 /**
- * Format a string from camel-case to snake-case
+ * @description
+ * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
  * @see http://vsc-base.org/#toSnakeCase
  * @param str
@@ -101,7 +106,9 @@ exports.toSnakeCase = (str, upperCase = false) => {
     return str;
 };
 /**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * @description
+ * Format a string to camal-case. \
+ * Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case.
  * @see http://vsc-base.org/#toCamelCase
@@ -122,7 +129,8 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
     str.substr(1)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
 /**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * @description
+ * Format a string to camal-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case
  * @see http://vsc-base.org/#toPascalCase
@@ -142,7 +150,8 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
 exports.toPascalCase = (str) => str[0].toUpperCase() +
     str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
 /**
- * Get clean path.
+ * @description
+ * Get clean path. \
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
  * @see http://vsc-base.org/#cleanPath
  * @param path
@@ -167,6 +176,7 @@ exports.cleanPath = (path) => {
     return path;
 };
 /**
+ * @description
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
  * @param json
@@ -188,7 +198,9 @@ exports.getJsonParts = (json, keyPath) => {
     return current;
 };
 /**
- * Does path start with charactor [a-zA-Z@] (not '/' or './' or '../')
+ * @description
+ * Does path start with charactor [a-zA-Z@] \
+ * (not '/' or './' or '../')
  * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
@@ -200,6 +212,7 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
     return startWithRegExp.test(path);
 };
 /**
+ * @description
  * Does subpath start with parentPath
  * @see http://vsc-base.org/#isSubPath
  * @param path
@@ -215,6 +228,7 @@ exports.isSubPath = (subPath, parentPath) => {
     return result;
 };
 /**
+ * @description
  * Joins to paths.
  * @see http://vsc-base.org/#joinPaths
  * @param path1
@@ -231,7 +245,9 @@ exports.joinPaths = (path1, path2) => {
     return result;
 };
 /**
- * Reaplve all '\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+ * @description
+ * Reaplve all '\\'  with '/' \
+ * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
  * @vscType Raw
@@ -242,6 +258,7 @@ exports.pathAsUnix = (path) => {
     return path.replace(/\\/g, '/');
 };
 /**
+ * @description
  * Generate relative path between two paths.
  * @see http://vsc-base.org/#relatrivePath
  * @param fromPath
@@ -274,6 +291,7 @@ exports.getRelativePath = (fromPath, toPath) => {
     return relativePath;
 };
 /**
+ * @description
  * Transform a relative path to an abspolute path.
  * @see http://vsc-base.org/#relatrivePathToAbsolutePath
  * @param path File from where the relative path begins
@@ -298,7 +316,9 @@ exports.getAbsolutePathFromRelatrivePath = (path, pathRelatriveToPath, rootPath)
     return absolutePathToRelative;
 };
 /**
- * Return the path that are shared. (Return '' if no path are shared).
+ * @description
+ * Return the path that are shared. \
+ * (Return '' if no path are shared).
  * @see http://vsc-base.org/#sharedPath
  * @param path1
  * @param path2
@@ -320,7 +340,9 @@ exports.sharedPath = (path1, path2) => {
     return sharedPath;
 };
 /**
- * await wrap for setTimeout. Mostly used for debug asyc.
+ * @description
+ * await wrap for setTimeout. \
+ * Mostly used for debug asyc.
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
@@ -332,6 +354,7 @@ exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
     return new Promise(resolve => setTimeout(resolve, ms));
 });
 /**
+ * @description
  * Split filePath into dir and file
  * @see http://vsc-base.org/#splitPath
  * @param path
@@ -348,6 +371,7 @@ exports.splitPath = (path) => {
     return [dir, name];
 };
 /**
+ * @description
  * Remove parent-path from a path
  * @see http://vsc-base.org/#subtractPath
  * @param path
@@ -367,6 +391,7 @@ exports.subtractPath = (path, parentPath, _trimDashes = true) => {
     return newPath;
 };
 /**
+ * @description
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
@@ -378,6 +403,7 @@ exports.trimDashes = (path) => {
     return path.replace(/(^\/|\/$)/g, '');
 };
 /**
+ * @description
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
  * @param path
@@ -389,7 +415,9 @@ exports.trimLeadingDash = (path) => {
     return path.replace(/^\//, '');
 };
 /**
- * Test if it an error. Return type (if one of es6 basic error type) return stack
+ * @description
+ * Test if it an error. \
+ * Return type (if one of es6 basic error type) return stack
  * @see http://vsc-base.org/#getErrorInfo
  * @param e error
  * @vscType Raw
@@ -427,10 +455,11 @@ exports.getErrorInfo = (e) => {
     return info;
 };
 /**
+ * @description
  * return ISO timestamp
- * @see http://vsc-base.org/#getTimeStamp
+ * @see http://vsc-base.org/#getTimestamp
  * @vscType Raw
- * @oneLineEx const timestamp = vsc.getTimeStamp()
+ * @oneLineEx const timestamp = vsc.getTimestamp()
  * @returns string
  */
 exports.getTimestamp = () => {

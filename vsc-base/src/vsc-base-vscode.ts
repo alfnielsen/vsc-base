@@ -31,7 +31,7 @@ export const ask = async (
  * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex 
- const list = \['yes', 'no']
+ const list = ['yes', 'no']
  const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */

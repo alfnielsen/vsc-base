@@ -22,7 +22,7 @@ const AwaitResultAnnotatedCode = () => {
          
          codeOneLineEx={`await vsc.awaitResult(result)`}
          codeEx={`
- const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
+ const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
  const result = varifiedModule.run()
  await vsc.awaitResult(result)`}
          code={`/**
@@ -33,7 +33,7 @@ const AwaitResultAnnotatedCode = () => {
  * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
- const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
+ const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
  const result = varifiedModule.run()
  await vsc.awaitResult(result)
  * @returns Promise<any>

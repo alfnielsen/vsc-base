@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 /**
+ * @description
  * Prompt user for a question
  * @see http://vsc-base.org/#ask
  * @param question string
@@ -12,6 +13,7 @@ import * as vscode from 'vscode';
  */
 export declare const ask: (question: string, defaultValue: string) => Promise<string | undefined>;
 /**
+ * @description
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
  * @param path string[]
@@ -25,6 +27,7 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
  */
 export declare const pick: (answerList: string[]) => Promise<string | undefined>;
 /**
+ * @description
  * Get a list off all filePaths in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePaths
  * @param include glob
@@ -44,6 +47,7 @@ for (const filePath of allTestFiles){
  */
 export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
 /**
+ * @description
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePathsFromBase
  * @param include glob
@@ -63,6 +67,7 @@ for (const filePath of storyFilesInModule1){
  */
 export declare const findFilePathsFromBase: (basePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
 /**
+ * @description
  * Find files based from a releative to a path
  * @see http://vsc-base.org/#findRelativeFilePaths
  * @param path
@@ -90,6 +95,7 @@ const modulePath = moduleFileInParentFolder[0];
  */
 export declare const findRelativeFilePaths: (path: string, relativePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
 /**
+ * @description
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
@@ -99,6 +105,7 @@ export declare const findRelativeFilePaths: (path: string, relativePath: string,
  */
 export declare const getActiveEditor: () => vscode.TextEditor | undefined;
 /**
+ * @description
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
@@ -108,6 +115,7 @@ export declare const getActiveEditor: () => vscode.TextEditor | undefined;
  */
 export declare const getActiveDocument: () => vscode.TextDocument | undefined;
 /**
+ * @description
  * Get current open file path or undefined if nothing is open.
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
@@ -117,6 +125,7 @@ export declare const getActiveDocument: () => vscode.TextDocument | undefined;
  */
 export declare const getActiveDocumentPath: () => string | undefined;
 /**
+ * @description
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
@@ -126,7 +135,8 @@ export declare const getActiveDocumentPath: () => string | undefined;
  */
 export declare const getActiveDocumentContent: () => string | undefined;
 /**
- * Set current open file's content.
+ * @description
+ * Set current open file's content. \
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
  * @see http://vsc-base.org/#setActiveDocumentContent
  * @param content
@@ -138,6 +148,7 @@ export declare const getActiveDocumentContent: () => string | undefined;
  */
 export declare const setActiveDocumentContent: (content: string) => Promise<boolean>;
 /**
+ * @description
  * Get a vscodeRange for the entire document
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
@@ -148,6 +159,7 @@ export declare const setActiveDocumentContent: (content: string) => Promise<bool
  */
 export declare const getFullDocumentRange: (document: vscode.TextDocument) => vscode.Range;
 /**
+ * @description
  * Append new content in the end of the open document
  * @see http://vsc-base.org/#appendToDocument
  * @param editor
@@ -160,7 +172,8 @@ export declare const getFullDocumentRange: (document: vscode.TextDocument) => vs
  */
 export declare const appendToDocument: (editor: vscode.TextEditor, document: vscode.TextDocument, content: string) => Promise<void>;
 /**
- * Append new content in the end of the open document.
+ * @description
+ * Append new content in the end of the open document. \
  * Return true for succes, and false if there was no active editor or open document
  * @see http://vsc-base.org/#appendToActiveDocument
  * @param content
@@ -172,6 +185,7 @@ export declare const appendToDocument: (editor: vscode.TextEditor, document: vsc
  */
 export declare const appendToActiveDocument: (content: string) => Promise<boolean>;
 /**
+ * @description
  * Append new line content in the end of the open document
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
@@ -182,7 +196,8 @@ export declare const appendToActiveDocument: (content: string) => Promise<boolea
  */
 export declare const appendLineToActiveDocument: (content: string) => Promise<boolean>;
 /**
- * Save active open file.
+ * @description
+ * Save active open file. \
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
@@ -192,6 +207,7 @@ export declare const appendLineToActiveDocument: (content: string) => Promise<bo
  */
 export declare const saveActiveDocument: () => Promise<boolean>;
 /**
+ * @description
  * Get project root for a path or undefined if no project was found.
  * @see http://vsc-base.org/#getRootPath
  * @param path
@@ -203,6 +219,7 @@ export declare const saveActiveDocument: () => Promise<boolean>;
  */
 export declare const getRootPath: (path: string) => string | undefined;
 /**
+ * @description
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
@@ -212,6 +229,7 @@ export declare const getRootPath: (path: string) => string | undefined;
  */
 export declare const saveAll: () => Promise<void>;
 /**
+ * @description
  * Show error message to user
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
@@ -222,6 +240,7 @@ export declare const saveAll: () => Promise<void>;
  */
 export declare const showErrorMessage: (message: string) => Promise<void>;
 /**
+ * @description
  * Show message to user
  * @see http://vsc-base.org/#showMessage
  * @param message

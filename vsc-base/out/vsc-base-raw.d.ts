@@ -1,4 +1,5 @@
 /**
+ * @description
  * Transform an absolute path from root, to a sub-relative path.
  * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
  * @param path
@@ -21,6 +22,7 @@
  */
 export declare const getSubrelativePathFromAbsoluteRootPath: (path: string, absolutePathFromRoot: string, rootPath: string) => string;
 /**
+ * @description
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path
@@ -30,8 +32,10 @@ export declare const getSubrelativePathFromAbsoluteRootPath: (path: string, abso
  */
 export declare const addLeadingLocalDash: (path: string) => string;
 /**
- * Format a string from camel-case to kebab-case
- * Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+ * @description
+ * Format a string from camel-case to kebab-case \
+ * Commonly used to define css class names. \
+ * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
  * @see http://vsc-base.org/#toKebabCase
  * @param str
  * @vscType Raw
@@ -48,7 +52,8 @@ export declare const addLeadingLocalDash: (path: string) => string;
  */
 export declare const toKebabCase: (str: string) => string;
 /**
- * Format a string from camel-case to snake-case
+ * @description
+ * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
  * @see http://vsc-base.org/#toSnakeCase
  * @param str
@@ -67,7 +72,9 @@ export declare const toKebabCase: (str: string) => string;
  */
 export declare const toSnakeCase: (str: string, upperCase?: boolean) => string;
 /**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * @description
+ * Format a string to camal-case. \
+ * Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case.
  * @see http://vsc-base.org/#toCamelCase
@@ -86,7 +93,8 @@ export declare const toSnakeCase: (str: string, upperCase?: boolean) => string;
  */
 export declare const toCamelCase: (str: string) => string;
 /**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * @description
+ * Format a string to camal-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case
  * @see http://vsc-base.org/#toPascalCase
@@ -105,7 +113,8 @@ export declare const toCamelCase: (str: string) => string;
  */
 export declare const toPascalCase: (str: string) => string;
 /**
- * Get clean path.
+ * @description
+ * Get clean path. \
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
  * @see http://vsc-base.org/#cleanPath
  * @param path
@@ -123,6 +132,7 @@ export declare const toPascalCase: (str: string) => string;
  */
 export declare const cleanPath: (path: string) => string;
 /**
+ * @description
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
  * @param json
@@ -135,7 +145,9 @@ export declare const getJsonParts: <TStructure = any>(json: {
     [name: string]: unknown;
 }, keyPath: string) => TStructure | undefined;
 /**
- * Does path start with charactor [a-zA-Z@] (not '/' or './' or '../')
+ * @description
+ * Does path start with charactor [a-zA-Z@] \
+ * (not '/' or './' or '../')
  * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
@@ -145,6 +157,7 @@ export declare const getJsonParts: <TStructure = any>(json: {
  */
 export declare const isAbsolutePath: (path: string, startWithRegExp?: RegExp) => boolean;
 /**
+ * @description
  * Does subpath start with parentPath
  * @see http://vsc-base.org/#isSubPath
  * @param path
@@ -156,6 +169,7 @@ export declare const isAbsolutePath: (path: string, startWithRegExp?: RegExp) =>
  */
 export declare const isSubPath: (subPath: string, parentPath: string) => boolean;
 /**
+ * @description
  * Joins to paths.
  * @see http://vsc-base.org/#joinPaths
  * @param path1
@@ -167,7 +181,9 @@ export declare const isSubPath: (subPath: string, parentPath: string) => boolean
  */
 export declare const joinPaths: (path1: string, path2: string) => string;
 /**
- * Reaplve all '\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+ * @description
+ * Reaplve all '\\'  with '/' \
+ * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
  * @vscType Raw
@@ -176,6 +192,7 @@ export declare const joinPaths: (path1: string, path2: string) => string;
  */
 export declare const pathAsUnix: (path: string) => string;
 /**
+ * @description
  * Generate relative path between two paths.
  * @see http://vsc-base.org/#relatrivePath
  * @param fromPath
@@ -196,6 +213,7 @@ export declare const pathAsUnix: (path: string) => string;
  */
 export declare const getRelativePath: (fromPath: string, toPath: string) => string;
 /**
+ * @description
  * Transform a relative path to an abspolute path.
  * @see http://vsc-base.org/#relatrivePathToAbsolutePath
  * @param path File from where the relative path begins
@@ -209,7 +227,9 @@ export declare const getRelativePath: (fromPath: string, toPath: string) => stri
  */
 export declare const getAbsolutePathFromRelatrivePath: (path: string, pathRelatriveToPath: string, rootPath: string) => string;
 /**
- * Return the path that are shared. (Return '' if no path are shared).
+ * @description
+ * Return the path that are shared. \
+ * (Return '' if no path are shared).
  * @see http://vsc-base.org/#sharedPath
  * @param path1
  * @param path2
@@ -219,7 +239,9 @@ export declare const getAbsolutePathFromRelatrivePath: (path: string, pathRelatr
  */
 export declare const sharedPath: (path1: string, path2: string) => string;
 /**
- * await wrap for setTimeout. Mostly used for debug asyc.
+ * @description
+ * await wrap for setTimeout. \
+ * Mostly used for debug asyc.
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
@@ -229,6 +251,7 @@ export declare const sharedPath: (path1: string, path2: string) => string;
  */
 export declare const sleep: (ms: number) => Promise<void>;
 /**
+ * @description
  * Split filePath into dir and file
  * @see http://vsc-base.org/#splitPath
  * @param path
@@ -239,6 +262,7 @@ export declare const sleep: (ms: number) => Promise<void>;
  */
 export declare const splitPath: (path: string) => [string, string];
 /**
+ * @description
  * Remove parent-path from a path
  * @see http://vsc-base.org/#subtractPath
  * @param path
@@ -251,6 +275,7 @@ export declare const splitPath: (path: string) => [string, string];
  */
 export declare const subtractPath: (path: string, parentPath: string, _trimDashes?: boolean) => string;
 /**
+ * @description
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path
@@ -260,6 +285,7 @@ export declare const subtractPath: (path: string, parentPath: string, _trimDashe
  */
 export declare const trimDashes: (path: string) => string;
 /**
+ * @description
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
  * @param path
@@ -269,7 +295,9 @@ export declare const trimDashes: (path: string) => string;
  */
 export declare const trimLeadingDash: (path: string) => string;
 /**
- * Test if it an error. Return type (if one of es6 basic error type) return stack
+ * @description
+ * Test if it an error. \
+ * Return type (if one of es6 basic error type) return stack
  * @see http://vsc-base.org/#getErrorInfo
  * @param e error
  * @vscType Raw
@@ -283,10 +311,11 @@ export declare const getErrorInfo: (e: any) => {
     message: string;
 };
 /**
+ * @description
  * return ISO timestamp
- * @see http://vsc-base.org/#getTimeStamp
+ * @see http://vsc-base.org/#getTimestamp
  * @vscType Raw
- * @oneLineEx const timestamp = vsc.getTimeStamp()
+ * @oneLineEx const timestamp = vsc.getTimestamp()
  * @returns string
  */
 export declare const getTimestamp: () => string;

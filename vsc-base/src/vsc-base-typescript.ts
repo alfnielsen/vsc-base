@@ -190,7 +190,7 @@ const loadTsModule_Eval = async (
  * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
 const result = varifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
@@ -217,7 +217,7 @@ export const varifyModuleMethods = (
  * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
- const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
+ const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
  const result = varifiedModule.run()
  await vsc.awaitResult(result)
  * @returns Promise<any>
@@ -246,7 +246,7 @@ export const awaitResult = async (result: any): Promise<any> => {
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const updatedCode = vsc.tsTransform(code, \[tranformer1, tranformer2\])
+ * @oneLineEx const updatedCode = vsc.tsTransform(code, [tranformer1, tranformer2])
  */
 export const tsTransform = (
    source: string,

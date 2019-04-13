@@ -22,7 +22,7 @@ const VarifyModuleMethodsAnnotatedCode = () => {
          
          codeOneLineEx={`const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)`}
          codeEx={`
-const varifiedModule = vsc.varifyModuleMethods(_module, \\['run', 'getId'\\])
+const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
 const result = varifiedModule.run()`}
          code={`/**
  * @description 
@@ -32,7 +32,7 @@ const result = varifiedModule.run()`}
  * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
-const varifiedModule = vsc.varifyModuleMethods(_module, \\['run', 'getId'\\])
+const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
 const result = varifiedModule.run()
  * @returns \{ [key: string]: any } | undefined
  */

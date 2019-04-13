@@ -29,9 +29,9 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs-extra");
 const vscode = require("vscode");
-const ts = require("typescript");
 const vsc = require("./vsc-base");
 /**
+ * @description
  * Create a LineReader (generator method) for a ReadStream
  * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
@@ -75,6 +75,7 @@ exports.getLineStreamReader = (readStream) => function () {
     });
 };
 /**
+ * @description
  * Get a file ReadStream
  * @see http://vsc-base.org/#getReadStream
  * @param path
@@ -100,6 +101,7 @@ exports.getReadStream = (path) => {
     return stream;
 };
 /**
+ * @description
  * Does the folder/file exist
  * @see http://vsc-base.org/#doesExists
  * @param path string
@@ -112,7 +114,9 @@ exports.doesExists = (path) => {
     return fs.existsSync(path);
 };
 /**
- * Get dir from path (If path is a dir return it)
+ * @description
+ * Get dir from path \
+ * (If path is a dir return it)
  * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath
@@ -129,6 +133,7 @@ exports.getDir = (path) => {
     return dir;
 };
 /**
+ * @description
  * Get file source
  * @see http://vsc-base.org/#getFileContent
  * @param path
@@ -139,7 +144,9 @@ exports.getDir = (path) => {
  */
 exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, 'utf8'); });
 /**
- * Get file source as json (return null on invalid json)
+ * @description
+ * Get file source as json \
+ * (return null on invalid json)
  * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
@@ -149,6 +156,7 @@ exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () 
  */
 exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 0, function* () { return yield fs.readJson(path, { throws }); });
 /**
+ * @description
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode
@@ -163,6 +171,7 @@ exports.getConfig = (projectName, property, defaultValue) => {
         .get(property, defaultValue);
 };
 /**
+ * @description
  * Find packages file paths in project.
  * @see http://vsc-base.org/#getPackageFilePaths
  * @dependencyInternal findFilePaths
@@ -174,6 +183,7 @@ exports.getPackageFilePaths = () => __awaiter(this, void 0, void 0, function* ()
     return packageFiles;
 });
 /**
+ * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
@@ -204,6 +214,7 @@ exports.getPackageDependencies = () => __awaiter(this, void 0, void 0, function*
     return [dependencies, devDependencies];
 });
 /**
+ * @description
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
@@ -216,6 +227,7 @@ exports.isDir = (path) => {
     return fs.statSync(path).isDirectory();
 };
 /**
+ * @description
  * Make a folder
  * @see http://vsc-base.org/#makeDir
  * @param path
@@ -234,6 +246,7 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
     }
 });
 /**
+ * @description
  * Move file/fodler
  * @see http://vsc-base.org/#move
  * @param path
@@ -247,6 +260,7 @@ exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
     yield fs.move(path, newPath);
 });
 /**
+ * @description
  * Copy file/fodler
  * @see http://vsc-base.org/#copy
  * @param path
@@ -260,6 +274,7 @@ exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
     yield fs.copy(path, newPath);
 });
 /**
+ * @description
  * Save file
  * @see http://vsc-base.org/#saveFileContent
  * @param path
@@ -271,243 +286,5 @@ exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
  */
 exports.saveFileContent = (path, content) => __awaiter(this, void 0, void 0, function* () {
     yield fs.writeFile(path, content);
-});
-/**
- * Transpile ts source to js
- * @see http://vsc-base.org/#transpileTs
- * @param sourceTs
- * @param compilerOptions
- * @vscType System
- * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
- * @returns string
- */
-exports.transpileTs = (sourceTs, compilerOptions = {
-    module: ts.ModuleKind.CommonJS,
-    target: ts.ScriptTarget.ES2015,
-    libs: ['es6']
-}) => {
-    const transpiledOutput = ts.transpileModule(sourceTs, { compilerOptions });
-    let sourceJs = transpiledOutput.outputText;
-    return sourceJs;
-};
-/**
- * Pre method for loadTsModule. (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @see http://vsc-base.org/#loadTsModuleSourceCode
- * @param path
- * @param compilerOptions
- * @param moduleMap default = vsc.getVscDefaultModuleMap()
- * @vscType System
- * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
- * @returns Promise<string>
- */
-exports.loadTsModuleSourceCode = (path, compilerOptions = {
-    module: ts.ModuleKind.CommonJS,
-    target: ts.ScriptTarget.ES2015,
-    libs: ['es6']
-}) => __awaiter(this, void 0, void 0, function* () {
-    const scriptFileTs = yield vsc.getFileContent(path);
-    let sourceJs = vsc.transpileTs(scriptFileTs, compilerOptions);
-    sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs);
-    return sourceJs;
-});
-/**
- * Return the default module map of vsc-base (Used for ts compiling, module load ect)
- * @see http://vsc-base.org/#getVscDefaultModuleMap
- * @internal this method is primary used by vsc.loadTsModule
- * @vscType System
- * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
- * @returns \{ [key: string]: \{ name: string, module: any \} \}
- */
-exports.getVscDefaultModuleMap = () => {
-    return [
-        { key: 'vsc', name: 'vsc-base', module: vsc },
-        { key: 'ts', name: 'typescript', module: ts },
-        { key: 'fs', name: 'fs-extra', module: fs },
-        { key: 'vscode', name: 'vscode', module: vscode }
-    ];
-};
-/**
- * Replace ts traspiles code's require for vsc, ts, fs and vscode.
- * @see http://vsc-base.org/#rewriteTstranpiledCodeWithVscBaseModules
- * @internal this method is primary used by vsc.loadTsModule
- * @notes
- * ts.transpile as follows:
- * const vsc_base_1 = require("vsc-base");
- * const fs = require("fs-extra");
- * const typescript_1 = require("typescript");
- * const vscode = require("vscode");
- * @vscType System
- * @oneLineEx sourceJs = vsc.rewriteTstranpiledCodeWithVscBaseModules(sourceJs)
- * @param sourceJs
- * @returns string
- */
-exports.rewriteTstranpiledCodeWithVscBaseModules = (sourceJs) => {
-    const modulesMap = vsc.getVscDefaultModuleMap();
-    modulesMap.forEach(obj => {
-        const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`, 'g');
-        sourceJs = sourceJs.replace(reg, (str) => `/* ${str} // vsc-base has change the ts transpiled code here. */`);
-    });
-    return sourceJs;
-};
-/**
- * Load a ts file. Transpile it to js (run time) add wrap code and execute it (using eval)!
- * Returning an plainObject with the scripts exports.
- * export default xxx transpile s to export.default
- * IMPORTANT Dont just run code you dont now, this can cause injection!
- * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems!
- * (If you start a recursive change that dont stop..)
- * @see http://vsc-base.org/#loadTsModule
- * @param path
- * @dependencyExternal ts
- * @dependencyInternal getFileContent, showErrorMessage
- * @vscType System
- * @oneLineEx const module = await vsc.loadTsModule(path)
- * @ex
-let _module
-try {
-   _module = await vsc.loadTsModule(path)
-} catch (e){
-   vsc.showErrorMessage(`Loadeding module coused an error: ${e}`)
-   return
-}
-const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
-if (!varifiedModule) {
-   vsc.showErrorMessage(`Module didnt have 'run' :: ${JSON.stringify(_module)}`)
-   return
-}
-try {
-   const result = varifiedModule.run()
-   await vsc.awaitResult(result)
-   vsc.showMessage(`Loaded Run resulted with value: ${result}`)
-} catch (e) {
-   vsc.showErrorMessage('Error: ' + e)
-}
- * @returns Promise<{ [key: string]: unknown; }>
- */
-exports.loadTsModule = (path, compilerOptions = {
-    module: ts.ModuleKind.CommonJS,
-    target: ts.ScriptTarget.ES2015,
-    libs: ['es6']
-}) => __awaiter(this, void 0, void 0, function* () {
-    const sourceJs = yield vsc.loadTsModuleSourceCode(path, compilerOptions);
-    let _exports = {};
-    try {
-        _exports = loadTsModule_Eval(sourceJs);
-    }
-    catch (e) {
-        if (e instanceof LoadTsModuleError) {
-            throw e;
-        }
-        else {
-            throw new LoadTsModuleError(e, sourceJs);
-        }
-    }
-    return _exports;
-});
-class LoadTsModuleError extends Error {
-    constructor(message, transpiledCode) {
-        super(message);
-        this.transpiledCode = transpiledCode;
-    }
-}
-exports.LoadTsModuleError = LoadTsModuleError;
-const loadTsModule_Eval = (sourceJs) => __awaiter(this, void 0, void 0, function* () {
-    //Wrap code in enclosed function. Add vsc as only dependency.
-    const wrapExports = `_exports = (function(){var exports = {};\n${sourceJs}\nreturn exports})()`;
-    let _exports = {};
-    try {
-        eval(wrapExports);
-    }
-    catch (e) {
-        throw new LoadTsModuleError(e, wrapExports);
-    }
-    return _exports;
-});
-/**
- * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
- * return undefined if a method didnt exist.
- * @see http://vsc-base.org/#varifyModuleMethods
- * @vscType System
- * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
- * @ex
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
-const result = varifiedModule.run()
- * @returns { [key: string]: any } | undefined
- */
-exports.varifyModuleMethods = (_module, methods) => {
-    const map = {};
-    for (const key of methods) {
-        if (_module.hasOwnProperty(key) && _module[key] instanceof Function) {
-            map[key] = _module[key];
-        }
-        else {
-            return undefined;
-        }
-    }
-    return map;
-};
-/**
- * Ensure that a method result that optional can be a promise is awaited.
- * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
- * @see http://vsc-base.org/#awaitResult
- * @vscType System
- * @oneLineEx await vsc.awaitResult(result)
- * @ex
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
-const result = varifiedModule.run()
-await vsc.awaitResult(result)
- * @returns Promise<any>
- */
-exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
-    if (result instanceof Promise) {
-        return result;
-    }
-    else {
-        return new Promise(resolve => {
-            resolve(result);
-        });
-    }
-});
-/**
- * Recurvice function that goes through a template tree
- * @see http://vsc-base.org/#scaffoldTemplate
- * @param path Full path to where the TemplateItem (file/folder) should be created
- * @param userInputs An object with user inputs {[key: string]: string}
- * @param templateItem An TemplateItem (folde/file)
- * @dependencyInternal makeDir, saveFileContent
- * @vscType System
- * @oneLineEx await vsc.scaffoldTemplate(path, template)
- * @returns Promise<void>
- */
-exports.scaffoldTemplate = (path, templateItem, userInputs = {}) => __awaiter(this, void 0, void 0, function* () {
-    switch (templateItem.type) {
-        case 'folder': {
-            let name = templateItem.name;
-            if (typeof name === 'function') {
-                name = name.call(null, userInputs);
-            }
-            const folderPath = path + '/' + name;
-            yield vsc.makeDir(folderPath);
-            if (!templateItem.children) {
-                break;
-            }
-            templateItem.children.forEach((childItem) => __awaiter(this, void 0, void 0, function* () {
-                vsc.scaffoldTemplate(folderPath, childItem, userInputs);
-            }));
-            break;
-        }
-        case 'file': {
-            let name = templateItem.name;
-            if (typeof name === 'function') {
-                name = name.call(null, userInputs);
-            }
-            const filePath = path + '/' + name;
-            let content = templateItem.content;
-            if (typeof content === 'function') {
-                content = content.call(null, userInputs);
-            }
-            yield vsc.saveFileContent(filePath, content);
-        }
-    }
 });
 //# sourceMappingURL=vsc-base-system.js.map

@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
 const vsc = require("./vsc-base");
 /**
+ * @description
  * Prompt user for a question
  * @see http://vsc-base.org/#ask
  * @param question string
@@ -28,6 +29,7 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
     });
 });
 /**
+ * @description
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
  * @param path string[]
@@ -41,6 +43,7 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
  */
 exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
 /**
+ * @description
  * Get a list off all filePaths in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePaths
  * @param include glob
@@ -64,6 +67,7 @@ exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_mo
     return files;
 });
 /**
+ * @description
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePathsFromBase
  * @param include glob
@@ -88,6 +92,7 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
     return filePaths;
 });
 /**
+ * @description
  * Find files based from a releative to a path
  * @see http://vsc-base.org/#findRelativeFilePaths
  * @param path
@@ -122,6 +127,7 @@ exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,
     return filePaths;
 });
 /**
+ * @description
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
@@ -133,6 +139,7 @@ exports.getActiveEditor = () => {
     return vscode.window.activeTextEditor;
 };
 /**
+ * @description
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
@@ -146,6 +153,7 @@ exports.getActiveDocument = () => {
     return document;
 };
 /**
+ * @description
  * Get current open file path or undefined if nothing is open.
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
@@ -158,6 +166,7 @@ exports.getActiveDocumentPath = () => {
     return (document && document.fileName) || undefined;
 };
 /**
+ * @description
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
@@ -170,7 +179,8 @@ exports.getActiveDocumentContent = () => {
     return (document && document.getText()) || undefined;
 };
 /**
- * Set current open file's content.
+ * @description
+ * Set current open file's content. \
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
  * @see http://vsc-base.org/#setActiveDocumentContent
  * @param content
@@ -192,6 +202,7 @@ exports.setActiveDocumentContent = (content) => __awaiter(this, void 0, void 0, 
     return false;
 });
 /**
+ * @description
  * Get a vscodeRange for the entire document
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
@@ -207,6 +218,7 @@ exports.getFullDocumentRange = (document) => {
     return fullRange;
 };
 /**
+ * @description
  * Append new content in the end of the open document
  * @see http://vsc-base.org/#appendToDocument
  * @param editor
@@ -225,7 +237,8 @@ exports.appendToDocument = (editor, document, content) => __awaiter(this, void 0
     yield editor.insertSnippet(snippetString, fullRange);
 });
 /**
- * Append new content in the end of the open document.
+ * @description
+ * Append new content in the end of the open document. \
  * Return true for succes, and false if there was no active editor or open document
  * @see http://vsc-base.org/#appendToActiveDocument
  * @param content
@@ -245,6 +258,7 @@ exports.appendToActiveDocument = (content) => __awaiter(this, void 0, void 0, fu
     return false;
 });
 /**
+ * @description
  * Append new line content in the end of the open document
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
@@ -257,7 +271,8 @@ exports.appendLineToActiveDocument = (content) => __awaiter(this, void 0, void 0
     return yield vsc.appendToActiveDocument('\n' + content);
 });
 /**
- * Save active open file.
+ * @description
+ * Save active open file. \
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
@@ -276,6 +291,7 @@ exports.saveActiveDocument = () => __awaiter(this, void 0, void 0, function* () 
     });
 });
 /**
+ * @description
  * Get project root for a path or undefined if no project was found.
  * @see http://vsc-base.org/#getRootPath
  * @param path
@@ -296,6 +312,7 @@ exports.getRootPath = (path) => {
     return rootPath;
 };
 /**
+ * @description
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
@@ -307,6 +324,7 @@ exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
     yield vscode.workspace.saveAll(false);
 });
 /**
+ * @description
  * Show error message to user
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
@@ -319,6 +337,7 @@ exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function
     yield vscode.window.showErrorMessage(message);
 });
 /**
+ * @description
  * Show message to user
  * @see http://vsc-base.org/#showMessage
  * @param message

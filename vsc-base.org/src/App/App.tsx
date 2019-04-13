@@ -126,7 +126,7 @@ export async function run(path: string) {
          The examples and all other code in this documententation is created from the JSDocs for each method.
          </p>
          <p>
-            Vsc-base's source code are split into 3 areas: Raw, System and Vscode
+            Vsc-base's source code are split into 4 areas: Raw, System, Vscode And ts (typescript)
          </p>
          <h4>Raw, System ans Vscode</h4>
          <p>
@@ -138,16 +138,22 @@ export async function run(path: string) {
             Ex: <a href='/#isSubPath'>isSubPath</a> <a href='/#toCamelCase'>toCamelCase</a>, <a href='/#getRelativePath'>getRelativePath</a> and <a href='/#subtractPath'>subtractPath</a><br/>
          </p>
          <p>
-            System is methods that uses fs-extra or relates to file system (Can use Raw methods).<br></br>
+            System is methods that uses fs (fs-extra) or relates to file system.<br></br>
          </p>
          <p>
             Ex: <a href='/#getFileContent'>getFileContent</a>, <a href='/#saveFileContent'>saveFileContent</a>, <a href='/#isDir'>isDir</a>, <a href='/#move'>move</a> and <a href='/#copy'>copy</a>
          </p>
          <p>
-            Vscode is methods that uses vscode or relates to doing things in vscode (Can use both Raw and System methods).<br/>
+            Vscode is methods that uses vscode or relates to doing things in vscode.<br/>
          </p>
          <p>
             Ex: <a href='/#showMessage'>showMessage</a>, <a href='/#ask'>ask</a>, <a href='/#pick'>pick</a>, <a href='/#findFilePaths'>findFilePaths</a>, <a href='/#getActiveDocumentContent'>getActiveDocumentContent</a> and <a href='/#appendLineToActiveDocument'>appendLineToActiveDocument</a>
+         </p>
+         <p>
+            Ts is methods that uses ts (typescript) or relates to doing things in with the typescript api.<br/>
+         </p>
+         <p>
+            Ex: <a href='/#tsTransform'>tsTransform</a>, <a href='/#ask'>ask</a>, <a href='/#pick'>pick</a>, <a href='/#findFilePaths'>findFilePaths</a>, <a href='/#getActiveDocumentContent'>getActiveDocumentContent</a> and <a href='/#appendLineToActiveDocument'>appendLineToActiveDocument</a>
          </p>
       </div>
       <div className={styles.annotatedCode}>

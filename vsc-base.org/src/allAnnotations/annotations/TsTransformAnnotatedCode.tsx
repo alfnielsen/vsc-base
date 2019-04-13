@@ -21,7 +21,7 @@ const TsTransformAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const updatedCode = vsc.tsTransform(code, \\[tranformer1, tranformer2\\])`}
+         codeOneLineEx={`const updatedCode = vsc.tsTransform(code, [tranformer1, tranformer2])`}
          codeEx={``}
          code={`/**
  * @description 
@@ -36,7 +36,7 @@ const TsTransformAnnotatedCode = () => {
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const updatedCode = vsc.tsTransform(code, \\[tranformer1, tranformer2\\])
+ * @oneLineEx const updatedCode = vsc.tsTransform(code, [tranformer1, tranformer2])
  */
 export const tsTransform = (
    source: string,

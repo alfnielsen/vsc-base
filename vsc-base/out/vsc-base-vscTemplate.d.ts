@@ -1,6 +1,17 @@
+import * as vsc from './vsc-base';
 /**
- * VscTemplate types
+ * @description
+ * Recurvice function that goes through a template tree
+ * @see http://vsc-base.org/#scaffoldTemplate
+ * @param path Full path to where the TemplateItem (file/folder) should be created
+ * @param userInputs An object with user inputs {[key: string]: string}
+ * @param templateItem An TemplateItem (folde/file)
+ * @dependencyInternal makeDir, saveFileContent
+ * @vscType System
+ * @oneLineEx await vsc.scaffoldTemplate(path, template)
+ * @returns Promise<void>
  */
+export declare const scaffoldTemplate: (path: string, templateItem: vsc.vscTemplateItem, userInputs?: vsc.vscUserInputs) => Promise<void>;
 export declare type vscTemplate = {
     userInputs: vscUserInput[];
     template: vscTemplateItem[];

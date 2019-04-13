@@ -1,3 +1,7 @@
+## 0.4.1
+
+Add method tsGetParsedChildren
+
 ## 0.4.0
 
 Release note has been added to github wiki:

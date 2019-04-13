@@ -80,7 +80,8 @@ import {
    tsTransform,
    tsTransformSourceFile,
    TsDefaultCompilerOptions,
-   tsCreateSourceFile
+   tsCreateSourceFile,
+   tsGetParsedChildren
 } from './vsc-base-typescript';
 
 import {
@@ -181,6 +182,7 @@ export {
    tsTransform,
    tsTransformSourceFile,
    TsDefaultCompilerOptions,
-   tsCreateSourceFile
+   tsCreateSourceFile,
+   tsGetParsedChildren
    // template types
 }

@@ -1,8 +1,12 @@
 # Change Log
 
+## 0.3.1
+
+Update vsc-base to version 0.4.1.
+
 ## 0.3.0
 
-Update vsc-base to version 0.4.x.
+Update vsc-base to version 0.4.0.
 (Some Vsc-base methods has name changes and new metod has been added.)
 [vsc-base Documentation](http://vsc-base.org)
 [vsc-base Release Notes](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)

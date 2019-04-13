@@ -73,6 +73,7 @@ exports.tsTransform = vsc_base_typescript_1.tsTransform;
 exports.tsTransformSourceFile = vsc_base_typescript_1.tsTransformSourceFile;
 exports.TsDefaultCompilerOptions = vsc_base_typescript_1.TsDefaultCompilerOptions;
 exports.tsCreateSourceFile = vsc_base_typescript_1.tsCreateSourceFile;
+exports.tsGetParsedChildren = vsc_base_typescript_1.tsGetParsedChildren;
 const vsc_base_vscTemplate_1 = require("./vsc-base-vscTemplate");
 exports.scaffoldTemplate = vsc_base_vscTemplate_1.scaffoldTemplate;
 //# sourceMappingURL=vsc-base.js.map

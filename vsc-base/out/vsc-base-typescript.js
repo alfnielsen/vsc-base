@@ -15,14 +15,14 @@ const vsc = require("./vsc-base");
 /**
  * @description
  * Transpile ts source to js
- * @see http://vsc-base.org/#transpileTs
+ * @see http://vsc-base.org/#tsTranspile
  * @param sourceTs
  * @param compilerOptions
  * @vscType System
- * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
+ * @oneLineEx const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
-exports.transpileTs = (sourceTs, compilerOptions = {
+exports.tsTranspile = (sourceTs, compilerOptions = {
     module: ts.ModuleKind.CommonJS,
     target: ts.ScriptTarget.ES2015,
     libs: ['es6']
@@ -33,24 +33,24 @@ exports.transpileTs = (sourceTs, compilerOptions = {
 };
 /**
  * @description
- * Pre method for loadTsModule. \
+ * Pre method for tsLoadModule. \
  * (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @see http://vsc-base.org/#loadTsModuleSourceCode
+ * @see http://vsc-base.org/#tsLoadModuleSourceCode
  * @param path
  * @param compilerOptions
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
- * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
+ * @oneLineEx const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
-exports.loadTsModuleSourceCode = (path, compilerOptions = {
+exports.tsLoadModuleSourceCode = (path, compilerOptions = {
     module: ts.ModuleKind.CommonJS,
     target: ts.ScriptTarget.ES2015,
     libs: ['es6']
 }) => __awaiter(this, void 0, void 0, function* () {
     const scriptFileTs = yield vsc.getFileContent(path);
-    let sourceJs = vsc.transpileTs(scriptFileTs, compilerOptions);
-    sourceJs = vsc.rewriteTsTranpiledCodeWithVscBaseModules(sourceJs);
+    let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions);
+    sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs);
     return sourceJs;
 });
 /**
@@ -74,8 +74,8 @@ exports.getVscDefaultModuleMap = () => {
 /**
  * @description
  * Replace ts traspiles code's require for vsc, ts, fs and vscode.
- * @see http://vsc-base.org/#rewriteTsTranpiledCodeWithVscBaseModules
- * @internal this method is primary used by vsc.loadTsModule
+ * @see http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules
+ * @internal this method is primary used by vsc.tsLoadModule
  * @notes
  * ts.transpile as follows:
  * const vsc_base_1 = require("vsc-base");
@@ -83,11 +83,11 @@ exports.getVscDefaultModuleMap = () => {
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx sourceJs = vsc.rewriteTsTranpiledCodeWithVscBaseModules(sourceJs)
+ * @oneLineEx sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs
  * @returns string
  */
-exports.rewriteTsTranpiledCodeWithVscBaseModules = (sourceJs) => {
+exports.tsRewriteTranpiledCodeWithVscBaseModules = (sourceJs) => {
     const modulesMap = vsc.getVscDefaultModuleMap();
     modulesMap.forEach(obj => {
         const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`, 'g');
@@ -100,20 +100,20 @@ exports.rewriteTsTranpiledCodeWithVscBaseModules = (sourceJs) => {
  * Load a ts file. \
  * Transpile it to js (run time) add wrap code and execute it (using eval)! \
  * Returning an plainObject with the scripts exports. \
- * export default xxx transpile s to export.default \
+ * export default xxx transpile's to export.default \
  * IMPORTANT Dont just run code you dont now, this can cause injection! \
- * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems! \
+ * IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! \
  * (If you start a recursive change that dont stop..)
- * @see http://vsc-base.org/#loadTsModule
+ * @see http://vsc-base.org/#tsLoadModule
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
  * @vscType System
- * @oneLineEx const module = await vsc.loadTsModule(path)
+ * @oneLineEx const module = await vsc.tsLoadModule(path)
  * @ex
 let _module
 try {
-   _module = await vsc.loadTsModule(path)
+   _module = await vsc.tsLoadModule(path)
 } catch (e){
    vsc.showErrorMessage(`Loadeding module coused an error: ${e}`)
    return
@@ -132,33 +132,33 @@ try {
 }
  * @returns Promise<{ [key: string]: unknown; }>
  */
-exports.loadTsModule = (path, compilerOptions = {
+exports.tsLoadModule = (path, compilerOptions = {
     module: ts.ModuleKind.CommonJS,
     target: ts.ScriptTarget.ES2015,
     libs: ['es6']
 }) => __awaiter(this, void 0, void 0, function* () {
-    const sourceJs = yield vsc.loadTsModuleSourceCode(path, compilerOptions);
+    const sourceJs = yield vsc.tsLoadModuleSourceCode(path, compilerOptions);
     let _exports = {};
     try {
         _exports = loadTsModule_Eval(sourceJs);
     }
     catch (e) {
-        if (e instanceof LoadTsModuleError) {
+        if (e instanceof TSLoadModuleError) {
             throw e;
         }
         else {
-            throw new LoadTsModuleError(e, sourceJs);
+            throw new TSLoadModuleError(e, sourceJs);
         }
     }
     return _exports;
 });
-class LoadTsModuleError extends Error {
+class TSLoadModuleError extends Error {
     constructor(message, transpiledCode) {
         super(message);
         this.transpiledCode = transpiledCode;
     }
 }
-exports.LoadTsModuleError = LoadTsModuleError;
+exports.TSLoadModuleError = TSLoadModuleError;
 const loadTsModule_Eval = (sourceJs) => __awaiter(this, void 0, void 0, function* () {
     //Wrap code in enclosed function. Add vsc as only dependency.
     const wrapExports = `_exports = (function(){var exports = {};\n${sourceJs}\nreturn exports})()`;
@@ -167,7 +167,7 @@ const loadTsModule_Eval = (sourceJs) => __awaiter(this, void 0, void 0, function
         eval(wrapExports);
     }
     catch (e) {
-        throw new LoadTsModuleError(e, wrapExports);
+        throw new TSLoadModuleError(e, wrapExports);
     }
     return _exports;
 });
@@ -179,7 +179,7 @@ const loadTsModule_Eval = (sourceJs) => __awaiter(this, void 0, void 0, function
  * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex
-const varifiedModule = vsc.varifyModuleMethods(_module, \['run', 'getId'\])
+const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
 const result = varifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
@@ -198,12 +198,12 @@ exports.varifyModuleMethods = (_module, methods) => {
 /**
  * @description
  * Ensure that a method result that optional can be a promise is awaited. \
- * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
+ * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
  * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)
  * @ex
- const varifiedModule = vsc.varifyModuleMethods(_module, \['run'])
+ const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
  const result = varifiedModule.run()
  await vsc.awaitResult(result)
  * @returns Promise<any>
@@ -221,8 +221,9 @@ exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
 /**
  * @description
  * Tranform source code using custom transformers \
- * See createTsTransformerFactory and createTsRemoveTransformerFactory for creating transformer \
- * (See http://vsc-base.org/#createTsTransformerFactory, http://vsc-base.org/#createTsRemoveTransformerFactory)
+ * See tsCreateTransformer and tsCreateRemoveTransformer for creating transformer \
+ * \
+ * See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveTransformer
  * @see http://vsc-base.org/#tsTransform
  * @param source
  * @param transformers
@@ -231,11 +232,11 @@ exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const updatedCode = vsc.tsTransform(code, \[tranformer1, tranformer2\])
+ * @oneLineEx const updatedCode = vsc.tsTransform(code, [tranformer1, tranformer2])
  */
-exports.tsTransform = (source, transformers, compilerOptions = vsc.DefaultTsCompilerOptions, printer = ts.createPrinter()) => {
-    const sourceFile = exports.createTsSourceFile(source);
-    const result = exports.tsTransformSourceFile(sourceFile, transformers, compilerOptions);
+exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultCompilerOptions, printer = ts.createPrinter()) => {
+    const sourceFile = vsc.tsCreateSourceFile(source);
+    const result = vsc.tsTransformSourceFile(sourceFile, transformers, compilerOptions);
     const transformedSourceFile = result.transformed[0];
     const print = printer.printFile(transformedSourceFile);
     result.dispose();
@@ -254,19 +255,19 @@ exports.tsTransform = (source, transformers, compilerOptions = vsc.DefaultTsComp
  * @vscType ts
  * @oneLineEx const result = tsTransformSourceFile(sourceFile, transformers, compilerOptions)
  */
-exports.tsTransformSourceFile = (sourceFile, transformers, compilerOptions = vsc.DefaultTsCompilerOptions) => {
+exports.tsTransformSourceFile = (sourceFile, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     return ts.transform(sourceFile, transformers, compilerOptions);
 };
 /**
  * @description
  * vsc-base's internal default ts compiler options
- * @see http://vsc-base.org/#DefaultTsCompilerOptions
+ * @see http://vsc-base.org/#TsDefaultCompilerOptions
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const compilerOptions = vsc.DefaultTsCompilerOptions
+ * @oneLineEx const compilerOptions = vsc.TsDefaultCompilerOptions
  */
-exports.DefaultTsCompilerOptions = ({
+exports.TsDefaultCompilerOptions = ({
     module: ts.ModuleKind.CommonJS,
     target: ts.ScriptTarget.ES2015,
     libs: ['es6']
@@ -274,14 +275,14 @@ exports.DefaultTsCompilerOptions = ({
 /**
  * @description
  * Create a ts.SourceFile
- * @see http://vsc-base.org/#createTsSourceFile
+ * @see http://vsc-base.org/#tsCreateSourceFile
  * @param content
  * @param sourceFileName
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const sourceFile = vsc.createTsSourceFile(code)
+ * @oneLineEx const sourceFile = vsc.tsCreateSourceFile(code)
  */
-exports.createTsSourceFile = (content, sourceFileName = `sourcefile_${(new Date().getTime())}`) => {
+exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date().getTime())}`) => {
     let sourceFile = ts.createSourceFile(sourceFileName, content, ts.ScriptTarget.ES2015, 
     /*setParentNodes */ true);
     return sourceFile;
@@ -290,14 +291,14 @@ exports.createTsSourceFile = (content, sourceFileName = `sourcefile_${(new Date(
  * @description
  * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \
  * So to this method uses ts's forEachChild to colloct the parsed nodes. \
- * Mostly used in custom transformer method
- * @see http://vsc-base.org/#tsParsedNodeChildrenCount
+ * Normally used in custom transformer methods (vsc.tsCreateTransformer)
+ * @see http://vsc-base.org/#tsGetParsedChildren
  * @params node
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const children = vsc.tsGetParsedChildrenNodes(node)
+ * @oneLineEx const children = vsc.tsGetParsedChildren(node)
  */
-exports.tsGetParsedChildrenNodes = (node) => {
+exports.tsGetParsedChildren = (node) => {
     let chrindren = [];
     node.forEachChild(c => { chrindren.push(c); });
     return chrindren;
@@ -305,24 +306,25 @@ exports.tsGetParsedChildrenNodes = (node) => {
 /**
  * @description
  * Create a Ts Transformer factory \
+ * Normally used in vsc.tsTransform
  * You can use: \
  * https://ts-ast-viewer.com/ \
  * or \
  * https://astexplorer.net/ \
- * to generate the new node or node type.
- * @see http://vsc-base.org/#createTsTransformerFactory
+ * to generate the new ts nodes or node type.
+ * @see http://vsc-base.org/#tsCreateTransformer
  * @param callback
  * @param program
  * @vscType ts
  * @experimental This method can easily change, because ts api is in experimental state.
- * @oneLineEx const transformer = vsc.createTranformer(transformerCallback)
+ * @oneLineEx const transformer = vsc.tsCreateTransformer(transformerCallback)
  * @ex
 // tranforms arrowFunction with one return statement to lambda function
-const transformer = vsc.createTsTransformerFactory((node) => {
+const transformer = vsc.tsCreateTransformer((node) => {
    if (!ts.isArrowFunction(node)) { // is not an arrow funcion
       return
    }
-   const children = vsc.tsGetParsedChildrenNodes(node.body)
+   const children = vsc.tsGetParsedChildren(node.body)
    if (children.length !== 1) { // dont have one statement
       return
    }
@@ -343,7 +345,7 @@ const updatedCode = tsTransform(code, [transformer]);
 
  * @returns ts.TransformerFactory<T>
  */
-exports.createTsTransformerFactory = (callback, program) => {
+exports.tsCreateTransformer = (callback, program) => {
     let typeChecker;
     if (program) {
         typeChecker = program.getTypeChecker();
@@ -361,14 +363,19 @@ exports.createTsTransformerFactory = (callback, program) => {
 };
 /**
  * @description
- * Create Basic Ts Transformer for removing nodes \
- * You can use https://ts-ast-viewer.com/ to generate the new node or node type.
- * @see http://vsc-base.org/#createTsRemoveNodesTransformerFactory
+ * Create a Ts Transformer for removing nodes \
+ * Normally used in vsc.tsTransform
+ * You can use: \
+ * https://ts-ast-viewer.com/ \
+ * or \
+ * https://astexplorer.net/ \
+ * to generate the new ts nodes or node type.
+ * @see http://vsc-base.org/#tsCreateRemoveNodesTransformer
  * @vscType ts
- * @oneLineEx const transformer = vsc.createTranformer(transformerCallback)
+ * @oneLineEx const transformer = vsc.tsCreateRemoveNodesTransformer(transformerCallback)
  * @ex
 // Remove all 'debugger' statements
-const removeDebuggerTransformner = createTsRemoveNodesTransformerFactory((node) => {
+const removeDebuggerTransformner = vsc.tsCreateRemoveNodesTransformer((node) => {
    if (ts.isDebuggerStatement(node)) {
       return true
    }
@@ -377,7 +384,7 @@ const removeDebuggerTransformner = createTsRemoveNodesTransformerFactory((node) 
 
  * @returns ts.TransformerFactory<T>
  */
-exports.createTsRemoveNodesTransformerFactory = (callback, program) => {
+exports.tsCreateRemoveNodesTransformer = (callback, program) => {
     let typeChecker;
     if (program) {
         typeChecker = program.getTypeChecker();

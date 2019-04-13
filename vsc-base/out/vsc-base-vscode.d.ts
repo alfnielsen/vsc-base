@@ -21,7 +21,7 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
  * @vscType Vscode
  * @oneLineEx const answer = await vsc.pick(answers)
  * @ex
- const list = \['yes', 'no']
+ const list = ['yes', 'no']
  const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */

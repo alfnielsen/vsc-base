@@ -6,6 +6,8 @@ It also the base for vsc-script extension.
 
 Documentation can be found on [vsc-base.org](http://vsc-base.org)
 
+Release note can be foun on vsc-base's [github wiki](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
+
 **WARNING:**
 This is still not version 1.0.0, and changes to methods and their names will come before the final first version.
 

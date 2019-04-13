@@ -12,9 +12,7 @@ const GetActiveDocumentPathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get current open file path or undefined if nothing is open.
+ Get current open file path or undefined if nothing is open.
                </p>
             </>
          }

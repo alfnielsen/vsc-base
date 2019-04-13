@@ -12,9 +12,7 @@ const GetPackageFilePathsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Find packages file paths in project.
+ Find packages file paths in project.
                </p>
             </>
          }

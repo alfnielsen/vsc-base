@@ -16,9 +16,7 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Transform an absolute path from root, to a sub-relative path.
+ Transform an absolute path from root, to a sub-relative path.
                </p>
             </>
          }

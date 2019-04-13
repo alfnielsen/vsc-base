@@ -12,9 +12,7 @@ const PickAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Prompt user for a question with a list of answers
+ Prompt user for a question with a list of answers
                </p>
             </>
          }

@@ -16,11 +16,13 @@ const ToKebabCaseAnnotatedCode = () => {
             <>
                <p>
                   
+ Format a string from camel-case to kebab-case 
                </p>
                <p>
-                Format a string from camel-case to kebab-case \
- Commonly used to define css class names. \
- Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+                Commonly used to define css class names. 
+               </p>
+               <p>
+                Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
                </p>
             </>
          }

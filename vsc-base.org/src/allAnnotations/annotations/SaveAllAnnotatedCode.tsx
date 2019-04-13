@@ -12,9 +12,7 @@ const SaveAllAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Save All files
+ Save All files
                </p>
             </>
          }

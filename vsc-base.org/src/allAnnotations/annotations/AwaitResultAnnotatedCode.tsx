@@ -12,10 +12,10 @@ const AwaitResultAnnotatedCode = () => {
             <>
                <p>
                   
+ Ensure that a method result that optional can be a promise is awaited. 
                </p>
                <p>
-                Ensure that a method result that optional can be a promise is awaited. \
- (Responses from methods loaded with vsc.loadTsModule can be optional async!)
+                (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
                </p>
             </>
          }
@@ -28,7 +28,7 @@ const AwaitResultAnnotatedCode = () => {
          code={`/**
  * @description 
  * Ensure that a method result that optional can be a promise is awaited. \\
- * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
+ * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
  * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)

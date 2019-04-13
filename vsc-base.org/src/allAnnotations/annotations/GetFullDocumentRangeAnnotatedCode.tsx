@@ -12,9 +12,7 @@ const GetFullDocumentRangeAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get a vscodeRange for the entire document
+ Get a vscodeRange for the entire document
                </p>
             </>
          }

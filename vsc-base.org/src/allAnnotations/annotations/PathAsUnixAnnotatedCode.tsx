@@ -12,10 +12,10 @@ const PathAsUnixAnnotatedCode = () => {
             <>
                <p>
                   
+ Reaplve all '\\'  with '/' 
                </p>
                <p>
-                Reaplve all '\\'  with '/' \
- (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+                (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
                </p>
             </>
          }

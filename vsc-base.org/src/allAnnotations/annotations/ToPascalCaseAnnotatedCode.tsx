@@ -16,11 +16,13 @@ const ToPascalCaseAnnotatedCode = () => {
             <>
                <p>
                   
+ Format a string to camal-case. Commonly used to define js/ts variable names. 
                </p>
                <p>
-                Format a string to camal-case. Commonly used to define js/ts variable names. \
- Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
- All non word seperators will be removed and the word charector after will be transforms to upper case
+                Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' 
+               </p>
+               <p>
+                All non word seperators will be removed and the word charector after will be transforms to upper case
                </p>
             </>
          }

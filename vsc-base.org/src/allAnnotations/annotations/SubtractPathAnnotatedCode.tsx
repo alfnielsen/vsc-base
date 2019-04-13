@@ -12,9 +12,7 @@ const SubtractPathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Remove parent-path from a path
+ Remove parent-path from a path
                </p>
             </>
          }

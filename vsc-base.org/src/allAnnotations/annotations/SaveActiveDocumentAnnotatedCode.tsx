@@ -12,10 +12,10 @@ const SaveActiveDocumentAnnotatedCode = () => {
             <>
                <p>
                   
+ Save active open file. 
                </p>
                <p>
-                Save active open file. \
- Return true for succes, and false if there was no open document
+                Return true for succes, and false if there was no open document
                </p>
             </>
          }

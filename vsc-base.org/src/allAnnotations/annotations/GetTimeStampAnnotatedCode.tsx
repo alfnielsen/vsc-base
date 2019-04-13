@@ -12,9 +12,7 @@ const GetTimestampAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                return ISO timestamp
+ return ISO timestamp
                </p>
             </>
          }

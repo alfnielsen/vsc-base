@@ -12,9 +12,7 @@ const DoesExistsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Does the folder/file exist
+ Does the folder/file exist
                </p>
             </>
          }

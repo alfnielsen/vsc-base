@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TranspileTsAnnotatedCode = () => {
+const TsTranspileAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'transpileTs'}
-         title={'transpileTs'}
+         id={'tsTranspile'}
+         title={'tsTranspile'}
          annotation={
             <>
                <p>
@@ -17,19 +17,19 @@ const TranspileTsAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const sourceJs = vsc.transpileTs(sourceTs)`}
+         codeOneLineEx={`const sourceJs = vsc.tsTranspile(sourceTs)`}
          codeEx={``}
          code={`/**
  * @description 
  * Transpile ts source to js
- * @see http://vsc-base.org/#transpileTs
+ * @see http://vsc-base.org/#tsTranspile
  * @param sourceTs 
  * @param compilerOptions 
  * @vscType System
- * @oneLineEx const sourceJs = vsc.transpileTs(sourceTs)
+ * @oneLineEx const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
-export const transpileTs = (sourceTs: string,
+export const tsTranspile = (sourceTs: string,
    compilerOptions: ts.CompilerOptions = \{
       module: ts.ModuleKind.CommonJS,
       target: ts.ScriptTarget.ES2015,
@@ -45,5 +45,5 @@ export const transpileTs = (sourceTs: string,
    )
 }
 
-export default TranspileTsAnnotatedCode
+export default TsTranspileAnnotatedCode
 

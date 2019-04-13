@@ -16,10 +16,10 @@ const CleanPathAnnotatedCode = () => {
             <>
                <p>
                   
+ Get clean path. 
                </p>
                <p>
-                Get clean path. \
- Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
+                Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
                </p>
             </>
          }

@@ -12,10 +12,10 @@ const VarifyModuleMethodsAnnotatedCode = () => {
             <>
                <p>
                   
+ Test if a loaded module has methods (Loaded with vsc.loadTsModule) 
                </p>
                <p>
-                Test if a loaded module has methods (Loaded with vsc.loadTsModule) \
- return undefined if a method didnt exist.
+                return undefined if a method didnt exist.
                </p>
             </>
          }

@@ -12,9 +12,7 @@ const CopyAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Copy file/fodler
+ Copy file/fodler
                </p>
             </>
          }

@@ -12,10 +12,10 @@ const GetErrorInfoAnnotatedCode = () => {
             <>
                <p>
                   
+ Test if it an error. 
                </p>
                <p>
-                Test if it an error. \
- Return type (if one of es6 basic error type) return stack
+                Return type (if one of es6 basic error type) return stack
                </p>
             </>
          }

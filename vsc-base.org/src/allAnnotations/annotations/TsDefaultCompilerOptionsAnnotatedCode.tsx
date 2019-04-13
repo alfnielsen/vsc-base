@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const DefaultTsCompilerOptionsAnnotatedCode = () => {
+const TsDefaultCompilerOptionsAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'DefaultTsCompilerOptions'}
-         title={'DefaultTsCompilerOptions'}
+         id={'TsDefaultCompilerOptions'}
+         title={'TsDefaultCompilerOptions'}
          annotation={
             <>
                <p>
@@ -17,18 +17,18 @@ const DefaultTsCompilerOptionsAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const compilerOptions = vsc.DefaultTsCompilerOptions`}
+         codeOneLineEx={`const compilerOptions = vsc.TsDefaultCompilerOptions`}
          codeEx={``}
          code={`/**
  * @description 
  * vsc-base's internal default ts compiler options
- * @see http://vsc-base.org/#DefaultTsCompilerOptions
+ * @see http://vsc-base.org/#TsDefaultCompilerOptions
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const compilerOptions = vsc.DefaultTsCompilerOptions
+ * @oneLineEx const compilerOptions = vsc.TsDefaultCompilerOptions
  */
-export const DefaultTsCompilerOptions: Readonly<ts.CompilerOptions> = (\{
+export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = (\{
    module: ts.ModuleKind.CommonJS,
    target: ts.ScriptTarget.ES2015,
    libs: ['es6']
@@ -39,5 +39,5 @@ export const DefaultTsCompilerOptions: Readonly<ts.CompilerOptions> = (\{
    )
 }
 
-export default DefaultTsCompilerOptionsAnnotatedCode
+export default TsDefaultCompilerOptionsAnnotatedCode
 

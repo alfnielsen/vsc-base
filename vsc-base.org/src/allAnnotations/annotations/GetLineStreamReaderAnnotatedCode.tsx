@@ -12,9 +12,7 @@ const GetLineStreamReaderAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Create a LineReader (generator method) for a ReadStream
+ Create a LineReader (generator method) for a ReadStream
                </p>
             </>
          }

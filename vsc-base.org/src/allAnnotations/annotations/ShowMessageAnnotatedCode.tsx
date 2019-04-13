@@ -12,9 +12,7 @@ const ShowMessageAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Show message to user
+ Show message to user
                </p>
             </>
          }

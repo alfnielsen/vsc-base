@@ -12,10 +12,10 @@ const SetActiveDocumentContentAnnotatedCode = () => {
             <>
                <p>
                   
+ Set current open file's content. 
                </p>
                <p>
-                Set current open file's content. \
- Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
+                Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
                </p>
             </>
          }

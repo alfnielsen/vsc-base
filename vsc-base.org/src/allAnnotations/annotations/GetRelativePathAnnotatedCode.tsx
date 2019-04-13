@@ -16,9 +16,7 @@ const GetRelativePathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Generate relative path between two paths.
+ Generate relative path between two paths.
                </p>
             </>
          }

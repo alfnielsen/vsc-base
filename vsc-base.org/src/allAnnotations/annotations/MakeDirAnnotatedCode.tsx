@@ -12,9 +12,7 @@ const MakeDirAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Make a folder
+ Make a folder
                </p>
             </>
          }

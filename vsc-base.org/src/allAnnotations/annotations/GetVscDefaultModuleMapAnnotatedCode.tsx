@@ -12,10 +12,10 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
             <>
                <p>
                   
+ Return the default module map of vsc-base 
                </p>
                <p>
-                Return the default module map of vsc-base \
- (Used for ts compiling, module load ect)
+                (Used for ts compiling, module load ect)
                </p>
             </>
          }

@@ -12,9 +12,7 @@ const GetReadStreamAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get a file ReadStream
+ Get a file ReadStream
                </p>
             </>
          }

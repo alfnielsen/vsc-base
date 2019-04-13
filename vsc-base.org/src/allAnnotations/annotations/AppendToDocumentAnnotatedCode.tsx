@@ -12,9 +12,7 @@ const AppendToDocumentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Append new content in the end of the open document
+ Append new content in the end of the open document
                </p>
             </>
          }

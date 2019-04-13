@@ -3,16 +3,16 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const LoadTsModuleSourceCodeAnnotatedCode = () => {
+const TsLoadModuleSourceCodeAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'loadTsModuleSourceCode'}
-         title={'loadTsModuleSourceCode'}
+         id={'tsLoadModuleSourceCode'}
+         title={'tsLoadModuleSourceCode'}
          annotation={
             <>
                <p>
                   
- Pre method for loadTsModule. 
+ Pre method for tsLoadModule. 
                </p>
                <p>
                 (This methods load the ts source, transpile it to js and replace all 'require' instance)
@@ -20,21 +20,21 @@ const LoadTsModuleSourceCodeAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const sourceJs = await vsc.loadTsModuleSourceCode(path)`}
+         codeOneLineEx={`const sourceJs = await vsc.tsLoadModuleSourceCode(path)`}
          codeEx={``}
          code={`/**
  * @description 
- * Pre method for loadTsModule. \\
+ * Pre method for tsLoadModule. \\
  * (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @see http://vsc-base.org/#loadTsModuleSourceCode
+ * @see http://vsc-base.org/#tsLoadModuleSourceCode
  * @param path
  * @param compilerOptions 
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
- * @oneLineEx const sourceJs = await vsc.loadTsModuleSourceCode(path)
+ * @oneLineEx const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
-export const loadTsModuleSourceCode = async (
+export const tsLoadModuleSourceCode = async (
    path: string,
    compilerOptions: ts.CompilerOptions = \{
       module: ts.ModuleKind.CommonJS,
@@ -43,8 +43,8 @@ export const loadTsModuleSourceCode = async (
    }
 ): Promise<string> => \{
    const scriptFileTs = await vsc.getFileContent(path)
-   let sourceJs = vsc.transpileTs(scriptFileTs, compilerOptions)
-   sourceJs = vsc.rewriteTsTranpiledCodeWithVscBaseModules(sourceJs)
+   let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions)
+   sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
    return sourceJs;
 }
 `}
@@ -52,5 +52,5 @@ export const loadTsModuleSourceCode = async (
    )
 }
 
-export default LoadTsModuleSourceCodeAnnotatedCode
+export default TsLoadModuleSourceCodeAnnotatedCode
 

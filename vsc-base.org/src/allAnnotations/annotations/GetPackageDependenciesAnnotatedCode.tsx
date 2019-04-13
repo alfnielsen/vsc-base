@@ -12,9 +12,7 @@ const GetPackageDependenciesAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Find package.json files and collect the dependencies and devDependencies.
+ Find package.json files and collect the dependencies and devDependencies.
                </p>
             </>
          }

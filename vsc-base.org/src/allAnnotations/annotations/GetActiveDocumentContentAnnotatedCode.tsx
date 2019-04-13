@@ -12,9 +12,7 @@ const GetActiveDocumentContentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get current open file's content.
+ Get current open file's content.
                </p>
             </>
          }

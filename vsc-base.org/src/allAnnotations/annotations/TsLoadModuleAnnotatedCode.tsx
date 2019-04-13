@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const LoadTsModuleAnnotatedCode = () => {
+const TsLoadModuleAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'loadTsModule'}
-         title={'loadTsModule'}
+         id={'tsLoadModule'}
+         title={'tsLoadModule'}
          annotation={
             <>
                <p>
@@ -21,13 +21,13 @@ const LoadTsModuleAnnotatedCode = () => {
                 Returning an plainObject with the scripts exports. 
                </p>
                <p>
-                export default xxx transpile s to export.default 
+                export default xxx transpile's to export.default 
                </p>
                <p>
                 IMPORTANT Dont just run code you dont now, this can cause injection! 
                </p>
                <p>
-                IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems! 
+                IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! 
                </p>
                <p>
                 (If you start a recursive change that dont stop..)
@@ -35,10 +35,10 @@ const LoadTsModuleAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const module = await vsc.loadTsModule(path)`}
+         codeOneLineEx={`const module = await vsc.tsLoadModule(path)`}
          codeEx={`let _module
 try \{
-   _module = await vsc.loadTsModule(path)
+   _module = await vsc.tsLoadModule(path)
 } catch (e)\{
    vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
    return
@@ -60,20 +60,20 @@ try \{
  * Load a ts file. \\
  * Transpile it to js (run time) add wrap code and execute it (using eval)! \\
  * Returning an plainObject with the scripts exports. \\
- * export default xxx transpile s to export.default \\
+ * export default xxx transpile's to export.default \\
  * IMPORTANT Dont just run code you dont now, this can cause injection! \\
- * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems! \\
+ * IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! \\
  * (If you start a recursive change that dont stop..)
- * @see http://vsc-base.org/#loadTsModule
+ * @see http://vsc-base.org/#tsLoadModule
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
  * @vscType System
- * @oneLineEx const module = await vsc.loadTsModule(path)
+ * @oneLineEx const module = await vsc.tsLoadModule(path)
  * @ex
 let _module
 try \{
-   _module = await vsc.loadTsModule(path)
+   _module = await vsc.tsLoadModule(path)
 } catch (e)\{
    vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
    return
@@ -92,7 +92,7 @@ try \{
 }
  * @returns Promise<\{ [key: string]: unknown; }>
  */
-export const loadTsModule = async (
+export const tsLoadModule = async (
    path: string,
    compilerOptions: ts.CompilerOptions = \{
       module: ts.ModuleKind.CommonJS,
@@ -100,21 +100,21 @@ export const loadTsModule = async (
       libs: ['es6']
    },
 ): Promise<\{ [key: string]: unknown }> => \{
-   const sourceJs = await vsc.loadTsModuleSourceCode(path, compilerOptions)
+   const sourceJs = await vsc.tsLoadModuleSourceCode(path, compilerOptions)
    let _exports: \{ [key: string]: unknown } = \{}
    try \{
       _exports = loadTsModule_Eval(sourceJs)
    } catch (e) \{
-      if (e instanceof LoadTsModuleError) \{
+      if (e instanceof TSLoadModuleError) \{
          throw e
       } else \{
-         throw new LoadTsModuleError(e, sourceJs)
+         throw new TSLoadModuleError(e, sourceJs)
       }
    }
    return _exports
 }
 
-export class LoadTsModuleError extends Error \{
+export class TSLoadModuleError extends Error \{
    constructor(
       message: string,
       public transpiledCode: string
@@ -132,7 +132,7 @@ const loadTsModule_Eval = async (
    try \{
       eval(wrapExports)
    } catch (e) \{
-      throw new LoadTsModuleError(e, wrapExports)
+      throw new TSLoadModuleError(e, wrapExports)
    }
    return _exports
 }
@@ -142,5 +142,5 @@ const loadTsModule_Eval = async (
    )
 }
 
-export default LoadTsModuleAnnotatedCode
+export default TsLoadModuleAnnotatedCode
 

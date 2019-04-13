@@ -12,10 +12,10 @@ const GetJsonContentAnnotatedCode = () => {
             <>
                <p>
                   
+ Get file source as json 
                </p>
                <p>
-                Get file source as json \
- (return null on invalid json)
+                (return null on invalid json)
                </p>
             </>
          }

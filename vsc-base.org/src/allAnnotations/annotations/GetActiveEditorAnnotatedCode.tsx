@@ -12,9 +12,7 @@ const GetActiveEditorAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get vscode.activeTextEditor
+ Get vscode.activeTextEditor
                </p>
             </>
          }

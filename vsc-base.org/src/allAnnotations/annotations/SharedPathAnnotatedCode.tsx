@@ -12,10 +12,10 @@ const SharedPathAnnotatedCode = () => {
             <>
                <p>
                   
+ Return the path that are shared. 
                </p>
                <p>
-                Return the path that are shared. \
- (Return '' if no path are shared).
+                (Return '' if no path are shared).
                </p>
             </>
          }

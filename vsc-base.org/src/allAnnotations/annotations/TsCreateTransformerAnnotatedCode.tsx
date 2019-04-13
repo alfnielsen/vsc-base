@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const CreateTsTransformerFactoryAnnotatedCode = () => {
+const TsCreateTransformerAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'createTsTransformerFactory'}
-         title={'createTsTransformerFactory'}
+         id={'tsCreateTransformer'}
+         title={'tsCreateTransformer'}
          annotation={
             <>
                <p>
@@ -15,7 +15,8 @@ const CreateTsTransformerFactoryAnnotatedCode = () => {
  Create a Ts Transformer factory 
                </p>
                <p>
-                You can use: 
+                Normally used in vsc.tsTransform
+ You can use: 
                </p>
                <p>
                 https://ts-ast-viewer.com/ 
@@ -27,19 +28,19 @@ const CreateTsTransformerFactoryAnnotatedCode = () => {
                 https://astexplorer.net/ 
                </p>
                <p>
-                to generate the new node or node type.
+                to generate the new ts nodes or node type.
                </p>
             </>
          }
          
-         codeOneLineEx={`const transformer = vsc.createTranformer(transformerCallback)`}
+         codeOneLineEx={`const transformer = vsc.tsCreateTransformer(transformerCallback)`}
          codeEx={`
 // tranforms arrowFunction with one return statement to lambda function
-const transformer = vsc.createTsTransformerFactory((node) => \{
+const transformer = vsc.tsCreateTransformer((node) => \{
    if (!ts.isArrowFunction(node)) \{ // is not an arrow funcion
       return
    }
-   const children = vsc.tsGetParsedChildrenNodes(node.body)
+   const children = vsc.tsGetParsedChildren(node.body)
    if (children.length !== 1) \{ // dont have one statement
       return
    }
@@ -60,24 +61,25 @@ const updatedCode = tsTransform(code, [transformer]);`}
          code={`/**
  * @description
  * Create a Ts Transformer factory \\
+ * Normally used in vsc.tsTransform
  * You can use: \\
  * https://ts-ast-viewer.com/ \\
  * or \\
  * https://astexplorer.net/ \\
- * to generate the new node or node type.
- * @see http://vsc-base.org/#createTsTransformerFactory
+ * to generate the new ts nodes or node type.
+ * @see http://vsc-base.org/#tsCreateTransformer
  * @param callback 
  * @param program 
  * @vscType ts
  * @experimental This method can easily change, because ts api is in experimental state.
- * @oneLineEx const transformer = vsc.createTranformer(transformerCallback)
+ * @oneLineEx const transformer = vsc.tsCreateTransformer(transformerCallback)
  * @ex 
 // tranforms arrowFunction with one return statement to lambda function
-const transformer = vsc.createTsTransformerFactory((node) => \{
+const transformer = vsc.tsCreateTransformer((node) => \{
    if (!ts.isArrowFunction(node)) \{ // is not an arrow funcion
       return
    }
-   const children = vsc.tsGetParsedChildrenNodes(node.body)
+   const children = vsc.tsGetParsedChildren(node.body)
    if (children.length !== 1) \{ // dont have one statement
       return
    }
@@ -98,7 +100,7 @@ const updatedCode = tsTransform(code, [transformer]);
 
  * @returns ts.TransformerFactory<T>
  */
-export const createTsTransformerFactory = <T extends ts.Node = ts.SourceFile>(callback: vsc.TsTransformerCallback, program?: ts.Program): ts.TransformerFactory<T> => \{
+export const tsCreateTransformer = <T extends ts.Node = ts.SourceFile>(callback: vsc.TsTransformerCallback, program?: ts.Program): ts.TransformerFactory<T> => \{
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -121,5 +123,5 @@ export type TsTransformerCallback = (node: ts.Node, typeChecker?: ts.TypeChecker
    )
 }
 
-export default CreateTsTransformerFactoryAnnotatedCode
+export default TsCreateTransformerAnnotatedCode
 

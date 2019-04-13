@@ -12,9 +12,7 @@ const GetConfigAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get vscode project config
+ Get vscode project config
                </p>
             </>
          }

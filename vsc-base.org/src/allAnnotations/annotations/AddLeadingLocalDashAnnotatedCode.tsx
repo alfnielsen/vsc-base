@@ -12,9 +12,7 @@ const AddLeadingLocalDashAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Add './' to start of path
+ Add './' to start of path
                </p>
             </>
          }

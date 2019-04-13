@@ -12,9 +12,7 @@ const IsDirAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Test is a path is directory
+ Test is a path is directory
                </p>
             </>
          }

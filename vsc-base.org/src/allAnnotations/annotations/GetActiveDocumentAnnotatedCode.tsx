@@ -12,9 +12,7 @@ const GetActiveDocumentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get open vscode.TextDocument
+ Get open vscode.TextDocument
                </p>
             </>
          }

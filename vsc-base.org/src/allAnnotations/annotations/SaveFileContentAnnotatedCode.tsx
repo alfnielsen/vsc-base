@@ -12,9 +12,7 @@ const SaveFileContentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Save file
+ Save file
                </p>
             </>
          }

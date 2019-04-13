@@ -65,22 +65,22 @@ import {
 } from './vsc-base-system';
 
 import {
-   transpileTs,
-   loadTsModuleSourceCode,
    getVscDefaultModuleMap,
-   rewriteTsTranpiledCodeWithVscBaseModules,
-   loadTsModule,
-   LoadTsModuleError,
    varifyModuleMethods,
    awaitResult,
-   createTsTransformerFactory,
+   tsTranspile,
+   tsLoadModuleSourceCode,
+   tsRewriteTranpiledCodeWithVscBaseModules,
+   tsLoadModule,
+   TSLoadModuleError,
+   tsCreateTransformer,
    TsTransformerCallback,
-   createTsRemoveNodesTransformerFactory,
-   TsRemoveTransformer,
+   tsCreateRemoveNodesTransformer,
+   TsRemoveTransformerCallback,
    tsTransform,
    tsTransformSourceFile,
-   DefaultTsCompilerOptions,
-   createTsSourceFile
+   TsDefaultCompilerOptions,
+   tsCreateSourceFile
 } from './vsc-base-typescript';
 
 import {
@@ -166,21 +166,21 @@ export {
    saveFileContent,
    scaffoldTemplate,
    // ts
-   transpileTs,
-   loadTsModuleSourceCode,
    getVscDefaultModuleMap,
-   rewriteTsTranpiledCodeWithVscBaseModules,
-   loadTsModule,
-   LoadTsModuleError,
-   varifyModuleMethods,
    awaitResult,
-   createTsTransformerFactory,
+   varifyModuleMethods,
+   tsTranspile,
+   tsLoadModuleSourceCode,
+   tsRewriteTranpiledCodeWithVscBaseModules,
+   tsLoadModule,
+   TSLoadModuleError,
+   tsCreateTransformer,
    TsTransformerCallback,
-   createTsRemoveNodesTransformerFactory,
-   TsRemoveTransformer,
+   tsCreateRemoveNodesTransformer,
+   TsRemoveTransformerCallback,
    tsTransform,
    tsTransformSourceFile,
-   DefaultTsCompilerOptions,
-   createTsSourceFile
+   TsDefaultCompilerOptions,
+   tsCreateSourceFile
    // template types
 }

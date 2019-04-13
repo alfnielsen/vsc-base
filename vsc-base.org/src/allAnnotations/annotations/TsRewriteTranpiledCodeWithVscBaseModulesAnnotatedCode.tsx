@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
+const TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'rewriteTsTranpiledCodeWithVscBaseModules'}
-         title={'rewriteTsTranpiledCodeWithVscBaseModules'}
+         id={'tsRewriteTranpiledCodeWithVscBaseModules'}
+         title={'tsRewriteTranpiledCodeWithVscBaseModules'}
          annotation={
             <>
                <p>
@@ -17,13 +17,13 @@ const RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`sourceJs = vsc.rewriteTsTranpiledCodeWithVscBaseModules(sourceJs)`}
+         codeOneLineEx={`sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)`}
          codeEx={``}
          code={`/**
  * @description 
  * Replace ts traspiles code's require for vsc, ts, fs and vscode.
- * @see http://vsc-base.org/#rewriteTsTranpiledCodeWithVscBaseModules
- * @internal this method is primary used by vsc.loadTsModule
+ * @see http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules
+ * @internal this method is primary used by vsc.tsLoadModule
  * @notes
  * ts.transpile as follows:
  * const vsc_base_1 = require("vsc-base");
@@ -31,11 +31,11 @@ const RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx sourceJs = vsc.rewriteTsTranpiledCodeWithVscBaseModules(sourceJs)
+ * @oneLineEx sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs 
  * @returns string
  */
-export const rewriteTsTranpiledCodeWithVscBaseModules = (
+export const tsRewriteTranpiledCodeWithVscBaseModules = (
    sourceJs: string,
 ): string => \{
    const modulesMap = vsc.getVscDefaultModuleMap()
@@ -52,5 +52,5 @@ export const rewriteTsTranpiledCodeWithVscBaseModules = (
    )
 }
 
-export default RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode
+export default TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode
 

@@ -12,9 +12,7 @@ const SplitPathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Split filePath into dir and file
+ Split filePath into dir and file
                </p>
             </>
          }

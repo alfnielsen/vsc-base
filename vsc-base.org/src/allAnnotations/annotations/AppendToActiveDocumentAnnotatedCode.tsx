@@ -12,10 +12,10 @@ const AppendToActiveDocumentAnnotatedCode = () => {
             <>
                <p>
                   
+ Append new content in the end of the open document. 
                </p>
                <p>
-                Append new content in the end of the open document. \
- Return true for succes, and false if there was no active editor or open document
+                Return true for succes, and false if there was no active editor or open document
                </p>
             </>
          }

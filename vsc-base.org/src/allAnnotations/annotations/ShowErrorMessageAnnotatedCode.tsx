@@ -12,9 +12,7 @@ const ShowErrorMessageAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Show error message to user
+ Show error message to user
                </p>
             </>
          }

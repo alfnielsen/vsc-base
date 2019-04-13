@@ -12,10 +12,10 @@ const TsTransformSourceFileAnnotatedCode = () => {
             <>
                <p>
                   
+ Tranform a ts.Node 
                </p>
                <p>
-                Tranform a ts.Node \
- (default node-type is ts.Sourcefile)
+                (default node-type is ts.Sourcefile)
                </p>
             </>
          }
@@ -38,7 +38,7 @@ const TsTransformSourceFileAnnotatedCode = () => {
 export const tsTransformSourceFile = <T extends ts.Node = ts.SourceFile>(
    sourceFile: T,
    transformers: ts.TransformerFactory<T>[],
-   compilerOptions: ts.CompilerOptions = vsc.DefaultTsCompilerOptions
+   compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ) => \{
    return ts.transform<T>(sourceFile, transformers, compilerOptions)
 }

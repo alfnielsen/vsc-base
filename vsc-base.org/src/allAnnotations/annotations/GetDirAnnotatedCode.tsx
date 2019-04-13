@@ -12,10 +12,10 @@ const GetDirAnnotatedCode = () => {
             <>
                <p>
                   
+ Get dir from path 
                </p>
                <p>
-                Get dir from path \
- (If path is a dir return it)
+                (If path is a dir return it)
                </p>
             </>
          }

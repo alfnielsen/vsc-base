@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const CreateTsSourceFileAnnotatedCode = () => {
+const TsCreateSourceFileAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'createTsSourceFile'}
-         title={'createTsSourceFile'}
+         id={'tsCreateSourceFile'}
+         title={'tsCreateSourceFile'}
          annotation={
             <>
                <p>
@@ -17,19 +17,19 @@ const CreateTsSourceFileAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const sourceFile = vsc.createTsSourceFile(code)`}
+         codeOneLineEx={`const sourceFile = vsc.tsCreateSourceFile(code)`}
          codeEx={``}
          code={`/**
  * @description 
  * Create a ts.SourceFile
- * @see http://vsc-base.org/#createTsSourceFile
+ * @see http://vsc-base.org/#tsCreateSourceFile
  * @param content 
  * @param sourceFileName 
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const sourceFile = vsc.createTsSourceFile(code)
+ * @oneLineEx const sourceFile = vsc.tsCreateSourceFile(code)
  */
-export const createTsSourceFile = (
+export const tsCreateSourceFile = (
    content: string,
    sourceFileName = \`sourcefile_\$\{(new Date().getTime())}\`
 ): ts.SourceFile => \{
@@ -46,5 +46,5 @@ export const createTsSourceFile = (
    )
 }
 
-export default CreateTsSourceFileAnnotatedCode
+export default TsCreateSourceFileAnnotatedCode
 

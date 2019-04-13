@@ -16,10 +16,10 @@ const ToSnakeCaseAnnotatedCode = () => {
             <>
                <p>
                   
+ Format a string from camel-case to snake-case 
                </p>
                <p>
-                Format a string from camel-case to snake-case \
- Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
+                Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
                </p>
             </>
          }

@@ -12,9 +12,7 @@ const GetFileContentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get file source
+ Get file source
                </p>
             </>
          }

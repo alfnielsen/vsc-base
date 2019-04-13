@@ -12,9 +12,7 @@ const JoinPathsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Joins to paths.
+ Joins to paths.
                </p>
             </>
          }

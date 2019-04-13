@@ -12,10 +12,10 @@ const SleepAnnotatedCode = () => {
             <>
                <p>
                   
+ await wrap for setTimeout. 
                </p>
                <p>
-                await wrap for setTimeout. \
- Mostly used for debug asyc.
+                Mostly used for debug asyc.
                </p>
             </>
          }

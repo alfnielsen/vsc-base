@@ -12,10 +12,10 @@ const CreateTsRemoveNodesTransformerFactoryAnnotatedCode = () => {
             <>
                <p>
                   
+ Create Basic Ts Transformer for removing nodes 
                </p>
                <p>
-                Create Basic Ts Transformer for removing nodes \
- You can use https://ts-ast-viewer.com/ to generate the new node or node type.
+                You can use https://ts-ast-viewer.com/ to generate the new node or node type.
                </p>
             </>
          }

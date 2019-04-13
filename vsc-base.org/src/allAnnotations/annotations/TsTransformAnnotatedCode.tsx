@@ -12,11 +12,16 @@ const TsTransformAnnotatedCode = () => {
             <>
                <p>
                   
+ Tranform source code using custom transformers 
                </p>
                <p>
-                Tranform source code using custom transformers \
- See createTsTransformerFactory and createTsRemoveTransformerFactory for creating transformer \
- (See http://vsc-base.org/#createTsTransformerFactory, http://vsc-base.org/#createTsRemoveTransformerFactory)
+                See tsCreateTransformer and tsCreateRemoveTransformer for creating transformer 
+               </p>
+               <p>
+                
+               </p>
+               <p>
+                See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveTransformer
                </p>
             </>
          }
@@ -26,8 +31,9 @@ const TsTransformAnnotatedCode = () => {
          code={`/**
  * @description 
  * Tranform source code using custom transformers \\
- * See createTsTransformerFactory and createTsRemoveTransformerFactory for creating transformer \\
- * (See http://vsc-base.org/#createTsTransformerFactory, http://vsc-base.org/#createTsRemoveTransformerFactory)
+ * See tsCreateTransformer and tsCreateRemoveTransformer for creating transformer \\
+ * \\
+ * See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveTransformer
  * @see http://vsc-base.org/#tsTransform
  * @param source 
  * @param transformers 
@@ -41,17 +47,16 @@ const TsTransformAnnotatedCode = () => {
 export const tsTransform = (
    source: string,
    transformers: ts.TransformerFactory<ts.SourceFile>[],
-   compilerOptions: ts.CompilerOptions = vsc.DefaultTsCompilerOptions,
+   compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions,
    printer: ts.Printer = ts.createPrinter()
 ): string => \{
-   const sourceFile = createTsSourceFile(source)
-   const result = tsTransformSourceFile(sourceFile, transformers, compilerOptions)
+   const sourceFile = vsc.tsCreateSourceFile(source)
+   const result = vsc.tsTransformSourceFile(sourceFile, transformers, compilerOptions)
    const transformedSourceFile = result.transformed[0];
    const print = printer.printFile(transformedSourceFile)
    result.dispose()
    return print
 }
-
 `}
       />
    )

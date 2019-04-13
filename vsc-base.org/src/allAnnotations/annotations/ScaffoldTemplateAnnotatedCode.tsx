@@ -12,9 +12,7 @@ const ScaffoldTemplateAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Recurvice function that goes through a template tree
+ Recurvice function that goes through a template tree
                </p>
             </>
          }

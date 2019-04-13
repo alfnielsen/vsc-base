@@ -12,9 +12,7 @@ const GetJsonPartsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get part of a json object.
+ Get part of a json object.
                </p>
             </>
          }

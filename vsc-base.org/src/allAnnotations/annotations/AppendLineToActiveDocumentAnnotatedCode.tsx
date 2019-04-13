@@ -12,9 +12,7 @@ const AppendLineToActiveDocumentAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Append new line content in the end of the open document
+ Append new line content in the end of the open document
                </p>
             </>
          }

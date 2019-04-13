@@ -8,10 +8,6 @@ import AskAnnotatedCode from './annotations/AskAnnotatedCode'
 import AwaitResultAnnotatedCode from './annotations/AwaitResultAnnotatedCode'
 import CleanPathAnnotatedCode from './annotations/CleanPathAnnotatedCode'
 import CopyAnnotatedCode from './annotations/CopyAnnotatedCode'
-import CreateTsRemoveNodesTransformerFactoryAnnotatedCode from './annotations/CreateTsRemoveNodesTransformerFactoryAnnotatedCode'
-import CreateTsSourceFileAnnotatedCode from './annotations/CreateTsSourceFileAnnotatedCode'
-import CreateTsTransformerFactoryAnnotatedCode from './annotations/CreateTsTransformerFactoryAnnotatedCode'
-import DefaultTsCompilerOptionsAnnotatedCode from './annotations/DefaultTsCompilerOptionsAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
 import FindFilePathsFromBaseAnnotatedCode from './annotations/FindFilePathsFromBaseAnnotatedCode'
@@ -41,13 +37,10 @@ import IsAbsolutePathAnnotatedCode from './annotations/IsAbsolutePathAnnotatedCo
 import IsDirAnnotatedCode from './annotations/IsDirAnnotatedCode'
 import IsSubPathAnnotatedCode from './annotations/IsSubPathAnnotatedCode'
 import JoinPathsAnnotatedCode from './annotations/JoinPathsAnnotatedCode'
-import LoadTsModuleAnnotatedCode from './annotations/LoadTsModuleAnnotatedCode'
-import LoadTsModuleSourceCodeAnnotatedCode from './annotations/LoadTsModuleSourceCodeAnnotatedCode'
 import MakeDirAnnotatedCode from './annotations/MakeDirAnnotatedCode'
 import MoveAnnotatedCode from './annotations/MoveAnnotatedCode'
 import PathAsUnixAnnotatedCode from './annotations/PathAsUnixAnnotatedCode'
 import PickAnnotatedCode from './annotations/PickAnnotatedCode'
-import RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import SaveActiveDocumentAnnotatedCode from './annotations/SaveActiveDocumentAnnotatedCode'
 import SaveAllAnnotatedCode from './annotations/SaveAllAnnotatedCode'
 import SaveFileContentAnnotatedCode from './annotations/SaveFileContentAnnotatedCode'
@@ -63,12 +56,19 @@ import ToCamelCaseAnnotatedCode from './annotations/ToCamelCaseAnnotatedCode'
 import ToKebabCaseAnnotatedCode from './annotations/ToKebabCaseAnnotatedCode'
 import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
 import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
-import TranspileTsAnnotatedCode from './annotations/TranspileTsAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
-import TsGetParsedChildrenNodesAnnotatedCode from './annotations/TsGetParsedChildrenNodesAnnotatedCode'
+import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateRemoveNodesTransformerAnnotatedCode'
+import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnnotatedCode'
+import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
+import TsDefaultCompilerOptionsAnnotatedCode from './annotations/TsDefaultCompilerOptionsAnnotatedCode'
+import TsGetParsedChildrenAnnotatedCode from './annotations/TsGetParsedChildrenAnnotatedCode'
+import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
+import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
+import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformSourceFileAnnotatedCode from './annotations/TsTransformSourceFileAnnotatedCode'
+import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
 
 const AllAnnotations = () =>
@@ -81,10 +81,6 @@ const AllAnnotations = () =>
       <AwaitResultAnnotatedCode />
       <CleanPathAnnotatedCode />
       <CopyAnnotatedCode />
-      <CreateTsRemoveNodesTransformerFactoryAnnotatedCode />
-      <CreateTsSourceFileAnnotatedCode />
-      <CreateTsTransformerFactoryAnnotatedCode />
-      <DefaultTsCompilerOptionsAnnotatedCode />
       <DoesExistsAnnotatedCode />
       <FindFilePathsAnnotatedCode />
       <FindFilePathsFromBaseAnnotatedCode />
@@ -114,13 +110,10 @@ const AllAnnotations = () =>
       <IsDirAnnotatedCode />
       <IsSubPathAnnotatedCode />
       <JoinPathsAnnotatedCode />
-      <LoadTsModuleAnnotatedCode />
-      <LoadTsModuleSourceCodeAnnotatedCode />
       <MakeDirAnnotatedCode />
       <MoveAnnotatedCode />
       <PathAsUnixAnnotatedCode />
       <PickAnnotatedCode />
-      <RewriteTsTranpiledCodeWithVscBaseModulesAnnotatedCode />
       <SaveActiveDocumentAnnotatedCode />
       <SaveAllAnnotatedCode />
       <SaveFileContentAnnotatedCode />
@@ -136,12 +129,19 @@ const AllAnnotations = () =>
       <ToKebabCaseAnnotatedCode />
       <ToPascalCaseAnnotatedCode />
       <ToSnakeCaseAnnotatedCode />
-      <TranspileTsAnnotatedCode />
       <TrimDashesAnnotatedCode />
       <TrimLeadingDashAnnotatedCode />
-      <TsGetParsedChildrenNodesAnnotatedCode />
+      <TsCreateRemoveNodesTransformerAnnotatedCode />
+      <TsCreateSourceFileAnnotatedCode />
+      <TsCreateTransformerAnnotatedCode />
+      <TsDefaultCompilerOptionsAnnotatedCode />
+      <TsGetParsedChildrenAnnotatedCode />
+      <TsLoadModuleAnnotatedCode />
+      <TsLoadModuleSourceCodeAnnotatedCode />
+      <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode />
       <TsTransformAnnotatedCode />
       <TsTransformSourceFileAnnotatedCode />
+      <TsTranspileAnnotatedCode />
       <VarifyModuleMethodsAnnotatedCode />
    </>
 

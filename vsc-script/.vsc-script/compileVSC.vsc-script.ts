@@ -138,13 +138,14 @@ const writeAnnotationComponent = (
    metaMap: { [key: string]: string }
 ) => {
    let descr = metaMap.description;
+   const newLineREg = /\\\n/g
    descr = `<p>
-                  ${descr.replace(/[\\]?\n/, '\n               </p>\n               <p>\n               ')}
+                  ${descr.replace(newLineREg, '\n               </p>\n               <p>\n               ')}
                </p>`
    const oneLineEx = metaMap.oneLineEx.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   code = code.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-   meta = meta.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1')
+   code = code.replace(/([\\`\$\{])/g, '\\$1')
+   meta = meta.replace(/([\\`\$\{])/g, '\\$1')
    let test = ''
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {

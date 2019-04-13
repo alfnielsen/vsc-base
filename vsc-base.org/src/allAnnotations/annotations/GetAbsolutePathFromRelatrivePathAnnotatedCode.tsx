@@ -12,9 +12,7 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Transform a relative path to an abspolute path.
+ Transform a relative path to an abspolute path.
                </p>
             </>
          }

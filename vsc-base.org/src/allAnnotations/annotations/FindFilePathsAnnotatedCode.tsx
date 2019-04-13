@@ -12,9 +12,7 @@ const FindFilePathsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get a list off all filePaths in project the matches a glob pattern
+ Get a list off all filePaths in project the matches a glob pattern
                </p>
             </>
          }

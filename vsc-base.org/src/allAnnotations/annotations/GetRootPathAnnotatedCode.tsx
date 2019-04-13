@@ -12,9 +12,7 @@ const GetRootPathAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Get project root for a path or undefined if no project was found.
+ Get project root for a path or undefined if no project was found.
                </p>
             </>
          }

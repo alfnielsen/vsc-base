@@ -12,9 +12,7 @@ const FindRelativeFilePathsAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Find files based from a releative to a path
+ Find files based from a releative to a path
                </p>
             </>
          }

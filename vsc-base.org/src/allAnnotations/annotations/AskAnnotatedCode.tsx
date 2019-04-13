@@ -12,9 +12,7 @@ const AskAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Prompt user for a question
+ Prompt user for a question
                </p>
             </>
          }

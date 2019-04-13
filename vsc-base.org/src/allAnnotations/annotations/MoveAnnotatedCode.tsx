@@ -12,9 +12,7 @@ const MoveAnnotatedCode = () => {
             <>
                <p>
                   
-               </p>
-               <p>
-                Move file/fodler
+ Move file/fodler
                </p>
             </>
          }

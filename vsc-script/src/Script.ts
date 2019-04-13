@@ -64,14 +64,14 @@ export default class Script {
       // load script and tranpile it
       let scriptFileExport
       try {
-         scriptFileExport = await vsc.loadTsModule(selectedScript.path)
+         scriptFileExport = await vsc.tsLoadModule(selectedScript.path)
       } catch (e) {
          let jsCompiledCode = ''
-         if (e instanceof vsc.LoadTsModuleError) {
+         if (e instanceof vsc.TSLoadModuleError) {
             jsCompiledCode = e.transpiledCode
             this.errorLog('104.1: Error in vsc-Script trying to transpile the loaded module. This error is properply incorrect formatting of the module file. Open the script file in vscode and ensure that ts cont find any errors.', selectedScript.path, e, `${jsCompiledCode}`)
          } else {
-            const transpiledTs = await vsc.transpileTs(selectedScript.path)
+            const transpiledTs = await vsc.tsTranspile(selectedScript.path)
             this.errorLog('104.2: Error in vsc-Script trying to transpile the loaded module. Please report it to https://github.com/alfnielsen/vsc-base/issues and include the error-log', selectedScript.path, e, `${transpiledTs}`)
          }
          return
@@ -94,7 +94,7 @@ export default class Script {
             vsc.showMessage('Script done.')
          }
       } catch (e) {
-         const sourceJs = await vsc.loadTsModuleSourceCode(selectedScript.path)
+         const sourceJs = await vsc.tsLoadModuleSourceCode(selectedScript.path)
          this.errorLog(`105: Running compiled 'run' method. The error is in the 'run' method.`, selectedScript.path, e, `${sourceJs}`)
       }
    }

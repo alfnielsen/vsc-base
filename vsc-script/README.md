@@ -90,6 +90,8 @@ paths, strings and other elements that make it easier to create vscode extension
 
 > vsc-base.org: [documentation](http://vsc-base.org)
 
+> [vsc-base release-notes](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
+
 ### Related projects
 
 > vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding) | [source-code](https://github.com/alfnielsen/vsc-scaffolding)

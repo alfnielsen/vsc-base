@@ -11,7 +11,10 @@ const PickAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Prompt user for a question with a list of answers
+                  
+               </p>
+               <p>
+                Prompt user for a question with a list of answers
                </p>
             </>
          }
@@ -21,6 +24,7 @@ const PickAnnotatedCode = () => {
  const list = \\['yes', 'no']
  const answer = await vsc.pick(list)`}
          code={`/**
+ * @description 
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
  * @param path string[]

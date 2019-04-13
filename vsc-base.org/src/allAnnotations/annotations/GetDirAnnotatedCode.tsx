@@ -11,7 +11,11 @@ const GetDirAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get dir from path (If path is a dir return it)
+                  
+               </p>
+               <p>
+                Get dir from path \
+ (If path is a dir return it)
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const GetDirAnnotatedCode = () => {
          codeOneLineEx={`const dir = vsc.getDir(path)`}
          codeEx={``}
          code={`/**
- * Get dir from path (If path is a dir return it)
+ * @description 
+ * Get dir from path \\
+ * (If path is a dir return it)
  * @see http://vsc-base.org/#getDir
  * @param path
  * @dependencyInternal isDir, splitPath

@@ -15,7 +15,10 @@ const GetRelativePathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Generate relative path between two paths.
+                  
+               </p>
+               <p>
+                Generate relative path between two paths.
                </p>
             </>
          }
@@ -36,6 +39,7 @@ const GetRelativePathAnnotatedCode = () => {
          codeOneLineEx={`const relativePath = vsc.getRelativePath(fromPath, toPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Generate relative path between two paths.
  * @see http://vsc-base.org/#relatrivePath
  * @param fromPath

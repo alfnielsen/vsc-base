@@ -11,10 +11,11 @@ const VarifyModuleMethodsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Test if a loaded module has methods (Loaded with vsc.loadTsModule)
+                  
                </p>
                <p>
-                return undefined if a method didnt exist.
+                Test if a loaded module has methods (Loaded with vsc.loadTsModule) \
+ return undefined if a method didnt exist.
                </p>
             </>
          }
@@ -24,7 +25,8 @@ const VarifyModuleMethodsAnnotatedCode = () => {
 const varifiedModule = vsc.varifyModuleMethods(_module, \\['run', 'getId'\\])
 const result = varifiedModule.run()`}
          code={`/**
- * Test if a loaded module has methods (Loaded with vsc.loadTsModule)
+ * @description 
+ * Test if a loaded module has methods (Loaded with vsc.loadTsModule) \\
  * return undefined if a method didnt exist.
  * @see http://vsc-base.org/#varifyModuleMethods
  * @vscType System

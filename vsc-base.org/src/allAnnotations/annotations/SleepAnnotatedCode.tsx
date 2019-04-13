@@ -11,7 +11,11 @@ const SleepAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  await wrap for setTimeout. Mostly used for debug asyc.
+                  
+               </p>
+               <p>
+                await wrap for setTimeout. \
+ Mostly used for debug asyc.
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const SleepAnnotatedCode = () => {
          codeOneLineEx={`await vsc.sleep(2000)`}
          codeEx={``}
          code={`/**
- * await wrap for setTimeout. Mostly used for debug asyc.
+ * @description 
+ * await wrap for setTimeout. \\
+ * Mostly used for debug asyc.
  * @see http://vsc-base.org/#sleep
  * @param ms
  * @oneLineEx await vsc.sleep(2000)

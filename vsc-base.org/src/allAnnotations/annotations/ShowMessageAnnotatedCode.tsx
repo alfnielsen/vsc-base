@@ -11,7 +11,10 @@ const ShowMessageAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Show message to user
+                  
+               </p>
+               <p>
+                Show message to user
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const ShowMessageAnnotatedCode = () => {
          codeOneLineEx={`vsc.showMessage(message)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Show message to user
  * @see http://vsc-base.org/#showMessage
  * @param message

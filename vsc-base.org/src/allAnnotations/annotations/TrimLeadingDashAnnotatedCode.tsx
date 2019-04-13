@@ -11,7 +11,10 @@ const TrimLeadingDashAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Remove '/' from start of path
+                  
+               </p>
+               <p>
+                Remove '/' from start of path
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const TrimLeadingDashAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.trimLeadingDash(foundPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
  * @param path

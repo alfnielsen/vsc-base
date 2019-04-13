@@ -11,7 +11,10 @@ const DoesExistsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Does the folder/file exist
+                  
+               </p>
+               <p>
+                Does the folder/file exist
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const DoesExistsAnnotatedCode = () => {
          codeOneLineEx={`const exist = vsc.doesExists(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Does the folder/file exist
  * @see http://vsc-base.org/#doesExists
  * @param path string

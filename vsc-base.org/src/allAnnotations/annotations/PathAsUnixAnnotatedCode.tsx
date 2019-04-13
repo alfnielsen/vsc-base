@@ -11,7 +11,11 @@ const PathAsUnixAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Reaplve all '\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+                  
+               </p>
+               <p>
+                Reaplve all '\\'  with '/' \
+ (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const PathAsUnixAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.joinPaths(path1, path2)`}
          codeEx={``}
          code={`/**
- * Reaplve all '\\\\'  with '/' (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+ * @description 
+ * Reaplve all '\\\\'  with '/' \\
+ * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
  * @vscType Raw

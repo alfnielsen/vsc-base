@@ -11,7 +11,10 @@ const GetJsonPartsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get part of a json object.
+                  
+               </p>
+               <p>
+                Get part of a json object.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetJsonPartsAnnotatedCode = () => {
          codeOneLineEx={`const startScript = vsc.getJsonParts(packageJson, 'scripts.start')`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
  * @param json

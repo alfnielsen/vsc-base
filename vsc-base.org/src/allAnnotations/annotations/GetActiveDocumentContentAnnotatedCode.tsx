@@ -11,7 +11,10 @@ const GetActiveDocumentContentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get current open file's content.
+                  
+               </p>
+               <p>
+                Get current open file's content.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetActiveDocumentContentAnnotatedCode = () => {
          codeOneLineEx={`const content = vsc.getActiveDocumentContent()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument

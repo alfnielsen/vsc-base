@@ -11,7 +11,10 @@ const GetActiveEditorAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get vscode.activeTextEditor
+                  
+               </p>
+               <p>
+                Get vscode.activeTextEditor
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetActiveEditorAnnotatedCode = () => {
          codeOneLineEx={`const editor = vsc.getActiveEditor()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode

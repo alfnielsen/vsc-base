@@ -57,8 +57,9 @@ export const addLeadingLocalDash = (path: string): string => {
 
 /**
  * @description 
- * Format a string from camel-case to kebab-case 
- * Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+ * Format a string from camel-case to kebab-case \
+ * Commonly used to define css class names. \
+ * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
  * @see http://vsc-base.org/#toKebabCase
  * @param str
  * @vscType Raw
@@ -81,7 +82,7 @@ export const toKebabCase = (str: string): string =>
 
 /**
  * @description 
- * Format a string from camel-case to snake-case 
+ * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
  * @see http://vsc-base.org/#toSnakeCase
  * @param str
@@ -112,7 +113,8 @@ export const toSnakeCase = (str: string, upperCase = false): string => {
 
 /**
  * @description 
- * Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * Format a string to camal-case. \
+ * Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case.
  * @see http://vsc-base.org/#toCamelCase

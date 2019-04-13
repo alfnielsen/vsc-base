@@ -11,7 +11,10 @@ const GetActiveDocumentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get open vscode.TextDocument
+                  
+               </p>
+               <p>
+                Get open vscode.TextDocument
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const document = vsc.getActiveDocument()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode

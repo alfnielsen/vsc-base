@@ -11,7 +11,10 @@ const TrimDashesAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Remove '/' from start and end of path
+                  
+               </p>
+               <p>
+                Remove '/' from start and end of path
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const TrimDashesAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.trimDashes(foundPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
  * @param path

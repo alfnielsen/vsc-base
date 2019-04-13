@@ -15,10 +15,11 @@ const ToSnakeCaseAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Format a string from camel-case to snake-case 
+                  
                </p>
                <p>
-                Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
+                Format a string from camel-case to snake-case \
+ Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
                </p>
             </>
          }
@@ -39,7 +40,8 @@ const ToSnakeCaseAnnotatedCode = () => {
          codeOneLineEx={`const cssName = vsc.toSnakeCase(inputName)`}
          codeEx={``}
          code={`/**
- * Format a string from camel-case to snake-case 
+ * @description 
+ * Format a string from camel-case to snake-case \\
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
  * @see http://vsc-base.org/#toSnakeCase
  * @param str

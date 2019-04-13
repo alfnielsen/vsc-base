@@ -11,7 +11,10 @@ const GetFileContentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get file source
+                  
+               </p>
+               <p>
+                Get file source
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetFileContentAnnotatedCode = () => {
          codeOneLineEx={`const source = vsc.getFileContent(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get file source
  * @see http://vsc-base.org/#getFileContent
  * @param path

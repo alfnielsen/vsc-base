@@ -11,7 +11,10 @@ const GetLineStreamReaderAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Create a LineReader (generator method) for a ReadStream
+                  
+               </p>
+               <p>
+                Create a LineReader (generator method) for a ReadStream
                </p>
             </>
          }
@@ -23,6 +26,7 @@ const GetLineStreamReaderAnnotatedCode = () => {
     //do something with the line
  }`}
          code={`/**
+ * @description 
  * Create a LineReader (generator method) for a ReadStream
  * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream

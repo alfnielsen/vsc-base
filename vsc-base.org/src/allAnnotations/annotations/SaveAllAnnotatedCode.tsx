@@ -11,7 +11,10 @@ const SaveAllAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Save All files
+                  
+               </p>
+               <p>
+                Save All files
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const SaveAllAnnotatedCode = () => {
          codeOneLineEx={`await vsc.saveAll()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode

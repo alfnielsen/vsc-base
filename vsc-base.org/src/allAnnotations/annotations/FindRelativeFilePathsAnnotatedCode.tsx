@@ -11,7 +11,10 @@ const FindRelativeFilePathsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Find files based from a releative to a path
+                  
+               </p>
+               <p>
+                Find files based from a releative to a path
                </p>
             </>
          }
@@ -30,6 +33,7 @@ if(moduleFileInParentFolder.lenght>1)\{
 const modulePath = moduleFileInParentFolder[0];
 // Do something with modulePath..`}
          code={`/**
+ * @description 
  * Find files based from a releative to a path
  * @see http://vsc-base.org/#findRelativeFilePaths
  * @param path

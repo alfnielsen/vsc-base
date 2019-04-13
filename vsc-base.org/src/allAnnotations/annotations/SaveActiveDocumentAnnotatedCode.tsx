@@ -11,10 +11,11 @@ const SaveActiveDocumentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Save active open file.
+                  
                </p>
                <p>
-                Return true for succes, and false if there was no open document
+                Save active open file. \
+ Return true for succes, and false if there was no open document
                </p>
             </>
          }
@@ -22,7 +23,8 @@ const SaveActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const success = await vsc.saveActiveDocument(content)`}
          codeEx={``}
          code={`/**
- * Save active open file.
+ * @description 
+ * Save active open file. \\
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument

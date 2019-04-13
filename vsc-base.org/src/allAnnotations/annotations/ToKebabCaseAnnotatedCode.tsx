@@ -15,10 +15,12 @@ const ToKebabCaseAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Format a string from camel-case to kebab-case 
+                  
                </p>
                <p>
-                Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+                Format a string from camel-case to kebab-case \
+ Commonly used to define css class names. \
+ Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
                </p>
             </>
          }
@@ -39,8 +41,10 @@ const ToKebabCaseAnnotatedCode = () => {
          codeOneLineEx={`const cssName = vsc.toKebabCase(inputName)`}
          codeEx={``}
          code={`/**
- * Format a string from camel-case to kebab-case 
- * Commonly used to define css class names. Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+ * @description 
+ * Format a string from camel-case to kebab-case \\
+ * Commonly used to define css class names. \\
+ * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
  * @see http://vsc-base.org/#toKebabCase
  * @param str
  * @vscType Raw

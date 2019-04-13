@@ -11,10 +11,11 @@ const AppendToActiveDocumentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Append new content in the end of the open document.
+                  
                </p>
                <p>
-                Return true for succes, and false if there was no active editor or open document
+                Append new content in the end of the open document. \
+ Return true for succes, and false if there was no active editor or open document
                </p>
             </>
          }
@@ -22,7 +23,8 @@ const AppendToActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const success = await vsc.appendToActiveDocument(content)`}
          codeEx={``}
          code={`/**
- * Append new content in the end of the open document.
+ * @description 
+ * Append new content in the end of the open document. \\
  * Return true for succes, and false if there was no active editor or open document
  * @see http://vsc-base.org/#appendToActiveDocument
  * @param content

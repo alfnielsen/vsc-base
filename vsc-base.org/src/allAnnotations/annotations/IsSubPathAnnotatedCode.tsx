@@ -11,7 +11,10 @@ const IsSubPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Does subpath start with parentPath
+                  
+               </p>
+               <p>
+                Does subpath start with parentPath
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const IsSubPathAnnotatedCode = () => {
          codeOneLineEx={`const isSubPath = vsc.isSubPath(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Does subpath start with parentPath
  * @see http://vsc-base.org/#isSubPath
  * @param path

@@ -11,7 +11,10 @@ const GetRootPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get project root for a path or undefined if no project was found.
+                  
+               </p>
+               <p>
+                Get project root for a path or undefined if no project was found.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetRootPathAnnotatedCode = () => {
          codeOneLineEx={`const rootPath = vsc.getRootPath()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get project root for a path or undefined if no project was found.
  * @see http://vsc-base.org/#getRootPath
  * @param path

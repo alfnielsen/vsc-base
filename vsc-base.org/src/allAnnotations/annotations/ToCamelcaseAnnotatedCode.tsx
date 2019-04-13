@@ -15,10 +15,12 @@ const ToCamelCaseAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+                  
                </p>
                <p>
-                Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
+                Format a string to camal-case. \
+ Commonly used to define js/ts variable names. \
+ Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
  All non word seperators will be removed and the word charector after will be transforms to upper case.
                </p>
             </>
@@ -40,7 +42,9 @@ const ToCamelCaseAnnotatedCode = () => {
          codeOneLineEx={`const name = vsc.toCamelCase(inputName)`}
          codeEx={``}
          code={`/**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \\
+ * @description 
+ * Format a string to camal-case. \\
+ * Commonly used to define js/ts variable names. \\
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \\
  * All non word seperators will be removed and the word charector after will be transforms to upper case.
  * @see http://vsc-base.org/#toCamelCase

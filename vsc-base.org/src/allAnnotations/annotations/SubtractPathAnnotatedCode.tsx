@@ -11,7 +11,10 @@ const SubtractPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Remove parent-path from a path
+                  
+               </p>
+               <p>
+                Remove parent-path from a path
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const SubtractPathAnnotatedCode = () => {
          codeOneLineEx={`const newPath = vsc.subtractPath(path, parentPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Remove parent-path from a path
  * @see http://vsc-base.org/#subtractPath
  * @param path

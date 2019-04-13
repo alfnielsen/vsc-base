@@ -11,7 +11,10 @@ const ScaffoldTemplateAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Recurvice function that goes through a template tree
+                  
+               </p>
+               <p>
+                Recurvice function that goes through a template tree
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const ScaffoldTemplateAnnotatedCode = () => {
          codeOneLineEx={`await vsc.scaffoldTemplate(path, template)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Recurvice function that goes through a template tree
  * @see http://vsc-base.org/#scaffoldTemplate
  * @param path Full path to where the TemplateItem (file/folder) should be created
@@ -64,6 +68,32 @@ export const scaffoldTemplate = async (
       }
    }
 }
+
+export type vscTemplate = \{
+   userInputs: vscUserInput[]
+   template: vscTemplateItem[]
+}
+
+export type vscTemplateItem = vscTemplateFolder | vscTemplateFile
+
+export type vscTemplateFolder = \{
+   type: 'folder'
+   name: vscStringDelegate
+   children?: vscTemplateItem[]
+}
+export type vscTemplateFile = \{
+   type: 'file'
+   name: vscStringDelegate
+   content: vscStringDelegate
+}
+
+export type vscUserInput = \{
+   title: string
+   argumentName: string
+   defaultValue: string
+}
+export type vscUserInputs = \{ [key: string]: string }
+export type vscStringDelegate = string | ((inputs: vscUserInputs) => string)
 `}
       />
    )

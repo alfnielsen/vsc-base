@@ -11,7 +11,10 @@ const GetPackageDependenciesAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Find package.json files and collect the dependencies and devDependencies.
+                  
+               </p>
+               <p>
+                Find package.json files and collect the dependencies and devDependencies.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetPackageDependenciesAnnotatedCode = () => {
          codeOneLineEx={`const [dependencies, devDependencies] = await vsc.getPackageDependencies()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts

@@ -15,10 +15,11 @@ const CleanPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get clean path. 
+                  
                </p>
                <p>
-                Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
+                Get clean path. \
+ Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
                </p>
             </>
          }
@@ -39,7 +40,8 @@ const CleanPathAnnotatedCode = () => {
          codeOneLineEx={`const newPath = vsc.cleanPath(concatenatedPath)`}
          codeEx={``}
          code={`/**
- * Get clean path. 
+ * @description 
+ * Get clean path. \\
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
  * @see http://vsc-base.org/#cleanPath
  * @param path

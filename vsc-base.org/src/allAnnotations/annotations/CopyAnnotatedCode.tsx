@@ -11,7 +11,10 @@ const CopyAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Copy file/fodler
+                  
+               </p>
+               <p>
+                Copy file/fodler
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const CopyAnnotatedCode = () => {
          codeOneLineEx={`await vsc.copy(oldPath, newPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Copy file/fodler
  * @see http://vsc-base.org/#copy
  * @param path

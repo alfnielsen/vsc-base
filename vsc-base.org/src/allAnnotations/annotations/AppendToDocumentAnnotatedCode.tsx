@@ -11,7 +11,10 @@ const AppendToDocumentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Append new content in the end of the open document
+                  
+               </p>
+               <p>
+                Append new content in the end of the open document
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const AppendToDocumentAnnotatedCode = () => {
          codeOneLineEx={`await vsc.appendToDocument(editor, document, content)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Append new content in the end of the open document
  * @see http://vsc-base.org/#appendToDocument
  * @param editor

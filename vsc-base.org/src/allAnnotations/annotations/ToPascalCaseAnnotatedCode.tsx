@@ -15,10 +15,11 @@ const ToPascalCaseAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  @description Format a string to camal-case. Commonly used to define js/ts variable names. \
+                  
                </p>
                <p>
-                Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
+                Format a string to camal-case. Commonly used to define js/ts variable names. \
+ Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
  All non word seperators will be removed and the word charector after will be transforms to upper case
                </p>
             </>
@@ -40,7 +41,8 @@ const ToPascalCaseAnnotatedCode = () => {
          codeOneLineEx={`const name = vsc.toPascalCase(inputName)`}
          codeEx={``}
          code={`/**
- * @description Format a string to camal-case. Commonly used to define js/ts variable names. \\
+ * @description 
+ * Format a string to camal-case. Commonly used to define js/ts variable names. \\
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \\
  * All non word seperators will be removed and the word charector after will be transforms to upper case
  * @see http://vsc-base.org/#toPascalCase

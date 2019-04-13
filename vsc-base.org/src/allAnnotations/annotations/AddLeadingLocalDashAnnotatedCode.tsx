@@ -11,7 +11,10 @@ const AddLeadingLocalDashAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Add './' to start of path
+                  
+               </p>
+               <p>
+                Add './' to start of path
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const AddLeadingLocalDashAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.addLeadingLocalDash(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
  * @param path

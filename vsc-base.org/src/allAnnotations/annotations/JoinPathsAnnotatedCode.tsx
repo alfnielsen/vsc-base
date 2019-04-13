@@ -11,7 +11,10 @@ const JoinPathsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Joins to paths.
+                  
+               </p>
+               <p>
+                Joins to paths.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const JoinPathsAnnotatedCode = () => {
          codeOneLineEx={`const newPath = vsc.joinPaths(path1, path2)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Joins to paths.
  * @see http://vsc-base.org/#joinPaths
  * @param path1

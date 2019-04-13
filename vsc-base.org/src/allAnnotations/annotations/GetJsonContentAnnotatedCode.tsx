@@ -11,7 +11,11 @@ const GetJsonContentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get file source as json (return null on invalid json)
+                  
+               </p>
+               <p>
+                Get file source as json \
+ (return null on invalid json)
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const GetJsonContentAnnotatedCode = () => {
          codeOneLineEx={`const json = await vsc.getJsonContent(path)`}
          codeEx={``}
          code={`/**
- * Get file source as json (return null on invalid json)
+ * @description 
+ * Get file source as json \\
+ * (return null on invalid json)
  * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs

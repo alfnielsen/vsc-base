@@ -11,7 +11,10 @@ const GetPackageFilePathsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Find packages file paths in project.
+                  
+               </p>
+               <p>
+                Find packages file paths in project.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetPackageFilePathsAnnotatedCode = () => {
          codeOneLineEx={`const packageFilePaths = await vsc.getPackageFilePaths()`}
          codeEx={``}
          code={`/**
+ * @description 
  * Find packages file paths in project.
  * @see http://vsc-base.org/#getPackageFilePaths
  * @dependencyInternal findFilePaths

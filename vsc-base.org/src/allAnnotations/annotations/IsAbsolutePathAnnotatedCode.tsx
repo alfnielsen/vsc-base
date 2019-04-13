@@ -11,7 +11,11 @@ const IsAbsolutePathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Does path start with charactor [a-zA-Z@] (not '/' or './' or '../')
+                  
+               </p>
+               <p>
+                Does path start with charactor [a-zA-Z@] \
+ (not '/' or './' or '../')
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const IsAbsolutePathAnnotatedCode = () => {
          codeOneLineEx={`const isAbsolutePath = vsc.isAbsolutePath(path)`}
          codeEx={``}
          code={`/**
- * Does path start with charactor [a-zA-Z@] (not '/' or './' or '../')
+ * @description 
+ * Does path start with charactor [a-zA-Z@] \\
+ * (not '/' or './' or '../')
  * @see http://vsc-base.org/#isAbsolutePath
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.

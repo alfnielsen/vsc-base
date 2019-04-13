@@ -11,7 +11,11 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Return the default module map of vsc-base (Used for ts compiling, module load ect)
+                  
+               </p>
+               <p>
+                Return the default module map of vsc-base \
+ (Used for ts compiling, module load ect)
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
          codeOneLineEx={`const moduleMap = vsc.getVscDefaultModuleMap`}
          codeEx={``}
          code={`/**
- * Return the default module map of vsc-base (Used for ts compiling, module load ect)
+ * @description 
+ * Return the default module map of vsc-base \\
+ * (Used for ts compiling, module load ect)
  * @see http://vsc-base.org/#getVscDefaultModuleMap
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
@@ -32,9 +38,7 @@ export const getVscDefaultModuleMap = (): \{ key: string, name: string, module: 
       \{ key: 'ts', name: 'typescript', module: ts },
       \{ key: 'fs', name: 'fs-extra', module: fs },
       \{ key: 'vscode', name: 'vscode', module: vscode }
-
    ]
-
 }
 `}
       />

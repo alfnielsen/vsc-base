@@ -11,7 +11,10 @@ const MakeDirAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Make a folder
+                  
+               </p>
+               <p>
+                Make a folder
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const MakeDirAnnotatedCode = () => {
          codeOneLineEx={`await vsc.makeDir(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Make a folder
  * @see http://vsc-base.org/#makeDir
  * @param path

@@ -11,7 +11,10 @@ const FindFilePathsFromBaseAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get a list off all filePaths from a basePath, in project the matches a glob pattern
+                  
+               </p>
+               <p>
+                Get a list off all filePaths from a basePath, in project the matches a glob pattern
                </p>
             </>
          }
@@ -24,6 +27,7 @@ for (const filePath of storyFilesInModule1)\{
    // Do something with filePath..
 }`}
          code={`/**
+ * @description 
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePathsFromBase
  * @param include glob

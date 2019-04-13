@@ -11,18 +11,22 @@ const GetTimestampAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  return ISO timestamp
+                  
+               </p>
+               <p>
+                return ISO timestamp
                </p>
             </>
          }
          
-         codeOneLineEx={`const timestamp = vsc.getTimeStamp()`}
+         codeOneLineEx={`const timestamp = vsc.getTimestamp()`}
          codeEx={``}
          code={`/**
+ * @description 
  * return ISO timestamp
- * @see http://vsc-base.org/#getTimeStamp
+ * @see http://vsc-base.org/#getTimestamp
  * @vscType Raw
- * @oneLineEx const timestamp = vsc.getTimeStamp()
+ * @oneLineEx const timestamp = vsc.getTimestamp()
  * @returns string
  */
 export const getTimestamp = (): string => \{

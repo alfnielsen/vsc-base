@@ -11,7 +11,10 @@ const GetFullDocumentRangeAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get a vscodeRange for the entire document
+                  
+               </p>
+               <p>
+                Get a vscodeRange for the entire document
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetFullDocumentRangeAnnotatedCode = () => {
          codeOneLineEx={`const fullRange = vsc.getFullDocumentRange(document)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Get a vscodeRange for the entire document
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document

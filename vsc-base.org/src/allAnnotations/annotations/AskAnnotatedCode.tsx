@@ -11,7 +11,10 @@ const AskAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Prompt user for a question
+                  
+               </p>
+               <p>
+                Prompt user for a question
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const AskAnnotatedCode = () => {
          codeOneLineEx={`const answer = await vsc.ask(question, defaultValue)`}
          codeEx={`const answer = await ask('Where to move file?', currentFilePath)`}
          code={`/**
+ * @description 
  * Prompt user for a question
  * @see http://vsc-base.org/#ask
  * @param question string

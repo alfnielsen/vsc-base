@@ -11,13 +11,15 @@ const LoadTsModuleAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Load a ts file. Transpile it to js (run time) add wrap code and execute it (using eval)!
+                  
                </p>
                <p>
-                Returning an plainObject with the scripts exports.
- export default xxx transpile s to export.default
- IMPORTANT Dont just run code you dont now, this can cause injection!
- IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems!
+                Load a ts file. \
+ Transpile it to js (run time) add wrap code and execute it (using eval)! \
+ Returning an plainObject with the scripts exports. \
+ export default xxx transpile s to export.default \
+ IMPORTANT Dont just run code you dont now, this can cause injection! \
+ IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems! \
  (If you start a recursive change that dont stop..)
                </p>
             </>
@@ -44,11 +46,13 @@ try \{
    vsc.showErrorMessage('Error: ' + e)
 }`}
          code={`/**
- * Load a ts file. Transpile it to js (run time) add wrap code and execute it (using eval)!
- * Returning an plainObject with the scripts exports.
- * export default xxx transpile s to export.default
- * IMPORTANT Dont just run code you dont now, this can cause injection!
- * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems!
+ * @description 
+ * Load a ts file. \\
+ * Transpile it to js (run time) add wrap code and execute it (using eval)! \\
+ * Returning an plainObject with the scripts exports. \\
+ * export default xxx transpile s to export.default \\
+ * IMPORTANT Dont just run code you dont now, this can cause injection! \\
+ * IMPORTANT Be carefull when running scripts that also uses loadTsModule, this can break down entire systems! \\
  * (If you start a recursive change that dont stop..)
  * @see http://vsc-base.org/#loadTsModule
  * @param path
@@ -99,6 +103,7 @@ export const loadTsModule = async (
    }
    return _exports
 }
+
 export class LoadTsModuleError extends Error \{
    constructor(
       message: string,
@@ -113,7 +118,6 @@ const loadTsModule_Eval = async (
 ): Promise<\{ [key: string]: unknown }> => \{
    //Wrap code in enclosed function. Add vsc as only dependency.
    const wrapExports = \`_exports = (function()\{var exports = \{};\\n\$\{sourceJs}\\nreturn exports})()\`
-
    let _exports: \{ [key: string]: unknown } = \{}
    try \{
       eval(wrapExports)

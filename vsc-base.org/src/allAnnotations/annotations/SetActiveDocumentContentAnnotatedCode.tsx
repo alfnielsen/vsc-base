@@ -11,10 +11,11 @@ const SetActiveDocumentContentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Set current open file's content.
+                  
                </p>
                <p>
-                Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
+                Set current open file's content. \
+ Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
                </p>
             </>
          }
@@ -22,7 +23,8 @@ const SetActiveDocumentContentAnnotatedCode = () => {
          codeOneLineEx={`const success = await vsc.setActiveDocumentContent(content)`}
          codeEx={``}
          code={`/**
- * Set current open file's content.
+ * @description 
+ * Set current open file's content. \\
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
  * @see http://vsc-base.org/#setActiveDocumentContent
  * @param content

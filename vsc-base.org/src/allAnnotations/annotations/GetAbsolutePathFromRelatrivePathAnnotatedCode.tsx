@@ -11,7 +11,10 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Transform a relative path to an abspolute path.
+                  
+               </p>
+               <p>
+                Transform a relative path to an abspolute path.
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
          codeOneLineEx={`const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Transform a relative path to an abspolute path.
  * @see http://vsc-base.org/#relatrivePathToAbsolutePath
  * @param path File from where the relative path begins

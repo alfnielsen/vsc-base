@@ -11,7 +11,10 @@ const TranspileTsAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Transpile ts source to js
+                  
+               </p>
+               <p>
+                Transpile ts source to js
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const TranspileTsAnnotatedCode = () => {
          codeOneLineEx={`const sourceJs = vsc.transpileTs(sourceTs)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Transpile ts source to js
  * @see http://vsc-base.org/#transpileTs
  * @param sourceTs 

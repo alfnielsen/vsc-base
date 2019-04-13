@@ -11,7 +11,11 @@ const GetErrorInfoAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Test if it an error. Return type (if one of es6 basic error type) return stack
+                  
+               </p>
+               <p>
+                Test if it an error. \
+ Return type (if one of es6 basic error type) return stack
                </p>
             </>
          }
@@ -19,7 +23,9 @@ const GetErrorInfoAnnotatedCode = () => {
          codeOneLineEx={`const info = vsc.getErrorInfo(e)`}
          codeEx={``}
          code={`/**
- * Test if it an error. Return type (if one of es6 basic error type) return stack
+ * @description 
+ * Test if it an error. \\
+ * Return type (if one of es6 basic error type) return stack
  * @see http://vsc-base.org/#getErrorInfo
  * @param e error
  * @vscType Raw

@@ -11,7 +11,10 @@ const GetConfigAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get vscode project config
+                  
+               </p>
+               <p>
+                Get vscode project config
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const GetConfigAnnotatedCode = () => {
          codeOneLineEx={`const myOption = vsc.getConfig(projectName, optionName, defaultValue)`}
          codeEx={`const myOption = vsc.getConfig('myExtension', 'doThisThing', false)`}
          code={`/**
+ * @description 
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
  * @dependencyExternal vscode

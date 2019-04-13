@@ -2,6 +2,7 @@ import * as vscode from 'vscode'
 import * as vsc from './vsc-base'
 
 /**
+ * @description 
  * Prompt user for a question
  * @see http://vsc-base.org/#ask
  * @param question string
@@ -22,6 +23,7 @@ export const ask = async (
    })
 
 /**
+ * @description 
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
  * @param path string[]
@@ -37,6 +39,7 @@ export const pick = async (answerList: string[]): Promise<string | undefined> =>
    await vscode.window.showQuickPick(answerList)
 
 /**
+ * @description 
  * Get a list off all filePaths in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePaths
  * @param include glob
@@ -69,6 +72,7 @@ export const findFilePaths = async (
 }
 
 /**
+ * @description 
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePathsFromBase
  * @param include glob
@@ -99,6 +103,7 @@ export const findFilePathsFromBase = async (
 }
 
 /**
+ * @description 
  * Find files based from a releative to a path
  * @see http://vsc-base.org/#findRelativeFilePaths
  * @param path
@@ -145,6 +150,7 @@ export const findRelativeFilePaths = async (
 }
 
 /**
+ * @description 
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
  * @dependencyExternal vscode
@@ -156,6 +162,7 @@ export const getActiveEditor = (): vscode.TextEditor | undefined => {
    return vscode.window.activeTextEditor
 }
 /**
+ * @description 
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
@@ -170,6 +177,7 @@ export const getActiveDocument = (): vscode.TextDocument | undefined => {
 }
 
 /**
+ * @description 
  * Get current open file path or undefined if nothing is open.
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
@@ -183,6 +191,7 @@ export const getActiveDocumentPath = (): string | undefined => {
 }
 
 /**
+ * @description 
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
  * @dependencyInternal getActiveDocument
@@ -196,7 +205,8 @@ export const getActiveDocumentContent = (): string | undefined => {
 }
 
 /**
- * Set current open file's content.
+ * @description 
+ * Set current open file's content. \
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
  * @see http://vsc-base.org/#setActiveDocumentContent
  * @param content
@@ -221,6 +231,7 @@ export const setActiveDocumentContent = async (
 }
 
 /**
+ * @description 
  * Get a vscodeRange for the entire document
  * @see http://vsc-base.org/#getFullDocumentRange
  * @param document
@@ -239,6 +250,7 @@ export const getFullDocumentRange = (
 }
 
 /**
+ * @description 
  * Append new content in the end of the open document
  * @see http://vsc-base.org/#appendToDocument
  * @param editor
@@ -262,7 +274,8 @@ export const appendToDocument = async (
 }
 
 /**
- * Append new content in the end of the open document.
+ * @description 
+ * Append new content in the end of the open document. \
  * Return true for succes, and false if there was no active editor or open document
  * @see http://vsc-base.org/#appendToActiveDocument
  * @param content
@@ -284,6 +297,7 @@ export const appendToActiveDocument = async (
    return false
 }
 /**
+ * @description 
  * Append new line content in the end of the open document
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content
@@ -299,7 +313,8 @@ export const appendLineToActiveDocument = async (
 }
 
 /**
- * Save active open file.
+ * @description 
+ * Save active open file. \
  * Return true for succes, and false if there was no open document
  * @see http://vsc-base.org/#saveActiveDocument
  * @dependencyInternal getActiveDocument
@@ -319,6 +334,7 @@ export const saveActiveDocument = async (): Promise<boolean> => {
 }
 
 /**
+ * @description 
  * Get project root for a path or undefined if no project was found.
  * @see http://vsc-base.org/#getRootPath
  * @param path
@@ -340,6 +356,7 @@ export const getRootPath = (path: string): string | undefined => {
 }
 
 /**
+ * @description 
  * Save All files
  * @see http://vsc-base.org/#saveAll
  * @dependencyExternal vscode
@@ -352,6 +369,7 @@ export const saveAll = async (): Promise<void> => {
 }
 
 /**
+ * @description 
  * Show error message to user
  * @see http://vsc-base.org/#showErrorMessage
  * @param message
@@ -365,6 +383,7 @@ export const showErrorMessage = async (message: string): Promise<void> => {
 }
 
 /**
+ * @description 
  * Show message to user
  * @see http://vsc-base.org/#showMessage
  * @param message

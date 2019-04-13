@@ -206,7 +206,7 @@ export const getActiveDocumentContent = (): string | undefined => {
 
 /**
  * @description 
- * Set current open file's content.
+ * Set current open file's content. \
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
  * @see http://vsc-base.org/#setActiveDocumentContent
  * @param content

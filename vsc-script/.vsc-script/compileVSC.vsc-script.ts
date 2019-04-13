@@ -36,7 +36,7 @@ export async function run(path: string) {
          const name = nameMatch[1]
          //meta map:
          const metaMap: { [key: string]: string } = {}
-         const mapArgs = meta.split(/\n\s+\*\s+@/)
+         const mapArgs = meta.split(/\n?\s+\*\s+@/)
          // metaMap.description = mapArgs.shift().replace(/(^|\n)\s+\*/g, '\n')
          mapArgs.shift() // remove leading empty area
          mapArgs.forEach(arg => {
@@ -137,9 +137,9 @@ const writeAnnotationComponent = (
    meta: string,
    metaMap: { [key: string]: string }
 ) => {
-   let descr = metaMap.description.trim();
+   let descr = metaMap.description;
    descr = `<p>
-                  ${descr.replace(/\\?\n/, '\n               </p>\n               <p>\n               ')}
+                  ${descr.replace(/[\\]?\n/, '\n               </p>\n               <p>\n               ')}
                </p>`
    const oneLineEx = metaMap.oneLineEx.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
    const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')

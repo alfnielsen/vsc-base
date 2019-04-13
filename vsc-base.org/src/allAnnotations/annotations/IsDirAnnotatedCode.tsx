@@ -11,7 +11,10 @@ const IsDirAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Test is a path is directory
+                  
+               </p>
+               <p>
+                Test is a path is directory
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const IsDirAnnotatedCode = () => {
          codeOneLineEx={`const isDir = vsc.isDir(path)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs

@@ -11,7 +11,10 @@ const AppendLineToActiveDocumentAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Append new line content in the end of the open document
+                  
+               </p>
+               <p>
+                Append new line content in the end of the open document
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const AppendLineToActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const success = await vsc.appendLineToActiveDocument(content)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Append new line content in the end of the open document
  * @see http://vsc-base.org/#appendLineToActiveDocument
  * @param content

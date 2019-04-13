@@ -15,7 +15,10 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Transform an absolute path from root, to a sub-relative path.
+                  
+               </p>
+               <p>
+                Transform an absolute path from root, to a sub-relative path.
                </p>
             </>
          }
@@ -37,6 +40,7 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
          codeOneLineEx={`const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Transform an absolute path from root, to a sub-relative path.
  * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
  * @param path

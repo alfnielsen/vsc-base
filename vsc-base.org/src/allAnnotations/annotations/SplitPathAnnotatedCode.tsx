@@ -11,7 +11,10 @@ const SplitPathAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Split filePath into dir and file
+                  
+               </p>
+               <p>
+                Split filePath into dir and file
                </p>
             </>
          }
@@ -19,6 +22,7 @@ const SplitPathAnnotatedCode = () => {
          codeOneLineEx={`const [dir, file] = vsc.splitPath(filePath)`}
          codeEx={``}
          code={`/**
+ * @description 
  * Split filePath into dir and file
  * @see http://vsc-base.org/#splitPath
  * @param path

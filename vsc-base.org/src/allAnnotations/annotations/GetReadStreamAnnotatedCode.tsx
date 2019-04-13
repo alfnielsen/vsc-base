@@ -11,7 +11,10 @@ const GetReadStreamAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Get a file ReadStream
+                  
+               </p>
+               <p>
+                Get a file ReadStream
                </p>
             </>
          }
@@ -22,6 +25,7 @@ const GetReadStreamAnnotatedCode = () => {
    //do something with chunk
  }`}
          code={`/**
+ * @description 
  * Get a file ReadStream
  * @see http://vsc-base.org/#getReadStream
  * @param path

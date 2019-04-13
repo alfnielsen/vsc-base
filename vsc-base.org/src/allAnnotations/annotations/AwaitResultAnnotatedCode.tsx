@@ -11,29 +11,31 @@ const AwaitResultAnnotatedCode = () => {
          annotation={
             <>
                <p>
-                  Ensure that a method result that optional can be a promise is awaited.
+                  
                </p>
                <p>
-                (Responses from methods loaded with vsc.loadTsModule can be optional async!)
+                Ensure that a method result that optional can be a promise is awaited. \
+ (Responses from methods loaded with vsc.loadTsModule can be optional async!)
                </p>
             </>
          }
          
          codeOneLineEx={`await vsc.awaitResult(result)`}
          codeEx={`
-const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
-const result = varifiedModule.run()
-await vsc.awaitResult(result)`}
+ const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
+ const result = varifiedModule.run()
+ await vsc.awaitResult(result)`}
          code={`/**
- * Ensure that a method result that optional can be a promise is awaited.
+ * @description 
+ * Ensure that a method result that optional can be a promise is awaited. \\
  * (Responses from methods loaded with vsc.loadTsModule can be optional async!)
  * @see http://vsc-base.org/#awaitResult
- * @vscType System
+ * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
-const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
-const result = varifiedModule.run()
-await vsc.awaitResult(result)
+ const varifiedModule = vsc.varifyModuleMethods(_module, \\['run'])
+ const result = varifiedModule.run()
+ await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 export const awaitResult = async (result: any): Promise<any> => \{
@@ -45,6 +47,7 @@ export const awaitResult = async (result: any): Promise<any> => \{
       })
    }
 }
+
 `}
       />
    )

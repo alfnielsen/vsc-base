@@ -55,10 +55,10 @@ import SleepAnnotatedCode from './annotations/SleepAnnotatedCode'
 import SplitPathAnnotatedCode from './annotations/SplitPathAnnotatedCode'
 import SubtractPathAnnotatedCode from './annotations/SubtractPathAnnotatedCode'
 import ToCamelCaseAnnotatedCode from './annotations/ToCamelCaseAnnotatedCode'
+import ToJSONStringAnnotatedCode from './annotations/ToJSONStringAnnotatedCode'
 import ToKebabCaseAnnotatedCode from './annotations/ToKebabCaseAnnotatedCode'
 import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
 import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
-import ToStringAnnotatedCode from './annotations/ToStringAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
 import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateRemoveNodesTransformerAnnotatedCode'
@@ -131,10 +131,10 @@ const AllAnnotations = () =>
       <SplitPathAnnotatedCode />
       <SubtractPathAnnotatedCode />
       <ToCamelCaseAnnotatedCode />
+      <ToJSONStringAnnotatedCode />
       <ToKebabCaseAnnotatedCode />
       <ToPascalCaseAnnotatedCode />
       <ToSnakeCaseAnnotatedCode />
-      <ToStringAnnotatedCode />
       <TrimDashesAnnotatedCode />
       <TrimLeadingDashAnnotatedCode />
       <TsCreateRemoveNodesTransformerAnnotatedCode />

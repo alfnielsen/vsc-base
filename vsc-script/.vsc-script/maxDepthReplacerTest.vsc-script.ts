@@ -51,9 +51,7 @@ export async function run(_path: string) {
 		}
 		const returnNode = child
 		const returnNodeChildren = vsc.tsGetParsedChildren(returnNode);
-		const s = vsc.toJSONString(returnNodeChildren, null, 2, 2)
-
-		log += `\n/* C:: ${s} */\n`
+		log += `\n/* C:: ${toString(returnNodeChildren, undefined, undefined, 2)} */\n`
 		const returnExpression = returnNode.expression
 		if (returnExpression === undefined) { // return statement is undefined
 			return
@@ -77,3 +75,36 @@ export async function run(_path: string) {
 	vsc.appendLineToActiveDocument('// ' + log + '\n\n');
 	// tranforms arrowFunction with one return statement to lambda function
 }
+
+
+/**
+ * @description 
+ */
+const maxDepthReplacer = (obj: unknown, maxDepth: number, currentLevel: number = 0): any => {
+	if (Array.isArray(obj)) {
+		if (currentLevel > maxDepth) {
+			return `[vsc: maxDepth ${maxDepth} reached - Array]`
+		}
+		return obj.map(child => maxDepthReplacer(child, maxDepth, currentLevel + 1))
+	}
+	if (typeof obj === "object" && obj !== null) {
+		if (currentLevel > maxDepth) {
+			return `[vsc: maxDepth ${maxDepth} reached - Object]`
+		}
+		const children: any = {}
+		for (const [key, value] of Object.entries(obj)) {
+			children[key] = maxDepthReplacer(value, maxDepth, currentLevel + 1)
+		}
+		return children;
+	}
+	return obj
+};
+
+const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => {
+	if (maxDepth >= 0) {
+		let newObj = maxDepthReplacer(obj, maxDepth);
+		return JSON.stringify(newObj, replacer, space)
+	}
+	return JSON.stringify(obj, replacer, space)
+}
+

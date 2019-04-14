@@ -536,16 +536,16 @@ export const getJSONCircularReplacer = (): (_key: string, value: unknown) => unk
  * @description 
  * Stringify an object. \
  * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
- * @see http://vsc-base.org/#toString
+ * @see http://vsc-base.org/#toJSONString
  * @param obj 
  * @param replacer 
  * @param space 
  * @vscType Raw
  * @debugTool Primary a debugging method.
- * @oneLineEx const objString = vsc.toString(someObject);
+ * @oneLineEx const objString = vsc.toJSONString(someObject);
  * @returns string
  */
-export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => {
+export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => {
    if (maxDepth >= 0) {
       let maxDepthObj = maxDepthReplacer(obj, maxDepth);
       return JSON.stringify(maxDepthObj, replacer, space)
@@ -558,7 +558,7 @@ export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), spa
  * @description 
  * Clone an JSON Object (any type) with max depth. \
  * This method goes through the object structure and replace children that goes deeper then the max Depth
- * @see http://vsc-base.org/#toString
+ * @see http://vsc-base.org/#maxDepthReplacer
  * @param obj 
  * @param maxDepth 
  * @param currentLevel 

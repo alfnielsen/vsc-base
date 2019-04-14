@@ -1,3 +1,8 @@
+## 0.4.5
+
+Rename toString to toJSONString.
+This is to avoid problems with native toString.
+
 ## 0.4.4
 
 Add maxDepthReplacer

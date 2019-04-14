@@ -325,6 +325,7 @@ export declare const getTimestamp: () => string;
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
  * @see http://vsc-base.org/#getJSONCircularReplacer
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
  * @returns (_key: string, value: unknown) => unknown
  */
@@ -338,7 +339,22 @@ export declare const getJSONCircularReplacer: () => (_key: string, value: unknow
  * @param replacer
  * @param space
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
-export declare const toString: (obj: any, replacer?: (_key: string, value: unknown) => unknown, space?: number) => string;
+export declare const toString: (obj: any, replacer?: (_key: string, value: unknown) => unknown, space?: number, maxDepth?: number) => string;
+/**
+ * @description
+ * Clone an JSON Object (any type) with max depth. \
+ * This method goes through the object structure and replace children that goes deeper then the max Depth
+ * @see http://vsc-base.org/#toString
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.maxDepthReplacer(obj, 3);
+ * @returns string
+ */
+export declare const maxDepthReplacer: (obj: unknown, maxDepth: number, currentLevel?: number) => any;

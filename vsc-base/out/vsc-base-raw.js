@@ -471,6 +471,7 @@ exports.getTimestamp = () => {
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
  * @see http://vsc-base.org/#getJSONCircularReplacer
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
  * @returns (_key: string, value: unknown) => unknown
  */
@@ -479,7 +480,7 @@ exports.getJSONCircularReplacer = () => {
     return (_key, value) => {
         if (typeof value === "object" && value !== null) {
             if (seen.has(value)) {
-                return '[Circular Reference]'; // Write out that this is a Circular Reference.
+                return '[vsc: circular reference]'; // Write out that this is a Circular Reference.
             }
             seen.add(value);
         }
@@ -495,10 +496,47 @@ exports.getJSONCircularReplacer = () => {
  * @param replacer
  * @param space
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
-exports.toString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2) => {
+exports.toString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
+    if (maxDepth >= 0) {
+        let maxDepthObj = exports.maxDepthReplacer(obj, maxDepth);
+        return JSON.stringify(maxDepthObj, replacer, space);
+    }
     return JSON.stringify(obj, replacer, space);
+};
+/**
+ * @description
+ * Clone an JSON Object (any type) with max depth. \
+ * This method goes through the object structure and replace children that goes deeper then the max Depth
+ * @see http://vsc-base.org/#toString
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.maxDepthReplacer(obj, 3);
+ * @returns string
+ */
+exports.maxDepthReplacer = (obj, maxDepth, currentLevel = 0) => {
+    if (Array.isArray(obj)) {
+        if (currentLevel > maxDepth) {
+            return `[vsc: maxDepth ${maxDepth} reached - Array]`;
+        }
+        return obj.map(child => exports.maxDepthReplacer(child, maxDepth, currentLevel + 1));
+    }
+    if (typeof obj === "object" && obj !== null) {
+        if (currentLevel > maxDepth) {
+            return `[vsc: maxDepth ${maxDepth} reached - Object]`;
+        }
+        const children = {};
+        for (const [key, value] of Object.entries(obj)) {
+            children[key] = exports.maxDepthReplacer(value, maxDepth, currentLevel + 1);
+        }
+        return children;
+    }
+    return obj;
 };
 //# sourceMappingURL=vsc-base-raw.js.map

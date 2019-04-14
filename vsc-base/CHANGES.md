@@ -1,3 +1,9 @@
+## 0.4.4
+
+Add maxDepthReplacer
+Add maxDepth option to toString
+(And new JsDoc property: Debugtool, for declaring that a method is primary for debugging)
+
 ## 0.4.2 + 0.4.3
 
 Add Raw methods:

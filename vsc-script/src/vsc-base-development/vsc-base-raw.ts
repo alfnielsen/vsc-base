@@ -540,7 +540,7 @@ export const getJSONCircularReplacer = () => {
  * @param replacer 
  * @param space 
  * @vscType Raw
- * @oneLineEx const objString = vsc.toString(soneObject);
+ * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
 export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2) =>

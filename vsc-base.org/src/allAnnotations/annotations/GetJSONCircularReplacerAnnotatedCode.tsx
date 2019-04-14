@@ -24,20 +24,21 @@ const GetJSONCircularReplacerAnnotatedCode = () => {
          codeEx={``}
          code={`/**
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @returns (_key: string, value: unknown) => unknown
  */
-export const getJSONCircularReplacer = () => \{
+export const getJSONCircularReplacer = (): (_key: string, value: unknown) => unknown => \{
    const seen = new WeakSet();
    return (_key: string, value: unknown) => \{
       if (typeof value === "object" && value !== null) \{
          if (seen.has(value)) \{
-            return;
+            return '[vsc: circular reference]'; // Write out that this is a Circular Reference.
          }
          seen.add(value);
       }
       return value;
-   };
-};
+   }
+}
 `}
       />
    )

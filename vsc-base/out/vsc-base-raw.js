@@ -479,7 +479,7 @@ exports.getJSONCircularReplacer = () => {
     return (_key, value) => {
         if (typeof value === "object" && value !== null) {
             if (seen.has(value)) {
-                return;
+                return '[Circular Reference]'; // Write out that this is a Circular Reference.
             }
             seen.add(value);
         }
@@ -489,14 +489,16 @@ exports.getJSONCircularReplacer = () => {
 /**
  * @description
  * Stringify an object. \
- * Uses JSON.stringity and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
+ * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
  * @see http://vsc-base.org/#toString
  * @param obj
  * @param replacer
  * @param space
  * @vscType Raw
- * @oneLineEx const objString = vsc.toString(soneObject);
+ * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
-exports.toString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2) => JSON.stringify(obj, replacer, space);
+exports.toString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2) => {
+    return JSON.stringify(obj, replacer, space);
+};
 //# sourceMappingURL=vsc-base-raw.js.map

@@ -20,15 +20,22 @@ const ToStringAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const objString = vsc.toString(soneObject);`}
+         codeOneLineEx={`const objString = vsc.toString(someObject);`}
          codeEx={``}
          code={`/**
  * @param obj, replacer, space
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @returns string
  */
-export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2) =>
-   JSON.stringify(obj, replacer, space)
+export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => \{
+   if (maxDepth >= 0) \{
+      let maxDepthObj = maxDepthReplacer(obj, maxDepth);
+      return JSON.stringify(maxDepthObj, replacer, space)
+   }
+   return JSON.stringify(obj, replacer, space)
+}
+
 `}
       />
    )

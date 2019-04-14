@@ -94,3 +94,130 @@ function run(_path) {
 exports.run = run;
 
 
+
+// ------------------ Error log from script -------------- //
+// type: 105: Running compiled 'run' method. The error is in the 'run' method.
+// time: 2019-04-14T19:30:08.247Z
+// selectedScript.path: /Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/.vsc-script/tsTransformerPattern.vsc-script.ts
+// path: [object Object]
+// error 
+var info = {
+   "isError": true,
+   "type": "RangeError",
+   "stack": "RangeError: Maximum call stack size exceeded\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:24)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat obj.map.item (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:32)\n\tat Array.map (<anonymous>)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:91:20)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)\n\tat maxDepthReplacer (eval at <anonymous> (/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/dist/extension.js:131990:9), <anonymous>:99:29)",
+   "message": "Maximum call stack size exceeded"
+}
+// ts transpiled js code:
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/* const vsc = require("vsc-base") // vsc-base has change the ts transpiled code here. */;
+/* const ts = require("typescript") // vsc-base has change the ts transpiled code here. */;
+let log = '';
+function run(_path) {
+    return __awaiter(this, void 0, void 0, function* () {
+        vsc.showMessage('Start transformer test');
+        // Source file content
+        const testSource = `	const f = (num: number) => {
+		debugger
+		return [num, 'string']
+	}
+`;
+        const pattern = {
+            nodeKind: ts.SyntaxKind.ArrowFunction,
+            childrenCount: 1,
+            children: [
+                {
+                    nodeKind: ts.SyntaxKind.ArrowFunction,
+                    expression: {}
+                }
+            ]
+        };
+        //const [sourceFile, program] = createTsProgramFromContent(testSource);
+        // Create transformer (ArrowMehtod Single Return statement transform to lambda)
+        const removeDebuggerTransformer = vsc.tsCreateRemoveNodesTransformer((node) => {
+            if (ts.isDebuggerStatement(node)) {
+                return true;
+            }
+            return false;
+        });
+        //const [sourceFile, program] = createTsProgramFromContent(testSource);
+        // Create transformer (ArrowMehtod Single Return statement transform to lambda)
+        const arrowLambdaTranformer = vsc.tsCreateTransformer((node) => {
+            if (!ts.isArrowFunction(node)) { // is not an arrow funcion
+                return;
+            }
+            const children = vsc.tsGetParsedChildren(node.body);
+            if (children.length !== 1) { // dont have one statement
+                return;
+            }
+            const child = children[0];
+            if (!ts.isReturnStatement(child)) { // statement is not a return statement
+                return;
+            }
+            const returnNode = child;
+            const returnNodeChildren = vsc.tsGetParsedChildren(returnNode);
+            toString(returnNodeChildren, undefined, undefined, 2);
+            //log += `\n/* C:: ${toString(returnNodeChildren, undefined, undefined, 2)} */\n`
+            const returnExpression = returnNode.expression;
+            if (returnExpression === undefined) { // return statement is undefined
+                return;
+            }
+            node.body = returnExpression;
+            return node;
+        });
+        const printed = vsc.tsTransform(testSource, [removeDebuggerTransformer, arrowLambdaTranformer]);
+        // Add result to log
+        log += `
+	/* Original:
+	${testSource}
+	*/
+	/* Trandformed:
+	${printed}
+	*/
+		`;
+        // Add log to end of open document
+        vsc.appendLineToActiveDocument('// ' + log + '\n\n');
+        // tranforms arrowFunction with one return statement to lambda function
+    });
+}
+exports.run = run;
+/**
+ * @description
+ */
+const maxDepthReplacer = (obj, maxDepth, currentLevel = 0) => {
+    if (Array.isArray(obj)) {
+        if (currentLevel > maxDepth) {
+            return '[vsc: maxDepth reached - Array]';
+        }
+        return obj.map(item => maxDepthReplacer(item, currentLevel + 1));
+    }
+    else if (typeof obj === "object" && obj !== null) {
+        if (currentLevel > maxDepth) {
+            return '[vsc: maxDepth reached - Object]';
+        }
+        const children = [];
+        for (const [key, value] of Object.entries(obj)) {
+            children[key] = maxDepthReplacer(value, currentLevel + 1);
+        }
+        return children;
+    }
+    return obj;
+};
+const toString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
+    if (maxDepth >= 0) {
+        const Oobj = maxDepthReplacer(obj, maxDepth);
+        log += '\n\n/* OBJ 1: \n' + JSON.stringify(Oobj, replacer, space) + '\n*/\n';
+    }
+    //log += '\n\n/* OBJ 2:\n' + JSON.stringify(obj, replacer, space) + '\n*/\n'
+    return ''; //return JSON.stringify(obj, replacer, space)
+};
+
+

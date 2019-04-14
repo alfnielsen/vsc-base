@@ -23,7 +23,8 @@ import {
    getErrorInfo,
    getTimestamp,
    getJSONCircularReplacer,
-   toString
+   toString,
+   maxDepthReplacer
 } from './vsc-base-raw'
 
 import {
@@ -134,6 +135,7 @@ export {
    getTimestamp,
    getJSONCircularReplacer,
    toString,
+   maxDepthReplacer,
    //vscode
    ask,
    pick,

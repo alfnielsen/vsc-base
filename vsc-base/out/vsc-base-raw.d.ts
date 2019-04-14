@@ -332,13 +332,13 @@ export declare const getJSONCircularReplacer: () => (_key: string, value: unknow
 /**
  * @description
  * Stringify an object. \
- * Uses JSON.stringity and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
+ * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
  * @see http://vsc-base.org/#toString
  * @param obj
  * @param replacer
  * @param space
  * @vscType Raw
- * @oneLineEx const objString = vsc.toString(soneObject);
+ * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
 export declare const toString: (obj: any, replacer?: (_key: string, value: unknown) => unknown, space?: number) => string;

@@ -515,21 +515,22 @@ export const getTimestamp = (): string => {
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
  * @see http://vsc-base.org/#getJSONCircularReplacer
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
  * @returns (_key: string, value: unknown) => unknown
  */
-export const getJSONCircularReplacer = () => {
+export const getJSONCircularReplacer = (): (_key: string, value: unknown) => unknown => {
    const seen = new WeakSet();
    return (_key: string, value: unknown) => {
       if (typeof value === "object" && value !== null) {
          if (seen.has(value)) {
-            return;
+            return '[vsc: circular reference]'; // Write out that this is a Circular Reference.
          }
          seen.add(value);
       }
       return value;
-   };
-};
+   }
+}
 
 /**
  * @description 
@@ -540,8 +541,48 @@ export const getJSONCircularReplacer = () => {
  * @param replacer 
  * @param space 
  * @vscType Raw
+ * @debugTool Primary a debugging method.
  * @oneLineEx const objString = vsc.toString(someObject);
  * @returns string
  */
-export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2) =>
-   JSON.stringify(obj, replacer, space)
+export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => {
+   if (maxDepth >= 0) {
+      let maxDepthObj = maxDepthReplacer(obj, maxDepth);
+      return JSON.stringify(maxDepthObj, replacer, space)
+   }
+   return JSON.stringify(obj, replacer, space)
+}
+
+
+/**
+ * @description 
+ * Clone an JSON Object (any type) with max depth. \
+ * This method goes through the object structure and replace children that goes deeper then the max Depth
+ * @see http://vsc-base.org/#toString
+ * @param obj 
+ * @param maxDepth 
+ * @param currentLevel 
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.maxDepthReplacer(obj, 3);
+ * @returns string
+ */
+export const maxDepthReplacer = (obj: unknown, maxDepth: number, currentLevel: number = 0): any => {
+   if (Array.isArray(obj)) {
+      if (currentLevel > maxDepth) {
+         return `[vsc: maxDepth ${maxDepth} reached - Array]`
+      }
+      return obj.map(child => maxDepthReplacer(child, maxDepth, currentLevel + 1))
+   }
+   if (typeof obj === "object" && obj !== null) {
+      if (currentLevel > maxDepth) {
+         return `[vsc: maxDepth ${maxDepth} reached - Object]`
+      }
+      const children: any = {}
+      for (const [key, value] of Object.entries(obj)) {
+         children[key] = maxDepthReplacer(value, maxDepth, currentLevel + 1)
+      }
+      return children;
+   }
+   return obj
+}

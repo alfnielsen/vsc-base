@@ -39,6 +39,7 @@ import IsDirAnnotatedCode from './annotations/IsDirAnnotatedCode'
 import IsSubPathAnnotatedCode from './annotations/IsSubPathAnnotatedCode'
 import JoinPathsAnnotatedCode from './annotations/JoinPathsAnnotatedCode'
 import MakeDirAnnotatedCode from './annotations/MakeDirAnnotatedCode'
+import MaxDepthReplacerAnnotatedCode from './annotations/MaxDepthReplacerAnnotatedCode'
 import MoveAnnotatedCode from './annotations/MoveAnnotatedCode'
 import PathAsUnixAnnotatedCode from './annotations/PathAsUnixAnnotatedCode'
 import PickAnnotatedCode from './annotations/PickAnnotatedCode'
@@ -114,6 +115,7 @@ const AllAnnotations = () =>
       <IsSubPathAnnotatedCode />
       <JoinPathsAnnotatedCode />
       <MakeDirAnnotatedCode />
+      <MaxDepthReplacerAnnotatedCode />
       <MoveAnnotatedCode />
       <PathAsUnixAnnotatedCode />
       <PickAnnotatedCode />

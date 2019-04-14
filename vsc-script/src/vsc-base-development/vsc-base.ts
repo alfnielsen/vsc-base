@@ -21,7 +21,9 @@ import {
    trimDashes,
    trimLeadingDash,
    getErrorInfo,
-   getTimestamp
+   getTimestamp,
+   getJSONCircularReplacer,
+   toString
 } from './vsc-base-raw'
 
 import {
@@ -130,6 +132,8 @@ export {
    trimLeadingDash,
    getErrorInfo,
    getTimestamp,
+   getJSONCircularReplacer,
+   toString,
    //vscode
    ask,
    pick,

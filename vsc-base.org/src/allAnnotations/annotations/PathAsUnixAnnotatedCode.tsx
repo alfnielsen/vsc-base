@@ -23,13 +23,8 @@ const PathAsUnixAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.joinPaths(path1, path2)`}
          codeEx={``}
          code={`/**
- * @description 
- * Reaplve all '\\\\'  with '/' \\
- * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
- * @see http://vsc-base.org/#pathAsUnix
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.joinPaths(path1, path2)
  * @returns string
  */
 export const pathAsUnix = (path: string): string => \{

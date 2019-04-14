@@ -26,15 +26,9 @@ const TsGetParsedChildrenAnnotatedCode = () => {
          codeOneLineEx={`const children = vsc.tsGetParsedChildren(node)`}
          codeEx={``}
          code={`/**
- * @description 
- * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \\
- * So to this method uses ts's forEachChild to colloct the parsed nodes. \\
- * Normally used in custom transformer methods (vsc.tsCreateTransformer)
- * @see http://vsc-base.org/#tsGetParsedChildren
  * @params node
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const children = vsc.tsGetParsedChildren(node)
  */
 export const tsGetParsedChildren = (node: ts.Node): ts.Node[] => \{
    let chrindren: ts.Node[] = []

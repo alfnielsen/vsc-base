@@ -43,11 +43,6 @@ const ToKebabCaseAnnotatedCode = () => {
          codeOneLineEx={`const cssName = vsc.toKebabCase(inputName)`}
          codeEx={``}
          code={`/**
- * @description 
- * Format a string from camel-case to kebab-case \\
- * Commonly used to define css class names. \\
- * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
- * @see http://vsc-base.org/#toKebabCase
  * @param str
  * @vscType Raw
  * @testPrinterArgument 
@@ -58,7 +53,6 @@ const ToKebabCaseAnnotatedCode = () => {
    const result = vsc.toKebabCase(args.str)
    printResult(result)
  }
- * @oneLineEx const cssName = vsc.toKebabCase(inputName)
  * @returns string
  */
 export const toKebabCase = (str: string): string =>

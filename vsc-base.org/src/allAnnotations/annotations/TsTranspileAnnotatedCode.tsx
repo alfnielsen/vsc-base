@@ -20,13 +20,8 @@ const TsTranspileAnnotatedCode = () => {
          codeOneLineEx={`const sourceJs = vsc.tsTranspile(sourceTs)`}
          codeEx={``}
          code={`/**
- * @description 
- * Transpile ts source to js
- * @see http://vsc-base.org/#tsTranspile
- * @param sourceTs 
- * @param compilerOptions 
+ * @param sourceTs, compilerOptions
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
 export const tsTranspile = (sourceTs: string,

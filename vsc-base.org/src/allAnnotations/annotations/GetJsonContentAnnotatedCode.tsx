@@ -23,14 +23,9 @@ const GetJsonContentAnnotatedCode = () => {
          codeOneLineEx={`const json = await vsc.getJsonContent(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Get file source as json \\
- * (return null on invalid json)
- * @see http://vsc-base.org/#getJsonContent
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
 export const getJsonContent = async <TStructure = unknown>(

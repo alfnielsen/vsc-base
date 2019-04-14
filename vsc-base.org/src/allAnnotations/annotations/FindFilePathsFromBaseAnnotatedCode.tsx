@@ -25,22 +25,10 @@ for (const filePath of storyFilesInModule1)\{
    // Do something with filePath..
 }`}
          code={`/**
- * @description 
- * Get a list off all filePaths from a basePath, in project the matches a glob pattern
- * @see http://vsc-base.org/#findFilePathsFromBase
- * @param include glob
- * @param exclude glob
+ * @param include glob, exclude glob, maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
- * @param maxResults
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
- * @ex 
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.\{ts,tsx}')
-for (const filePath of storyFilesInModule1)\{
-   const source = await vsc.getFileContent()
-   // Do something with filePath..
-}
  * @returns Promise<string[]>
  */
 export const findFilePathsFromBase = async (

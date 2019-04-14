@@ -37,15 +37,9 @@ const GetRelativePathAnnotatedCode = () => {
          codeOneLineEx={`const relativePath = vsc.getRelativePath(fromPath, toPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Generate relative path between two paths.
- * @see http://vsc-base.org/#relatrivePath
- * @param fromPath
- * @param toPath
+ * @param fromPath, toPath
  * @vscType Raw
- * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
- * @testPrinterArgument
- \{ 
+ * @testPrinterArgument  \{ 
     fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
     toPath: 'c:/somefolder/other/someFile.js'
  }

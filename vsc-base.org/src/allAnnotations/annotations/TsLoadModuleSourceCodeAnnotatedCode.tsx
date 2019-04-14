@@ -23,15 +23,8 @@ const TsLoadModuleSourceCodeAnnotatedCode = () => {
          codeOneLineEx={`const sourceJs = await vsc.tsLoadModuleSourceCode(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Pre method for tsLoadModule. \\
- * (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @see http://vsc-base.org/#tsLoadModuleSourceCode
- * @param path
- * @param compilerOptions 
- * @param moduleMap default = vsc.getVscDefaultModuleMap()
+ * @param path, compilerOptions, moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
- * @oneLineEx const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
 export const tsLoadModuleSourceCode = async (

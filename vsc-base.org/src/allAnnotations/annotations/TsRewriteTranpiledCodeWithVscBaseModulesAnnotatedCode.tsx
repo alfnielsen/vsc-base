@@ -20,19 +20,14 @@ const TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
          codeOneLineEx={`sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)`}
          codeEx={``}
          code={`/**
- * @description 
- * Replace ts traspiles code's require for vsc, ts, fs and vscode.
- * @see http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules
  * @internal this method is primary used by vsc.tsLoadModule
- * @notes
- * ts.transpile as follows:
+ * @notes  * ts.transpile as follows:
  * const vsc_base_1 = require("vsc-base");
  * const fs = require("fs-extra");
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
- * @param sourceJs 
+ * @param sourceJs
  * @returns string
  */
 export const tsRewriteTranpiledCodeWithVscBaseModules = (

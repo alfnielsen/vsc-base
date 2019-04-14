@@ -1,3 +1,10 @@
+## 0.4.2
+
+Add Raw methods:
+
+-  getJSONCircularReplacer
+-  toString
+
 ## 0.4.1
 
 Add method tsGetParsedChildren

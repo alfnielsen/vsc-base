@@ -20,13 +20,9 @@ const ShowMessageAnnotatedCode = () => {
          codeOneLineEx={`vsc.showMessage(message)`}
          codeEx={``}
          code={`/**
- * @description 
- * Show message to user
- * @see http://vsc-base.org/#showMessage
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showMessage(message)
  * @returns Promise<void>
  */
 export const showMessage = async (message: string): Promise<void> => \{

@@ -40,12 +40,7 @@ const ToSnakeCaseAnnotatedCode = () => {
          codeOneLineEx={`const cssName = vsc.toSnakeCase(inputName)`}
          codeEx={``}
          code={`/**
- * @description 
- * Format a string from camel-case to snake-case \\
- * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
- * @see http://vsc-base.org/#toSnakeCase
- * @param str
- * @param uppercase
+ * @param str, uppercase
  * @vscType Raw
  * @testPrinterArgument 
 \{
@@ -55,7 +50,6 @@ const ToSnakeCaseAnnotatedCode = () => {
    const result = vsc.toSnakeCase(args.str)
    printResult(result)
  }
- * @oneLineEx const cssName = vsc.toSnakeCase(inputName)
  * @returns string
  */
 export const toSnakeCase = (str: string, upperCase = false): string => \{

@@ -20,13 +20,9 @@ const IsDirAnnotatedCode = () => {
          codeOneLineEx={`const isDir = vsc.isDir(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Test is a path is directory
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const isDir = vsc.isDir(path)
- * @see http://vsc-base.org/#isDir
  * @returns boolean
  */
 export const isDir = (path: string): boolean => \{

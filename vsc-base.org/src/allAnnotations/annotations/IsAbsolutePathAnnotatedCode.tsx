@@ -23,14 +23,8 @@ const IsAbsolutePathAnnotatedCode = () => {
          codeOneLineEx={`const isAbsolutePath = vsc.isAbsolutePath(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Does path start with charactor [a-zA-Z@] \\
- * (not '/' or './' or '../')
- * @see http://vsc-base.org/#isAbsolutePath
- * @param path
- * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
+ * @param path, startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @vscType Raw
- * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
  * @returns boolean
  */
 export const isAbsolutePath = (

@@ -23,15 +23,10 @@ const AppendToActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const success = await vsc.appendToActiveDocument(content)`}
          codeEx={``}
          code={`/**
- * @description 
- * Append new content in the end of the open document. \\
- * Return true for succes, and false if there was no active editor or open document
- * @see http://vsc-base.org/#appendToActiveDocument
  * @param content
  * @dependencyInternal getActiveDocument, getActiveEditor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
 export const appendToActiveDocument = async (

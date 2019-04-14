@@ -12,6 +12,22 @@ export async function run(_path: string) {
 		return [num, 'string']
 	}
 `
+
+
+	const pattern = {
+		nodeKind: ts.SyntaxKind.ArrowFunction,
+		childrenCount: 1,
+		children: [
+			{
+				nodeKind: ts.SyntaxKind.ArrowFunction,
+				expression: {
+
+				}
+			}
+		]
+
+	}
+
 	//const [sourceFile, program] = createTsProgramFromContent(testSource);
 	// Create transformer (ArrowMehtod Single Return statement transform to lambda)
 	const removeDebuggerTransformer = vsc.tsCreateRemoveNodesTransformer((node) => {
@@ -36,6 +52,8 @@ export async function run(_path: string) {
 			return
 		}
 		const returnNode = child
+		const returnNodeChildren = vsc.tsGetParsedChildren(returnNode);
+		log += `/* C:: ${JSON.stringify(returnNodeChildren)} */\n`
 		const returnExpression = returnNode.expression
 		if (returnExpression === undefined) { // return statement is undefined
 			return
@@ -61,3 +79,5 @@ export async function run(_path: string) {
 
 
 }
+
+

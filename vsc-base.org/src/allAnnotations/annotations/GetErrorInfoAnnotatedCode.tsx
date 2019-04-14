@@ -23,13 +23,8 @@ const GetErrorInfoAnnotatedCode = () => {
          codeOneLineEx={`const info = vsc.getErrorInfo(e)`}
          codeEx={``}
          code={`/**
- * @description 
- * Test if it an error. \\
- * Return type (if one of es6 basic error type) return stack
- * @see http://vsc-base.org/#getErrorInfo
  * @param e error
  * @vscType Raw
- * @oneLineEx const info = vsc.getErrorInfo(e)
  * @returns \\\{ isError: boolean; type: string; stack: string; message: string; \\}
  */
 export const getErrorInfo = (e: any): \{

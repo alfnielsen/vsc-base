@@ -20,11 +20,7 @@ const GetActiveDocumentPathAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.getActivegetActiveDocumentPath()`}
          codeEx={``}
          code={`/**
- * @description 
- * Get current open file path or undefined if nothing is open.
- * @see http://vsc-base.org/#getActivegetActiveDocumentPath
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
  * @vscType Vscode
  * @returns string | undefined
  */

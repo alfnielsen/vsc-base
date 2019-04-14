@@ -20,13 +20,9 @@ const ShowErrorMessageAnnotatedCode = () => {
          codeOneLineEx={`vsc.showErrorMessage(message)`}
          codeEx={``}
          code={`/**
- * @description 
- * Show error message to user
- * @see http://vsc-base.org/#showErrorMessage
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
 export const showErrorMessage = async (message: string): Promise<void> => \{

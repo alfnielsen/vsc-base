@@ -22,6 +22,7 @@ import GetDirAnnotatedCode from './annotations/GetDirAnnotatedCode'
 import GetErrorInfoAnnotatedCode from './annotations/GetErrorInfoAnnotatedCode'
 import GetFileContentAnnotatedCode from './annotations/GetFileContentAnnotatedCode'
 import GetFullDocumentRangeAnnotatedCode from './annotations/GetFullDocumentRangeAnnotatedCode'
+import GetJSONCircularReplacerAnnotatedCode from './annotations/GetJSONCircularReplacerAnnotatedCode'
 import GetJsonContentAnnotatedCode from './annotations/GetJsonContentAnnotatedCode'
 import GetJsonPartsAnnotatedCode from './annotations/GetJsonPartsAnnotatedCode'
 import GetLineStreamReaderAnnotatedCode from './annotations/GetLineStreamReaderAnnotatedCode'
@@ -56,6 +57,7 @@ import ToCamelCaseAnnotatedCode from './annotations/ToCamelCaseAnnotatedCode'
 import ToKebabCaseAnnotatedCode from './annotations/ToKebabCaseAnnotatedCode'
 import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
 import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
+import ToStringAnnotatedCode from './annotations/ToStringAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
 import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateRemoveNodesTransformerAnnotatedCode'
@@ -72,7 +74,7 @@ import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
 
 const AllAnnotations = () =>
-   <>
+<>
       <AddLeadingLocalDashAnnotatedCode />
       <AppendLineToActiveDocumentAnnotatedCode />
       <AppendToActiveDocumentAnnotatedCode />
@@ -95,6 +97,7 @@ const AllAnnotations = () =>
       <GetErrorInfoAnnotatedCode />
       <GetFileContentAnnotatedCode />
       <GetFullDocumentRangeAnnotatedCode />
+      <GetJSONCircularReplacerAnnotatedCode />
       <GetJsonContentAnnotatedCode />
       <GetJsonPartsAnnotatedCode />
       <GetLineStreamReaderAnnotatedCode />
@@ -129,6 +132,7 @@ const AllAnnotations = () =>
       <ToKebabCaseAnnotatedCode />
       <ToPascalCaseAnnotatedCode />
       <ToSnakeCaseAnnotatedCode />
+      <ToStringAnnotatedCode />
       <TrimDashesAnnotatedCode />
       <TrimLeadingDashAnnotatedCode />
       <TsCreateRemoveNodesTransformerAnnotatedCode />
@@ -143,7 +147,6 @@ const AllAnnotations = () =>
       <TsTransformSourceFileAnnotatedCode />
       <TsTranspileAnnotatedCode />
       <VarifyModuleMethodsAnnotatedCode />
-   </>
+</>
 
 export default AllAnnotations
-   

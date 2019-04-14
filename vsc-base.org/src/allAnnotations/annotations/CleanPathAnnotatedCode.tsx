@@ -40,10 +40,6 @@ const CleanPathAnnotatedCode = () => {
          codeOneLineEx={`const newPath = vsc.cleanPath(concatenatedPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Get clean path. \\
- * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
- * @see http://vsc-base.org/#cleanPath
  * @param path
  * @vscType Raw
  * @testPrinterArgument 
@@ -54,7 +50,6 @@ const CleanPathAnnotatedCode = () => {
    const result = vsc.cleanPath(args.path)
    printResult(result)
 }
- * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
  * @returns string
  */
 export const cleanPath = (path: string): string => \{

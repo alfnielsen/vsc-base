@@ -20,15 +20,9 @@ const AskAnnotatedCode = () => {
          codeOneLineEx={`const answer = await vsc.ask(question, defaultValue)`}
          codeEx={`const answer = await ask('Where to move file?', currentFilePath)`}
          code={`/**
- * @description 
- * Prompt user for a question
- * @see http://vsc-base.org/#ask
- * @param question string
- * @param defaultValue string
+ * @param question string, defaultValue string
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const answer = await vsc.ask(question, defaultValue)
- * @ex const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
  */
 export const ask = async (

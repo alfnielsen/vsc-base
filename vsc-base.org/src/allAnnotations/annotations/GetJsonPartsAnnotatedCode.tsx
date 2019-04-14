@@ -20,13 +20,8 @@ const GetJsonPartsAnnotatedCode = () => {
          codeOneLineEx={`const startScript = vsc.getJsonParts(packageJson, 'scripts.start')`}
          codeEx={``}
          code={`/**
- * @description 
- * Get part of a json object.
- * @see http://vsc-base.org/#getJsonParts
- * @param json
- * @param keyPath Ex sub.sub.name >> \{sub:\{sub:\{name:'Foo'}}} >> Foo
+ * @param json, keyPath Ex sub.sub.name >> \{sub:\{sub:\{name:'Foo'}}} >> Foo
  * @vscType Raw
- * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
  * @returns any
  */
 export const getJsonParts = <TStructure = any>(

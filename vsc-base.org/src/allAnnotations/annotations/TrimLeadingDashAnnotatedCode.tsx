@@ -20,12 +20,8 @@ const TrimLeadingDashAnnotatedCode = () => {
          codeOneLineEx={`const path = vsc.trimLeadingDash(foundPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Remove '/' from start of path
- * @see http://vsc-base.org/#trimLeadingDash
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
  * @returns string
  */
 export const trimLeadingDash = (path: string): string => \{

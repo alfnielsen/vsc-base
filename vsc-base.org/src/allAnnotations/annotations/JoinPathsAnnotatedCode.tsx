@@ -20,14 +20,9 @@ const JoinPathsAnnotatedCode = () => {
          codeOneLineEx={`const newPath = vsc.joinPaths(path1, path2)`}
          codeEx={``}
          code={`/**
- * @description 
- * Joins to paths.
- * @see http://vsc-base.org/#joinPaths
- * @param path1
- * @param path2
+ * @param path1, path2
  * @dependencyInternal trimDashes
  * @vscType Raw
- * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
  * @returns string
  */
 export const joinPaths = (path1: string, path2: string): string => \{

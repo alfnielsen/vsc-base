@@ -20,13 +20,9 @@ const SplitPathAnnotatedCode = () => {
          codeOneLineEx={`const [dir, file] = vsc.splitPath(filePath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Split filePath into dir and file
- * @see http://vsc-base.org/#splitPath
  * @param path
  * @dependencyInternal pathAsUnix
  * @vscType Raw
- * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
  * @returns [string, string]
  */
 export const splitPath = (path: string): [string, string] => \{

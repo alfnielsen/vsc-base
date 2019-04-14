@@ -20,16 +20,9 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
          codeOneLineEx={`const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Transform a relative path to an abspolute path.
- * @see http://vsc-base.org/#relatrivePathToAbsolutePath
- * @param path File from where the relative path begins
- * @param pathRelatriveToPath The relative path
- * @param rootPath The root path
- * @param realPathTest Test if the real  The root path
+ * @param path File from where the relative path begins, pathRelatriveToPath The relative path, rootPath The root path, realPathTest Test if the real  The root path
  * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
- * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
  * @returns string
  */
 export const getAbsolutePathFromRelatrivePath = (

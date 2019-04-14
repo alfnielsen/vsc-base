@@ -20,14 +20,9 @@ const SaveFileContentAnnotatedCode = () => {
          codeOneLineEx={`await vsc.saveFileContent(path, source)`}
          codeEx={``}
          code={`/**
- * @description 
- * Save file
- * @see http://vsc-base.org/#saveFileContent
- * @param path
- * @param content
+ * @param path, content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
 export const saveFileContent = async (

@@ -24,19 +24,9 @@ const GetLineStreamReaderAnnotatedCode = () => {
     //do something with the line
  }`}
          code={`/**
- * @description 
- * Create a LineReader (generator method) for a ReadStream
- * @see http://vsc-base.org/#getLineStreamReader
  * @param readStream
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
- * @ex
- const readStream = vsc.getReadStream(path)
- const lineReader = vsc.getLineStreamReader(readStream)
- for await (line of lineReader) \{
-    //do something with the line
- }
  * @returns () => AsyncIterableIterator<string>
  */
 export const getLineStreamReader = (readStream: fs.ReadStream) =>

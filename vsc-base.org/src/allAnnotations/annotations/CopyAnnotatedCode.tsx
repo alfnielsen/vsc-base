@@ -20,13 +20,8 @@ const CopyAnnotatedCode = () => {
          codeOneLineEx={`await vsc.copy(oldPath, newPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Copy file/fodler
- * @see http://vsc-base.org/#copy
- * @param path
- * @param newPathstring
+ * @param path, newPathstring
  * @vscType System
- * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */

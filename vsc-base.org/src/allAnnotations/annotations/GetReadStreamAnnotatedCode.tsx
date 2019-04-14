@@ -23,18 +23,9 @@ const GetReadStreamAnnotatedCode = () => {
    //do something with chunk
  }`}
          code={`/**
- * @description 
- * Get a file ReadStream
- * @see http://vsc-base.org/#getReadStream
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const readStream = vsc.getReadStream(path)
- * @ex
- const readStream = vsc.getReadStream(path)
- for await (chunk of readStream) \{
-   //do something with chunk
- }
  * @returns fs.ReadStream
  */
 export const getReadStream = (path: string) => \{

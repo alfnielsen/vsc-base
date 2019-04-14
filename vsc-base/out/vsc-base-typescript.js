@@ -221,9 +221,9 @@ exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
 /**
  * @description
  * Tranform source code using custom transformers \
- * See tsCreateTransformer and tsCreateRemoveTransformer for creating transformer \
+ * See tsCreateTransformer and tsCreateRemoveNodesTransformer for creating transformer \
  * \
- * See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveTransformer
+ * See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveNodesTransformer
  * @see http://vsc-base.org/#tsTransform
  * @param source
  * @param transformers
@@ -337,8 +337,9 @@ const transformer = vsc.tsCreateTransformer((node) => {
    if (returnExpression === undefined) { // return statement is undefined
       return
    }
+   //Replace body-node with return-node
    node.body = returnExpression
-   return [true, node]
+   return node
 });
 
 const updatedCode = tsTransform(code, [transformer]);

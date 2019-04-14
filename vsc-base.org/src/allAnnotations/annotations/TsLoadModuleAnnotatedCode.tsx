@@ -56,40 +56,10 @@ try \{
    vsc.showErrorMessage('Error: ' + e)
 }`}
          code={`/**
- * @description 
- * Load a ts file. \\
- * Transpile it to js (run time) add wrap code and execute it (using eval)! \\
- * Returning an plainObject with the scripts exports. \\
- * export default xxx transpile's to export.default \\
- * IMPORTANT Dont just run code you dont now, this can cause injection! \\
- * IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! \\
- * (If you start a recursive change that dont stop..)
- * @see http://vsc-base.org/#tsLoadModule
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
  * @vscType System
- * @oneLineEx const module = await vsc.tsLoadModule(path)
- * @ex
-let _module
-try \{
-   _module = await vsc.tsLoadModule(path)
-} catch (e)\{
-   vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
-   return
-}
-const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
-if (!varifiedModule) \{
-   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(_module)}\`)
-   return
-}
-try \{
-   const result = varifiedModule.run()
-   await vsc.awaitResult(result)
-   vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
-} catch (e) \{
-   vsc.showErrorMessage('Error: ' + e)
-}
  * @returns Promise<\{ [key: string]: unknown; }>
  */
 export const tsLoadModule = async (

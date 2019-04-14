@@ -23,13 +23,8 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
          codeOneLineEx={`const moduleMap = vsc.getVscDefaultModuleMap`}
          codeEx={``}
          code={`/**
- * @description 
- * Return the default module map of vsc-base \\
- * (Used for ts compiling, module load ect)
- * @see http://vsc-base.org/#getVscDefaultModuleMap
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
- * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap
  * @returns \\\{ [key: string]: \\\{ name: string, module: any \\} \\}
  */
 export const getVscDefaultModuleMap = (): \{ key: string, name: string, module: any }[] => \{

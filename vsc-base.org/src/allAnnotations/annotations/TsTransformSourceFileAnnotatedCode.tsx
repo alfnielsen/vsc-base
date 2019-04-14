@@ -23,17 +23,10 @@ const TsTransformSourceFileAnnotatedCode = () => {
          codeOneLineEx={`const result = tsTransformSourceFile(sourceFile, transformers, compilerOptions)`}
          codeEx={``}
          code={`/**
- * @description 
- * Tranform a ts.Node \\
- * (default node-type is ts.Sourcefile)
- * @see http://vsc-base.org/#tsTransformSourceFile
- * @param sourceFile 
- * @param transformers 
- * @param compilerOptions 
- * @internal
+ * @param sourceFile, transformers, compilerOptions
+ * @internal internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const result = tsTransformSourceFile(sourceFile, transformers, compilerOptions)
  */
 export const tsTransformSourceFile = <T extends ts.Node = ts.SourceFile>(
    sourceFile: T,

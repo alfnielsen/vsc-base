@@ -20,15 +20,9 @@ const AppendToDocumentAnnotatedCode = () => {
          codeOneLineEx={`await vsc.appendToDocument(editor, document, content)`}
          codeEx={``}
          code={`/**
- * @description 
- * Append new content in the end of the open document
- * @see http://vsc-base.org/#appendToDocument
- * @param editor
- * @param document
- * @param content
+ * @param editor, document, content
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.appendToDocument(editor, document, content)
  * @returns Promise<void>
  */
 export const appendToDocument = async (

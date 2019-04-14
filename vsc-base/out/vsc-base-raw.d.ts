@@ -194,7 +194,7 @@ export declare const pathAsUnix: (path: string) => string;
 /**
  * @description
  * Generate relative path between two paths.
- * @see http://vsc-base.org/#relatrivePath
+ * @see http://vsc-base.org/#getRelativePath
  * @param fromPath
  * @param toPath
  * @vscType Raw
@@ -215,7 +215,7 @@ export declare const getRelativePath: (fromPath: string, toPath: string) => stri
 /**
  * @description
  * Transform a relative path to an abspolute path.
- * @see http://vsc-base.org/#relatrivePathToAbsolutePath
+ * @see http://vsc-base.org/#getAbsolutePathFromRelatrivePath
  * @param path File from where the relative path begins
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
@@ -319,3 +319,26 @@ export declare const getErrorInfo: (e: any) => {
  * @returns string
  */
 export declare const getTimestamp: () => string;
+/**
+ * @description
+ * Provide a circular safe JSON.stringify replacer. \
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
+ * @see http://vsc-base.org/#getJSONCircularReplacer
+ * @vscType Raw
+ * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
+ * @returns (_key: string, value: unknown) => unknown
+ */
+export declare const getJSONCircularReplacer: () => (_key: string, value: unknown) => unknown;
+/**
+ * @description
+ * Stringify an object. \
+ * Uses JSON.stringity and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
+ * @see http://vsc-base.org/#toString
+ * @param obj
+ * @param replacer
+ * @param space
+ * @vscType Raw
+ * @oneLineEx const objString = vsc.toString(soneObject);
+ * @returns string
+ */
+export declare const toString: (obj: any, replacer?: (_key: string, value: unknown) => unknown, space?: number) => string;

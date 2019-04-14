@@ -20,13 +20,9 @@ const GetFileContentAnnotatedCode = () => {
          codeOneLineEx={`const source = vsc.getFileContent(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Get file source
- * @see http://vsc-base.org/#getFileContent
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
 export const getFileContent = async (path: string): Promise<string> =>

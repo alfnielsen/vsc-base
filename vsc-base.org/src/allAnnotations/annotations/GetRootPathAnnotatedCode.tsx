@@ -20,14 +20,10 @@ const GetRootPathAnnotatedCode = () => {
          codeOneLineEx={`const rootPath = vsc.getRootPath()`}
          codeEx={``}
          code={`/**
- * @description 
- * Get project root for a path or undefined if no project was found.
- * @see http://vsc-base.org/#getRootPath
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
 export const getRootPath = (path: string): string | undefined => \{

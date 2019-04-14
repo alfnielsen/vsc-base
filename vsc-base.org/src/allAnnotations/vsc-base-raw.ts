@@ -283,7 +283,7 @@ export const pathAsUnix = (path: string): string => {
 /**
  * @description 
  * Generate relative path between two paths.
- * @see http://vsc-base.org/#relatrivePath
+ * @see http://vsc-base.org/#getRelativePath
  * @param fromPath
  * @param toPath
  * @vscType Raw
@@ -317,7 +317,7 @@ export const getRelativePath = (fromPath: string, toPath: string): string => {
 /**
  * @description 
  * Transform a relative path to an abspolute path.
- * @see http://vsc-base.org/#relatrivePathToAbsolutePath
+ * @see http://vsc-base.org/#getAbsolutePathFromRelatrivePath
  * @param path File from where the relative path begins
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
@@ -505,7 +505,43 @@ export const getErrorInfo = (e: any): {
  * @oneLineEx const timestamp = vsc.getTimestamp()
  * @returns string
  */
-
 export const getTimestamp = (): string => {
    return new Date().toISOString()
 }
+
+/**
+ * @description 
+ * Provide a circular safe JSON.stringify replacer. \
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
+ * @see http://vsc-base.org/#getJSONCircularReplacer
+ * @vscType Raw
+ * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
+ * @returns (_key: string, value: unknown) => unknown
+ */
+export const getJSONCircularReplacer = () => {
+   const seen = new WeakSet();
+   return (_key: string, value: unknown) => {
+      if (typeof value === "object" && value !== null) {
+         if (seen.has(value)) {
+            return;
+         }
+         seen.add(value);
+      }
+      return value;
+   };
+};
+
+/**
+ * @description 
+ * Stringify an object. \
+ * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
+ * @see http://vsc-base.org/#toString
+ * @param obj 
+ * @param replacer 
+ * @param space 
+ * @vscType Raw
+ * @oneLineEx const objString = vsc.toString(soneObject);
+ * @returns string
+ */
+export const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2) =>
+   JSON.stringify(obj, replacer, space)

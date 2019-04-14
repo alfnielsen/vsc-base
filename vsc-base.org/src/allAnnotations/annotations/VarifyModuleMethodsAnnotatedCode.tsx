@@ -25,15 +25,7 @@ const VarifyModuleMethodsAnnotatedCode = () => {
 const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
 const result = varifiedModule.run()`}
          code={`/**
- * @description 
- * Test if a loaded module has methods (Loaded with vsc.loadTsModule) \\
- * return undefined if a method didnt exist.
- * @see http://vsc-base.org/#varifyModuleMethods
  * @vscType System
- * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
- * @ex 
-const varifiedModule = vsc.varifyModuleMethods(_module, ['run', 'getId'])
-const result = varifiedModule.run()
  * @returns \{ [key: string]: any } | undefined
  */
 export const varifyModuleMethods = (

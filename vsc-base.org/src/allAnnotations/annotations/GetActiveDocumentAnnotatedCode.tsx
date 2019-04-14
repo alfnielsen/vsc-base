@@ -20,12 +20,8 @@ const GetActiveDocumentAnnotatedCode = () => {
          codeOneLineEx={`const document = vsc.getActiveDocument()`}
          codeEx={``}
          code={`/**
- * @description 
- * Get open vscode.TextDocument
- * @see http://vsc-base.org/#getActiveDocument
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
 export const getActiveDocument = (): vscode.TextDocument | undefined => \{

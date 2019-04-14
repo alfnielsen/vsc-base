@@ -23,14 +23,8 @@ const SharedPathAnnotatedCode = () => {
          codeOneLineEx={`const sharedPath = vsc.sharedPath(path1, path2)`}
          codeEx={``}
          code={`/**
- * @description 
- * Return the path that are shared. \\
- * (Return '' if no path are shared).
- * @see http://vsc-base.org/#sharedPath
- * @param path1
- * @param path2
+ * @param path1, path2
  * @vscType Raw
- * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
  * @returns string
  */
 export const sharedPath = (path1: string, path2: string): string => \{

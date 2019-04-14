@@ -20,14 +20,9 @@ const IsSubPathAnnotatedCode = () => {
          codeOneLineEx={`const isSubPath = vsc.isSubPath(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Does subpath start with parentPath
- * @see http://vsc-base.org/#isSubPath
- * @param path
- * @param parentPath
+ * @param path, parentPath
  * @dependencyInternal trimDashes
  * @vscType Raw
- * @oneLineEx const isSubPath = vsc.isSubPath(path)
  * @returns boolean
  */
 export const isSubPath = (subPath: string, parentPath: string): boolean => \{

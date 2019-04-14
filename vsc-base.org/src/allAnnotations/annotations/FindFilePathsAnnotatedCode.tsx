@@ -25,22 +25,10 @@ for (const filePath of allTestFiles)\{
    // do something with the files...
 }`}
          code={`/**
- * @description 
- * Get a list off all filePaths in project the matches a glob pattern
- * @see http://vsc-base.org/#findFilePaths
- * @param include glob
- * @param exclude glob
- * @param maxResults
+ * @param include glob, exclude glob, maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePaths(includePattern)
- * @ex 
-const allTestFiles = await vsc.findFilePaths('**\\/*.test.\{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles)\{
-   const source = await vsc.getFileContent()
-   // do something with the files...
-}
  * @returns Promise<string[]>
  */
 export const findFilePaths = async (

@@ -31,30 +31,10 @@ if(moduleFileInParentFolder.lenght>1)\{
 const modulePath = moduleFileInParentFolder[0];
 // Do something with modulePath..`}
          code={`/**
- * @description 
- * Find files based from a releative to a path
- * @see http://vsc-base.org/#findRelativeFilePaths
- * @param path
- * @param relativePath
- * @param includePattern
- * @param exclude
- * @param maxResults
+ * @param path, relativePath, includePattern, exclude, maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
- * @ex 
-const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.lenght===0)\{
-   vsc.showErrorMessage('Module file was not found in parent folder')
-   return
-}
-if(moduleFileInParentFolder.lenght>1)\{
-   vsc.showErrorMessage('More than one Module file was found in parent folder')
-   return
-}
-const modulePath = moduleFileInParentFolder[0];
-// Do something with modulePath..
  * @returns Promise<string[]>
  */
 export const findRelativeFilePaths = async (

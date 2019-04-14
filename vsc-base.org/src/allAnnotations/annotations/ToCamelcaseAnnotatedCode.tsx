@@ -46,12 +46,6 @@ const ToCamelCaseAnnotatedCode = () => {
          codeOneLineEx={`const name = vsc.toCamelCase(inputName)`}
          codeEx={``}
          code={`/**
- * @description 
- * Format a string to camal-case. \\
- * Commonly used to define js/ts variable names. \\
- * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \\
- * All non word seperators will be removed and the word charector after will be transforms to upper case.
- * @see http://vsc-base.org/#toCamelCase
  * @param str
  * @vscType Raw
  * @testPrinterArgument 
@@ -62,7 +56,6 @@ const ToCamelCaseAnnotatedCode = () => {
    const result = vsc.toCamelCase(args.str)
    printResult(result)
 }
- * @oneLineEx const name = vsc.toCamelCase(inputName)
  * @returns string
  */
 export const toCamelCase = (str: string): string =>

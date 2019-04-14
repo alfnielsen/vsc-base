@@ -23,14 +23,9 @@ const SleepAnnotatedCode = () => {
          codeOneLineEx={`await vsc.sleep(2000)`}
          codeEx={``}
          code={`/**
- * @description 
- * await wrap for setTimeout. \\
- * Mostly used for debug asyc.
- * @see http://vsc-base.org/#sleep
  * @param ms
- * @oneLineEx await vsc.sleep(2000)
  * @vscType Raw
- * @async
+ * @async async
  * @returns Promise<void>
  */
 export const sleep = async (ms: number): Promise<void> => \{

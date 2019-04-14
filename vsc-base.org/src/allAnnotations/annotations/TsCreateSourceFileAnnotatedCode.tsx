@@ -20,14 +20,9 @@ const TsCreateSourceFileAnnotatedCode = () => {
          codeOneLineEx={`const sourceFile = vsc.tsCreateSourceFile(code)`}
          codeEx={``}
          code={`/**
- * @description 
- * Create a ts.SourceFile
- * @see http://vsc-base.org/#tsCreateSourceFile
- * @param content 
- * @param sourceFileName 
+ * @param content, sourceFileName
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const sourceFile = vsc.tsCreateSourceFile(code)
  */
 export const tsCreateSourceFile = (
    content: string,

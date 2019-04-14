@@ -26,16 +26,7 @@ const AwaitResultAnnotatedCode = () => {
  const result = varifiedModule.run()
  await vsc.awaitResult(result)`}
          code={`/**
- * @description 
- * Ensure that a method result that optional can be a promise is awaited. \\
- * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
- * @see http://vsc-base.org/#awaitResult
  * @vscType ts
- * @oneLineEx await vsc.awaitResult(result)
- * @ex 
- const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
- const result = varifiedModule.run()
- await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 export const awaitResult = async (result: any): Promise<any> => \{

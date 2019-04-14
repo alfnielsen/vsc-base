@@ -20,13 +20,9 @@ const DoesExistsAnnotatedCode = () => {
          codeOneLineEx={`const exist = vsc.doesExists(path)`}
          codeEx={``}
          code={`/**
- * @description 
- * Does the folder/file exist
- * @see http://vsc-base.org/#doesExists
  * @param path string
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const exist = vsc.doesExists(path)
  * @returns boolean
  */
 export const doesExists = (path: string): boolean => \{

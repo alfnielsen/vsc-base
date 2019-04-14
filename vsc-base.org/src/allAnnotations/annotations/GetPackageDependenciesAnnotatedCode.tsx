@@ -20,12 +20,8 @@ const GetPackageDependenciesAnnotatedCode = () => {
          codeOneLineEx={`const [dependencies, devDependencies] = await vsc.getPackageDependencies()`}
          codeEx={``}
          code={`/**
- * @description 
- * Find package.json files and collect the dependencies and devDependencies.
- * @see http://vsc-base.org/#getPackageDependencies
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
- * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<\{ [key: string]: string }[]
  */

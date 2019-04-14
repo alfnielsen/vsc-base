@@ -38,17 +38,10 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = () => {
          codeOneLineEx={`const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
          codeEx={``}
          code={`/**
- * @description 
- * Transform an absolute path from root, to a sub-relative path.
- * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
- * @param path
- * @param rootPath
- * @param absolutePathFromRoot
+ * @param path, rootPath, absolutePathFromRoot
  * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
- * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
- * @testPrinterArgument
-\{
+ * @testPrinterArgument \{
    path: 'c:/root/module/file.ts',
    absolutePathFromRoot: 'module/submodule/file2',
    rootPath: 'c:/root'

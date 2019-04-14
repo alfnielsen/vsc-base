@@ -81,11 +81,6 @@ export async function run(path: string) {
             The GPL-3 license is only there to project the source from (bad) people that will try to make copyright protection on this open free and shared community code. 
          </p>
          <p>
-            Share your favorite vsc-script by sending it to me alfnielsen(at)gmail.com, then all add it the the examples.<br/>
-            You can also make a pull request on the source code for vsc-script.<br/>
-            (Just add them to vsc-script's folder called '.vsc-script')<br/>
-         </p>
-         <p>
             <i>At some point in the future sharing vsc-script will most likely be enabled directly here on vsc-base.org)</i>
          </p>
          <p>

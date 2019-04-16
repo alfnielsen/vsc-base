@@ -25,11 +25,8 @@ const TsTranspileAnnotatedCode = () => {
  * @returns string
  */
 export const tsTranspile = (sourceTs: string,
-   compilerOptions: ts.CompilerOptions = \{
-      module: ts.ModuleKind.CommonJS,
-      target: ts.ScriptTarget.ES2015,
-      libs: ['es6']
-   }) => \{
+   compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
+) => \{
    const transpiledOutput = ts.transpileModule(sourceTs, \{ compilerOptions })
    let sourceJs = transpiledOutput.outputText
    return sourceJs;

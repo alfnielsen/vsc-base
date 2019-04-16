@@ -15,17 +15,10 @@ const TsCreateTransformerAnnotatedCode = () => {
  Create a Ts Transformer factory 
                </p>
                <p>
-                Normally used in vsc.tsTransform
- You can use: 
+                Normally used in vsc.tsTransform 
                </p>
                <p>
-                <a href='https://ts-ast-viewer.com/'>https://ts-ast-viewer.com/</a> 
-               </p>
-               <p>
-                or 
-               </p>
-               <p>
-                <a href='https://astexplorer.net/'>https://astexplorer.net/</a> 
+                You can use  <a href='https://ts-ast-viewer.com/'>https://ts-ast-viewer.com/</a>  or  <a href='https://astexplorer.net/'>https://astexplorer.net/</a> 
                </p>
                <p>
                 to generate the new ts nodes or node type.
@@ -34,8 +27,7 @@ const TsCreateTransformerAnnotatedCode = () => {
          }
          
          codeOneLineEx={`const transformer = vsc.tsCreateTransformer(transformerCallback)`}
-         codeEx={`
-// tranforms arrowFunction with one return statement to lambda function
+         codeEx={`// tranforms arrowFunction with one return statement to lambda function
 const transformer = vsc.tsCreateTransformer((node) => \{
    if (!ts.isArrowFunction(node)) \{ // is not an arrow funcion
       return
@@ -57,8 +49,8 @@ const transformer = vsc.tsCreateTransformer((node) => \{
    node.body = returnExpression
    return node
 });
-
-const updatedCode = tsTransform(code, [transformer]);`}
+//Run transformer:
+const updatedCode = vsc.tsTransform(code, [transformer]);`}
          code={`/**
  * @param callback, program
  * @vscType ts

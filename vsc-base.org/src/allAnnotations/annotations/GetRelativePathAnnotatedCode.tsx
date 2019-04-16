@@ -39,14 +39,6 @@ const GetRelativePathAnnotatedCode = () => {
          code={`/**
  * @param fromPath, toPath
  * @vscType Raw
- * @testPrinterArgument  \{ 
-    fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
-    toPath: 'c:/somefolder/other/someFile.js'
- }
- * @testPrinter (args, printResult) => \{
-   const relativePath = vsc.getRelativePath(args.fromPath, args.toPath)
-   printResult(relativePath)
-}
  * @dependencyInternal sharedPath, splitPath, subtractPath
  * @returns string
  */
@@ -63,6 +55,7 @@ export const getRelativePath = (fromPath: string, toPath: string): string => \{
    const relativePath = backPath + toPathDownToShared
    return relativePath
 }
+
 `}
       />
    )

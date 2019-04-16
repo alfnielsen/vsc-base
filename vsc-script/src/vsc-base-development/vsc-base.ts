@@ -80,8 +80,10 @@ import {
    TsTransformerCallback,
    tsCreateRemoveNodesTransformer,
    TsRemoveTransformerCallback,
+   tsCreateNodeVisitor,
+   TsNodeVisitorCallback,
    tsTransform,
-   tsTransformSourceFile,
+   tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
    tsGetParsedChildren
@@ -185,8 +187,10 @@ export {
    TsTransformerCallback,
    tsCreateRemoveNodesTransformer,
    TsRemoveTransformerCallback,
+   tsCreateNodeVisitor,
+   TsNodeVisitorCallback,
    tsTransform,
-   tsTransformSourceFile,
+   tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
    tsGetParsedChildren

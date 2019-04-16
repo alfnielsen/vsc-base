@@ -28,10 +28,11 @@ const ToSnakeCaseAnnotatedCode = () => {
          <MethodTest
             initialArgs={
 {
-   str: 'SomeName'
+   str: 'SomeName',
+   upperCase: 'false'
 }}
             onClickCall={(args, printResult) => {
-   const result = vsc.toSnakeCase(args.str)
+   const result = vsc.toSnakeCase(args.str, args.upperCase!=='false')
    printResult(result)
  }}
          />
@@ -42,14 +43,6 @@ const ToSnakeCaseAnnotatedCode = () => {
          code={`/**
  * @param str, uppercase
  * @vscType Raw
- * @testPrinterArgument 
-\{
-   str: 'SomeName'
-}
- * @testPrinter (args, printResult) => \{
-   const result = vsc.toSnakeCase(args.str)
-   printResult(result)
- }
  * @returns string
  */
 export const toSnakeCase = (str: string, upperCase = false): string => \{

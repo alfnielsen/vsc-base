@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const SplitPathAnnotatedCode = () => {
    return (
@@ -17,6 +21,18 @@ const SplitPathAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   path: 'root/area/module/file1.ts'
+}}
+            onClickCall={(args, setResult) => {
+     const res = vsc.splitPath(args.path)
+     setResult(JSON.stringify(res))
+}}
+         />
+      }
+      
          codeOneLineEx={`const [dir, file] = vsc.splitPath(filePath)`}
          codeEx={``}
          code={`/**

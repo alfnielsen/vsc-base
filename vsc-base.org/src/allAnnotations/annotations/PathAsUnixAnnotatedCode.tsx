@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const PathAsUnixAnnotatedCode = () => {
    return (
@@ -20,7 +24,19 @@ const PathAsUnixAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const path = vsc.joinPaths(path1, path2)`}
+      test={
+         <MethodTest
+            initialArgs={{
+   path: 'root\\area\\module1\\file.ts'
+}}
+            onClickCall={(args, setResult) => {
+     const res = vsc.pathAsUnix(args.path)
+     setResult(res)
+}}
+         />
+      }
+      
+         codeOneLineEx={`const safePath = vsc.pathAsUnix(path)`}
          codeEx={``}
          code={`/**
  * @param path

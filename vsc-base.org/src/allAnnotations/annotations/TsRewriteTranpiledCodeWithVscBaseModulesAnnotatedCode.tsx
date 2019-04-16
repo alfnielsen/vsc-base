@@ -17,7 +17,7 @@ const TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)`}
+         codeOneLineEx={`const sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)`}
          codeEx={``}
          code={`/**
  * @internal this method is primary used by vsc.tsLoadModule

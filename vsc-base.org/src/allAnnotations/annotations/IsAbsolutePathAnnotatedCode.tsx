@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const IsAbsolutePathAnnotatedCode = () => {
    return (
@@ -20,6 +24,18 @@ const IsAbsolutePathAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   path: 'some/path/to/file.ts'
+}}
+            onClickCall={(args, setResult) => {
+   const res = vsc.isAbsolutePath(args.path)
+   setResult(res?'true':'false')
+}}
+         />
+      }
+      
          codeOneLineEx={`const isAbsolutePath = vsc.isAbsolutePath(path)`}
          codeEx={``}
          code={`/**

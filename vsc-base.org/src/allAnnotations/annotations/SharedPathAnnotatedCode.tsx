@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const SharedPathAnnotatedCode = () => {
    return (
@@ -20,6 +24,19 @@ const SharedPathAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   path1: 'root/area/module1/file1.ts',
+   path2: 'root/area/module2/file2.ts'
+}}
+            onClickCall={(args, setResult) => {
+     const res = vsc.sharedPath(args.path1, args.path2)
+     setResult(res)
+}}
+         />
+      }
+      
          codeOneLineEx={`const sharedPath = vsc.sharedPath(path1, path2)`}
          codeEx={``}
          code={`/**

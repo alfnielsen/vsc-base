@@ -4,6 +4,23 @@ import * as ts from 'typescript'
 
 let log = '';
 
+type TranformarPatterTest = {
+	nodeKind: ts.SyntaxKind
+	childrenCount?: number,
+	expression?: {
+		notUndefined?: boolean,
+		setRef?: string
+	}
+	children?: TranformarPatterTest[]
+}
+type TranformarPatter = {
+	test: TranformarPatterTest,
+	replace: {
+		body?: string
+	}
+}
+
+
 export async function run(_path: string) {
 	vsc.showMessage('Start transformer test')
 	// Source file content
@@ -12,18 +29,21 @@ export async function run(_path: string) {
 		return [num, 'string']
 	}
 `
-	const pattern = {
-		nodeKind: ts.SyntaxKind.ArrowFunction,
-		childrenCount: 1,
-		children: [
-			{
-				nodeKind: ts.SyntaxKind.ArrowFunction,
-				expression: {
-
+	const pattern: TranformarPatter = {
+		test: {
+			nodeKind: ts.SyntaxKind.ArrowFunction,
+			childrenCount: 1,
+			children: [
+				{
+					nodeKind: ts.SyntaxKind.ArrowFunction,
+					expression: {
+						notUndefined: true,
+						setRef: 'returnExpression'
+					}
 				}
-			}
-		]
-
+			],
+		},
+		replace: {}
 	}
 
 	//const [sourceFile, program] = createTsProgramFromContent(testSource);
@@ -50,10 +70,7 @@ export async function run(_path: string) {
 			return
 		}
 		const returnNode = child
-		const returnNodeChildren = vsc.tsGetParsedChildren(returnNode);
-		const s = vsc.toJSONString(returnNodeChildren, null, 2, 2)
-
-		log += `\n/* C:: ${s} */\n`
+		//const returnNodeChildren = vsc.tsGetParsedChildren(returnNode);
 		const returnExpression = returnNode.expression
 		if (returnExpression === undefined) { // return statement is undefined
 			return
@@ -77,3 +94,4 @@ export async function run(_path: string) {
 	vsc.appendLineToActiveDocument('// ' + log + '\n\n');
 	// tranforms arrowFunction with one return statement to lambda function
 }
+

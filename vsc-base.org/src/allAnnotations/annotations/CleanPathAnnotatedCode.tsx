@@ -42,14 +42,6 @@ const CleanPathAnnotatedCode = () => {
          code={`/**
  * @param path
  * @vscType Raw
- * @testPrinterArgument 
-\{
-   path: 'folder/../folder/file'
-}
- * @testPrinter (args, printResult) => \{
-   const result = vsc.cleanPath(args.path)
-   printResult(result)
-}
  * @returns string
  */
 export const cleanPath = (path: string): string => \{

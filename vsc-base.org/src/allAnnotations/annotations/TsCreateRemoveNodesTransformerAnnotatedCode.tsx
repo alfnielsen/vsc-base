@@ -41,7 +41,9 @@ const removeDebuggerTransformner = vsc.tsCreateRemoveNodesTransformer((node) => 
       return true
    }
    return false
-});`}
+});   
+//Run transformer:
+const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformner]);`}
          code={`/**
  * @vscType ts
  * @returns ts.TransformerFactory<T>

@@ -61,6 +61,7 @@ import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
 import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
+import TsCreateNodeVisitorAnnotatedCode from './annotations/TsCreateNodeVisitorAnnotatedCode'
 import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateRemoveNodesTransformerAnnotatedCode'
 import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnnotatedCode'
 import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
@@ -70,7 +71,7 @@ import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
 import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
-import TsTransformSourceFileAnnotatedCode from './annotations/TsTransformSourceFileAnnotatedCode'
+import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
 
@@ -137,6 +138,7 @@ const AllAnnotations = () =>
       <ToSnakeCaseAnnotatedCode />
       <TrimDashesAnnotatedCode />
       <TrimLeadingDashAnnotatedCode />
+      <TsCreateNodeVisitorAnnotatedCode />
       <TsCreateRemoveNodesTransformerAnnotatedCode />
       <TsCreateSourceFileAnnotatedCode />
       <TsCreateTransformerAnnotatedCode />
@@ -146,7 +148,7 @@ const AllAnnotations = () =>
       <TsLoadModuleSourceCodeAnnotatedCode />
       <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode />
       <TsTransformAnnotatedCode />
-      <TsTransformSourceFileAnnotatedCode />
+      <TsTransformNodeAnnotatedCode />
       <TsTranspileAnnotatedCode />
       <VarifyModuleMethodsAnnotatedCode />
 </>

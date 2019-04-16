@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const MaxDepthReplacerAnnotatedCode = () => {
    return (
@@ -20,6 +24,26 @@ const MaxDepthReplacerAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   obj: '{"a":{"b":{"c":{"d":12}}}}',
+   maxDepth: '2'
+}}
+            onClickCall={(args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+       const maxDepth = parseInt(args.maxDepth)
+       const res = vsc.maxDepthReplacer(json, maxDepth)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}}
+         />
+      }
+      
          codeOneLineEx={`const newObj = vsc.maxDepthReplacer(obj, 3);`}
          codeEx={``}
          code={`/**

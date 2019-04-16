@@ -92,8 +92,11 @@ export async function run(path: string) {
          </p>
          <h4>Links</h4>
          <ul>
-            <li>
+         <li>
             vsc-base, vsc-base.org and vsc-script: <a href='https://github.com/alfnielsen/vsc-base'>source-code</a>
+            </li>
+            <li>
+            vsc-base release notes: <a href='https://github.com/alfnielsen/vsc-base/wiki/Release-notes'>release-notes</a>
             </li>
             <li>
             vsc-base: <a href='https://www.npmjs.com/package/vsc-base'>npm-module</a> 

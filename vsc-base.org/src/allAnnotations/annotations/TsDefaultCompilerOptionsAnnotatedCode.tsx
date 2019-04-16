@@ -29,7 +29,6 @@ export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = (\{
    target: ts.ScriptTarget.ES2015,
    libs: ['es6']
 })
-
 `}
       />
    )

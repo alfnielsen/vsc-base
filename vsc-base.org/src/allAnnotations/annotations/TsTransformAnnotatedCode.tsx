@@ -41,7 +41,7 @@ export const tsTransform = (
    printer: ts.Printer = ts.createPrinter()
 ): string => \{
    const sourceFile = vsc.tsCreateSourceFile(source)
-   const result = vsc.tsTransformSourceFile(sourceFile, transformers, compilerOptions)
+   const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
    const transformedSourceFile = result.transformed[0];
    const print = printer.printFile(transformedSourceFile)
    result.dispose()

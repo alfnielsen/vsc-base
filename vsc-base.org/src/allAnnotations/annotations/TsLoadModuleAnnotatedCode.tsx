@@ -35,17 +35,17 @@ const TsLoadModuleAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const module = await vsc.tsLoadModule(path)`}
-         codeEx={`let _module
+         codeOneLineEx={`const moduleObj = await vsc.tsLoadModule(path)`}
+         codeEx={`let moduleObj
 try \{
-   _module = await vsc.tsLoadModule(path)
+   moduleObj = await vsc.tsLoadModule(path)
 } catch (e)\{
    vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
    return
 }
-const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
+const varifiedModule = vsc.varifyModuleMethods(moduleObj, ['run'])
 if (!varifiedModule) \{
-   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(_module)}\`)
+   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(moduleObj)}\`)
    return
 }
 try \{
@@ -64,11 +64,7 @@ try \{
  */
 export const tsLoadModule = async (
    path: string,
-   compilerOptions: ts.CompilerOptions = \{
-      module: ts.ModuleKind.CommonJS,
-      target: ts.ScriptTarget.ES2015,
-      libs: ['es6']
-   },
+   compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ): Promise<\{ [key: string]: unknown }> => \{
    const sourceJs = await vsc.tsLoadModuleSourceCode(path, compilerOptions)
    let _exports: \{ [key: string]: unknown } = \{}

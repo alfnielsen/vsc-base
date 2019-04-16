@@ -45,14 +45,6 @@ const ToKebabCaseAnnotatedCode = () => {
          code={`/**
  * @param str
  * @vscType Raw
- * @testPrinterArgument 
-\{
-   str: 'SomeName'
-}
- * @testPrinter (args, printResult) => \{
-   const result = vsc.toKebabCase(args.str)
-   printResult(result)
- }
  * @returns string
  */
 export const toKebabCase = (str: string): string =>

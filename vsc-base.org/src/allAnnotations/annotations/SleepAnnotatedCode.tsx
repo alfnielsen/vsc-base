@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const SleepAnnotatedCode = () => {
    return (
@@ -20,6 +24,21 @@ const SleepAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   ms: '2000'
+}}
+            onClickCall={(args, setResult) => {
+    setResult('Start sleep...'+args.ms)
+    const ms = parseInt(args.ms)
+    vsc.sleep(ms).then(()=>{
+      setResult('Done sleeping')
+    })
+}}
+         />
+      }
+      
          codeOneLineEx={`await vsc.sleep(2000)`}
          codeEx={``}
          code={`/**

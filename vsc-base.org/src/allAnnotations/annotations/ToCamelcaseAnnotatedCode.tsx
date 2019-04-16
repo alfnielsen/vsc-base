@@ -48,14 +48,6 @@ const ToCamelCaseAnnotatedCode = () => {
          code={`/**
  * @param str
  * @vscType Raw
- * @testPrinterArgument 
-\{
-   str: 'Some-name'
-}
- * @testPrinter (args, printResult) => \{
-   const result = vsc.toCamelCase(args.str)
-   printResult(result)
-}
  * @returns string
  */
 export const toCamelCase = (str: string): string =>

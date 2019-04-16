@@ -143,7 +143,7 @@ const writeAnnotationComponent = (
 ) => {
    // meta
    const writeMetaMap = []
-   const excludeList = ['description', 'see', 'oneLineEx', 'ex']
+   const excludeList = ['description', 'see', 'oneLineEx', 'ex', 'testPrinterArgument', 'testPrinter']
    for (const [key, content] of Object.entries(metaMapRaw)) {
       if (!excludeList.includes(key)) {
          const escapedContent = content.replace(/([\\`\$\{])/g, '\\$1')
@@ -164,15 +164,16 @@ const writeAnnotationComponent = (
    // ex
    const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1')
    code = code.replace(/([\\`\$\{])/g, '\\$1')
-
    let test = ''
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {
+      const testPrinterArgument = metaMap.testPrinterArgument.replace(/([\\])/g, '\\$1')
+      const testPrinter = metaMap.testPrinter.replace(/([\\])/g, '\\$1')
       test = `
       test={
          <MethodTest
-            initialArgs={${metaMap.testPrinterArgument}}
-            onClickCall={${metaMap.testPrinter}}
+            initialArgs={${testPrinterArgument}}
+            onClickCall={${testPrinter}}
          />
       }
       `

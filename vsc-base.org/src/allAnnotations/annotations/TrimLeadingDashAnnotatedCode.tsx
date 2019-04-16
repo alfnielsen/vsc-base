@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const TrimLeadingDashAnnotatedCode = () => {
    return (
@@ -17,6 +21,18 @@ const TrimLeadingDashAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   path: '/root/area/module1/file1.ts'
+}}
+            onClickCall={(args, setResult) => {
+     const res = vsc.trimLeadingDash(args.path)
+     setResult(res)
+}}
+         />
+      }
+      
          codeOneLineEx={`const path = vsc.trimLeadingDash(foundPath)`}
          codeEx={``}
          code={`/**

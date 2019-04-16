@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const GetJsonPartsAnnotatedCode = () => {
    return (
@@ -17,6 +21,25 @@ const GetJsonPartsAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   json: '{ "a": { "t": true, "o": { "n": 12 }, "b": "b"  }}',
+   keyPath: 'a.o.n',
+}}
+            onClickCall={(args, setResult) => {
+    try{
+       const json = JSON.parse(args.json)
+       const res = vsc.getJsonParts(json, args.keyPath)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}}
+         />
+      }
+      
          codeOneLineEx={`const startScript = vsc.getJsonParts(packageJson, 'scripts.start')`}
          codeEx={``}
          code={`/**

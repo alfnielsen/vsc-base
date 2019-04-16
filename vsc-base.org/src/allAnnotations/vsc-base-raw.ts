@@ -47,6 +47,14 @@ export const getSubrelativePathFromAbsoluteRootPath = (
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.addLeadingLocalDash(path)
+ * @testPrinterArgument
+{
+   path: 'file.ts',
+}
+ * @testPrinter (args, setResult) => {
+   const res = vsc.addLeadingLocalDash(args.path)
+   setResult(res)
+}
  * @returns string
  */
 export const addLeadingLocalDash = (path: string): string => {
@@ -90,10 +98,11 @@ export const toKebabCase = (str: string): string =>
  * @vscType Raw
  * @testPrinterArgument 
 {
-   str: 'SomeName'
+   str: 'SomeName',
+   upperCase: 'false'
 }
  * @testPrinter (args, printResult) => {
-   const result = vsc.toSnakeCase(args.str)
+   const result = vsc.toSnakeCase(args.str, args.upperCase!=='false')
    printResult(result)
  }
  * @oneLineEx const cssName = vsc.toSnakeCase(inputName)
@@ -195,6 +204,21 @@ export const cleanPath = (path: string): string => {
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
  * @vscType Raw
  * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
+ * @testPrinterArgument
+{
+   json: '{ "a": { "t": true, "o": { "n": 12 }, "b": "b"  }}',
+   keyPath: 'a.o.n',
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.json)
+       const res = vsc.getJsonParts(json, args.keyPath)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}
  * @returns any
  */
 export const getJsonParts = <TStructure = any>(
@@ -222,6 +246,14 @@ export const getJsonParts = <TStructure = any>(
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @vscType Raw
  * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
+ * @testPrinterArgument
+{
+   path: 'some/path/to/file.ts'
+}
+ * @testPrinter (args, setResult) => {
+   const res = vsc.isAbsolutePath(args.path)
+   setResult(res?'true':'false')
+}
  * @returns boolean
  */
 export const isAbsolutePath = (
@@ -240,6 +272,15 @@ export const isAbsolutePath = (
  * @dependencyInternal trimDashes
  * @vscType Raw
  * @oneLineEx const isSubPath = vsc.isSubPath(path)
+ * @testPrinterArgument
+{
+   subPath: 'c:/root/area/module1/file.ts',
+   parentPath: 'c:/root/area'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.isSubPath(args.subPath, args.parentPath)
+   setResult(res?'true':'false')
+}
  * @returns boolean
  */
 export const isSubPath = (subPath: string, parentPath: string): boolean => {
@@ -257,6 +298,15 @@ export const isSubPath = (subPath: string, parentPath: string): boolean => {
  * @dependencyInternal trimDashes
  * @vscType Raw
  * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
+ * @testPrinterArgument
+{
+   path1: 'root/area/',
+   path2: '/module2/file.ts'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.joinPaths(args.path1, args.path2)
+     setResult(res)
+}
  * @returns string
  */
 export const joinPaths = (path1: string, path2: string): string => {
@@ -273,7 +323,15 @@ export const joinPaths = (path1: string, path2: string): string => {
  * @see http://vsc-base.org/#pathAsUnix
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.joinPaths(path1, path2)
+ * @oneLineEx const safePath = vsc.pathAsUnix(path)
+ * @testPrinterArgument
+{
+   path: 'root\area\module1\file.ts'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.pathAsUnix(args.path)
+     setResult(res)
+}
  * @returns string
  */
 export const pathAsUnix = (path: string): string => {
@@ -314,6 +372,7 @@ export const getRelativePath = (fromPath: string, toPath: string): string => {
    return relativePath
 }
 
+
 /**
  * @description 
  * Transform a relative path to an abspolute path.
@@ -325,6 +384,16 @@ export const getRelativePath = (fromPath: string, toPath: string): string => {
  * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
+ * @testPrinterArgument
+{
+   path: 'c:/root/area/module1/file.ts',
+   pathRelatriveToPath: '../module2/file2.ts',
+   rootPath: 'c:/root'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.getAbsolutePathFromRelatrivePath(args.path, args.pathRelatriveToPath, args.rootPath)
+     setResult(res)
+}
  * @returns string
  */
 export const getAbsolutePathFromRelatrivePath = (
@@ -353,6 +422,15 @@ export const getAbsolutePathFromRelatrivePath = (
  * @param path2
  * @vscType Raw
  * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
+ * @testPrinterArgument
+{
+   path1: 'root/area/module1/file1.ts',
+   path2: 'root/area/module2/file2.ts'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.sharedPath(args.path1, args.path2)
+     setResult(res)
+}
  * @returns string
  */
 export const sharedPath = (path1: string, path2: string): string => {
@@ -378,6 +456,17 @@ export const sharedPath = (path1: string, path2: string): string => {
  * @oneLineEx await vsc.sleep(2000)
  * @vscType Raw
  * @async
+ * @testPrinterArgument
+{
+   ms: '2000'
+}
+ * @testPrinter (args, setResult) => {
+    setResult('Start sleep...'+args.ms)
+    const ms = parseInt(args.ms)
+    vsc.sleep(ms).then(()=>{
+      setResult('Done sleeping')
+    })
+}
  * @returns Promise<void>
  */
 export const sleep = async (ms: number): Promise<void> => {
@@ -392,6 +481,14 @@ export const sleep = async (ms: number): Promise<void> => {
  * @dependencyInternal pathAsUnix
  * @vscType Raw
  * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
+ * @testPrinterArgument
+{
+   path: 'root/area/module/file1.ts'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.splitPath(args.path)
+     setResult(JSON.stringify(res))
+}
  * @returns [string, string]
  */
 export const splitPath = (path: string): [string, string] => {
@@ -412,12 +509,22 @@ export const splitPath = (path: string): [string, string] => {
  * @dependencyInternal trimDashes
  * @vscType Raw
  * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
+ * @testPrinterArgument
+{
+   path: 'root/area/module/file1.ts',
+   parentPath: 'root/area',
+   trimDashes: 'true'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.subtractPath(args.path, args.parentPath, args.trimDashes==='true')
+     setResult(res)
+}
  * @returns string
  */
 export const subtractPath = (
    path: string,
    parentPath: string,
-   _trimDashes = true
+   trimDashes = true
 ): string => {
    const regexp = new RegExp(`^${parentPath}`)
    let newPath = path.replace(regexp, '')
@@ -434,6 +541,14 @@ export const subtractPath = (
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.trimDashes(foundPath)
+ * @testPrinterArgument
+{
+   path: '/root/area/module/'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.trimDashes(args.path)
+     setResult(res)
+}
  * @returns string
  */
 export const trimDashes = (path: string): string => {
@@ -447,6 +562,14 @@ export const trimDashes = (path: string): string => {
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
+ * @testPrinterArgument
+{
+   path: '/root/area/module1/file1.ts'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.trimLeadingDash(args.path)
+     setResult(res)
+}
  * @returns string
  */
 export const trimLeadingDash = (path: string): string => {
@@ -503,6 +626,14 @@ export const getErrorInfo = (e: any): {
  * @see http://vsc-base.org/#getTimestamp
  * @vscType Raw
  * @oneLineEx const timestamp = vsc.getTimestamp()
+ * @testPrinterArgument
+{
+   trigger: 'write any!'
+}
+ * @testPrinter (args, setResult) => {
+     const res = vsc.getTimestamp()
+     setResult(res)
+}
  * @returns string
  */
 export const getTimestamp = (): string => {
@@ -565,6 +696,22 @@ export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(),
  * @debugTool Primary a debugging method.
  * @vscType Raw
  * @oneLineEx const newObj = vsc.maxDepthReplacer(obj, 3);
+ * @testPrinterArgument
+{
+   obj: '{"a":{"b":{"c":{"d":12}}}}',
+   maxDepth: '2'
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+       const maxDepth = parseInt(args.maxDepth)
+       const res = vsc.maxDepthReplacer(json, maxDepth)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}
  * @returns string
  */
 export const maxDepthReplacer = (obj: unknown, maxDepth: number, currentLevel: number = 0): any => {

@@ -2,6 +2,10 @@ import React from 'react'
 import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
+import * as vsc from '../vsc-base-raw'
+
+import MethodTest from 'components/MethodTest/MethodTest'
+
 
 const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
    return (
@@ -17,6 +21,20 @@ const GetAbsolutePathFromRelatrivePathAnnotatedCode = () => {
             </>
          }
          
+      test={
+         <MethodTest
+            initialArgs={{
+   path: 'c:/root/area/module1/file.ts',
+   pathRelatriveToPath: '../module2/file2.ts',
+   rootPath: 'c:/root'
+}}
+            onClickCall={(args, setResult) => {
+     const res = vsc.getAbsolutePathFromRelatrivePath(args.path, args.pathRelatriveToPath, args.rootPath)
+     setResult(res)
+}}
+         />
+      }
+      
          codeOneLineEx={`const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)`}
          codeEx={``}
          code={`/**

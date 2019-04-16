@@ -1,3 +1,12 @@
+## Online release note:
+
+See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
+
+## 0.5.0
+
+Added:
+tsCreateNodeVisitor (and TsCreateNodeVisitorCallback)
+
 ## 0.4.5
 
 Rename toString to toJSONString.

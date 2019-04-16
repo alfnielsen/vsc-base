@@ -20,7 +20,7 @@ const GetVscDefaultModuleMapAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const moduleMap = vsc.getVscDefaultModuleMap`}
+         codeOneLineEx={`const moduleMap = vsc.getVscDefaultModuleMap()`}
          codeEx={``}
          code={`/**
  * @internal this method is primary used by vsc.loadTsModule

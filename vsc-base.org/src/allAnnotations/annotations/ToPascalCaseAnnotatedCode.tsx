@@ -45,14 +45,6 @@ const ToPascalCaseAnnotatedCode = () => {
          code={`/**
  * @param str
  * @vscType Raw
- * @testPrinterArgument 
-\{
-   str: 'some-name'
-}
- * @testPrinter (args, printResult) => \{
-   const result = vsc.toPascalCase(args.str)
-   printResult(result)
-}
  * @returns string
  */
 export const toPascalCase = (str: string): string =>

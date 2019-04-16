@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsTransformSourceFileAnnotatedCode = () => {
+const TsTransformNodeAnnotatedCode = () => {
    return (
       <AnnotatedCode
-         id={'tsTransformSourceFile'}
-         title={'tsTransformSourceFile'}
+         id={'tsTransformNode'}
+         title={'tsTransformNode'}
          annotation={
             <>
                <p>
@@ -20,7 +20,7 @@ const TsTransformSourceFileAnnotatedCode = () => {
             </>
          }
          
-         codeOneLineEx={`const result = vsc.tsTransformSourceFile(sourceFile, transformers, compilerOptions)`}
+         codeOneLineEx={`const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)`}
          codeEx={``}
          code={`/**
  * @param sourceFile, transformers, compilerOptions
@@ -28,7 +28,7 @@ const TsTransformSourceFileAnnotatedCode = () => {
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
  */
-export const tsTransformSourceFile = <T extends ts.Node = ts.SourceFile>(
+export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
    sourceFile: T,
    transformers: ts.TransformerFactory<T>[],
    compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
@@ -40,5 +40,5 @@ export const tsTransformSourceFile = <T extends ts.Node = ts.SourceFile>(
    )
 }
 
-export default TsTransformSourceFileAnnotatedCode
+export default TsTransformNodeAnnotatedCode
 

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import * as fs from 'fs-extra';
-/**
+/** vsc-base method
  * @description
  * Create a LineReader (generator method) for a ReadStream
  * @see http://vsc-base.org/#getLineStreamReader
@@ -17,7 +17,7 @@ import * as fs from 'fs-extra';
  * @returns () => AsyncIterableIterator<string>
  */
 export declare const getLineStreamReader: (readStream: fs.ReadStream) => () => AsyncIterableIterator<string>;
-/**
+/** vsc-base method
  * @description
  * Get a file ReadStream
  * @see http://vsc-base.org/#getReadStream
@@ -33,7 +33,7 @@ export declare const getLineStreamReader: (readStream: fs.ReadStream) => () => A
  * @returns fs.ReadStream
  */
 export declare const getReadStream: (path: string) => fs.ReadStream;
-/**
+/** vsc-base method
  * @description
  * Does the folder/file exist
  * @see http://vsc-base.org/#doesExists
@@ -44,7 +44,7 @@ export declare const getReadStream: (path: string) => fs.ReadStream;
  * @returns boolean
  */
 export declare const doesExists: (path: string) => boolean;
-/**
+/** vsc-base method
  * @description
  * Get dir from path \
  * (If path is a dir return it)
@@ -56,7 +56,7 @@ export declare const doesExists: (path: string) => boolean;
  * @returns string
  */
 export declare const getDir: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Get file source
  * @see http://vsc-base.org/#getFileContent
@@ -67,7 +67,7 @@ export declare const getDir: (path: string) => string;
  * @returns Promise<string>
  */
 export declare const getFileContent: (path: string) => Promise<string>;
-/**
+/** vsc-base method
  * @description
  * Get file source as json \
  * (return null on invalid json)
@@ -79,7 +79,7 @@ export declare const getFileContent: (path: string) => Promise<string>;
  * @returns unknown
  */
 export declare const getJsonContent: <TStructure = unknown>(path: string, throws?: boolean) => Promise<TStructure>;
-/**
+/** vsc-base method
  * @description
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
@@ -90,7 +90,7 @@ export declare const getJsonContent: <TStructure = unknown>(path: string, throws
  * @returns T
  */
 export declare const getConfig: <T>(projectName: string, property: string, defaultValue: T) => T;
-/**
+/** vsc-base method
  * @description
  * Find packages file paths in project.
  * @see http://vsc-base.org/#getPackageFilePaths
@@ -99,7 +99,7 @@ export declare const getConfig: <T>(projectName: string, property: string, defau
  * @returns Promise<string[]>
  */
 export declare const getPackageFilePaths: () => Promise<string[]>;
-/**
+/** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
@@ -112,7 +112,7 @@ export declare const getPackageFilePaths: () => Promise<string[]>;
 export declare const getPackageDependencies: () => Promise<{
     [key: string]: string;
 }[]>;
-/**
+/** vsc-base method
  * @description
  * Test is a path is directory
  * @param path
@@ -123,7 +123,7 @@ export declare const getPackageDependencies: () => Promise<{
  * @returns boolean
  */
 export declare const isDir: (path: string) => boolean;
-/**
+/** vsc-base method
  * @description
  * Make a folder
  * @see http://vsc-base.org/#makeDir
@@ -135,9 +135,9 @@ export declare const isDir: (path: string) => boolean;
  * @returns Promise<void>
  */
 export declare const makeDir: (folderPath: string) => Promise<void>;
-/**
+/** vsc-base method
  * @description
- * Move file/fodler
+ * Move a file or folder
  * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
@@ -147,7 +147,7 @@ export declare const makeDir: (folderPath: string) => Promise<void>;
  * @returns Promise<void>
  */
 export declare const move: (path: string, newPath: string) => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Copy file/fodler
  * @see http://vsc-base.org/#copy
@@ -159,7 +159,7 @@ export declare const move: (path: string, newPath: string) => Promise<void>;
  * @returns Promise<void>
  */
 export declare const copy: (path: string, newPath: string) => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Save file
  * @see http://vsc-base.org/#saveFileContent

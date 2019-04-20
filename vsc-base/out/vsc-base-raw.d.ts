@@ -1,4 +1,5 @@
-/**
+import * as vsc from './vsc-base';
+/** vsc-base method
  * @description
  * Transform an absolute path from root, to a sub-relative path.
  * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
@@ -21,7 +22,7 @@
  * @returns string
  */
 export declare const getSubrelativePathFromAbsoluteRootPath: (path: string, absolutePathFromRoot: string, rootPath: string) => string;
-/**
+/** vsc-base method
  * @description
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
@@ -39,7 +40,7 @@ export declare const getSubrelativePathFromAbsoluteRootPath: (path: string, abso
  * @returns string
  */
 export declare const addLeadingLocalDash: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Format a string from camel-case to kebab-case \
  * Commonly used to define css class names. \
@@ -59,7 +60,7 @@ export declare const addLeadingLocalDash: (path: string) => string;
  * @returns string
  */
 export declare const toKebabCase: (str: string) => string;
-/**
+/** vsc-base method
  * @description
  * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
@@ -80,7 +81,7 @@ export declare const toKebabCase: (str: string) => string;
  * @returns string
  */
 export declare const toSnakeCase: (str: string, upperCase?: boolean) => string;
-/**
+/** vsc-base method
  * @description
  * Format a string to camal-case. \
  * Commonly used to define js/ts variable names. \
@@ -101,7 +102,7 @@ export declare const toSnakeCase: (str: string, upperCase?: boolean) => string;
  * @returns string
  */
 export declare const toCamelCase: (str: string) => string;
-/**
+/** vsc-base method
  * @description
  * Format a string to camal-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
@@ -121,7 +122,7 @@ export declare const toCamelCase: (str: string) => string;
  * @returns string
  */
 export declare const toPascalCase: (str: string) => string;
-/**
+/** vsc-base method
  * @description
  * Get clean path. \
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
@@ -140,7 +141,7 @@ export declare const toPascalCase: (str: string) => string;
  * @returns string
  */
 export declare const cleanPath: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
@@ -168,7 +169,7 @@ export declare const cleanPath: (path: string) => string;
 export declare const getJsonParts: <TStructure = any>(json: {
     [name: string]: unknown;
 }, keyPath: string) => TStructure | undefined;
-/**
+/** vsc-base method
  * @description
  * Does path start with charactor [a-zA-Z@] \
  * (not '/' or './' or '../')
@@ -188,7 +189,7 @@ export declare const getJsonParts: <TStructure = any>(json: {
  * @returns boolean
  */
 export declare const isAbsolutePath: (path: string, startWithRegExp?: RegExp) => boolean;
-/**
+/** vsc-base method
  * @description
  * Does subpath start with parentPath
  * @see http://vsc-base.org/#isSubPath
@@ -209,7 +210,7 @@ export declare const isAbsolutePath: (path: string, startWithRegExp?: RegExp) =>
  * @returns boolean
  */
 export declare const isSubPath: (subPath: string, parentPath: string) => boolean;
-/**
+/** vsc-base method
  * @description
  * Joins to paths.
  * @see http://vsc-base.org/#joinPaths
@@ -230,7 +231,7 @@ export declare const isSubPath: (subPath: string, parentPath: string) => boolean
  * @returns string
  */
 export declare const joinPaths: (path1: string, path2: string) => string;
-/**
+/** vsc-base method
  * @description
  * Reaplve all '\\'  with '/' \
  * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
@@ -249,7 +250,7 @@ export declare const joinPaths: (path1: string, path2: string) => string;
  * @returns string
  */
 export declare const pathAsUnix: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Generate relative path between two paths.
  * @see http://vsc-base.org/#getRelativePath
@@ -270,7 +271,7 @@ export declare const pathAsUnix: (path: string) => string;
  * @returns string
  */
 export declare const getRelativePath: (fromPath: string, toPath: string) => string;
-/**
+/** vsc-base method
  * @description
  * Transform a relative path to an abspolute path.
  * @see http://vsc-base.org/#getAbsolutePathFromRelatrivePath
@@ -294,7 +295,7 @@ export declare const getRelativePath: (fromPath: string, toPath: string) => stri
  * @returns string
  */
 export declare const getAbsolutePathFromRelatrivePath: (path: string, pathRelatriveToPath: string, rootPath: string) => string;
-/**
+/** vsc-base method
  * @description
  * Return the path that are shared. \
  * (Return '' if no path are shared).
@@ -315,7 +316,7 @@ export declare const getAbsolutePathFromRelatrivePath: (path: string, pathRelatr
  * @returns string
  */
 export declare const sharedPath: (path1: string, path2: string) => string;
-/**
+/** vsc-base method
  * @description
  * await wrap for setTimeout. \
  * Mostly used for debug asyc.
@@ -338,7 +339,7 @@ export declare const sharedPath: (path1: string, path2: string) => string;
  * @returns Promise<void>
  */
 export declare const sleep: (ms: number) => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Split filePath into dir and file
  * @see http://vsc-base.org/#splitPath
@@ -357,7 +358,7 @@ export declare const sleep: (ms: number) => Promise<void>;
  * @returns [string, string]
  */
 export declare const splitPath: (path: string) => [string, string];
-/**
+/** vsc-base method
  * @description
  * Remove parent-path from a path
  * @see http://vsc-base.org/#subtractPath
@@ -380,7 +381,7 @@ export declare const splitPath: (path: string) => [string, string];
  * @returns string
  */
 export declare const subtractPath: (path: string, parentPath: string, trimDashes?: boolean) => string;
-/**
+/** vsc-base method
  * @description
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
@@ -398,7 +399,7 @@ export declare const subtractPath: (path: string, parentPath: string, trimDashes
  * @returns string
  */
 export declare const trimDashes: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
@@ -416,7 +417,7 @@ export declare const trimDashes: (path: string) => string;
  * @returns string
  */
 export declare const trimLeadingDash: (path: string) => string;
-/**
+/** vsc-base method
  * @description
  * Test if it an error. \
  * Return type (if one of es6 basic error type) return stack
@@ -432,7 +433,7 @@ export declare const getErrorInfo: (e: any) => {
     stack: string;
     message: string;
 };
-/**
+/** vsc-base method
  * @description
  * return ISO timestamp
  * @see http://vsc-base.org/#getTimestamp
@@ -449,7 +450,7 @@ export declare const getErrorInfo: (e: any) => {
  * @returns string
  */
 export declare const getTimestamp: () => string;
-/**
+/** vsc-base method
  * @description
  * Provide a circular safe JSON.stringify replacer. \
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
@@ -460,7 +461,7 @@ export declare const getTimestamp: () => string;
  * @returns (_key: string, value: unknown) => unknown
  */
 export declare const getJSONCircularReplacer: () => (_key: string, value: unknown) => unknown;
-/**
+/** vsc-base method
  * @description
  * Stringify an object. \
  * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
@@ -474,7 +475,7 @@ export declare const getJSONCircularReplacer: () => (_key: string, value: unknow
  * @returns string
  */
 export declare const toJSONString: (obj: any, replacer?: (_key: string, value: unknown) => unknown, space?: number, maxDepth?: number) => string;
-/**
+/** vsc-base method
  * @description
  * Clone an JSON Object (any type) with max depth. \
  * This method goes through the object structure and replace children that goes deeper then the max Depth
@@ -503,4 +504,119 @@ export declare const toJSONString: (obj: any, replacer?: (_key: string, value: u
 }
  * @returns string
  */
-export declare const maxDepthReplacer: (obj: unknown, maxDepth: number, currentLevel?: number) => any;
+export declare const maxDepthReplacer: (obj: unknown, maxDepth: number) => any;
+/** vsc-base method
+ * @description
+ * Clone an JSON Object (any type) and reaplce all properties with the given name with a new value. \
+ * This method goes through the object structure and replace children that has the given name/key
+ * @see http://vsc-base.org/#keyValueReplacer
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.keyValueReplacer(obj, key, newValue);
+ * @testPrinterArgument
+{
+   obj: '{"a":{"b":{"c":{"d":12}}}}',
+   key: 'c',
+   value: 'foo'
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+       const res = vsc.keyValueReplacer(json, args.key, args.value)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}
+ * @returns string
+ */
+export declare const keyValueReplacer: (obj: unknown, key: string, newValue: any) => any;
+/** vsc-base method
+ * @description
+ * Clone an JSON Object (any type) going trought is entire tree structure. \
+ * This method goes through the object structure, and call the given callback on esh child (and granchild). \
+ * The call back can replace each child or stop the iteration. \
+ * See http://vsc-base.org/#maxDepthReplacer and http://vsc-base.org/#keyValueReplacer \
+ * they both use the objectWalker.
+ * @see http://vsc-base.org/#objectWalker
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.objectWalker(obj, walkerCallback);
+ * @testPrinterArgument
+{
+   obj: '{"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}'
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+      let longestAncestorList = 0;
+      let ancestorKeysString: (string|number)[] = [];
+      vsc.objectWalker(json,(state)=>{
+         if(longestAncestorList<state.depth){
+            longestAncestorList = state.depth
+            ancestorKeysString = [state.key, ...state.ancestorKeys]
+         }
+      })
+       setResult(<>{ancestorKeysString.join('.')}<br/>{'reverse:'}<br/>{ancestorKeysString.reverse().join('.')}</>)
+    }catch(e){
+       setResult(''+e)
+    }
+}
+ * @ex
+// try this walker out in the tester
+const json = {"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}
+let longestAncestorList = 0;
+let ancestorKeysString: (string|number)[] = [];
+vsc.objectWalker(json,(state)=>{
+   if(longestAncestorList<state.depth){
+      longestAncestorList = state.depth
+      ancestorKeysString = [state.key, ...state.ancestorKeys]
+   }
+})
+
+// log: ancestorKeysList.join('.') + '\nreverse:\n' + ancestorKeysString.reverse().join('.');
+ * @returns string
+ */
+export declare const objectWalker: (obj: any, callback: vsc.ObjectWalkerCallback) => any;
+interface ObjectWalkerCallbackState {
+    /**
+     * The currectn chil. (Any type)
+     */
+    obj: any;
+    /**
+     * The key for this child (a string if its in an object, a number if its in a list)
+     */
+    key: string | number;
+    /**
+     * The depth is how many step down an ansestor tree the iteration curently is in.
+     */
+    depth: number;
+    /**
+     * List with the ancestors (object or array)
+     */
+    ancestors: (object | Array<any>)[];
+    /**
+     * List with the ancestors keys (string for object, number for array item)
+     */
+    ancestorKeys: (string | number)[];
+    /**
+     * Replace the current child in parent object/array
+     */
+    replace: (val: any) => void;
+    /**
+     * Stop the recursive iteration in the walker. \
+     * Everything stops after calling this method. \
+     * The return object (which is copying itself from the original method), \
+     * will only be fill with properties until the point of the stop call.
+     */
+    stop: () => void;
+}
+export declare type ObjectWalkerCallback = (state: ObjectWalkerCallbackState) => void;
+export {};

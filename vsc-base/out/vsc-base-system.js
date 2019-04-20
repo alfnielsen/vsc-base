@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs-extra");
 const vscode = require("vscode");
 const vsc = require("./vsc-base");
-/**
+/** vsc-base method
  * @description
  * Create a LineReader (generator method) for a ReadStream
  * @see http://vsc-base.org/#getLineStreamReader
@@ -74,7 +74,7 @@ exports.getLineStreamReader = (readStream) => function () {
         }
     });
 };
-/**
+/** vsc-base method
  * @description
  * Get a file ReadStream
  * @see http://vsc-base.org/#getReadStream
@@ -100,7 +100,7 @@ exports.getReadStream = (path) => {
     });
     return stream;
 };
-/**
+/** vsc-base method
  * @description
  * Does the folder/file exist
  * @see http://vsc-base.org/#doesExists
@@ -113,7 +113,7 @@ exports.getReadStream = (path) => {
 exports.doesExists = (path) => {
     return fs.existsSync(path);
 };
-/**
+/** vsc-base method
  * @description
  * Get dir from path \
  * (If path is a dir return it)
@@ -132,7 +132,7 @@ exports.getDir = (path) => {
     const [dir] = vsc.splitPath(path);
     return dir;
 };
-/**
+/** vsc-base method
  * @description
  * Get file source
  * @see http://vsc-base.org/#getFileContent
@@ -143,7 +143,7 @@ exports.getDir = (path) => {
  * @returns Promise<string>
  */
 exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, 'utf8'); });
-/**
+/** vsc-base method
  * @description
  * Get file source as json \
  * (return null on invalid json)
@@ -155,7 +155,7 @@ exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () 
  * @returns unknown
  */
 exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 0, function* () { return yield fs.readJson(path, { throws }); });
-/**
+/** vsc-base method
  * @description
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
@@ -170,7 +170,7 @@ exports.getConfig = (projectName, property, defaultValue) => {
         .getConfiguration(projectName)
         .get(property, defaultValue);
 };
-/**
+/** vsc-base method
  * @description
  * Find packages file paths in project.
  * @see http://vsc-base.org/#getPackageFilePaths
@@ -182,7 +182,7 @@ exports.getPackageFilePaths = () => __awaiter(this, void 0, void 0, function* ()
     const packageFiles = yield vsc.findFilePaths('**/package.json');
     return packageFiles;
 });
-/**
+/** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
@@ -213,7 +213,7 @@ exports.getPackageDependencies = () => __awaiter(this, void 0, void 0, function*
     }
     return [dependencies, devDependencies];
 });
-/**
+/** vsc-base method
  * @description
  * Test is a path is directory
  * @param path
@@ -226,7 +226,7 @@ exports.getPackageDependencies = () => __awaiter(this, void 0, void 0, function*
 exports.isDir = (path) => {
     return fs.statSync(path).isDirectory();
 };
-/**
+/** vsc-base method
  * @description
  * Make a folder
  * @see http://vsc-base.org/#makeDir
@@ -245,9 +245,9 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
         throw e;
     }
 });
-/**
+/** vsc-base method
  * @description
- * Move file/fodler
+ * Move a file or folder
  * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
@@ -259,7 +259,7 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
 exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
     yield fs.move(path, newPath);
 });
-/**
+/** vsc-base method
  * @description
  * Copy file/fodler
  * @see http://vsc-base.org/#copy
@@ -273,7 +273,7 @@ exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
 exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
     yield fs.copy(path, newPath);
 });
-/**
+/** vsc-base method
  * @description
  * Save file
  * @see http://vsc-base.org/#saveFileContent

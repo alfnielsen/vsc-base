@@ -4,16 +4,16 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 ## 0.6.0
 
-Breaking changes:
+**Breaking changes:**
 maxDepthReplacer has lost Optional paremt: 'currentLevel: number = 0'
-This is becasue it now uses the new ObjectWalker internally.
+This is becasue it now uses the new objectWalker internally.
 
-New method:
-ObjectWalker
+**New method:**
+objectWalker
 
 ## 0.5.0
 
-Added:
+**Added:**
 tsCreateNodeVisitor (and TsCreateNodeVisitorCallback)
 
 ## 0.4.5

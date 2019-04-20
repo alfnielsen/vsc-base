@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-/**
+/** vsc-base method
  * @description
  * Prompt user for a question
  * @see http://vsc-base.org/#ask
@@ -12,7 +12,7 @@ import * as vscode from 'vscode';
  * @returns Promise<string | undefined>
  */
 export declare const ask: (question: string, defaultValue: string) => Promise<string | undefined>;
-/**
+/** vsc-base method
  * @description
  * Prompt user for a question with a list of answers
  * @see http://vsc-base.org/#pick
@@ -26,7 +26,7 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
  * @returns Promise<string | undefined>
  */
 export declare const pick: (answerList: string[]) => Promise<string | undefined>;
-/**
+/** vsc-base method
  * @description
  * Get a list off all filePaths in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePaths
@@ -46,7 +46,7 @@ for (const filePath of allTestFiles){
  * @returns Promise<string[]>
  */
 export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
-/**
+/** vsc-base method
  * @description
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
  * @see http://vsc-base.org/#findFilePathsFromBase
@@ -66,7 +66,7 @@ for (const filePath of storyFilesInModule1){
  * @returns Promise<string[]>
  */
 export declare const findFilePathsFromBase: (basePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
-/**
+/** vsc-base method
  * @description
  * Find files based from a releative to a path
  * @see http://vsc-base.org/#findRelativeFilePaths
@@ -94,7 +94,7 @@ const modulePath = moduleFileInParentFolder[0];
  * @returns Promise<string[]>
  */
 export declare const findRelativeFilePaths: (path: string, relativePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
-/**
+/** vsc-base method
  * @description
  * Get vscode.activeTextEditor
  * @see http://vsc-base.org/#getActiveEditor
@@ -104,7 +104,7 @@ export declare const findRelativeFilePaths: (path: string, relativePath: string,
  * @returns vscode.TextEditor | undefined
  */
 export declare const getActiveEditor: () => vscode.TextEditor | undefined;
-/**
+/** vsc-base method
  * @description
  * Get open vscode.TextDocument
  * @see http://vsc-base.org/#getActiveDocument
@@ -114,7 +114,7 @@ export declare const getActiveEditor: () => vscode.TextEditor | undefined;
  * @returns vscode.TextDocument | undefined
  */
 export declare const getActiveDocument: () => vscode.TextDocument | undefined;
-/**
+/** vsc-base method
  * @description
  * Get current open file path or undefined if nothing is open.
  * @see http://vsc-base.org/#getActivegetActiveDocumentPath
@@ -124,7 +124,7 @@ export declare const getActiveDocument: () => vscode.TextDocument | undefined;
  * @returns string | undefined
  */
 export declare const getActiveDocumentPath: () => string | undefined;
-/**
+/** vsc-base method
  * @description
  * Get current open file's content.
  * @see http://vsc-base.org/#getActiveDocumentContent
@@ -134,7 +134,7 @@ export declare const getActiveDocumentPath: () => string | undefined;
  * @returns string | undefined
  */
 export declare const getActiveDocumentContent: () => string | undefined;
-/**
+/** vsc-base method
  * @description
  * Set current open file's content. \
  * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
@@ -147,7 +147,7 @@ export declare const getActiveDocumentContent: () => string | undefined;
  * @returns Promise<boolean>
  */
 export declare const setActiveDocumentContent: (content: string) => Promise<boolean>;
-/**
+/** vsc-base method
  * @description
  * Get a vscodeRange for the entire document
  * @see http://vsc-base.org/#getFullDocumentRange
@@ -158,7 +158,7 @@ export declare const setActiveDocumentContent: (content: string) => Promise<bool
  * @returns boolean
  */
 export declare const getFullDocumentRange: (document: vscode.TextDocument) => vscode.Range;
-/**
+/** vsc-base method
  * @description
  * Append new content in the end of the open document
  * @see http://vsc-base.org/#appendToDocument
@@ -171,7 +171,7 @@ export declare const getFullDocumentRange: (document: vscode.TextDocument) => vs
  * @returns Promise<void>
  */
 export declare const appendToDocument: (editor: vscode.TextEditor, document: vscode.TextDocument, content: string) => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Append new content in the end of the open document. \
  * Return true for succes, and false if there was no active editor or open document
@@ -184,7 +184,7 @@ export declare const appendToDocument: (editor: vscode.TextEditor, document: vsc
  * @returns Promise<boolean>
  */
 export declare const appendToActiveDocument: (content: string) => Promise<boolean>;
-/**
+/** vsc-base method
  * @description
  * Append new line content in the end of the open document
  * @see http://vsc-base.org/#appendLineToActiveDocument
@@ -195,7 +195,7 @@ export declare const appendToActiveDocument: (content: string) => Promise<boolea
  * @returns Promise<boolean>
  */
 export declare const appendLineToActiveDocument: (content: string) => Promise<boolean>;
-/**
+/** vsc-base method
  * @description
  * Save active open file. \
  * Return true for succes, and false if there was no open document
@@ -206,7 +206,7 @@ export declare const appendLineToActiveDocument: (content: string) => Promise<bo
  * @returns Promise<boolean>
  */
 export declare const saveActiveDocument: () => Promise<boolean>;
-/**
+/** vsc-base method
  * @description
  * Get project root for a path or undefined if no project was found.
  * @see http://vsc-base.org/#getRootPath
@@ -218,7 +218,7 @@ export declare const saveActiveDocument: () => Promise<boolean>;
  * @returns string | undefined
  */
 export declare const getRootPath: (path: string) => string | undefined;
-/**
+/** vsc-base method
  * @description
  * Save All files
  * @see http://vsc-base.org/#saveAll
@@ -228,7 +228,7 @@ export declare const getRootPath: (path: string) => string | undefined;
  * @returns Promise<void>
  */
 export declare const saveAll: () => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Show error message to user
  * @see http://vsc-base.org/#showErrorMessage
@@ -239,7 +239,7 @@ export declare const saveAll: () => Promise<void>;
  * @returns Promise<void>
  */
 export declare const showErrorMessage: (message: string) => Promise<void>;
-/**
+/** vsc-base method
  * @description
  * Show message to user
  * @see http://vsc-base.org/#showMessage

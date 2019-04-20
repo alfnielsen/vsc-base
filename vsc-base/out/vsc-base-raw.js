@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vsc = require("./vsc-base");
-/**
+/** vsc-base method
  * @description
  * Transform an absolute path from root, to a sub-relative path.
  * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
@@ -41,7 +41,7 @@ exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
     }
     return absolutePathFromSourceDir;
 };
-/**
+/** vsc-base method
  * @description
  * Add './' to start of path
  * @see http://vsc-base.org/#addLeadingLocalDash
@@ -61,7 +61,7 @@ exports.getSubrelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
 exports.addLeadingLocalDash = (path) => {
     return './' + path;
 };
-/**
+/** vsc-base method
  * @description
  * Format a string from camel-case to kebab-case \
  * Commonly used to define css class names. \
@@ -84,7 +84,7 @@ exports.toKebabCase = (str) => str[0].toLowerCase() +
     str.substr(1)
         .replace(/([A-Z])/g, (_match, chr) => `-${chr.toLowerCase()}`)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => `-${chr.toLowerCase()}`);
-/**
+/** vsc-base method
  * @description
  * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
@@ -114,7 +114,7 @@ exports.toSnakeCase = (str, upperCase = false) => {
     }
     return str;
 };
-/**
+/** vsc-base method
  * @description
  * Format a string to camal-case. \
  * Commonly used to define js/ts variable names. \
@@ -137,7 +137,7 @@ exports.toSnakeCase = (str, upperCase = false) => {
 exports.toCamelCase = (str) => str[0].toLowerCase() +
     str.substr(1)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
-/**
+/** vsc-base method
  * @description
  * Format a string to camal-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
@@ -158,7 +158,7 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
  */
 exports.toPascalCase = (str) => str[0].toUpperCase() +
     str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
-/**
+/** vsc-base method
  * @description
  * Get clean path. \
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
@@ -184,7 +184,7 @@ exports.cleanPath = (path) => {
     }
     return path;
 };
-/**
+/** vsc-base method
  * @description
  * Get part of a json object.
  * @see http://vsc-base.org/#getJsonParts
@@ -221,7 +221,7 @@ exports.getJsonParts = (json, keyPath) => {
     }
     return current;
 };
-/**
+/** vsc-base method
  * @description
  * Does path start with charactor [a-zA-Z@] \
  * (not '/' or './' or '../')
@@ -243,7 +243,7 @@ exports.getJsonParts = (json, keyPath) => {
 exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
     return startWithRegExp.test(path);
 };
-/**
+/** vsc-base method
  * @description
  * Does subpath start with parentPath
  * @see http://vsc-base.org/#isSubPath
@@ -268,7 +268,7 @@ exports.isSubPath = (subPath, parentPath) => {
     const result = subPath.indexOf(parentPath + '/') === 0;
     return result;
 };
-/**
+/** vsc-base method
  * @description
  * Joins to paths.
  * @see http://vsc-base.org/#joinPaths
@@ -294,7 +294,7 @@ exports.joinPaths = (path1, path2) => {
     const result = path1 + '/' + path2;
     return result;
 };
-/**
+/** vsc-base method
  * @description
  * Reaplve all '\\'  with '/' \
  * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
@@ -315,7 +315,7 @@ exports.joinPaths = (path1, path2) => {
 exports.pathAsUnix = (path) => {
     return path.replace(/\\/g, '/');
 };
-/**
+/** vsc-base method
  * @description
  * Generate relative path between two paths.
  * @see http://vsc-base.org/#getRelativePath
@@ -348,7 +348,7 @@ exports.getRelativePath = (fromPath, toPath) => {
     const relativePath = backPath + toPathDownToShared;
     return relativePath;
 };
-/**
+/** vsc-base method
  * @description
  * Transform a relative path to an abspolute path.
  * @see http://vsc-base.org/#getAbsolutePathFromRelatrivePath
@@ -383,7 +383,7 @@ exports.getAbsolutePathFromRelatrivePath = (path, pathRelatriveToPath, rootPath)
     absolutePathToRelative = vsc.trimLeadingDash(absolutePathToRelative);
     return absolutePathToRelative;
 };
-/**
+/** vsc-base method
  * @description
  * Return the path that are shared. \
  * (Return '' if no path are shared).
@@ -416,7 +416,7 @@ exports.sharedPath = (path1, path2) => {
     const sharedPath = shared.join('/');
     return sharedPath;
 };
-/**
+/** vsc-base method
  * @description
  * await wrap for setTimeout. \
  * Mostly used for debug asyc.
@@ -441,7 +441,7 @@ exports.sharedPath = (path1, path2) => {
 exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
     return new Promise(resolve => setTimeout(resolve, ms));
 });
-/**
+/** vsc-base method
  * @description
  * Split filePath into dir and file
  * @see http://vsc-base.org/#splitPath
@@ -466,7 +466,7 @@ exports.splitPath = (path) => {
     const dir = splits.join('/');
     return [dir, name];
 };
-/**
+/** vsc-base method
  * @description
  * Remove parent-path from a path
  * @see http://vsc-base.org/#subtractPath
@@ -496,7 +496,7 @@ exports.subtractPath = (path, parentPath, trimDashes = true) => {
     }
     return newPath;
 };
-/**
+/** vsc-base method
  * @description
  * Remove '/' from start and end of path
  * @see http://vsc-base.org/#trimDashes
@@ -516,7 +516,7 @@ exports.subtractPath = (path, parentPath, trimDashes = true) => {
 exports.trimDashes = (path) => {
     return path.replace(/(^\/|\/$)/g, '');
 };
-/**
+/** vsc-base method
  * @description
  * Remove '/' from start of path
  * @see http://vsc-base.org/#trimLeadingDash
@@ -536,7 +536,7 @@ exports.trimDashes = (path) => {
 exports.trimLeadingDash = (path) => {
     return path.replace(/^\//, '');
 };
-/**
+/** vsc-base method
  * @description
  * Test if it an error. \
  * Return type (if one of es6 basic error type) return stack
@@ -576,7 +576,7 @@ exports.getErrorInfo = (e) => {
     }
     return info;
 };
-/**
+/** vsc-base method
  * @description
  * return ISO timestamp
  * @see http://vsc-base.org/#getTimestamp
@@ -595,7 +595,7 @@ exports.getErrorInfo = (e) => {
 exports.getTimestamp = () => {
     return new Date().toISOString();
 };
-/**
+/** vsc-base method
  * @description
  * Provide a circular safe JSON.stringify replacer. \
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
@@ -617,7 +617,7 @@ exports.getJSONCircularReplacer = () => {
         return value;
     };
 };
-/**
+/** vsc-base method
  * @description
  * Stringify an object. \
  * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
@@ -632,12 +632,12 @@ exports.getJSONCircularReplacer = () => {
  */
 exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
     if (maxDepth >= 0) {
-        let maxDepthObj = exports.maxDepthReplacer(obj, maxDepth);
+        let maxDepthObj = vsc.maxDepthReplacer(obj, maxDepth);
         return JSON.stringify(maxDepthObj, replacer, space);
     }
     return JSON.stringify(obj, replacer, space);
 };
-/**
+/** vsc-base method
  * @description
  * Clone an JSON Object (any type) with max depth. \
  * This method goes through the object structure and replace children that goes deeper then the max Depth
@@ -666,23 +666,156 @@ exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2
 }
  * @returns string
  */
-exports.maxDepthReplacer = (obj, maxDepth, currentLevel = 0) => {
-    if (Array.isArray(obj)) {
-        if (currentLevel > maxDepth) {
-            return `[vsc: maxDepth ${maxDepth} reached - Array]`;
+exports.maxDepthReplacer = (obj, maxDepth) => {
+    const walkedObj = exports.objectWalker(obj, (state) => {
+        if (state.depth >= maxDepth) {
+            state.replace(Array.isArray(state.ancestors[0])
+                ? `[vsc: maxDepth ${maxDepth} reached - Array]`
+                : `[vsc: maxDepth ${maxDepth} reached - Object]`);
         }
-        return obj.map(child => exports.maxDepthReplacer(child, maxDepth, currentLevel + 1));
+    });
+    return walkedObj;
+};
+/** vsc-base method
+ * @description
+ * Clone an JSON Object (any type) and reaplce all properties with the given name with a new value. \
+ * This method goes through the object structure and replace children that has the given name/key
+ * @see http://vsc-base.org/#keyValueReplacer
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.keyValueReplacer(obj, key, newValue);
+ * @testPrinterArgument
+{
+   obj: '{"a":{"b":{"c":{"d":12}}}}',
+   key: 'c',
+   value: 'foo'
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+       const res = vsc.keyValueReplacer(json, args.key, args.value)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
     }
-    if (typeof obj === "object" && obj !== null) {
-        if (currentLevel > maxDepth) {
-            return `[vsc: maxDepth ${maxDepth} reached - Object]`;
+}
+ * @returns string
+ */
+exports.keyValueReplacer = (obj, key, newValue) => {
+    const walkedObj = exports.objectWalker(obj, (state) => {
+        if (state.key === key) {
+            state.replace(newValue);
         }
-        const children = {};
-        for (const [key, value] of Object.entries(obj)) {
-            children[key] = exports.maxDepthReplacer(value, maxDepth, currentLevel + 1);
-        }
-        return children;
+    });
+    return walkedObj;
+};
+/** vsc-base method
+ * @description
+ * Clone an JSON Object (any type) going trought is entire tree structure. \
+ * This method goes through the object structure, and call the given callback on esh child (and granchild). \
+ * The call back can replace each child or stop the iteration. \
+ * See http://vsc-base.org/#maxDepthReplacer and http://vsc-base.org/#keyValueReplacer \
+ * they both use the objectWalker.
+ * @see http://vsc-base.org/#objectWalker
+ * @param obj
+ * @param maxDepth
+ * @param currentLevel
+ * @debugTool Primary a debugging method.
+ * @vscType Raw
+ * @oneLineEx const newObj = vsc.objectWalker(obj, walkerCallback);
+ * @testPrinterArgument
+{
+   obj: '{"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}'
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const json = JSON.parse(args.obj)
+      let longestAncestorList = 0;
+      let ancestorKeysString: (string|number)[] = [];
+      vsc.objectWalker(json,(state)=>{
+         if(longestAncestorList<state.depth){
+            longestAncestorList = state.depth
+            ancestorKeysString = [state.key, ...state.ancestorKeys]
+         }
+      })
+       setResult(<>{ancestorKeysString.join('.')}<br/>{'reverse:'}<br/>{ancestorKeysString.reverse().join('.')}</>)
+    }catch(e){
+       setResult(''+e)
     }
+}
+ * @ex
+// try this walker out in the tester
+const json = {"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}
+let longestAncestorList = 0;
+let ancestorKeysString: (string|number)[] = [];
+vsc.objectWalker(json,(state)=>{
+   if(longestAncestorList<state.depth){
+      longestAncestorList = state.depth
+      ancestorKeysString = [state.key, ...state.ancestorKeys]
+   }
+})
+
+// log: ancestorKeysList.join('.') + '\nreverse:\n' + ancestorKeysString.reverse().join('.');
+ * @returns string
+ */
+exports.objectWalker = (obj, callback) => {
+    let stopFlag = false;
+    const stop = () => {
+        stopFlag = true;
+    };
+    const objectWalkerRecursive = (obj, key, depth, ancestors, ancestorKeys) => {
+        if (stopFlag) {
+            return obj;
+        }
+        let doReplace = false, replaceValue;
+        const callbackState = {
+            obj,
+            key,
+            replace: (val) => {
+                replaceValue = val;
+                doReplace = true;
+            },
+            stop,
+            depth,
+            ancestors,
+            ancestorKeys
+        };
+        callback(callbackState);
+        if (doReplace) {
+            return replaceValue;
+        }
+        if (stopFlag) {
+            return obj;
+        }
+        if (Array.isArray(obj)) {
+            obj.map((child, index) => {
+                const nextAncestorsList = [obj, ...ancestors];
+                const nextAncestorKeyList = [...ancestorKeys];
+                if (depth !== 0) {
+                    nextAncestorKeyList.unshift(key);
+                }
+                const restult = objectWalkerRecursive(child, index, depth + 1, nextAncestorsList, nextAncestorKeyList);
+                return restult;
+            });
+        }
+        if (typeof obj === "object" && obj !== null) {
+            for (const [currentKey, child] of Object.entries(obj)) {
+                const nextAncestorsList = [obj, ...ancestors];
+                const nextAncestorKeyList = [...ancestorKeys];
+                if (depth !== 0) {
+                    nextAncestorKeyList.unshift(key);
+                }
+                const restult = objectWalkerRecursive(child, currentKey, depth + 1, nextAncestorsList, nextAncestorKeyList);
+                obj[currentKey] = restult;
+            }
+        }
+        return obj;
+    };
+    objectWalkerRecursive(obj, '', 0, [], []);
     return obj;
 };
 //# sourceMappingURL=vsc-base-raw.js.map

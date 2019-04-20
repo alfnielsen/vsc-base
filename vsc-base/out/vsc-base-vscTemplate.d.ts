@@ -1,5 +1,5 @@
 import * as vsc from './vsc-base';
-/**
+/** vsc-base method
  * @description
  * Recurvice function that goes through a template tree
  * @see http://vsc-base.org/#scaffoldTemplate

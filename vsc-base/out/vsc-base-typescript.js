@@ -12,7 +12,7 @@ const fs = require("fs-extra");
 const vscode = require("vscode");
 const ts = require("typescript");
 const vsc = require("./vsc-base");
-/**
+/** vsc-base method
  * @description
  * Transpile ts source to js
  * @see http://vsc-base.org/#tsTranspile
@@ -27,7 +27,7 @@ exports.tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions)
     let sourceJs = transpiledOutput.outputText;
     return sourceJs;
 };
-/**
+/** vsc-base method
  * @description
  * Pre method for tsLoadModule. \
  * (This methods load the ts source, transpile it to js and replace all 'require' instance)
@@ -45,7 +45,7 @@ exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerO
     sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs);
     return sourceJs;
 });
-/**
+/** vsc-base method
  * @description
  * Return the default module map of vsc-base \
  * (Used for ts compiling, module load ect)
@@ -63,7 +63,7 @@ exports.getVscDefaultModuleMap = () => {
         { key: 'vscode', name: 'vscode', module: vscode }
     ];
 };
-/**
+/** vsc-base method
  * @description
  * Replace ts traspiles code's require for vsc, ts, fs and vscode.
  * @see http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules
@@ -87,7 +87,7 @@ exports.tsRewriteTranpiledCodeWithVscBaseModules = (sourceJs) => {
     });
     return sourceJs;
 };
-/**
+/** vsc-base method
  * @description
  * Load a ts file. \
  * Transpile it to js (run time) add wrap code and execute it (using eval)! \
@@ -159,7 +159,7 @@ const loadTsModule_Eval = (sourceJs) => __awaiter(this, void 0, void 0, function
     }
     return _exports;
 });
-/**
+/** vsc-base method
  * @description
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule) \
  * return undefined if a method didnt exist.
@@ -183,7 +183,7 @@ exports.varifyModuleMethods = (_module, methods) => {
     }
     return map;
 };
-/**
+/** vsc-base method
  * @description
  * Ensure that a method result that optional can be a promise is awaited. \
  * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
@@ -206,7 +206,7 @@ exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
         });
     }
 });
-/**
+/** vsc-base method
  * @description
  * Tranform source code using custom transformers \
  * See tsCreateTransformer and tsCreateRemoveNodesTransformer for creating transformer \
@@ -230,7 +230,7 @@ exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultComp
     result.dispose();
     return print;
 };
-/**
+/** vsc-base method
  * @description
  * Tranform a ts.Node \
  * (default node-type is ts.Sourcefile)
@@ -246,7 +246,7 @@ exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultComp
 exports.tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     return ts.transform(sourceFile, transformers, compilerOptions);
 };
-/**
+/** vsc-base method
  * @description
  * vsc-base's internal default ts compiler options
  * @see http://vsc-base.org/#TsDefaultCompilerOptions
@@ -260,7 +260,7 @@ exports.TsDefaultCompilerOptions = ({
     target: ts.ScriptTarget.ES2015,
     libs: ['es6']
 });
-/**
+/** vsc-base method
  * @description
  * Create a ts.SourceFile
  * @see http://vsc-base.org/#tsCreateSourceFile
@@ -275,7 +275,7 @@ exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date(
     /*setParentNodes */ true);
     return sourceFile;
 };
-/**
+/** vsc-base method
  * @description
  * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \
  * So to this method uses ts's forEachChild to colloct the parsed nodes. \
@@ -291,7 +291,7 @@ exports.tsGetParsedChildren = (node) => {
     node.forEachChild(c => { chrindren.push(c); });
     return chrindren;
 };
-/**
+/** vsc-base method
  * @description
  * Create a Ts Transformer factory \
  * Normally used in vsc.tsTransform \
@@ -347,7 +347,7 @@ exports.tsCreateTransformer = (callback, program) => {
         return (node) => ts.visitNode(node, visit);
     };
 };
-/**
+/** vsc-base method
  * @description
  * Create a Ts Transformer for removing nodes \
  * Normally used in vsc.tsTransform
@@ -388,7 +388,7 @@ exports.tsCreateRemoveNodesTransformer = (callback, program) => {
         return (node) => ts.visitNode(node, visit);
     };
 };
-/**
+/** vsc-base method
  * @description
  * Create a Ts Visitor Transformer for collecting data (Will not remove or reaplce any nodes) \
  * Normally used in vsc.tsTransform

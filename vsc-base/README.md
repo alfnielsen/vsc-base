@@ -2,7 +2,7 @@
 
 vsc-base as a module that aims to make it esaier to create vscode extensions.
 
-It's also the base for using the vsc-script extension.
+It's also the base for using the [vsc-script extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script).
 
 Documentation can be found on [vsc-base.org](http://vsc-base.org)
 

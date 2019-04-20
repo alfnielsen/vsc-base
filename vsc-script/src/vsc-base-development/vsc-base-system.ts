@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 import * as ts from 'typescript'
 import * as vsc from './vsc-base'
 
-/**
+/** vsc-base method
  * @description 
  * Create a LineReader (generator method) for a ReadStream
  * @see http://vsc-base.org/#getLineStreamReader
@@ -36,7 +36,7 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
       }
    }
 
-/**
+/** vsc-base method
  * @description 
  * Get a file ReadStream
  * @see http://vsc-base.org/#getReadStream
@@ -63,7 +63,7 @@ export const getReadStream = (path: string) => {
    return stream
 }
 
-/**
+/** vsc-base method
  * @description 
  * Does the folder/file exist
  * @see http://vsc-base.org/#doesExists
@@ -77,7 +77,7 @@ export const doesExists = (path: string): boolean => {
    return fs.existsSync(path)
 }
 
-/**
+/** vsc-base method
  * @description 
  * Get dir from path \
  * (If path is a dir return it)
@@ -97,7 +97,7 @@ export const getDir = (path: string) => {
    return dir
 }
 
-/**
+/** vsc-base method
  * @description 
  * Get file source
  * @see http://vsc-base.org/#getFileContent
@@ -110,7 +110,7 @@ export const getDir = (path: string) => {
 export const getFileContent = async (path: string): Promise<string> =>
    await fs.readFile(path, 'utf8')
 
-/**
+/** vsc-base method
  * @description 
  * Get file source as json \
  * (return null on invalid json)
@@ -126,7 +126,7 @@ export const getJsonContent = async <TStructure = unknown>(
    throws = false
 ): Promise<TStructure> => await fs.readJson(path, { throws })
 
-/**
+/** vsc-base method
  * @description 
  * Get vscode project config
  * @see http://vsc-base.org/#getConfig
@@ -146,7 +146,7 @@ export const getConfig = <T>(
       .get<T>(property, defaultValue)
 }
 
-/**
+/** vsc-base method
  * @description 
  * Find packages file paths in project.
  * @see http://vsc-base.org/#getPackageFilePaths
@@ -159,7 +159,7 @@ export const getPackageFilePaths = async (): Promise<string[]> => {
    return packageFiles
 }
 
-/**
+/** vsc-base method
  * @description 
  * Find package.json files and collect the dependencies and devDependencies.
  * @see http://vsc-base.org/#getPackageDependencies
@@ -196,7 +196,7 @@ export const getPackageDependencies = async (): Promise<
    return [dependencies, devDependencies]
 }
 
-/**
+/** vsc-base method
  * @description 
  * Test is a path is directory
  * @param path
@@ -210,7 +210,7 @@ export const isDir = (path: string): boolean => {
    return fs.statSync(path).isDirectory()
 }
 
-/**
+/** vsc-base method
  * @description 
  * Make a folder
  * @see http://vsc-base.org/#makeDir
@@ -229,9 +229,9 @@ export const makeDir = async (folderPath: string): Promise<void> => {
    }
 }
 
-/**
+/** vsc-base method
  * @description 
- * Move file/fodler
+ * Move a file or folder
  * @see http://vsc-base.org/#move
  * @param path
  * @param newPathstring
@@ -244,7 +244,7 @@ export const move = async (path: string, newPath: string): Promise<void> => {
    await fs.move(path, newPath)
 }
 
-/**
+/** vsc-base method
  * @description 
  * Copy file/fodler
  * @see http://vsc-base.org/#copy
@@ -259,8 +259,7 @@ export const copy = async (path: string, newPath: string): Promise<void> => {
    await fs.copy(path, newPath)
 }
 
-
-/**
+/** vsc-base method
  * @description 
  * Save file
  * @see http://vsc-base.org/#saveFileContent

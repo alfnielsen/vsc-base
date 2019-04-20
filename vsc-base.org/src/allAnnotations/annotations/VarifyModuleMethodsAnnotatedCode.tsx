@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const VarifyModuleMethodsAnnotatedCode = () => {
+const VarifyModuleMethodsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'varifyModuleMethods'}
          title={'varifyModuleMethods'}
+         open={open}
          annotation={
             <>
                <p>

@@ -24,7 +24,10 @@ import {
    getTimestamp,
    getJSONCircularReplacer,
    toJSONString,
-   maxDepthReplacer
+   maxDepthReplacer,
+   keyValueReplacer,
+   objectWalker,
+   ObjectWalkerCallback
 } from './vsc-base-raw'
 
 import {
@@ -138,6 +141,11 @@ export {
    getJSONCircularReplacer,
    toJSONString,
    maxDepthReplacer,
+   keyValueReplacer,
+   objectWalker,
+   ObjectWalkerCallback,
+}
+export {
    //vscode
    ask,
    pick,
@@ -158,6 +166,8 @@ export {
    saveAll,
    showErrorMessage,
    showMessage,
+}
+export {
    //system
    getLineStreamReader,
    getReadStream,
@@ -174,6 +184,8 @@ export {
    copy,
    saveFileContent,
    scaffoldTemplate,
+}
+export {
    // ts
    getVscDefaultModuleMap,
    awaitResult,

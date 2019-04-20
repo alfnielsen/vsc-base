@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsGetParsedChildrenAnnotatedCode = () => {
+const TsGetParsedChildrenAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsGetParsedChildren'}
          title={'tsGetParsedChildren'}
+         open={open}
          annotation={
             <>
                <p>

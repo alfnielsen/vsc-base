@@ -9,7 +9,7 @@
       "url": "https://github.com/alfnielsen/vsc-base"
    },
    "homepage": "https://vsc-base.org",
-   "version": "0.3.2",
+   "version": "0.3.3",
    "engines": {
       "vscode": "^1.32.0"
    },
@@ -56,6 +56,6 @@
    "dependencies": {
       "fs-extra": "^7.0.1",
       "typescript": "^3.4.3",
-      "vsc-base": "^0.4.5"
+      "vsc-base": "^0.5.0"
    }
 }

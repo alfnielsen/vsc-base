@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactNode } from 'react'
 
 import styles from './MethodTestPrinter.module.scss'
-import { interfaces } from 'mocha';
 
 type MethodWithTestPrinter = {
-   testArguments: { [key: string]: string },
-   testPrinter: (args: { [key: string]: string }, printResult: (str: string) => void) => void
+   testArguments: { [key: string]: string }
+   testPrinter: (
+      args: { [key: string]: string },
+      printResult: (str: ReactNode) => void
+   ) => void
 }
 
 interface MethodTestProps {
    method: MethodWithTestPrinter
 }
 
-const MethodTestPrinter = ({method}: MethodTestProps) => {
+const MethodTestPrinter = ({ method }: MethodTestProps) => {
    const [args, setArgs] = useState(method.testArguments)
-   const [result, setResult] = useState('')
+   const [result, setResult] = useState('' as ReactNode)
    const items = []
    useEffect(() => {
-      method.testPrinter && method.testPrinter(args, (str: string) => setResult(str))
+      method.testPrinter &&
+         method.testPrinter(args, (str: ReactNode) => setResult(str))
    }, [args])
    const change = (key: string, value: string) => {
       const nextArgs = {

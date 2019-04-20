@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetPackageFilePathsAnnotatedCode = () => {
+const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getPackageFilePaths'}
          title={'getPackageFilePaths'}
+         open={open}
          annotation={
             <>
                <p>

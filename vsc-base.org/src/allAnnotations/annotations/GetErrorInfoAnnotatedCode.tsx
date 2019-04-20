@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetErrorInfoAnnotatedCode = () => {
+const GetErrorInfoAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getErrorInfo'}
          title={'getErrorInfo'}
+         open={open}
          annotation={
             <>
                <p>

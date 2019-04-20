@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsDefaultCompilerOptionsAnnotatedCode = () => {
+const TsDefaultCompilerOptionsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'TsDefaultCompilerOptions'}
          title={'TsDefaultCompilerOptions'}
+         open={open}
          annotation={
             <>
                <p>

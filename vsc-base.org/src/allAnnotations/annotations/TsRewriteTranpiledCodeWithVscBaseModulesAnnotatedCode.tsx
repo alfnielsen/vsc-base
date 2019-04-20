@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode = () => {
+const TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsRewriteTranpiledCodeWithVscBaseModules'}
          title={'tsRewriteTranpiledCodeWithVscBaseModules'}
+         open={open}
          annotation={
             <>
                <p>

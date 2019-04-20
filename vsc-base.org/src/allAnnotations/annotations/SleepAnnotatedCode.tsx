@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const SleepAnnotatedCode = () => {
+const SleepAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'sleep'}
          title={'sleep'}
+         open={open}
          annotation={
             <>
                <p>

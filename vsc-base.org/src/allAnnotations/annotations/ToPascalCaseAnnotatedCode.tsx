@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const ToPascalCaseAnnotatedCode = () => {
+const ToPascalCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'toPascalCase'}
          title={'toPascalCase'}
+         open={open}
          annotation={
             <>
                <p>

@@ -2,6 +2,7 @@
 
 .wrapTop {
    display: flex;
+   flex-wrap: wrap;
    width: 100%;
    margin: 3px 0px;
    transition: margin 0.12s ease-in;
@@ -15,6 +16,7 @@
 }
 .wrapFullFlex {
    display: flex;
+   flex-wrap: wrap;
    width: 100%;
    margin-bottom: 10px;
 }
@@ -59,7 +61,7 @@
    margin: 0px 10px;
    border-radius: 5px;
 }
-.textWrap {
+.testWrap {
    width: 350px;
 }
 .test {
@@ -69,6 +71,7 @@
 }
 .sourceWrap {
    flex: 1;
+   max-width: 100%;
 }
 .codeArea {
    position: relative;

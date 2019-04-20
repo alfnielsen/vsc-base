@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const CopyAnnotatedCode = () => {
+const CopyAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'copy'}
          title={'copy'}
+         open={open}
          annotation={
             <>
                <p>
@@ -28,7 +29,6 @@ const CopyAnnotatedCode = () => {
 export const copy = async (path: string, newPath: string): Promise<void> => \{
    await fs.copy(path, newPath)
 }
-
 `}
       />
    )

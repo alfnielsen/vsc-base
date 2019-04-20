@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const SaveAllAnnotatedCode = () => {
+const SaveAllAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'saveAll'}
          title={'saveAll'}
+         open={open}
          annotation={
             <>
                <p>

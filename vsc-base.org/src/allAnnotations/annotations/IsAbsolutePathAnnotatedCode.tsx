@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const IsAbsolutePathAnnotatedCode = () => {
+const IsAbsolutePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'isAbsolutePath'}
          title={'isAbsolutePath'}
+         open={open}
          annotation={
             <>
                <p>

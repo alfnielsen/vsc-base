@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const ToSnakeCaseAnnotatedCode = () => {
+const ToSnakeCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'toSnakeCase'}
          title={'toSnakeCase'}
+         open={open}
          annotation={
             <>
                <p>

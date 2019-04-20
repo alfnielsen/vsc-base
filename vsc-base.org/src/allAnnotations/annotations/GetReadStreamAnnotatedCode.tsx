@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetReadStreamAnnotatedCode = () => {
+const GetReadStreamAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getReadStream'}
          title={'getReadStream'}
+         open={open}
          annotation={
             <>
                <p>

@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsCreateNodeVisitorAnnotatedCode = () => {
+const TsCreateNodeVisitorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsCreateNodeVisitor'}
          title={'tsCreateNodeVisitor'}
+         open={open}
          annotation={
             <>
                <p>

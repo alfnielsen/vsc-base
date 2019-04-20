@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const ScaffoldTemplateAnnotatedCode = () => {
+const ScaffoldTemplateAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'scaffoldTemplate'}
          title={'scaffoldTemplate'}
+         open={open}
          annotation={
             <>
                <p>

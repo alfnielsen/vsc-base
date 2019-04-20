@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetFullDocumentRangeAnnotatedCode = () => {
+const GetFullDocumentRangeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getFullDocumentRange'}
          title={'getFullDocumentRange'}
+         open={open}
          annotation={
             <>
                <p>

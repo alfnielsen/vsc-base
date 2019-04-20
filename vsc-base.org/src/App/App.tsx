@@ -13,6 +13,7 @@ const App = () => {
       const element = document.getElementById(id)
       if (element) element.scrollIntoView()
       setActiveMethod(id);
+      console.log(id)
    },[location])
    return (
    <div className={styles.App}>
@@ -158,7 +159,7 @@ export async function run(path: string) {
          <h3>Methods<span className={styles.titleNote}> + tests that you can experiment with</span></h3>
       </div>
       <div>
-         <AllAnnotations />
+         <AllAnnotations activeMethod={activeMethod} />
       </div>
    </div>
 )

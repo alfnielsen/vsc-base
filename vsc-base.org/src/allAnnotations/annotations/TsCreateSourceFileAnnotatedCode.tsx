@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsCreateSourceFileAnnotatedCode = () => {
+const TsCreateSourceFileAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsCreateSourceFile'}
          title={'tsCreateSourceFile'}
+         open={open}
          annotation={
             <>
                <p>

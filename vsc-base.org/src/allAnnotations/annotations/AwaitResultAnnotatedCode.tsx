@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const AwaitResultAnnotatedCode = () => {
+const AwaitResultAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'awaitResult'}
          title={'awaitResult'}
+         open={open}
          annotation={
             <>
                <p>

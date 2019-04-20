@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const ShowMessageAnnotatedCode = () => {
+const ShowMessageAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'showMessage'}
          title={'showMessage'}
+         open={open}
          annotation={
             <>
                <p>

@@ -3,16 +3,17 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const MoveAnnotatedCode = () => {
+const MoveAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'move'}
          title={'move'}
+         open={open}
          annotation={
             <>
                <p>
                   
- Move file/fodler
+ Move a file or folder
                </p>
             </>
          }

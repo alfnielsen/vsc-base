@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetDirAnnotatedCode = () => {
+const GetDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getDir'}
          title={'getDir'}
+         open={open}
          annotation={
             <>
                <p>

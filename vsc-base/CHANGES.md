@@ -2,6 +2,15 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.6.0
+
+Breaking changes:
+maxDepthReplacer has lost Optional paremt: 'currentLevel: number = 0'
+This is becasue it now uses the new ObjectWalker internally.
+
+New method:
+ObjectWalker
+
 ## 0.5.0
 
 Added:

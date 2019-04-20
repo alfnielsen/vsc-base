@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetRootPathAnnotatedCode = () => {
+const GetRootPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getRootPath'}
          title={'getRootPath'}
+         open={open}
          annotation={
             <>
                <p>

@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetVscDefaultModuleMapAnnotatedCode = () => {
+const GetVscDefaultModuleMapAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getVscDefaultModuleMap'}
          title={'getVscDefaultModuleMap'}
+         open={open}
          annotation={
             <>
                <p>

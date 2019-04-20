@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const DoesExistsAnnotatedCode = () => {
+const DoesExistsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'doesExists'}
          title={'doesExists'}
+         open={open}
          annotation={
             <>
                <p>

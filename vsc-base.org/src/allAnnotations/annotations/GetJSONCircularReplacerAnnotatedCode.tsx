@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetJSONCircularReplacerAnnotatedCode = () => {
+const GetJSONCircularReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getJSONCircularReplacer'}
          title={'getJSONCircularReplacer'}
+         open={open}
          annotation={
             <>
                <p>

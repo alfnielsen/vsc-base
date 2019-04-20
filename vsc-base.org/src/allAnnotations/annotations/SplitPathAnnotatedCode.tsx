@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const SplitPathAnnotatedCode = () => {
+const SplitPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'splitPath'}
          title={'splitPath'}
+         open={open}
          annotation={
             <>
                <p>

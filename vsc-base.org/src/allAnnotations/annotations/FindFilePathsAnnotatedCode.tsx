@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const FindFilePathsAnnotatedCode = () => {
+const FindFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'findFilePaths'}
          title={'findFilePaths'}
+         open={open}
          annotation={
             <>
                <p>
@@ -33,7 +34,7 @@ for (const filePath of allTestFiles)\{
  */
 export const findFilePaths = async (
    include: vscode.GlobPattern = '**/*.\{js,jsx,ts,tsx}',
-   exclude: vscode.GlobPattern = '**/node_modules/**',
+   exclude: vscode.GlobPattern = '**/node_modules/** vsc-base method',
    maxResults: number = 100000
 ): Promise<string[]> => \{
    const uriFiles = await vscode.workspace.findFiles(

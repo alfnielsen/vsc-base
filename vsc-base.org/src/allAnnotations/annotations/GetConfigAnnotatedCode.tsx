@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetConfigAnnotatedCode = () => {
+const GetConfigAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getConfig'}
          title={'getConfig'}
+         open={open}
          annotation={
             <>
                <p>

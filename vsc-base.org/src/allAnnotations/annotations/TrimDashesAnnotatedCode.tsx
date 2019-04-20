@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const TrimDashesAnnotatedCode = () => {
+const TrimDashesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'trimDashes'}
          title={'trimDashes'}
+         open={open}
          annotation={
             <>
                <p>

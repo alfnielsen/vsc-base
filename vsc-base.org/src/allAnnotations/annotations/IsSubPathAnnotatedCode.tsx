@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const IsSubPathAnnotatedCode = () => {
+const IsSubPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'isSubPath'}
          title={'isSubPath'}
+         open={open}
          annotation={
             <>
                <p>

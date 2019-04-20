@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const GetTimestampAnnotatedCode = () => {
+const GetTimestampAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getTimestamp'}
          title={'getTimestamp'}
+         open={open}
          annotation={
             <>
                <p>

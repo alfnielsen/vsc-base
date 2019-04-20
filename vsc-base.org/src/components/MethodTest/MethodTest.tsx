@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ReactNode } from 'react'
 
 import styles from './MethodTest.module.scss'
 
 interface MethodTestProps {
    initialArgs: { [key: string]: string }
-   onClickCall: (args: { [key: string]: string }, setResult: (str: string) => void) => void
+   onClickCall: (
+      args: { [key: string]: string },
+      setResult: (str: ReactNode) => void
+   ) => void
 }
 
 const MethodTest = ({ initialArgs, onClickCall }: MethodTestProps) => {
    const [args, setArgs] = useState(initialArgs)
-   const [result, setResult] = useState('')
+   const [result, setResult] = useState('' as ReactNode)
    const items = []
    useEffect(() => {
-      onClickCall && onClickCall(args, (str: string) => setResult(str))
+      onClickCall && onClickCall(args, (str: ReactNode) => setResult(str))
    }, [args])
    const change = (key: string, value: string) => {
       const nextArgs = {

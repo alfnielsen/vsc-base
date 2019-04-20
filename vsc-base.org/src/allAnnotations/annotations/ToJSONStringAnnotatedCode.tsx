@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const ToJSONStringAnnotatedCode = () => {
+const ToJSONStringAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'toJSONString'}
          title={'toJSONString'}
+         open={open}
          annotation={
             <>
                <p>
@@ -30,7 +31,7 @@ const ToJSONStringAnnotatedCode = () => {
  */
 export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth: number = -1): string => \{
    if (maxDepth >= 0) \{
-      let maxDepthObj = maxDepthReplacer(obj, maxDepth);
+      let maxDepthObj = vsc.maxDepthReplacer(obj, maxDepth);
       return JSON.stringify(maxDepthObj, replacer, space)
    }
    return JSON.stringify(obj, replacer, space)

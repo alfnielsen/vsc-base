@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const PathAsUnixAnnotatedCode = () => {
+const PathAsUnixAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'pathAsUnix'}
          title={'pathAsUnix'}
+         open={open}
          annotation={
             <>
                <p>

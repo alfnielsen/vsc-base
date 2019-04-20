@@ -6,20 +6,6 @@ import * as ts from 'typescript'
  */
 
 let log = '';
-type TsNodeVisitorCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => void;
-const tsNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback: TsNodeVisitorCallback, program?: ts.Program): ts.TransformerFactory<T> => {
-   let typeChecker: ts.TypeChecker | undefined
-   if (program) {
-      typeChecker = program.getTypeChecker()
-   }
-   return (context) => {
-      const visit: ts.Visitor = (node) => {
-         callback(node, typeChecker, program);
-         return ts.visitEachChild(node, (child) => visit(child), context);
-      }
-      return (node) => ts.visitNode(node, visit);
-   };
-}
 
 export async function run(_path: string) {
    vsc.showMessage('Start transformer test')
@@ -69,7 +55,7 @@ return relativePath
       vscode: new Set<string>(),
    }
    // Find all Call Expressions, test if they use any of: vsc, ts, fs or vscode
-   const collectDefs = vsc.tsCreateRemoveNodesTransformer((node): undefined => {
+   const collectDefs = vsc.tsCreateNodeVisitor((node) => {
       if (!ts.isCallExpression(node)) { // is call expression
          return
       }
@@ -85,7 +71,7 @@ return relativePath
    });
 
 
-   const collectMethods = tsNodeVisitor((node): undefined => {
+   const collectMethods = vsc.tsCreateNodeVisitor((node) => {
       if (!ts.isVariableStatement(node)) { // is variable statement
          return
       }
@@ -111,30 +97,30 @@ return relativePath
       const methodName = declaration.name.getText()
       // next: extract dep from this arrow function:
    });
-   const getDepFromMethod = tsNodeVisitor((node) => {
-      const methodDependencyList = {
-         vsc: new Set<string>(),
-         ts: new Set<string>(),
-         fs: new Set<string>(),
-         vscode: new Set<string>(),
-      }
-      const collectDefs = vsc.tsCreateTransformer((node): undefined => {
-         if (!ts.isCallExpression(node)) { // is not an arrow funcion
-            return
-         }
-         const expression = node.expression;
-         const content = expression.getText();
-         for (const [key, list] of Object.entries(methodDependencyList)) {
-            const matcher = `${key}.`;
-            if (content.indexOf(matcher) === 0) {
-               const val = content.substr(matcher.length)
-               list.add(val)
-            }
-         }
-      });
-      vsc.tsTransformSourceFile(node, [collectDefs]);
-      //      log += `${key}: (${arr.size})  ${vsc.toJSONString([...arr.values()])}\n`
-   })
+   // const getDepFromMethod = tsNodeVisitor((node) => {
+   //    const methodDependencyList = {
+   //       vsc: new Set<string>(),
+   //       ts: new Set<string>(),
+   //       fs: new Set<string>(),
+   //       vscode: new Set<string>(),
+   //    }
+   //    const collectDefs = vsc.tsCreateNodeVisitor((node) => {
+   //       if (!ts.isCallExpression(node)) { // is not an arrow funcion
+   //          return
+   //       }
+   //       const expression = node.expression;
+   //       const content = expression.getText();
+   //       for (const [key, list] of Object.entries(methodDependencyList)) {
+   //          const matcher = `${key}.`;
+   //          if (content.indexOf(matcher) === 0) {
+   //             const val = content.substr(matcher.length)
+   //             list.add(val)
+   //          }
+   //       }
+   //    });
+   //    //vsc.tsTransformSourceFile(node, [collectDefs]);
+   //    //      log += `${key}: (${arr.size})  ${vsc.toJSONString([...arr.values()])}\n`
+   // })
 
 
 
@@ -160,5 +146,4 @@ ${log}
    vsc.appendLineToActiveDocument(log);
    // tranforms arrowFunction with one return statement to lambda function
 }
-
 

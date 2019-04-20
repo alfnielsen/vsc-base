@@ -38,17 +38,18 @@ const createPartMap = async (vscFiles: string[]) => {
    const parts: CodePart[] = []
    for (const filePath of vscFiles) {
       const rawSource = await vsc.getFileContent(filePath)
-      const rawParts = rawSource.split(/\n\/\*\*\s*\n/) // split usin \n/**
+      const rawParts = rawSource.split(/\n\/\*\*\s+vsc\-base\s+method\s*\n/) // split using: \n/** vsc-base method
       rawParts.shift() // <-- This is leading imports (er empty area)
       rawParts.forEach(part => {
-         const metaBody = part.split(/\n\s*\*\/\s*\n/)
-         const meta = metaBody[0]
-         const body = metaBody[1]
+         const metaIndex = part.search(/\n\s*\*\/\n\s*export\s+const\s+/);
+         //const metaBody = part.split(/\n\s*\*\/\s*\n/)
+         const meta = part.substr(0, metaIndex)
+         const body = part.substr(metaIndex).replace(/^[\n\s]*\*\/[\n\s]*/, '');
          //name
-         const nameMatch = body.match(/^[\s\n]*(?:export\s+)const\s+(\w+)/)
+         const nameMatch = body.match(/^[\s\n]*export\s+const\s+(\w+)/)
          if (!nameMatch) {
             vsc.showErrorMessage('Did not find method name!!: ' + body)
-            return
+            throw new Error('STOP');
          }
          const name = nameMatch[1]
          //meta map:
@@ -122,11 +123,14 @@ const writeMainAnnotationComponent = async (dir: string, parts: CodePart[]) => {
    const allAnnotationsContent = `import React from 'react'
 
 ${parts.map(part => `import ${part.annotationName} from './annotations/${part.annotationName}'`).join('\n')}
+interface AllAnnotationsProps {
+   activeMethod: string
+}
 
-const AllAnnotations = () =>
-<>
-${parts.map(part => `      <${part.annotationName} />`).join('\n')}
-</>
+const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) => 
+  <>
+${parts.map(part => `      <${part.annotationName} open={activeMethod === '${part.name}'} />`).join('\n')}
+  </>
 
 export default AllAnnotations
 `
@@ -188,11 +192,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 `}
 
-const ${componentName} = () => {
+const ${componentName} = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'${name}'}
          title={'${name}'}
+         open={open}
          annotation={
             <>
                ${descr}

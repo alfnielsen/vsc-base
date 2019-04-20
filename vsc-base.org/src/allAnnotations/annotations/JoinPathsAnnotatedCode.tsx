@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const JoinPathsAnnotatedCode = () => {
+const JoinPathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'joinPaths'}
          title={'joinPaths'}
+         open={open}
          annotation={
             <>
                <p>

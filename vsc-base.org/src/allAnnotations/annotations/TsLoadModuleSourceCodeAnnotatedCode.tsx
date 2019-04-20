@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsLoadModuleSourceCodeAnnotatedCode = () => {
+const TsLoadModuleSourceCodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsLoadModuleSourceCode'}
          title={'tsLoadModuleSourceCode'}
+         open={open}
          annotation={
             <>
                <p>

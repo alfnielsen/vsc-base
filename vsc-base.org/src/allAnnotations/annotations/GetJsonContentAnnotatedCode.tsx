@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const GetJsonContentAnnotatedCode = () => {
+const GetJsonContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getJsonContent'}
          title={'getJsonContent'}
+         open={open}
          annotation={
             <>
                <p>

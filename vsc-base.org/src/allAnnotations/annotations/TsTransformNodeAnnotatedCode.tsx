@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsTransformNodeAnnotatedCode = () => {
+const TsTransformNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'tsTransformNode'}
          title={'tsTransformNode'}
+         open={open}
          annotation={
             <>
                <p>

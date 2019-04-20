@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const AppendToActiveDocumentAnnotatedCode = () => {
+const AppendToActiveDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'appendToActiveDocument'}
          title={'appendToActiveDocument'}
+         open={open}
          annotation={
             <>
                <p>

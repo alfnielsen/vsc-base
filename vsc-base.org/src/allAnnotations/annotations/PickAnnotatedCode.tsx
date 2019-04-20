@@ -3,11 +3,12 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const PickAnnotatedCode = () => {
+const PickAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'pick'}
          title={'pick'}
+         open={open}
          annotation={
             <>
                <p>

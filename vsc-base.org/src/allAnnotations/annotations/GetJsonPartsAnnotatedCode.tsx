@@ -7,11 +7,12 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const GetJsonPartsAnnotatedCode = () => {
+const GetJsonPartsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
          id={'getJsonParts'}
          title={'getJsonParts'}
+         open={open}
          annotation={
             <>
                <p>

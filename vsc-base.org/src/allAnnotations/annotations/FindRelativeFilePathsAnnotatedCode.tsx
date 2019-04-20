@@ -42,7 +42,7 @@ export const findRelativeFilePaths = async (
    path: string,
    relativePath: string,
    includePattern: string = '**/*.\{js,jsx,ts,tsx}',
-   exclude: vscode.GlobPattern = '**/node_modules/** vsc-base method',
+   exclude: vscode.GlobPattern = '**/node_modules/**',
    maxResults: number = 100000
 ): Promise<string[]> => \{
    const dir = vsc.getDir(path)

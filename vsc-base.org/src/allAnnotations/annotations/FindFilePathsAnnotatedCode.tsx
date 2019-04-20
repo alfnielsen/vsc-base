@@ -34,7 +34,7 @@ for (const filePath of allTestFiles)\{
  */
 export const findFilePaths = async (
    include: vscode.GlobPattern = '**/*.\{js,jsx,ts,tsx}',
-   exclude: vscode.GlobPattern = '**/node_modules/** vsc-base method',
+   exclude: vscode.GlobPattern = '**/node_modules/**',
    maxResults: number = 100000
 ): Promise<string[]> => \{
    const uriFiles = await vscode.workspace.findFiles(

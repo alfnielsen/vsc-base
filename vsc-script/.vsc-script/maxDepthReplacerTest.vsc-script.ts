@@ -107,4 +107,3 @@ const toString = (obj: any, replacer = vsc.getJSONCircularReplacer(), space = 2,
 	}
 	return JSON.stringify(obj, replacer, space)
 }
-

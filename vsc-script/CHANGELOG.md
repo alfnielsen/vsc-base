@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.4
+
+Update vsc-base to version 0.6.1
+
 ## 0.3.3
 
 Update vsc-base to version 0.5.0

@@ -2,6 +2,10 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.6.1
+
+Fix findPath bug from realese 0.6.0
+
 ## 0.6.0
 
 **Breaking changes:**

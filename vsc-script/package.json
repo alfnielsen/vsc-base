@@ -9,7 +9,7 @@
       "url": "https://github.com/alfnielsen/vsc-base"
    },
    "homepage": "https://vsc-base.org",
-   "version": "0.3.3",
+   "version": "0.3.4",
    "engines": {
       "vscode": "^1.32.0"
    },
@@ -46,16 +46,16 @@
    "devDependencies": {
       "@types/fs-extra": "^5.0.5",
       "@types/mocha": "^5.2.6",
-      "@types/node": "^11.13.4",
+      "@types/node": "^11.13.6",
       "ts-loader": "^5.3.3",
-      "tslint": "^5.15.0",
+      "tslint": "^5.16.0",
       "vscode": "^1.1.33",
       "webpack": "^4.30.0",
       "webpack-cli": "^3.3.0"
    },
    "dependencies": {
       "fs-extra": "^7.0.1",
-      "typescript": "^3.4.3",
-      "vsc-base": "^0.5.0"
+      "typescript": "^3.4.4",
+      "vsc-base": "^0.6.1"
    }
 }

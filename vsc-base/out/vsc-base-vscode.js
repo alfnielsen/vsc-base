@@ -61,7 +61,7 @@ for (const filePath of allTestFiles){
 }
  * @returns Promise<string[]>
  */
-exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/** vsc-base method', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
     const uriFiles = yield vscode.workspace.findFiles(include, exclude, maxResults);
     const files = uriFiles.map((uri) => vsc.pathAsUnix(uri.fsPath));
     return files;
@@ -85,7 +85,7 @@ for (const filePath of storyFilesInModule1){
 }
  * @returns Promise<string[]>
  */
-exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/** vsc-base method', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
     let baseDir = vsc.getDir(basePath);
     const include = new vscode.RelativePattern(baseDir, includePattern);
     const filePaths = yield vsc.findFilePaths(include, exclude, maxResults);
@@ -118,7 +118,7 @@ const modulePath = moduleFileInParentFolder[0];
 // Do something with modulePath..
  * @returns Promise<string[]>
  */
-exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/** vsc-base method', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
     const dir = vsc.getDir(path);
     const joinPath = vsc.joinPaths(dir, relativePath);
     let base = vsc.cleanPath(joinPath + '/');

@@ -30,7 +30,7 @@ export const createSelection = (
    start: number,
    end: number = start,
 ): vscode.Selection => \{
-   const complexRangeObject = vsc.getComplexRangeObject(source, start, end)
+   const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end)
    const selection = new vscode.Selection(complexRangeObject.startPosition, complexRangeObject.endPosition)
    return selection
 }

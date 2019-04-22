@@ -44,10 +44,15 @@ export const tsTransform = (
    const sourceFile = vsc.tsCreateSourceFile(source)
    const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
    const transformedSourceFile = result.transformed[0];
+   if (!transformedSourceFile) \{
+      throw new Error('Transformer did not return correct SourceFile')
+   }
    const print = printer.printFile(transformedSourceFile)
    result.dispose()
    return print
 }
+
+
 `}
       />
    )

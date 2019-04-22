@@ -10,6 +10,7 @@ import AwaitResultAnnotatedCode from './annotations/AwaitResultAnnotatedCode'
 import CleanPathAnnotatedCode from './annotations/CleanPathAnnotatedCode'
 import CopyAnnotatedCode from './annotations/CopyAnnotatedCode'
 import CreateSelectionAnnotatedCode from './annotations/CreateSelectionAnnotatedCode'
+import CreateVscodeRangeAndPositionAnnotatedCode from './annotations/CreateVscodeRangeAndPositionAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
 import ExecFromPathAnnotatedCode from './annotations/ExecFromPathAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
@@ -19,7 +20,6 @@ import GetAbsolutePathFromRelatrivePathAnnotatedCode from './annotations/GetAbso
 import GetActiveDocumentAnnotatedCode from './annotations/GetActiveDocumentAnnotatedCode'
 import GetActiveEditorAnnotatedCode from './annotations/GetActiveEditorAnnotatedCode'
 import GetActiveTerminalAnnotatedCode from './annotations/GetActiveTerminalAnnotatedCode'
-import GetComplexRangeObjectAnnotatedCode from './annotations/GetComplexRangeObjectAnnotatedCode'
 import GetConfigAnnotatedCode from './annotations/GetConfigAnnotatedCode'
 import GetDirAnnotatedCode from './annotations/GetDirAnnotatedCode'
 import GetDocumentContentAnnotatedCode from './annotations/GetDocumentContentAnnotatedCode'
@@ -80,13 +80,21 @@ import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateR
 import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnnotatedCode'
 import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
 import TsDefaultCompilerOptionsAnnotatedCode from './annotations/TsDefaultCompilerOptionsAnnotatedCode'
+import TsFindAncestorAnnotatedCode from './annotations/TsFindAncestorAnnotatedCode'
+import TsFindChildNodeAnnotatedCode from './annotations/TsFindChildNodeAnnotatedCode'
+import TsFindGrandChildNodeAnnotatedCode from './annotations/TsFindGrandChildNodeAnnotatedCode'
+import TsFindNodePositionAnnotatedCode from './annotations/TsFindNodePositionAnnotatedCode'
 import TsGetParsedChildrenAnnotatedCode from './annotations/TsGetParsedChildrenAnnotatedCode'
 import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
+import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
+import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
+import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
 import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
+import TsVisitWithTransformersAnnotatedCode from './annotations/TsVisitWithTransformersAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
 import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
 interface AllAnnotationsProps {
@@ -105,6 +113,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <CleanPathAnnotatedCode open={activeMethod === 'cleanPath'} />
       <CopyAnnotatedCode open={activeMethod === 'copy'} />
       <CreateSelectionAnnotatedCode open={activeMethod === 'createSelection'} />
+      <CreateVscodeRangeAndPositionAnnotatedCode open={activeMethod === 'createVscodeRangeAndPosition'} />
       <DoesExistsAnnotatedCode open={activeMethod === 'doesExists'} />
       <ExecFromPathAnnotatedCode open={activeMethod === 'execFromPath'} />
       <FindFilePathsAnnotatedCode open={activeMethod === 'findFilePaths'} />
@@ -114,7 +123,6 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <GetActiveDocumentAnnotatedCode open={activeMethod === 'getActiveDocument'} />
       <GetActiveEditorAnnotatedCode open={activeMethod === 'getActiveEditor'} />
       <GetActiveTerminalAnnotatedCode open={activeMethod === 'getActiveTerminal'} />
-      <GetComplexRangeObjectAnnotatedCode open={activeMethod === 'getComplexRangeObject'} />
       <GetConfigAnnotatedCode open={activeMethod === 'getConfig'} />
       <GetDirAnnotatedCode open={activeMethod === 'getDir'} />
       <GetDocumentContentAnnotatedCode open={activeMethod === 'getDocumentContent'} />
@@ -175,13 +183,21 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsCreateSourceFileAnnotatedCode open={activeMethod === 'tsCreateSourceFile'} />
       <TsCreateTransformerAnnotatedCode open={activeMethod === 'tsCreateTransformer'} />
       <TsDefaultCompilerOptionsAnnotatedCode open={activeMethod === 'TsDefaultCompilerOptions'} />
+      <TsFindAncestorAnnotatedCode open={activeMethod === 'tsFindAncestor'} />
+      <TsFindChildNodeAnnotatedCode open={activeMethod === 'tsFindChildNode'} />
+      <TsFindGrandChildNodeAnnotatedCode open={activeMethod === 'tsFindGrandChildNode'} />
+      <TsFindNodePositionAnnotatedCode open={activeMethod === 'tsFindNodePosition'} />
       <TsGetParsedChildrenAnnotatedCode open={activeMethod === 'tsGetParsedChildren'} />
       <TsLoadModuleAnnotatedCode open={activeMethod === 'tsLoadModule'} />
       <TsLoadModuleSourceCodeAnnotatedCode open={activeMethod === 'tsLoadModuleSourceCode'} />
+      <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
+      <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
+      <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
       <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode open={activeMethod === 'tsRewriteTranpiledCodeWithVscBaseModules'} />
       <TsTransformAnnotatedCode open={activeMethod === 'tsTransform'} />
       <TsTransformNodeAnnotatedCode open={activeMethod === 'tsTransformNode'} />
       <TsTranspileAnnotatedCode open={activeMethod === 'tsTranspile'} />
+      <TsVisitWithTransformersAnnotatedCode open={activeMethod === 'tsVisitWithTransformers'} />
       <VarifyModuleMethodsAnnotatedCode open={activeMethod === 'varifyModuleMethods'} />
       <WriteToTerminalAnnotatedCode open={activeMethod === 'writeToTerminal'} />
   </>

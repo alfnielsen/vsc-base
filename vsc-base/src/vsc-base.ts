@@ -27,7 +27,7 @@ import {
    maxDepthReplacer,
    keyValueReplacer,
    objectWalker,
-   ObjectWalkerCallback
+   ObjectWalkerCallback,
 } from './vsc-base-raw'
 
 import {
@@ -38,7 +38,8 @@ import {
    findRelativeFilePaths,
    getActiveEditor,
    getActiveDocument,
-   getComplexRangeObject,
+   createVscodeRangeAndPosition,
+   VscodePosition,
    createSelection,
    setSelection,
    addSelection,
@@ -59,7 +60,7 @@ import {
    getRootPath,
    saveAll,
    showErrorMessage,
-   showMessage
+   showMessage,
 } from './vsc-base-vscode';
 
 
@@ -78,7 +79,7 @@ import {
    move,
    copy,
    saveFileContent,
-   execFromPath
+   execFromPath,
 } from './vsc-base-system';
 
 import {
@@ -97,10 +98,21 @@ import {
    tsCreateNodeVisitor,
    TsNodeVisitorCallback,
    tsTransform,
+   tsVisitWithTransformers,
    tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
-   tsGetParsedChildren
+   tsGetParsedChildren,
+   tsFindNodePosition,
+   TsFindNodePositionCallback,
+   tsFindChildNode,
+   tsFindGrandChildNode,
+   tsFindAncestor,
+   tsMatchObjectProperty,
+   tsMatchFunction,
+   tsMatchVariable,
+
+
 } from './vsc-base-typescript';
 
 import {
@@ -111,7 +123,7 @@ import {
    vscTemplateFile,
    vscUserInput,
    vscUserInputs,
-   vscStringDelegate
+   vscStringDelegate,
 } from './vsc-base-vscTemplate';
 
 
@@ -122,7 +134,7 @@ export {
    vscTemplateFile,
    vscUserInput,
    vscUserInputs,
-   vscStringDelegate
+   vscStringDelegate,
 }
 
 export {
@@ -166,7 +178,8 @@ export {
    getActiveEditor,
    getActiveDocument,
    newDocument,
-   getComplexRangeObject,
+   createVscodeRangeAndPosition,
+   VscodePosition,
    createSelection,
    setSelection,
    addSelection,
@@ -205,7 +218,7 @@ export {
    copy,
    saveFileContent,
    scaffoldTemplate,
-   execFromPath
+   execFromPath,
 }
 export {
    // ts
@@ -224,9 +237,17 @@ export {
    tsCreateNodeVisitor,
    TsNodeVisitorCallback,
    tsTransform,
+   tsVisitWithTransformers,
    tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
-   tsGetParsedChildren
-   // template types
+   tsGetParsedChildren,
+   tsFindNodePosition,
+   TsFindNodePositionCallback,
+   tsFindChildNode,
+   tsFindGrandChildNode,
+   tsFindAncestor,
+   tsMatchObjectProperty,
+   tsMatchFunction,
+   tsMatchVariable,
 }

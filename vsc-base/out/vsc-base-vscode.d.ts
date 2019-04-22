@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
+import * as vsc from './vsc-base';
 /** vsc-base method
  * @description
  * Prompt user for a question
- * @see http://vsc-base.org/#ask
+ * @see [ask](http://vsc-base.org/#ask)
  * @param question string
  * @param defaultValue string
  * @dependencyExternal vscode
@@ -15,7 +16,7 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
 /** vsc-base method
  * @description
  * Prompt user for a question with a list of answers
- * @see http://vsc-base.org/#pick
+ * @see [pick](http://vsc-base.org/#pick)
  * @param path string[]
  * @dependencyExternal vscode
  * @vscType Vscode
@@ -29,7 +30,7 @@ export declare const pick: (answerList: string[]) => Promise<string | undefined>
 /** vsc-base method
  * @description
  * Get a list off all filePaths in project the matches a glob pattern
- * @see http://vsc-base.org/#findFilePaths
+ * @see [findFilePaths](http://vsc-base.org/#findFilePaths)
  * @param include glob
  * @param exclude glob
  * @param maxResults
@@ -49,7 +50,7 @@ export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vsc
 /** vsc-base method
  * @description
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
- * @see http://vsc-base.org/#findFilePathsFromBase
+ * @see [findFilePathsFromBase](http://vsc-base.org/#findFilePathsFromBase)
  * @param include glob
  * @param exclude glob
  * @dependencyExternal vscode
@@ -69,7 +70,7 @@ export declare const findFilePathsFromBase: (basePath: string, includePattern?: 
 /** vsc-base method
  * @description
  * Find files based from a releative to a path
- * @see http://vsc-base.org/#findRelativeFilePaths
+ * @see [findRelativeFilePaths](http://vsc-base.org/#findRelativeFilePaths)
  * @param path
  * @param relativePath
  * @param includePattern
@@ -96,8 +97,35 @@ const modulePath = moduleFileInParentFolder[0];
 export declare const findRelativeFilePaths: (path: string, relativePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
 /** vsc-base method
  * @description
- * Get vscode.activeTextEditor
- * @see http://vsc-base.org/#getActiveEditor
+ * Get vscode.window.activeTerminal
+ * @see [getActiveTerminal](http://vsc-base.org/#getActiveTerminal)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @oneLineEx const editor = vsc.getActiveTerminal()
+ * @returns vscode.TextEditor | undefined
+ */
+export declare const getActiveTerminal: () => vscode.Terminal | undefined;
+/** vsc-base method
+ * @description
+ * Write text to a terminal \
+ * If addNewLine = true (it's the default value), the text written will be executed. \
+ * This will also happen if the text contains newline feeds (\n or \r\n) \
+ * **NOTE:** \
+ * if you use this method in an extension the end user need to be able to actaully \
+ * execute the command! \
+ * This method is mostly design for vsc-script's, where you have control of the environment. \
+ * See also [execFromPath](http://vsc-base.org/#execFromPath)
+ * @see [writeToTerminal](http://vsc-base.org/#writeToTerminal)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @oneLineEx const editor = vsc.writeToTerminal()
+ * @returns vscode.TextEditor | undefined
+ */
+export declare const writeToTerminal: (content: string, showTerminal?: boolean, addNewLine?: boolean, terminal?: vscode.Terminal | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Get vscode.window.activeTextEditor
+ * @see [getActiveEditor](http://vsc-base.org/#getActiveEditor)
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx const editor = vsc.getActiveEditor()
@@ -107,50 +135,61 @@ export declare const getActiveEditor: () => vscode.TextEditor | undefined;
 /** vsc-base method
  * @description
  * Get open vscode.TextDocument
- * @see http://vsc-base.org/#getActiveDocument
+ * @see [getActiveDocument](http://vsc-base.org/#getActiveDocument)
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
-export declare const getActiveDocument: () => vscode.TextDocument | undefined;
+export declare const getActiveDocument: (editor?: vscode.TextEditor | undefined) => vscode.TextDocument | undefined;
+/** vsc-base method
+ * @description
+ * Open a new document (untitled and not saved).
+ * @see [newDocument](http://vsc-base.org/#newDocument)
+ * @dependencyInternal getActiveDocument
+ * @oneLineEx const path = vsc.newDocument(content)
+ * @vscType Vscode
+ * @returns Promise<vscode.TextDocument>
+ */
+export declare const newDocument: (content?: string | undefined, language?: string) => Promise<vscode.TextDocument>;
 /** vsc-base method
  * @description
  * Get current open file path or undefined if nothing is open.
- * @see http://vsc-base.org/#getActivegetActiveDocumentPath
+ * @see [getDocumentPath](http://vsc-base.org/#getDocumentPath)
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.getActivegetActiveDocumentPath()
+ * @oneLineEx const path = vsc.getDocumentPath()
  * @vscType Vscode
  * @returns string | undefined
  */
-export declare const getActiveDocumentPath: () => string | undefined;
+export declare const getDocumentPath: (document?: vscode.TextDocument | undefined) => string | undefined;
 /** vsc-base method
  * @description
  * Get current open file's content.
- * @see http://vsc-base.org/#getActiveDocumentContent
+ * @see [getDocumentContent](http://vsc-base.org/#getDocumentContent)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const content = vsc.getActiveDocumentContent()
+ * @oneLineEx const content = vsc.getDocumentContent()
  * @returns string | undefined
  */
-export declare const getActiveDocumentContent: () => string | undefined;
+export declare const getDocumentContent: (document?: vscode.TextDocument | undefined) => string | undefined;
 /** vsc-base method
  * @description
  * Set current open file's content. \
- * Return true if success, and false if there was no ActiveTextEditor or OpenDocument.
- * @see http://vsc-base.org/#setActiveDocumentContent
+ * Return true if success, and false if there was no active TextEditor or open Document.
+ * @see [setDocumentContent](http://vsc-base.org/#setDocumentContent)
  * @param content
- * @dependencyInternal getActiveDocument, getActiveEditor
+ * @param editor
+ * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.setActiveDocumentContent(content)
+ * @oneLineEx const success = await vsc.setDocumentContent(content)
  * @returns Promise<boolean>
  */
-export declare const setActiveDocumentContent: (content: string) => Promise<boolean>;
+export declare const setDocumentContent: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
 /** vsc-base method
  * @description
- * Get a vscodeRange for the entire document
- * @see http://vsc-base.org/#getFullDocumentRange
+ * Get a vscode.Range for the entire document
+ * @see [getFullDocumentRange](http://vsc-base.org/#getFullDocumentRange)
  * @param document
  * @dependencyExternal vscode
  * @vscType Vscode
@@ -160,56 +199,178 @@ export declare const setActiveDocumentContent: (content: string) => Promise<bool
 export declare const getFullDocumentRange: (document: vscode.TextDocument) => vscode.Range;
 /** vsc-base method
  * @description
- * Append new content in the end of the open document
- * @see http://vsc-base.org/#appendToDocument
- * @param editor
- * @param document
+ * Append new content in the end of the (open) document. \
+ * Return true on success
+ * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
  * @param content
+ * @param document
+ * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
- * @returns Promise<void>
- */
-export declare const appendToDocument: (editor: vscode.TextEditor, document: vscode.TextDocument, content: string) => Promise<void>;
-/** vsc-base method
- * @description
- * Append new content in the end of the open document. \
- * Return true for succes, and false if there was no active editor or open document
- * @see http://vsc-base.org/#appendToActiveDocument
- * @param content
- * @dependencyInternal getActiveDocument, getActiveEditor
- * @dependencyExternal vscode
- * @vscType Vscode
- * @oneLineEx const success = await vsc.appendToActiveDocument(content)
  * @returns Promise<boolean>
  */
-export declare const appendToActiveDocument: (content: string) => Promise<boolean>;
+export declare const appendToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
 /** vsc-base method
  * @description
- * Append new line content in the end of the open document
- * @see http://vsc-base.org/#appendLineToActiveDocument
+ * Prepend new content in the end of the open document.
+ * Return true on success, false if the document or textEditor was not open/correct
+ * @see [prependToDocument](http://vsc-base.org/#prependToDocument)
  * @param content
+ * @param editor
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @oneLineEx await vsc.prependToDocument(editor, document, content)
+ * @returns Promise<boolean>
+ */
+export declare const prependToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+/** vsc-base method
+ * @description
+ * Insert content at vscode.Range
+ * Return true on success, false if the document or textEditor was not open/correct
+ * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @param content
+ * @param range
+ * @param editor
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @oneLineEx const success = await vsc.insertAtRange(content, range)
+ * @returns Promise<boolean>
+ */
+export declare const insertAtRange: (content: string, range: vscode.Range, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+/** vsc-base method
+ * @description
+ * Insert content at position (start and optional end postion)
+ * Return true on success, false if the document or textEditor was not open/correct
+ * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @param content
+ * @param range
+ * @param editor
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @oneLineEx const success = await vsc.insertAtRange(content, range)
+ * @returns Promise<boolean>
+ */
+export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+/** vsc-base method
+ * @description
+ * Append new line content in the end of the (open) document
+ * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @param content
+ * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
  * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
  * @returns Promise<boolean>
  */
-export declare const appendLineToActiveDocument: (content: string) => Promise<boolean>;
+export declare const appendLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+/** vsc-base method
+ * @description
+ * Prepend new line content in the start of the (open) document
+ * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @param content
+ * @param document
+ * @param editor
+ * @dependencyInternal appendToActiveDocument
+ * @vscType Vscode
+ * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @returns Promise<boolean>
+ */
+export declare const prependLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
 /** vsc-base method
  * @description
  * Save active open file. \
  * Return true for succes, and false if there was no open document
- * @see http://vsc-base.org/#saveActiveDocument
+ * @see [saveActiveDocument](http://vsc-base.org/#saveActiveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
  * @oneLineEx const success = await vsc.saveActiveDocument(content)
  * @returns Promise<boolean>
  */
-export declare const saveActiveDocument: () => Promise<boolean>;
+export declare const saveDocument: (document?: vscode.TextDocument | undefined) => Promise<boolean>;
+/** vsc-base method
+ * @description
+ * Takes a start and end and return vscode positons and range objects.
+ * @see [getComplexRangeObject](http://vsc-base.org/#getComplexRangeObject)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.getComplexRangeObject(source, start, end)
+ * @returns boolean
+ */
+export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number) => vsc.VscodePosition;
+export declare type VscodePosition = {
+    start: number;
+    end: number;
+    startLineNumber: number;
+    endLineNumber: number;
+    startPosition: vscode.Position;
+    endPosition: vscode.Position;
+    range: vscode.Range;
+};
+/** vsc-base method
+ * @description
+ * Create a vscode.Selection \
+ * @see [createSelection](http://vsc-base.org/#createSelection)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const selection = vsc.createSelection(start, end)
+ * @returns vscode.Selection
+ */
+export declare const createSelection: (source: string, start: number, end?: number) => vscode.Selection;
+/** vsc-base method
+ * @description
+ * Set Selection for an TextEditor (Current document) \
+ * Clear other selections. \
+ * returns true on success
+ * @see [setSelection](http://vsc-base.org/#setSelection)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelection(start, end)
+ * @returns boolean
+ */
+export declare const setSelection: (start: number, end?: number, editor?: vscode.TextEditor | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Add a Selection for an TextEditor (Current document) \
+ * returns true on success
+ * @see [addSelection](http://vsc-base.org/#addSelection)
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.addSelection(range)
+ * @returns boolean
+ */
+export declare const addSelection: (start: number, end?: number, editor?: vscode.TextEditor | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Set Selection for an TextEditor (Current document) \
+ * Clear other selections \
+ * returns true on success
+ * @see [setSelectionFromRange](http://vsc-base.org/#setSelectionFromRange)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelectionFromRange(range)
+ * @returns boolean
+ */
+export declare const setSelectionFromRange: (range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Add a Selection for an TextEditor (Current document) \
+ * returns true on success
+ * @see [addSelectionFromRange](http://vsc-base.org/#addSelectionFromRange)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.addSelectionFromRange(range)
+ * @returns boolean
+ */
+export declare const addSelectionFromRange: (range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Get project root for a path or undefined if no project was found.
- * @see http://vsc-base.org/#getRootPath
+ * @see [getRootPath](http://vsc-base.org/#getRootPath)
  * @param path
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
@@ -221,7 +382,7 @@ export declare const getRootPath: (path: string) => string | undefined;
 /** vsc-base method
  * @description
  * Save All files
- * @see http://vsc-base.org/#saveAll
+ * @see [saveAll](http://vsc-base.org/#saveAll)
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx await vsc.saveAll()
@@ -231,7 +392,7 @@ export declare const saveAll: () => Promise<void>;
 /** vsc-base method
  * @description
  * Show error message to user
- * @see http://vsc-base.org/#showErrorMessage
+ * @see [showErrorMessage](http://vsc-base.org/#showErrorMessage)
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
@@ -242,7 +403,7 @@ export declare const showErrorMessage: (message: string) => Promise<void>;
 /** vsc-base method
  * @description
  * Show message to user
- * @see http://vsc-base.org/#showMessage
+ * @see [showMessage](http://vsc-base.org/#showMessage)
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode

@@ -550,7 +550,7 @@ export type TsNodeVisitorCallback = (node: ts.Node, typeChecker?: ts.TypeChecker
  * Create a Ts Visitor Transformer for finding a node and it position. \
  * @see [tsFindNodePosition](http://vsc-base.org/#tsFindNodePosition)
  * @vscType ts
- * @oneLineEx const [node, position] = vsc.tsFindNodePosition(findNodePositionCallback)
+ * @oneLineEx const [node, position] = vsc.tsFindNodePosition(source, findNodePositionCallback)
  * @ex 
  const source = `
    const method2 = () => {
@@ -629,7 +629,7 @@ export type TsFindNodePositionCallback = (node: ts.Node, typeChecker?: ts.TypeCh
  * @oneLineEx const childNode = vsc.tsFindChildNode(node, childNodeTestCallback }) 
  * @ex 
 const childNode = vsc.tsFindChildNode(node, (childNode)=>{ 
-   return vsc.MatchVariable(childNode, {
+   return vsc.tsMatchVariable(childNode, {
       matchName:/^varName$/, 
       isConst: true 
    }) 
@@ -657,7 +657,7 @@ export const tsFindChildNode = (node: ts.Node, callback: (child: ts.Node) => boo
  * @ex 
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
 const childNode = vsc.tsFindGrandChildNode(node, (childNode)=>{ 
-   return vsc.MatchVariable(childNode, {
+   return vsc.tsMatchVariable(childNode, {
       matchName:/^varName/, 
       isConst: true 
    }) 
@@ -774,7 +774,7 @@ type TsMatchFunction = (node: ts.Node, options?: { matchName?: RegExp }) => bool
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
  * and optional test for its name, \
- * and is its a const, let or var. \
+ * and is its a const, let or var.
  * @see [tsMatchFunction](http://vsc-base.org/#tsMatchFunction)
  * @vscType ts
  * @oneLineEx const found = vsc.tsMatchFunction(node, options)

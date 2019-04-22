@@ -185,12 +185,12 @@ Add method tsGetParsedChildren
 Release note has been added to github wiki:
 https://github.com/alfnielsen/vsc-base/wiki/Release-notes
 
-BREAKING CAHNGES:
+BREAKING CHANGES:
 Ts methods has been rename. Most important is loadTsModule which is now tsLoadModule.
 
 ## 0.3.0
 
-BREAKING CAHNGES: camcalCaseToKebeb is now toKebabCase
+BREAKING CHANGES: camcalCaseToKebeb is now toKebabCase
 Added toSnakeCase, toPascalCase.
 
 ## 0.2.0

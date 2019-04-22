@@ -40,7 +40,7 @@ export const insertAt = async (
       return Promise.resolve(false)
    }
    const source = editor.document.getText();
-   const pos = vsc.getComplexRangeObject(source, start, end)
+   const pos = vsc.createVscodeRangeAndPosition(source, start, end)
    const snippetString = new vscode.SnippetString(content)
    await editor.insertSnippet(snippetString, pos.range)
    return true

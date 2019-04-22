@@ -1,8 +1,8 @@
 import * as vsc from './vsc-base';
 /** vsc-base method
  * @description
- * Recurvice function that goes through a template tree
- * @see http://vsc-base.org/#scaffoldTemplate
+ * Recurcive function that goes through a template tree
+ * @see [scaffoldTemplate](http://vsc-base.org/#scaffoldTemplate)
  * @param path Full path to where the TemplateItem (file/folder) should be created
  * @param userInputs An object with user inputs {[key: string]: string}
  * @param templateItem An TemplateItem (folde/file)

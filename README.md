@@ -6,4 +6,6 @@ This is a mono-respo for:
 - vsc-script (vscode extension) 
 - vsc-base.org (documentation wesite)
 
-All documentation, release note ect will be on [vsc-base.org](http:///vsc-base.org)
+All documentation is on [vsc-base.org](http:///vsc-base.org)
+
+Release note is on the gihub wiki [vsc-base Release note](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)

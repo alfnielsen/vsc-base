@@ -13,7 +13,7 @@ const GetFullDocumentRangeAnnotatedCode = ({ open = false }: {open?: boolean}) =
             <>
                <p>
                   
- Get a vscodeRange for the entire document
+ Get a vscode.Range for the entire document
                </p>
             </>
          }

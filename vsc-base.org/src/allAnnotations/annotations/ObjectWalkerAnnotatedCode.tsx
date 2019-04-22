@@ -26,7 +26,7 @@ const ObjectWalkerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 The call back can replace each child or stop the iteration. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#maxDepthReplacer'>http://vsc-base.org/#maxDepthReplacer</a> and <a href='http://vsc-base.org/#keyValueReplacer'>http://vsc-base.org/#keyValueReplacer</a> 
+                See <a href='http://vsc-base.org/#maxDepthReplacer'>maxDepthReplacer</a> and <a href='http://vsc-base.org/#keyValueReplacer'>keyValueReplacer</a> 
                </p>
                <p>
                 they both use the objectWalker.
@@ -132,7 +132,7 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => \
 
 interface ObjectWalkerCallbackState \{
    /**
-    * The currectn chil. (Any type)
+    * The current child. (Any type)
     */
    obj: any,
    /**
@@ -140,7 +140,7 @@ interface ObjectWalkerCallbackState \{
     */
    key: string | number,
    /**
-    * The depth is how many step down an ansestor tree the iteration curently is in.
+    * The depth is how many step down an ancestor tree the iteration currently is in.
     */
    depth: number,
    /**

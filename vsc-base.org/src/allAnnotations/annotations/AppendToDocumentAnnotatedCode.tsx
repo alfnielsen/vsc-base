@@ -13,7 +13,10 @@ const AppendToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Append new content in the end of the open document
+ Append new content in the end of the (open) document. 
+               </p>
+               <p>
+                Return true on success
                </p>
             </>
          }
@@ -21,22 +24,27 @@ const AppendToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.appendToDocument(editor, document, content)`}
          codeEx={``}
          code={`/**
- * @param editor, document, content
+ * @param content, document, editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<void>
+ * @returns Promise<boolean>
  */
 export const appendToDocument = async (
-   editor: vscode.TextEditor,
-   document: vscode.TextDocument,
-   content: string
-): Promise<void> => \{
-   const startPosition = new vscode.Position(document.lineCount, 0)
-   const endPosition = new vscode.Position(document.lineCount, 0)
+   content: string,
+   editor?: vscode.TextEditor
+): Promise<boolean> => \{
+   if (!editor) \{
+      editor = vsc.getActiveEditor()
+   }
+   if (!editor) \{
+      return Promise.resolve(false)
+   }
+   const startPosition = new vscode.Position(editor.document.lineCount, 0)
+   const endPosition = new vscode.Position(editor.document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)
-   const snippetString = new vscode.SnippetString(content)
-   await editor.insertSnippet(snippetString, fullRange)
+   return await insertAtRange(content, fullRange, editor);
 }
+
 `}
       />
    )

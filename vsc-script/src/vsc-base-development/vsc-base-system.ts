@@ -1,12 +1,37 @@
 import * as fs from 'fs-extra'
 import * as vscode from 'vscode'
-import * as ts from 'typescript'
 import * as vsc from './vsc-base'
+import * as cp from 'child-process-promise'
+
+/** vsc-base method
+ * @description 
+ * Execute a bash command. \
+ * (Execute a command using child-process-promise) \
+ * **NOTE:** If you use this method in an extension the end user need to be able to actaully 
+ * execute the command! \
+ * This method is mostly design for vsc-script's, where you have control of the environment. \
+ * See also [vsc.writeToTerminal](http://vsc-base.org/#writeToTerminal)
+ * @see [execFromPath](http://vsc-base.org/#execFromPath)
+ * @param path
+ * @param content
+ * @vscType System
+ * @dependencyExternal fs
+ * @oneLineEx const result = await vsc.execFromPath(command, path)
+ * @ex
+ const rootPath = vsc.getRootPath(path)
+ const result = await vsc.execFromPath('yarn start', rootPath)
+ const stringResult = result.stdout.toString()
+ * @returns Promise<cp.PromiseResult<string>>
+ */
+
+export const execFromPath = async (command: string, path: string): Promise<cp.PromiseResult<string>> => {
+   return await cp.exec(`cd ${path} && ${command}`);
+}
 
 /** vsc-base method
  * @description 
  * Create a LineReader (generator method) for a ReadStream
- * @see http://vsc-base.org/#getLineStreamReader
+ * @see [getLineStreamReader](http://vsc-base.org/#getLineStreamReader)
  * @param readStream
  * @dependencyExternal fs
  * @vscType System
@@ -14,7 +39,7 @@ import * as vsc from './vsc-base'
  * @ex
  const readStream = vsc.getReadStream(path)
  const lineReader = vsc.getLineStreamReader(readStream)
- for await (line of lineReader) {
+ for await (const line of lineReader) {
     //do something with the line
  }
  * @returns () => AsyncIterableIterator<string>
@@ -39,14 +64,14 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
 /** vsc-base method
  * @description 
  * Get a file ReadStream
- * @see http://vsc-base.org/#getReadStream
+ * @see [getReadStream](http://vsc-base.org/#getReadStream)
  * @param path
  * @dependencyExternal fs
  * @vscType System
  * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
  const readStream = vsc.getReadStream(path)
- for await (chunk of readStream) {
+ for await (const chunk of readStream) {
    //do something with chunk
  }
  * @returns fs.ReadStream
@@ -66,7 +91,7 @@ export const getReadStream = (path: string) => {
 /** vsc-base method
  * @description 
  * Does the folder/file exist
- * @see http://vsc-base.org/#doesExists
+ * @see [doesExists](http://vsc-base.org/#doesExists)
  * @param path string
  * @dependencyExternal fs
  * @vscType System
@@ -81,7 +106,7 @@ export const doesExists = (path: string): boolean => {
  * @description 
  * Get dir from path \
  * (If path is a dir return it)
- * @see http://vsc-base.org/#getDir
+ * @see [getDir](http://vsc-base.org/#getDir)
  * @param path
  * @dependencyInternal isDir, splitPath
  * @vscType System
@@ -100,7 +125,7 @@ export const getDir = (path: string) => {
 /** vsc-base method
  * @description 
  * Get file source
- * @see http://vsc-base.org/#getFileContent
+ * @see [getFileContent](http://vsc-base.org/#getFileContent)
  * @param path
  * @dependencyExternal fs
  * @vscType System
@@ -114,7 +139,7 @@ export const getFileContent = async (path: string): Promise<string> =>
  * @description 
  * Get file source as json \
  * (return null on invalid json)
- * @see http://vsc-base.org/#getJsonContent
+ * @see [getJsonContent](http://vsc-base.org/#getJsonContent)
  * @param path
  * @dependencyExternal fs
  * @vscType System
@@ -129,7 +154,7 @@ export const getJsonContent = async <TStructure = unknown>(
 /** vsc-base method
  * @description 
  * Get vscode project config
- * @see http://vsc-base.org/#getConfig
+ * @see [getConfig](http://vsc-base.org/#getConfig)
  * @dependencyExternal vscode
  * @vscType System
  * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
@@ -149,7 +174,7 @@ export const getConfig = <T>(
 /** vsc-base method
  * @description 
  * Find packages file paths in project.
- * @see http://vsc-base.org/#getPackageFilePaths
+ * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
@@ -162,7 +187,7 @@ export const getPackageFilePaths = async (): Promise<string[]> => {
 /** vsc-base method
  * @description 
  * Find package.json files and collect the dependencies and devDependencies.
- * @see http://vsc-base.org/#getPackageDependencies
+ * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
@@ -203,7 +228,7 @@ export const getPackageDependencies = async (): Promise<
  * @dependencyExternal fs
  * @vscType System
  * @oneLineEx const isDir = vsc.isDir(path)
- * @see http://vsc-base.org/#isDir
+ * @see [isDir](http://vsc-base.org/#isDir)
  * @returns boolean
  */
 export const isDir = (path: string): boolean => {
@@ -213,7 +238,7 @@ export const isDir = (path: string): boolean => {
 /** vsc-base method
  * @description 
  * Make a folder
- * @see http://vsc-base.org/#makeDir
+ * @see [makeDir](http://vsc-base.org/#makeDir)
  * @param path
  * @param newPathstring
  * @vscType System
@@ -232,7 +257,7 @@ export const makeDir = async (folderPath: string): Promise<void> => {
 /** vsc-base method
  * @description 
  * Move a file or folder
- * @see http://vsc-base.org/#move
+ * @see [move](http://vsc-base.org/#move)
  * @param path
  * @param newPathstring
  * @vscType System
@@ -247,7 +272,7 @@ export const move = async (path: string, newPath: string): Promise<void> => {
 /** vsc-base method
  * @description 
  * Copy file/fodler
- * @see http://vsc-base.org/#copy
+ * @see [copy](http://vsc-base.org/#copy)
  * @param path
  * @param newPathstring
  * @vscType System
@@ -262,7 +287,7 @@ export const copy = async (path: string, newPath: string): Promise<void> => {
 /** vsc-base method
  * @description 
  * Save file
- * @see http://vsc-base.org/#saveFileContent
+ * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
  * @param path
  * @param content
  * @vscType System
@@ -276,3 +301,4 @@ export const saveFileContent = async (
 ): Promise<void> => {
    await fs.writeFile(path, content)
 }
+

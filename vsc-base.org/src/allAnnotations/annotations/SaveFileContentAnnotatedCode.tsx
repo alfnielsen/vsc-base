@@ -32,6 +32,7 @@ export const saveFileContent = async (
 ): Promise<void> => \{
    await fs.writeFile(path, content)
 }
+
 `}
       />
    )

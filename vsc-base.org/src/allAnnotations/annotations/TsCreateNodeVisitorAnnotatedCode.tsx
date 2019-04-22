@@ -20,13 +20,13 @@ const TsCreateNodeVisitorAnnotatedCode = ({ open = false }: {open?: boolean}) =>
  You can use: 
                </p>
                <p>
-                <a href='https://ts-ast-viewer.com/'>https://ts-ast-viewer.com/</a> 
+                https://ts-ast-viewer.com/ 
                </p>
                <p>
                 or 
                </p>
                <p>
-                <a href='https://astexplorer.net/'>https://astexplorer.net/</a> 
+                https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.
@@ -106,6 +106,42 @@ export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback:
    };
 }
 export type TsNodeVisitorCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => void;
+
+/**
+ * 
+ */
+export const tsFindNodeVscodeRange = (source: string, callback: TsFindNodePositionCallback, program?: ts.Program): TsNodePosition | undefined => \{
+   let position: TsNodePosition | undefined
+   let typeChecker: ts.TypeChecker | undefined
+   if (program) \{
+      typeChecker = program.getTypeChecker()
+   }
+   const visitor: ts.TransformerFactory<ts.SourceFile> = (context) => \{
+      const visit: ts.Visitor = (node) => \{
+         const found = callback(node, typeChecker, program);
+         if (!found) \{
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
+         const start = node.pos;
+         const end = node.end;
+         const startLines = source.substr(start).split("\\n");
+         const startRangePosition = new vscode.Position(startLines.length, startLines[startLines.length].length);
+         const endLines = source.substr(end).split("\\n");
+         const endRangePosition = new vscode.Position(endLines.length, endLines[endLines.length].length);
+         const range = new vscode.Range(startRangePosition, endRangePosition);
+         position = \{
+            start,
+            end,
+            range
+         }
+      }
+      return (node) => ts.visitNode(node, visit);
+   };
+   vsc.tsTransform(source, [visitor]);
+   return position;
+}
+export type TsFindNodePositionCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean;
+export interface TsNodePosition \{ range: vscode.Range, start: number, end: number }
 `}
       />
    )

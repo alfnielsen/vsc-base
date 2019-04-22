@@ -20,13 +20,13 @@ const TsCreateRemoveNodesTransformerAnnotatedCode = ({ open = false }: {open?: b
  You can use: 
                </p>
                <p>
-                <a href='https://ts-ast-viewer.com/'>https://ts-ast-viewer.com/</a> 
+                https://ts-ast-viewer.com/ 
                </p>
                <p>
                 or 
                </p>
                <p>
-                <a href='https://astexplorer.net/'>https://astexplorer.net/</a> 
+                https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.

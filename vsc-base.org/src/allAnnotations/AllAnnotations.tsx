@@ -1,24 +1,29 @@
 import React from 'react'
 
 import AddLeadingLocalDashAnnotatedCode from './annotations/AddLeadingLocalDashAnnotatedCode'
-import AppendLineToActiveDocumentAnnotatedCode from './annotations/AppendLineToActiveDocumentAnnotatedCode'
-import AppendToActiveDocumentAnnotatedCode from './annotations/AppendToActiveDocumentAnnotatedCode'
+import AddSelectionAnnotatedCode from './annotations/AddSelectionAnnotatedCode'
+import AddSelectionFromRangeAnnotatedCode from './annotations/AddSelectionFromRangeAnnotatedCode'
+import AppendLineToDocumentAnnotatedCode from './annotations/AppendLineToDocumentAnnotatedCode'
 import AppendToDocumentAnnotatedCode from './annotations/AppendToDocumentAnnotatedCode'
 import AskAnnotatedCode from './annotations/AskAnnotatedCode'
 import AwaitResultAnnotatedCode from './annotations/AwaitResultAnnotatedCode'
 import CleanPathAnnotatedCode from './annotations/CleanPathAnnotatedCode'
 import CopyAnnotatedCode from './annotations/CopyAnnotatedCode'
+import CreateSelectionAnnotatedCode from './annotations/CreateSelectionAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
+import ExecFromPathAnnotatedCode from './annotations/ExecFromPathAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
 import FindFilePathsFromBaseAnnotatedCode from './annotations/FindFilePathsFromBaseAnnotatedCode'
 import FindRelativeFilePathsAnnotatedCode from './annotations/FindRelativeFilePathsAnnotatedCode'
 import GetAbsolutePathFromRelatrivePathAnnotatedCode from './annotations/GetAbsolutePathFromRelatrivePathAnnotatedCode'
 import GetActiveDocumentAnnotatedCode from './annotations/GetActiveDocumentAnnotatedCode'
-import GetActiveDocumentContentAnnotatedCode from './annotations/GetActiveDocumentContentAnnotatedCode'
-import GetActiveDocumentPathAnnotatedCode from './annotations/GetActiveDocumentPathAnnotatedCode'
 import GetActiveEditorAnnotatedCode from './annotations/GetActiveEditorAnnotatedCode'
+import GetActiveTerminalAnnotatedCode from './annotations/GetActiveTerminalAnnotatedCode'
+import GetComplexRangeObjectAnnotatedCode from './annotations/GetComplexRangeObjectAnnotatedCode'
 import GetConfigAnnotatedCode from './annotations/GetConfigAnnotatedCode'
 import GetDirAnnotatedCode from './annotations/GetDirAnnotatedCode'
+import GetDocumentContentAnnotatedCode from './annotations/GetDocumentContentAnnotatedCode'
+import GetDocumentPathAnnotatedCode from './annotations/GetDocumentPathAnnotatedCode'
 import GetErrorInfoAnnotatedCode from './annotations/GetErrorInfoAnnotatedCode'
 import GetFileContentAnnotatedCode from './annotations/GetFileContentAnnotatedCode'
 import GetFullDocumentRangeAnnotatedCode from './annotations/GetFullDocumentRangeAnnotatedCode'
@@ -34,6 +39,8 @@ import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
 import GetSubrelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubrelativePathFromAbsoluteRootPathAnnotatedCode'
 import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
 import GetVscDefaultModuleMapAnnotatedCode from './annotations/GetVscDefaultModuleMapAnnotatedCode'
+import InsertAtAnnotatedCode from './annotations/InsertAtAnnotatedCode'
+import InsertAtRangeAnnotatedCode from './annotations/InsertAtRangeAnnotatedCode'
 import IsAbsolutePathAnnotatedCode from './annotations/IsAbsolutePathAnnotatedCode'
 import IsDirAnnotatedCode from './annotations/IsDirAnnotatedCode'
 import IsSubPathAnnotatedCode from './annotations/IsSubPathAnnotatedCode'
@@ -42,14 +49,19 @@ import KeyValueReplacerAnnotatedCode from './annotations/KeyValueReplacerAnnotat
 import MakeDirAnnotatedCode from './annotations/MakeDirAnnotatedCode'
 import MaxDepthReplacerAnnotatedCode from './annotations/MaxDepthReplacerAnnotatedCode'
 import MoveAnnotatedCode from './annotations/MoveAnnotatedCode'
+import NewDocumentAnnotatedCode from './annotations/NewDocumentAnnotatedCode'
 import ObjectWalkerAnnotatedCode from './annotations/ObjectWalkerAnnotatedCode'
 import PathAsUnixAnnotatedCode from './annotations/PathAsUnixAnnotatedCode'
 import PickAnnotatedCode from './annotations/PickAnnotatedCode'
-import SaveActiveDocumentAnnotatedCode from './annotations/SaveActiveDocumentAnnotatedCode'
+import PrependLineToDocumentAnnotatedCode from './annotations/PrependLineToDocumentAnnotatedCode'
+import PrependToDocumentAnnotatedCode from './annotations/PrependToDocumentAnnotatedCode'
 import SaveAllAnnotatedCode from './annotations/SaveAllAnnotatedCode'
+import SaveDocumentAnnotatedCode from './annotations/SaveDocumentAnnotatedCode'
 import SaveFileContentAnnotatedCode from './annotations/SaveFileContentAnnotatedCode'
 import ScaffoldTemplateAnnotatedCode from './annotations/ScaffoldTemplateAnnotatedCode'
-import SetActiveDocumentContentAnnotatedCode from './annotations/SetActiveDocumentContentAnnotatedCode'
+import SetDocumentContentAnnotatedCode from './annotations/SetDocumentContentAnnotatedCode'
+import SetSelectionAnnotatedCode from './annotations/SetSelectionAnnotatedCode'
+import SetSelectionFromRangeAnnotatedCode from './annotations/SetSelectionFromRangeAnnotatedCode'
 import SharedPathAnnotatedCode from './annotations/SharedPathAnnotatedCode'
 import ShowErrorMessageAnnotatedCode from './annotations/ShowErrorMessageAnnotatedCode'
 import ShowMessageAnnotatedCode from './annotations/ShowMessageAnnotatedCode'
@@ -76,6 +88,7 @@ import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
+import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
 interface AllAnnotationsProps {
    activeMethod: string
 }
@@ -83,24 +96,29 @@ interface AllAnnotationsProps {
 const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) => 
   <>
       <AddLeadingLocalDashAnnotatedCode open={activeMethod === 'addLeadingLocalDash'} />
-      <AppendLineToActiveDocumentAnnotatedCode open={activeMethod === 'appendLineToActiveDocument'} />
-      <AppendToActiveDocumentAnnotatedCode open={activeMethod === 'appendToActiveDocument'} />
+      <AddSelectionAnnotatedCode open={activeMethod === 'addSelection'} />
+      <AddSelectionFromRangeAnnotatedCode open={activeMethod === 'addSelectionFromRange'} />
+      <AppendLineToDocumentAnnotatedCode open={activeMethod === 'appendLineToDocument'} />
       <AppendToDocumentAnnotatedCode open={activeMethod === 'appendToDocument'} />
       <AskAnnotatedCode open={activeMethod === 'ask'} />
       <AwaitResultAnnotatedCode open={activeMethod === 'awaitResult'} />
       <CleanPathAnnotatedCode open={activeMethod === 'cleanPath'} />
       <CopyAnnotatedCode open={activeMethod === 'copy'} />
+      <CreateSelectionAnnotatedCode open={activeMethod === 'createSelection'} />
       <DoesExistsAnnotatedCode open={activeMethod === 'doesExists'} />
+      <ExecFromPathAnnotatedCode open={activeMethod === 'execFromPath'} />
       <FindFilePathsAnnotatedCode open={activeMethod === 'findFilePaths'} />
       <FindFilePathsFromBaseAnnotatedCode open={activeMethod === 'findFilePathsFromBase'} />
       <FindRelativeFilePathsAnnotatedCode open={activeMethod === 'findRelativeFilePaths'} />
       <GetAbsolutePathFromRelatrivePathAnnotatedCode open={activeMethod === 'getAbsolutePathFromRelatrivePath'} />
       <GetActiveDocumentAnnotatedCode open={activeMethod === 'getActiveDocument'} />
-      <GetActiveDocumentContentAnnotatedCode open={activeMethod === 'getActiveDocumentContent'} />
-      <GetActiveDocumentPathAnnotatedCode open={activeMethod === 'getActiveDocumentPath'} />
       <GetActiveEditorAnnotatedCode open={activeMethod === 'getActiveEditor'} />
+      <GetActiveTerminalAnnotatedCode open={activeMethod === 'getActiveTerminal'} />
+      <GetComplexRangeObjectAnnotatedCode open={activeMethod === 'getComplexRangeObject'} />
       <GetConfigAnnotatedCode open={activeMethod === 'getConfig'} />
       <GetDirAnnotatedCode open={activeMethod === 'getDir'} />
+      <GetDocumentContentAnnotatedCode open={activeMethod === 'getDocumentContent'} />
+      <GetDocumentPathAnnotatedCode open={activeMethod === 'getDocumentPath'} />
       <GetErrorInfoAnnotatedCode open={activeMethod === 'getErrorInfo'} />
       <GetFileContentAnnotatedCode open={activeMethod === 'getFileContent'} />
       <GetFullDocumentRangeAnnotatedCode open={activeMethod === 'getFullDocumentRange'} />
@@ -116,6 +134,8 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <GetSubrelativePathFromAbsoluteRootPathAnnotatedCode open={activeMethod === 'getSubrelativePathFromAbsoluteRootPath'} />
       <GetTimestampAnnotatedCode open={activeMethod === 'getTimestamp'} />
       <GetVscDefaultModuleMapAnnotatedCode open={activeMethod === 'getVscDefaultModuleMap'} />
+      <InsertAtAnnotatedCode open={activeMethod === 'insertAt'} />
+      <InsertAtRangeAnnotatedCode open={activeMethod === 'insertAtRange'} />
       <IsAbsolutePathAnnotatedCode open={activeMethod === 'isAbsolutePath'} />
       <IsDirAnnotatedCode open={activeMethod === 'isDir'} />
       <IsSubPathAnnotatedCode open={activeMethod === 'isSubPath'} />
@@ -124,14 +144,19 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <MakeDirAnnotatedCode open={activeMethod === 'makeDir'} />
       <MaxDepthReplacerAnnotatedCode open={activeMethod === 'maxDepthReplacer'} />
       <MoveAnnotatedCode open={activeMethod === 'move'} />
+      <NewDocumentAnnotatedCode open={activeMethod === 'newDocument'} />
       <ObjectWalkerAnnotatedCode open={activeMethod === 'objectWalker'} />
       <PathAsUnixAnnotatedCode open={activeMethod === 'pathAsUnix'} />
       <PickAnnotatedCode open={activeMethod === 'pick'} />
-      <SaveActiveDocumentAnnotatedCode open={activeMethod === 'saveActiveDocument'} />
+      <PrependLineToDocumentAnnotatedCode open={activeMethod === 'prependLineToDocument'} />
+      <PrependToDocumentAnnotatedCode open={activeMethod === 'prependToDocument'} />
       <SaveAllAnnotatedCode open={activeMethod === 'saveAll'} />
+      <SaveDocumentAnnotatedCode open={activeMethod === 'saveDocument'} />
       <SaveFileContentAnnotatedCode open={activeMethod === 'saveFileContent'} />
       <ScaffoldTemplateAnnotatedCode open={activeMethod === 'scaffoldTemplate'} />
-      <SetActiveDocumentContentAnnotatedCode open={activeMethod === 'setActiveDocumentContent'} />
+      <SetDocumentContentAnnotatedCode open={activeMethod === 'setDocumentContent'} />
+      <SetSelectionAnnotatedCode open={activeMethod === 'setSelection'} />
+      <SetSelectionFromRangeAnnotatedCode open={activeMethod === 'setSelectionFromRange'} />
       <SharedPathAnnotatedCode open={activeMethod === 'sharedPath'} />
       <ShowErrorMessageAnnotatedCode open={activeMethod === 'showErrorMessage'} />
       <ShowMessageAnnotatedCode open={activeMethod === 'showMessage'} />
@@ -158,6 +183,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsTransformNodeAnnotatedCode open={activeMethod === 'tsTransformNode'} />
       <TsTranspileAnnotatedCode open={activeMethod === 'tsTranspile'} />
       <VarifyModuleMethodsAnnotatedCode open={activeMethod === 'varifyModuleMethods'} />
+      <WriteToTerminalAnnotatedCode open={activeMethod === 'writeToTerminal'} />
   </>
 
 export default AllAnnotations

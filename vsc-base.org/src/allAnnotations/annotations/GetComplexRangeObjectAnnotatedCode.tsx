@@ -1,0 +1,53 @@
+import React from 'react'
+import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
+
+
+
+const GetComplexRangeObjectAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+   return (
+      <AnnotatedCode
+         id={'getComplexRangeObject'}
+         title={'getComplexRangeObject'}
+         open={open}
+         annotation={
+            <>
+               <p>
+                  
+ Takes a start and end and return vscode positons and range objects.
+               </p>
+            </>
+         }
+         
+         codeOneLineEx={`const success = vsc.getComplexRangeObject(source, start, end)`}
+         codeEx={``}
+         code={`/**
+ * @param range, editor
+ * @vscType Vscode
+ * @returns boolean
+ */
+export const getComplexRangeObject = (source: string, start: number, end: number = start) => \{
+   const startLines = source.substr(0, start).split("\\n");
+   const endLines = source.substr(0, end).split("\\n");
+   const startLineNumber = startLines.length
+   const endLineNumber = endLines.length
+   const startPosition = new vscode.Position(startLineNumber, startLines[startLines.length - 1].length + 1);
+   const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length + 1);
+   const range = new vscode.Range(startPosition, endPosition);
+   return \{
+      start,
+      end,
+      startLineNumber,
+      endLineNumber,
+      startPosition,
+      endPosition,
+      range,
+   }
+}
+
+`}
+      />
+   )
+}
+
+export default GetComplexRangeObjectAnnotatedCode
+

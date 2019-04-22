@@ -27,7 +27,7 @@ import {
    maxDepthReplacer,
    keyValueReplacer,
    objectWalker,
-   ObjectWalkerCallback
+   ObjectWalkerCallback,
 } from './vsc-base-raw'
 
 import {
@@ -38,18 +38,29 @@ import {
    findRelativeFilePaths,
    getActiveEditor,
    getActiveDocument,
-   getActiveDocumentPath,
-   getActiveDocumentContent,
-   setActiveDocumentContent,
+   createVscodeRangeAndPosition,
+   VscodePosition,
+   createSelection,
+   setSelection,
+   addSelection,
+   setSelectionFromRange,
+   addSelectionFromRange,
+   newDocument,
+   getActiveTerminal,
+   writeToTerminal,
+   getDocumentPath,
+   getDocumentContent,
+   setDocumentContent,
    getFullDocumentRange,
    appendToDocument,
-   appendToActiveDocument,
-   appendLineToActiveDocument,
-   saveActiveDocument,
+   appendLineToDocument,
+   prependToDocument,
+   prependLineToDocument,
+   saveDocument,
    getRootPath,
    saveAll,
    showErrorMessage,
-   showMessage
+   showMessage,
 } from './vsc-base-vscode';
 
 
@@ -68,6 +79,7 @@ import {
    move,
    copy,
    saveFileContent,
+   execFromPath,
 } from './vsc-base-system';
 
 import {
@@ -86,10 +98,21 @@ import {
    tsCreateNodeVisitor,
    TsNodeVisitorCallback,
    tsTransform,
+   tsVisitWithTransformers,
    tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
-   tsGetParsedChildren
+   tsGetParsedChildren,
+   tsFindNodePosition,
+   TsFindNodePositionCallback,
+   tsFindChildNode,
+   tsFindGrandChildNode,
+   tsFindAncestor,
+   tsMatchObjectProperty,
+   tsMatchFunction,
+   tsMatchVariable,
+
+
 } from './vsc-base-typescript';
 
 import {
@@ -100,7 +123,7 @@ import {
    vscTemplateFile,
    vscUserInput,
    vscUserInputs,
-   vscStringDelegate
+   vscStringDelegate,
 } from './vsc-base-vscTemplate';
 
 
@@ -111,7 +134,7 @@ export {
    vscTemplateFile,
    vscUserInput,
    vscUserInputs,
-   vscStringDelegate
+   vscStringDelegate,
 }
 
 export {
@@ -154,14 +177,25 @@ export {
    findRelativeFilePaths,
    getActiveEditor,
    getActiveDocument,
-   getActiveDocumentPath,
-   getActiveDocumentContent,
-   setActiveDocumentContent,
+   newDocument,
+   createVscodeRangeAndPosition,
+   VscodePosition,
+   createSelection,
+   setSelection,
+   addSelection,
+   setSelectionFromRange,
+   addSelectionFromRange,
+   getActiveTerminal,
+   writeToTerminal,
+   getDocumentPath,
+   getDocumentContent,
+   setDocumentContent,
    getFullDocumentRange,
    appendToDocument,
-   appendToActiveDocument,
-   appendLineToActiveDocument,
-   saveActiveDocument,
+   appendLineToDocument,
+   prependToDocument,
+   prependLineToDocument,
+   saveDocument,
    getRootPath,
    saveAll,
    showErrorMessage,
@@ -184,6 +218,7 @@ export {
    copy,
    saveFileContent,
    scaffoldTemplate,
+   execFromPath,
 }
 export {
    // ts
@@ -202,9 +237,17 @@ export {
    tsCreateNodeVisitor,
    TsNodeVisitorCallback,
    tsTransform,
+   tsVisitWithTransformers,
    tsTransformNode,
    TsDefaultCompilerOptions,
    tsCreateSourceFile,
-   tsGetParsedChildren
-   // template types
+   tsGetParsedChildren,
+   tsFindNodePosition,
+   TsFindNodePositionCallback,
+   tsFindChildNode,
+   tsFindGrandChildNode,
+   tsFindAncestor,
+   tsMatchObjectProperty,
+   tsMatchFunction,
+   tsMatchVariable,
 }

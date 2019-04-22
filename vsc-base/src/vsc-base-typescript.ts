@@ -1,12 +1,13 @@
 import * as fs from 'fs-extra'
 import * as vscode from 'vscode'
 import * as ts from 'typescript'
+import * as cp from 'child-process-promise'
 import * as vsc from './vsc-base'
 
 /** vsc-base method
  * @description 
  * Transpile ts source to js
- * @see http://vsc-base.org/#tsTranspile
+ * @see [tsTranspile](http://vsc-base.org/#tsTranspile)
  * @param sourceTs 
  * @param compilerOptions 
  * @vscType System
@@ -26,7 +27,7 @@ export const tsTranspile = (sourceTs: string,
  * @description 
  * Pre method for tsLoadModule. \
  * (This methods load the ts source, transpile it to js and replace all 'require' instance)
- * @see http://vsc-base.org/#tsLoadModuleSourceCode
+ * @see [tsLoadModuleSourceCode](http://vsc-base.org/#tsLoadModuleSourceCode)
  * @param path
  * @param compilerOptions 
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
@@ -48,7 +49,7 @@ export const tsLoadModuleSourceCode = async (
  * @description 
  * Return the default module map of vsc-base \
  * (Used for ts compiling, module load ect)
- * @see http://vsc-base.org/#getVscDefaultModuleMap
+ * @see [getVscDefaultModuleMap](http://vsc-base.org/#getVscDefaultModuleMap)
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
  * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap()
@@ -59,14 +60,15 @@ export const getVscDefaultModuleMap = (): { key: string, name: string, module: a
       { key: 'vsc', name: 'vsc-base', module: vsc },
       { key: 'ts', name: 'typescript', module: ts },
       { key: 'fs', name: 'fs-extra', module: fs },
-      { key: 'vscode', name: 'vscode', module: vscode }
+      { key: 'vscode', name: 'vscode', module: vscode },
+      { key: 'cp', name: 'child-process-promise', module: cp }
    ]
 }
 
 /** vsc-base method
  * @description 
  * Replace ts traspiles code's require for vsc, ts, fs and vscode.
- * @see http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules
+ * @see [tsRewriteTranpiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules)
  * @internal this method is primary used by vsc.tsLoadModule
  * @notes
  * ts.transpile as follows:
@@ -101,7 +103,7 @@ export const tsRewriteTranpiledCodeWithVscBaseModules = (
  * IMPORTANT Dont just run code you dont now, this can cause injection! \
  * IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! \
  * (If you start a recursive change that dont stop..)
- * @see http://vsc-base.org/#tsLoadModule
+ * @see [tsLoadModule](http://vsc-base.org/#tsLoadModule)
  * @param path
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
@@ -175,7 +177,7 @@ const loadTsModule_Eval = async (
  * @description 
  * Test if a loaded module has methods (Loaded with vsc.loadTsModule) \
  * return undefined if a method didnt exist.
- * @see http://vsc-base.org/#varifyModuleMethods
+ * @see [varifyModuleMethods](http://vsc-base.org/#varifyModuleMethods)
  * @vscType System
  * @oneLineEx const varifyModuleMethods = vsc.varifyModuleMethods(_module, methodName)
  * @ex 
@@ -202,7 +204,7 @@ export const varifyModuleMethods = (
  * @description 
  * Ensure that a method result that optional can be a promise is awaited. \
  * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
- * @see http://vsc-base.org/#awaitResult
+ * @see [awaitResult](http://vsc-base.org/#awaitResult)
  * @vscType ts
  * @oneLineEx await vsc.awaitResult(result)
  * @ex 
@@ -215,9 +217,7 @@ export const awaitResult = async (result: any): Promise<any> => {
    if (result instanceof Promise) {
       return result
    } else {
-      return new Promise(resolve => {
-         resolve(result)
-      })
+      return Promise.resolve(result)
    }
 }
 
@@ -227,8 +227,8 @@ export const awaitResult = async (result: any): Promise<any> => {
  * Tranform source code using custom transformers \
  * See tsCreateTransformer and tsCreateRemoveNodesTransformer for creating transformer \
  * \
- * See also http://vsc-base.org/#tsCreateTransformer and http://vsc-base.org/#tsCreateRemoveNodesTransformer
- * @see http://vsc-base.org/#tsTransform
+ * See also [tsCreateTransformer](http://vsc-base.org/#tsCreateTransformer) and [tsCreateRemoveNodesTransformer](http://vsc-base.org/#tsCreateRemoveNodesTransformer)
+ * @see [tsTransform](http://vsc-base.org/#tsTransform)
  * @param source 
  * @param transformers
  * @param compilerOptions 
@@ -256,7 +256,7 @@ export const tsTransform = (
  * @description 
  * Tranform a ts.Node \
  * (default node-type is ts.Sourcefile)
- * @see http://vsc-base.org/#tsTransformNode
+ * @see [tsTransformNode](http://vsc-base.org/#tsTransformNode)
  * @param sourceFile 
  * @param transformers 
  * @param compilerOptions 
@@ -276,7 +276,7 @@ export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
 /** vsc-base method
  * @description 
  * vsc-base's internal default ts compiler options
- * @see http://vsc-base.org/#TsDefaultCompilerOptions
+ * @see [TsDefaultCompilerOptions](http://vsc-base.org/#TsDefaultCompilerOptions)
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
@@ -291,7 +291,7 @@ export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = ({
 /** vsc-base method
  * @description 
  * Create a ts.SourceFile
- * @see http://vsc-base.org/#tsCreateSourceFile
+ * @see [tsCreateSourceFile](http://vsc-base.org/#tsCreateSourceFile)
  * @param content 
  * @param sourceFileName 
  * @experimental This method can easily change, because ts api is in experimental state.
@@ -316,7 +316,7 @@ export const tsCreateSourceFile = (
  * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \
  * So to this method uses ts's forEachChild to colloct the parsed nodes. \
  * Normally used in custom transformer methods (vsc.tsCreateTransformer)
- * @see http://vsc-base.org/#tsGetParsedChildren
+ * @see [tsGetParsedChildren](http://vsc-base.org/#tsGetParsedChildren)
  * @params node
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
@@ -335,7 +335,7 @@ export const tsGetParsedChildren = (node: ts.Node): ts.Node[] => {
  * Normally used in vsc.tsTransform \
  * You can use  https://ts-ast-viewer.com/  or  https://astexplorer.net/ \
  * to generate the new ts nodes or node type.
- * @see http://vsc-base.org/#tsCreateTransformer
+ * @see [tsCreateTransformer](http://vsc-base.org/#tsCreateTransformer)
  * @param callback 
  * @param program 
  * @vscType ts
@@ -397,7 +397,7 @@ export type TsTransformerCallback = (node: ts.Node, typeChecker?: ts.TypeChecker
  * or \
  * https://astexplorer.net/ \
  * to generate the new ts nodes or node type.
- * @see http://vsc-base.org/#tsCreateRemoveNodesTransformer
+ * @see [tsCreateRemoveNodesTransformer](http://vsc-base.org/#tsCreateRemoveNodesTransformer)
  * @vscType ts
  * @oneLineEx const transformer = vsc.tsCreateRemoveNodesTransformer(transformerCallback)
  * @ex 
@@ -441,7 +441,7 @@ export type TsRemoveTransformerCallback = (node: ts.Node, typeChecker?: ts.TypeC
  * or \
  * https://astexplorer.net/ \
  * to generate the new ts nodes or node type.
- * @see http://vsc-base.org/#tsCreateNodeVisitor
+ * @see [tsCreateNodeVisitor](http://vsc-base.org/#tsCreateNodeVisitor)
  * @vscType ts
  * @oneLineEx const transformer = vsc.tsCreateNodeVisitor(transformerCallback)
  * @ex 
@@ -514,3 +514,39 @@ export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback:
    };
 }
 export type TsNodeVisitorCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => void;
+
+/**
+ * 
+ */
+export const tsFindNodeVscodeRange = (source: string, callback: TsFindNodePositionCallback, program?: ts.Program): TsNodePosition | undefined => {
+   let position: TsNodePosition | undefined
+   let typeChecker: ts.TypeChecker | undefined
+   if (program) {
+      typeChecker = program.getTypeChecker()
+   }
+   const visitor: ts.TransformerFactory<ts.SourceFile> = (context) => {
+      const visit: ts.Visitor = (node) => {
+         const found = callback(node, typeChecker, program);
+         if (!found) {
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
+         const start = node.pos;
+         const end = node.end;
+         const startLines = source.substr(start).split("\n");
+         const startRangePosition = new vscode.Position(startLines.length, startLines[startLines.length].length);
+         const endLines = source.substr(end).split("\n");
+         const endRangePosition = new vscode.Position(endLines.length, endLines[endLines.length].length);
+         const range = new vscode.Range(startRangePosition, endRangePosition);
+         position = {
+            start,
+            end,
+            range
+         }
+      }
+      return (node) => ts.visitNode(node, visit);
+   };
+   vsc.tsTransform(source, [visitor]);
+   return position;
+}
+export type TsFindNodePositionCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean;
+export interface TsNodePosition { range: vscode.Range, start: number, end: number }

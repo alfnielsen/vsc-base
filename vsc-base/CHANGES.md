@@ -2,6 +2,144 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.7.0
+
+### General
+
+This update has a lot of small changes.
+
+It primary done to make the tsTranspiling work natually with vscode.
+
+There is now the new [tsFindNode](http://vsc-base.org/#tsFindNode).
+This is internally an transformer with a visitor callback like the tsCreatorTranformer,
+but it accepts only a returned boolean.
+
+When the callback returns true it returns the node and a vscode range for where the node is in the document.
+
+This can then be use with the new [insertAtRange](http://vsc-base.org/#insertAtRange),
+to replace elements in a opne document.
+
+All the 'active' methods from vscode has remove the active part,
+and takes documenet and editors instead, but they all use the default
+active TextDocument and active TextEditor.
+
+There is also some new methods for executing bash command,
+see [writeToTerminal](http://vsc-base.org/#writeToTerminal)
+and [execFromPath](http://vsc-base.org/#execFromPath)
+
+The document script (The scripts that generates the vsc-base.org documentation),
+has been updated to use more of the standard 'markdown'.
+(It now accepts \*\* for bold text and link with labels: \[label\]\(url\))
+
+### Breaking changes
+
+Interface for **appendToDocument** has changed from:
+
+```
+appendToDocument = async (
+   editor: vscode.TextEditor,
+   document: vscode.TextDocument
+   content: string,
+): Promise<void>
+```
+
+to
+
+```
+appendToDocument = async (
+   content: string,
+   editor?: vscode.TextEditor
+): Promise<boolean>
+```
+
+(editor will use vsc.getActiveEditor and document vsc.getActiveDocument if undefined)
+
+It now returns true on success ot false if there was no open document or textEditor.
+
+**appendToActiveDocument** is has been remove.
+Use **appendToDocument** now (It does the same)
+
+**setActiveDocumentContent** is now: **setDocumentContent**.
+It can now take a textEditor is input, or it will use vsc.getActiveEditor.
+
+```
+  content: string,
+  editor?: vscode.TextEditor,
+```
+
+**appendLineToActiveDocument** is now **appendLineToDocument**
+It can now take a textEditor is input, or it will use vsc.getActiveEditor.
+
+```
+  content: string,
+  editor?: vscode.TextEditor,
+```
+
+**getActiveDocumentContent** is now **getDocumentContent**
+It can now take a textDocument is input, or it will use vsc.getActiveDocument.
+
+**getActiveDocumentPath** is now **getDocumentPath**
+It can now take a textDocument is input, or it will use vsc.getActiveDocument.
+
+**saveActiveDocument** is now **saveDocument**
+It can now take a textDocument is input, or it will use vsc.getActiveDocument.
+
+### Added
+
+New dependency has been added to vsc: **child-process-promise**
+It can be used in vsc-script like this:
+
+```ts
+import * as cp from 'child-process-promise'
+```
+
+**new vscode methods:**
+
+-  [insertAt](http://vsc-base.org/#insertAt)
+   It take the content and start (and optional end) position and replace/insert the content.
+-  [insertAtRange](http://vsc-base.org/#insertAtRange)
+   It take the content and a vscode.range and replace/insert the content.
+-  [prependToDocument](http://vsc-base.orb/#prependToDocument)
+   Same as appendToDocument but the content is inserted at start of document.
+-  [prependLineToDocument](http://vsc-base.orb/#prependLineToDocument)
+   Same as appendLineToDocument but the content is inserted at start of document.
+-  [getActiveTerminal](http://vsc-base.orb/#getActiveTerminal)
+   It active terminal in vscode
+-  [writeToTerminal](http://vsc-base.orb/#writeToTerminal)
+   Write to the active terminal
+-  [newDocument](http://vsc-base.orb/#newDocument)
+   Create a new document
+-  [setSelectionFromRange](http://vsc-base.orb/#setSelectionFromRange)
+   Set a selection
+-  [addSelectionFromRange](http://vsc-base.orb/#addSelectionFromRange)
+   Add a selection
+-  [setSelection](http://vsc-base.orb/#setSelection)
+   Set a selection
+-  [addSelection](http://vsc-base.orb/#addSelection)
+   Add a selection
+-  [createSelection](http://vsc-base.orb/#createSelection)
+   Add a vscode.Selection
+-  [getVscodeRangeAndPosition](http://vsc-base.orb/#getVscodeRangeAndPosition)
+   Get a vscode.Position's ans vscode.Rage from start end end positions (numbers)
+
+**new system method:**
+
+-  [execFromPath](http://vsc-base.orb/#execFromPath)
+   Execute a command in the nodejs context (Not vscode!)
+
+**new ts method**
+
+-  [tsFindNode](http://vsc-base.orb/#tsFindNode)
+-  [tsMatchVariable](http://vsc-base.orb/#tsMatchVariable)
+-  [tsMatchObjectProperty](http://vsc-base.orb/#tsMatchObjectProperty)
+-  [tsMatchFunction](http://vsc-base.orb/#tsMatchFunction)
+-  [tsMatchAnsector](http://vsc-base.orb/#tsMatchAnsector)
+
+### Changes
+
+**getActiveDocument** now takes an optional 'editor'
+If not it uses vsc.getActiveEditor.
+
 ## 0.6.1
 
 Fix findPath bug from realese 0.6.0

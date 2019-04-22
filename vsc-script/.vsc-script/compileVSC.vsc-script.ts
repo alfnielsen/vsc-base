@@ -158,10 +158,12 @@ const writeAnnotationComponent = (
    const meta = writeMetaMap.join('\n');
    //desription
    let descr = metaMap.description;
-   const newLineREg = /\\\n/g
-   descr = descr.replace(/(https?:\/\/[^\s]+)/g, `<a href='$1'>$1</a>`)
+   const newLineReg = /\\\n/g
+   //markdown:
+   descr = descr.replace(/\[([^\n\]]+)\]\((https?:\/\/[^\s]+)\)/g, `<a href='$2'>$1</a>`)
+   descr = descr.replace(/\*\*([^\n\*]+)\*\*/, '<b>$1</b>')
    descr = `<p>
-                  ${descr.replace(newLineREg, '\n               </p>\n               <p>\n               ')}
+                  ${descr.replace(newLineReg, '\n               </p>\n               <p>\n               ')}
                </p>`
    // online ex
    const oneLineEx = metaMap.oneLineEx.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')

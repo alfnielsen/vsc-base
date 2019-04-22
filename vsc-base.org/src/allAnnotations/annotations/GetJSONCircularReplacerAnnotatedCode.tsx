@@ -16,7 +16,7 @@ const GetJSONCircularReplacerAnnotatedCode = ({ open = false }: {open?: boolean}
  Provide a circular safe JSON.stringify replacer. 
                </p>
                <p>
-                See <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples'>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples</a>
+                See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
                </p>
             </>
          }

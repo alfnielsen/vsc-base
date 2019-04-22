@@ -19,7 +19,7 @@ const TsCreateTransformerAnnotatedCode = ({ open = false }: {open?: boolean}) =>
                 Normally used in vsc.tsTransform 
                </p>
                <p>
-                You can use  <a href='https://ts-ast-viewer.com/'>https://ts-ast-viewer.com/</a>  or  <a href='https://astexplorer.net/'>https://astexplorer.net/</a> 
+                You can use  https://ts-ast-viewer.com/  or  https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.

@@ -54,7 +54,7 @@ const MaxDepthReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @returns string
  */
 export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => \{
-   const walkedObj = objectWalker(obj, (state) => \{
+   const walkedObj = vsc.objectWalker(obj, (state) => \{
       if (state.depth >= maxDepth) \{
          state.replace(
             Array.isArray(state.ancestors[0])

@@ -33,7 +33,8 @@ export const getVscDefaultModuleMap = (): \{ key: string, name: string, module: 
       \{ key: 'vsc', name: 'vsc-base', module: vsc },
       \{ key: 'ts', name: 'typescript', module: ts },
       \{ key: 'fs', name: 'fs-extra', module: fs },
-      \{ key: 'vscode', name: 'vscode', module: vscode }
+      \{ key: 'vscode', name: 'vscode', module: vscode },
+      \{ key: 'cp', name: 'child-process-promise', module: cp }
    ]
 }
 `}

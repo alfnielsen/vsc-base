@@ -34,9 +34,7 @@ export const awaitResult = async (result: any): Promise<any> => \{
    if (result instanceof Promise) \{
       return result
    } else \{
-      return new Promise(resolve => \{
-         resolve(result)
-      })
+      return Promise.resolve(result)
    }
 }
 

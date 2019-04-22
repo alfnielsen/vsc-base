@@ -22,7 +22,7 @@ const TsTransformAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 
                </p>
                <p>
-                See also <a href='http://vsc-base.org/#tsCreateTransformer'>http://vsc-base.org/#tsCreateTransformer</a> and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>http://vsc-base.org/#tsCreateRemoveNodesTransformer</a>
+                See also <a href='http://vsc-base.org/#tsCreateTransformer'>tsCreateTransformer</a> and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a>
                </p>
             </>
          }

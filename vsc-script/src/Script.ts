@@ -3,26 +3,29 @@ import * as fs from 'fs-extra'
 import * as ts from 'typescript'
 import * as path from 'path'
 import * as vscode from 'vscode'
-import * as vsc from 'vsc-base'
+import * as cp from 'child-process-promise'
+//import * as vsc from 'vsc-base'
+import * as vsc from './vsc-base-development/vsc-base'
 
+import * as reangeFinder from '../.vsc-script/rangeFinderTest.vsc-script'
 export default class Script {
    /**
     * Meta function that ensures the libs are not optimized away!
     */
    getLibs() {
-      return { fs, ts, path, vscode, vsc }
+      return { fs, ts, path, vscode, vsc, cp }
    }
    /**
     * The main method that runs
     */
    async run(uri?: vscode.Uri) {
+
       if (uri === undefined) {
          vsc.showErrorMessage('ERROR (101): Must be run from context menu!')
          return
       }
 
       const path = vsc.pathAsUnix(uri.fsPath)
-
       // Collect all project scripts:
       const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')
       // Create lowercase map of scripts
@@ -95,6 +98,7 @@ export default class Script {
          }
       } catch (e) {
          const sourceJs = await vsc.tsLoadModuleSourceCode(selectedScript.path)
+
          this.errorLog(`105: Running compiled 'run' method. The error is in the 'run' method.`, selectedScript.path, e, `${sourceJs}`)
       }
    }
@@ -106,13 +110,15 @@ export default class Script {
          errorLogContent = await vsc.getFileContent(errorFilePath)
       }
       const info = vsc.getErrorInfo(e)
+      const stackInfo = await this.getStackInfo(info.stack)
       errorLogContent += `
 // ------------------ Error log from script -------------- //
 // type: ${errorDescription}
 // time: ${vsc.getTimestamp()}
 // selectedScript.path: ${selectedScriptPath}
 // path: ${path}
-// error 
+// error:
+// ${stackInfo}
 var info = ${JSON.stringify(info, null, 3)}
 // ts transpiled js code:
 ${method}
@@ -120,6 +126,21 @@ ${method}
 `
       await vsc.saveFileContent(errorFilePath, errorLogContent)
       vsc.showErrorMessage(`Error (${errorDescription}). Error log in file: '${errorFilePath}'`)
+   }
+
+   async getStackInfo(stack: string) {
+      const fileMatch = stack.match(/\((.*extension.js)\:(\d+)\:(\d+)\)\n/)
+      if (fileMatch === null) {
+         return 'Error handler did not find the extension.js!';
+      }
+      const filePath = fileMatch[1]
+      const line = parseInt(fileMatch[2])
+      const char = parseInt(fileMatch[3])
+      const fileContent = await vsc.getFileContent(filePath)
+      const lines = fileContent.split('\n');
+      const lineContent = lines[line]
+      const errorContent = lineContent.substr(char, 120);
+      return 'Error handler find first error in extension.js: ' + errorContent
    }
 
 }

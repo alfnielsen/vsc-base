@@ -13,7 +13,7 @@ const ScaffoldTemplateAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Recurvice function that goes through a template tree
+ Recurcive function that goes through a template tree
                </p>
             </>
          }

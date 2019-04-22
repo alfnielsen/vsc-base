@@ -54,7 +54,7 @@ const KeyValueReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @returns string
  */
 export const keyValueReplacer = (obj: unknown, key: string, newValue: any): any => \{
-   const walkedObj = objectWalker(obj, (state) => \{
+   const walkedObj = vsc.objectWalker(obj, (state) => \{
       if (state.key === key) \{
          state.replace(newValue)
       }

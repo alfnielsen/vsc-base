@@ -21,7 +21,7 @@ const GetLineStreamReaderAnnotatedCode = ({ open = false }: {open?: boolean}) =>
          codeOneLineEx={`const lineReader = vsc.getLineStreamReader(readStream)`}
          codeEx={` const readStream = vsc.getReadStream(path)
  const lineReader = vsc.getLineStreamReader(readStream)
- for await (line of lineReader) \{
+ for await (const line of lineReader) \{
     //do something with the line
  }`}
          code={`/**

@@ -3,7 +3,7 @@ import * as vsc from './vsc-base-raw'
 /** vsc-base method
  * @description 
  * Transform an absolute path from root, to a sub-relative path.
- * @see http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath
+ * @see [getSubrelativePathFromAbsoluteRootPath](http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath)
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
@@ -43,7 +43,7 @@ export const getSubrelativePathFromAbsoluteRootPath = (
 /** vsc-base method
  * @description 
  * Add './' to start of path
- * @see http://vsc-base.org/#addLeadingLocalDash
+ * @see [addLeadingLocalDash](http://vsc-base.org/#addLeadingLocalDash)
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.addLeadingLocalDash(path)
@@ -68,7 +68,7 @@ export const addLeadingLocalDash = (path: string): string => {
  * Format a string from camel-case to kebab-case \
  * Commonly used to define css class names. \
  * Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
- * @see http://vsc-base.org/#toKebabCase
+ * @see [toKebabCase](http://vsc-base.org/#toKebabCase)
  * @param str
  * @vscType Raw
  * @testPrinterArgument 
@@ -92,7 +92,7 @@ export const toKebabCase = (str: string): string =>
  * @description 
  * Format a string from camel-case to snake-case \
  * Ex: 'SomeName' => 'some_name', 'Some_Other.name' => 'some_other_name'
- * @see http://vsc-base.org/#toSnakeCase
+ * @see [toSnakeCase](http://vsc-base.org/#toSnakeCase)
  * @param str
  * @param uppercase
  * @vscType Raw
@@ -126,7 +126,7 @@ export const toSnakeCase = (str: string, upperCase = false): string => {
  * Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case.
- * @see http://vsc-base.org/#toCamelCase
+ * @see [toCamelCase](http://vsc-base.org/#toCamelCase)
  * @param str
  * @vscType Raw
  * @testPrinterArgument 
@@ -150,7 +150,7 @@ export const toCamelCase = (str: string): string =>
  * Format a string to camal-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
  * All non word seperators will be removed and the word charector after will be transforms to upper case
- * @see http://vsc-base.org/#toPascalCase
+ * @see [toPascalCase](http://vsc-base.org/#toPascalCase)
  * @param str
  * @vscType Raw
  * @testPrinterArgument 
@@ -173,7 +173,7 @@ export const toPascalCase = (str: string): string =>
  * @description 
  * Get clean path. \
  * Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
- * @see http://vsc-base.org/#cleanPath
+ * @see [cleanPath](http://vsc-base.org/#cleanPath)
  * @param path
  * @vscType Raw
  * @testPrinterArgument 
@@ -199,7 +199,7 @@ export const cleanPath = (path: string): string => {
 /** vsc-base method
  * @description 
  * Get part of a json object.
- * @see http://vsc-base.org/#getJsonParts
+ * @see [getJsonParts](http://vsc-base.org/#getJsonParts)
  * @param json
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
  * @vscType Raw
@@ -241,7 +241,7 @@ export const getJsonParts = <TStructure = any>(
  * @description 
  * Does path start with charactor [a-zA-Z@] \
  * (not '/' or './' or '../')
- * @see http://vsc-base.org/#isAbsolutePath
+ * @see [isAbsolutePath](http://vsc-base.org/#isAbsolutePath)
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @vscType Raw
@@ -266,7 +266,7 @@ export const isAbsolutePath = (
 /** vsc-base method
  * @description 
  * Does subpath start with parentPath
- * @see http://vsc-base.org/#isSubPath
+ * @see [isSubPath](http://vsc-base.org/#isSubPath)
  * @param path
  * @param parentPath
  * @dependencyInternal trimDashes
@@ -292,7 +292,7 @@ export const isSubPath = (subPath: string, parentPath: string): boolean => {
 /** vsc-base method
  * @description 
  * Joins to paths.
- * @see http://vsc-base.org/#joinPaths
+ * @see [joinPaths](http://vsc-base.org/#joinPaths)
  * @param path1
  * @param path2
  * @dependencyInternal trimDashes
@@ -320,7 +320,7 @@ export const joinPaths = (path1: string, path2: string): string => {
  * @description 
  * Reaplve all '\\'  with '/' \
  * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
- * @see http://vsc-base.org/#pathAsUnix
+ * @see [pathAsUnix](http://vsc-base.org/#pathAsUnix)
  * @param path
  * @vscType Raw
  * @oneLineEx const safePath = vsc.pathAsUnix(path)
@@ -341,7 +341,7 @@ export const pathAsUnix = (path: string): string => {
 /** vsc-base method
  * @description 
  * Generate relative path between two paths.
- * @see http://vsc-base.org/#getRelativePath
+ * @see [getRelativePath](http://vsc-base.org/#getRelativePath)
  * @param fromPath
  * @param toPath
  * @vscType Raw
@@ -376,7 +376,7 @@ export const getRelativePath = (fromPath: string, toPath: string): string => {
 /** vsc-base method
  * @description 
  * Transform a relative path to an abspolute path.
- * @see http://vsc-base.org/#getAbsolutePathFromRelatrivePath
+ * @see [getAbsolutePathFromRelatrivePath](http://vsc-base.org/#getAbsolutePathFromRelatrivePath)
  * @param path File from where the relative path begins
  * @param pathRelatriveToPath The relative path
  * @param rootPath The root path
@@ -417,7 +417,7 @@ export const getAbsolutePathFromRelatrivePath = (
  * @description 
  * Return the path that are shared. \
  * (Return '' if no path are shared).
- * @see http://vsc-base.org/#sharedPath
+ * @see [sharedPath](http://vsc-base.org/#sharedPath)
  * @param path1
  * @param path2
  * @vscType Raw
@@ -451,7 +451,7 @@ export const sharedPath = (path1: string, path2: string): string => {
  * @description 
  * await wrap for setTimeout. \
  * Mostly used for debug asyc.
- * @see http://vsc-base.org/#sleep
+ * @see [sleep](http://vsc-base.org/#sleep)
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
  * @vscType Raw
@@ -476,7 +476,7 @@ export const sleep = async (ms: number): Promise<void> => {
 /** vsc-base method
  * @description 
  * Split filePath into dir and file
- * @see http://vsc-base.org/#splitPath
+ * @see [splitPath](http://vsc-base.org/#splitPath)
  * @param path
  * @dependencyInternal pathAsUnix
  * @vscType Raw
@@ -502,7 +502,7 @@ export const splitPath = (path: string): [string, string] => {
 /** vsc-base method
  * @description 
  * Remove parent-path from a path
- * @see http://vsc-base.org/#subtractPath
+ * @see [subtractPath](http://vsc-base.org/#subtractPath)
  * @param path
  * @param parentPath
  * @param trimDashes default true
@@ -537,7 +537,7 @@ export const subtractPath = (
 /** vsc-base method
  * @description 
  * Remove '/' from start and end of path
- * @see http://vsc-base.org/#trimDashes
+ * @see [trimDashes](http://vsc-base.org/#trimDashes)
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.trimDashes(foundPath)
@@ -558,7 +558,7 @@ export const trimDashes = (path: string): string => {
 /** vsc-base method
  * @description 
  * Remove '/' from start of path
- * @see http://vsc-base.org/#trimLeadingDash
+ * @see [trimLeadingDash](http://vsc-base.org/#trimLeadingDash)
  * @param path
  * @vscType Raw
  * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
@@ -579,7 +579,7 @@ export const trimLeadingDash = (path: string): string => {
  * @description 
  * Test if it an error. \
  * Return type (if one of es6 basic error type) return stack
- * @see http://vsc-base.org/#getErrorInfo
+ * @see [getErrorInfo](http://vsc-base.org/#getErrorInfo)
  * @param e error
  * @vscType Raw
  * @oneLineEx const info = vsc.getErrorInfo(e)
@@ -623,7 +623,7 @@ export const getErrorInfo = (e: any): {
 /** vsc-base method
  * @description 
  * return ISO timestamp
- * @see http://vsc-base.org/#getTimestamp
+ * @see [getTimestamp](http://vsc-base.org/#getTimestamp)
  * @vscType Raw
  * @oneLineEx const timestamp = vsc.getTimestamp()
  * @testPrinterArgument
@@ -644,7 +644,7 @@ export const getTimestamp = (): string => {
  * @description 
  * Provide a circular safe JSON.stringify replacer. \
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
- * @see http://vsc-base.org/#getJSONCircularReplacer
+ * @see [getJSONCircularReplacer](http://vsc-base.org/#getJSONCircularReplacer)
  * @vscType Raw
  * @debugTool Primary a debugging method.
  * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
@@ -667,7 +667,7 @@ export const getJSONCircularReplacer = (): (_key: string, value: unknown) => unk
  * @description 
  * Stringify an object. \
  * Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
- * @see http://vsc-base.org/#toJSONString
+ * @see [toJSONString](http://vsc-base.org/#toJSONString)
  * @param obj 
  * @param replacer 
  * @param space 
@@ -689,7 +689,7 @@ export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(),
  * @description 
  * Clone an JSON Object (any type) with max depth. \
  * This method goes through the object structure and replace children that goes deeper then the max Depth
- * @see http://vsc-base.org/#maxDepthReplacer
+ * @see [maxDepthReplacer](http://vsc-base.org/#maxDepthReplacer)
  * @param obj 
  * @param maxDepth 
  * @param currentLevel 
@@ -715,7 +715,7 @@ export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(),
  * @returns string
  */
 export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => {
-   const walkedObj = objectWalker(obj, (state) => {
+   const walkedObj = vsc.objectWalker(obj, (state) => {
       if (state.depth >= maxDepth) {
          state.replace(
             Array.isArray(state.ancestors[0])
@@ -731,7 +731,7 @@ export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => {
  * @description 
  * Clone an JSON Object (any type) and reaplce all properties with the given name with a new value. \
  * This method goes through the object structure and replace children that has the given name/key
- * @see http://vsc-base.org/#keyValueReplacer
+ * @see [keyValueReplacer](http://vsc-base.org/#keyValueReplacer)
  * @param obj 
  * @param maxDepth 
  * @param currentLevel 
@@ -757,7 +757,7 @@ export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => {
  * @returns string
  */
 export const keyValueReplacer = (obj: unknown, key: string, newValue: any): any => {
-   const walkedObj = objectWalker(obj, (state) => {
+   const walkedObj = vsc.objectWalker(obj, (state) => {
       if (state.key === key) {
          state.replace(newValue)
       }
@@ -771,9 +771,9 @@ export const keyValueReplacer = (obj: unknown, key: string, newValue: any): any 
  * Clone an JSON Object (any type) going trought is entire tree structure. \
  * This method goes through the object structure, and call the given callback on esh child (and granchild). \
  * The call back can replace each child or stop the iteration. \
- * See http://vsc-base.org/#maxDepthReplacer and http://vsc-base.org/#keyValueReplacer \
+ * See [maxDepthReplacer](http://vsc-base.org/#maxDepthReplacer) and [keyValueReplacer](http://vsc-base.org/#keyValueReplacer) \
  * they both use the objectWalker.
- * @see http://vsc-base.org/#objectWalker
+ * @see [objectWalker](http://vsc-base.org/#objectWalker)
  * @param obj 
  * @param maxDepth 
  * @param currentLevel 
@@ -870,7 +870,7 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => {
 
 interface ObjectWalkerCallbackState {
    /**
-    * The currectn chil. (Any type)
+    * The current child. (Any type)
     */
    obj: any,
    /**
@@ -878,7 +878,7 @@ interface ObjectWalkerCallbackState {
     */
    key: string | number,
    /**
-    * The depth is how many step down an ansestor tree the iteration curently is in.
+    * The depth is how many step down an ancestor tree the iteration currently is in.
     */
    depth: number,
    /**

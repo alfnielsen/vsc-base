@@ -6,6 +6,8 @@ Run your own scripts with vsc-base (includes methods for vscode, fs.extra, ts).
 
 See .vsc-script folder in source for examples.
 
+Full documentation for vsc-base can be found on http://vsc-base.org
+
 ## Install
 
 The extensions can be [installed from vscode marketplace](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script).
@@ -41,7 +43,7 @@ A script file is written in typescript.
 
 **Ex:** replace.vsc-script.ts
 
-```typescript
+```ts
 // documentation on http://vsc-base.org
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
@@ -57,7 +59,7 @@ export async function run(path: string) {
 
 You can use these modules in your script: vsc-base, fs-extra, vscode and typescript:
 
-```typescript
+```ts
 // documentation on http://vsc-base.org
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
@@ -74,8 +76,6 @@ export async function run(path: string) {}
 The script must export one async function named 'run' that takes an Uri (vscode.Uri).
 
 The uri is the path to the file/folder right-clicked in vscode when the user runs the script.
-
-Full documentation for vsc-base can be found on http://vsc-base.org
 
 ## vsc-base
 

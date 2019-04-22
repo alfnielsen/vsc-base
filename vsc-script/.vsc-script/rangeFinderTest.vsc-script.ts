@@ -8,7 +8,7 @@ let log = '';
 
 
 export async function run(path: string) {
-	vsc.showMessage("Start finding node... 666 ")
+	vsc.showMessage("Start finding node... ")
 	const source = vsc.getDocumentContent()
 	if (!source) {
 		vsc.showMessage("No opnen document!")

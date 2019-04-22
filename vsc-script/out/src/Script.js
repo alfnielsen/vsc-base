@@ -14,7 +14,6 @@ const path = require("path");
 const vscode = require("vscode");
 const cp = require("child-process-promise");
 const vsc = require("vsc-base");
-//import * as vsc from './vsc-base-development/vsc-base'
 class Script {
     /**
      * Meta function that ensures the libs are not optimized away!

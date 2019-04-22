@@ -140,19 +140,19 @@ export async function run(path: string) {
             'system' is methods that uses fs (fs-extra) or relates to file system.<br></br>
          </p>
          <p>
-            Ex: <a href='/#getFileContent'>getFileContent</a>, <a href='/#saveFileContent'>saveFileContent</a>, <a href='/#isDir'>isDir</a>, <a href='/#move'>move</a> and <a href='/#copy'>copy</a>
+            Ex: <a href='/#getFileContent'>getFileContent</a>, <a href='/#saveFileContent'>saveFileContent</a>, <a href='/#isDir'>isDir</a>, <a href='/#move'>move</a>, <a href='/#copy'>copy</a> and <a href='/#execFromPath'>execFromPath</a> 
          </p>
          <p>
             'vscode' is methods that uses vscode or relates to doing things in vscode.<br/>
          </p>
          <p>
-            Ex: <a href='/#showMessage'>showMessage</a>, <a href='/#ask'>ask</a>, <a href='/#pick'>pick</a>, <a href='/#findFilePaths'>findFilePaths</a>, <a href='/#getActiveDocumentContent'>getActiveDocumentContent</a> and <a href='/#appendLineToActiveDocument'>appendLineToActiveDocument</a>
+            Ex: <a href='/#showMessage'>showMessage</a>, <a href='/#ask'>ask</a>, <a href='/#pick'>pick</a>, <a href='/#findFilePaths'>findFilePaths</a>, <a href='/#getDocumentContent'>getDocumentContent</a>, <a href='/#appendLineToDocument'>appendLineToDocument</a>, <a href='/#setSelection'>setSelection</a>, <a href='/#insertAt'>insertAt</a> and <a href='/#writeToTerminal'>writeToTerminal</a>
          </p>
          <p>
             'ts' is methods that uses ts (typescript) or relates to doing things in with the typescript api.<br/>
          </p>
          <p>
-            Ex: <a href='/#tsLoadModule'>tsLoadModule</a>, <a href='/#tsTranspile'>tsTranspile</a>, <a href='/#tsTransform'>tsTransform</a>, <a href='/#tsCreateTransformer'>tsCreateTransformer</a>, and <a href='/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a>
+            Ex: <a href='/#tsLoadModule'>tsLoadModule</a>, <a href='/#tsTranspile'>tsTranspile</a>, <a href='/#tsTransform'>tsTransform</a>, <a href='/#tsCreateTransformer'>tsCreateTransformer</a>, <a href='/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a>, <a href='/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a>, tsFindNode tsMatchVariable tsMatchAnsector and 
          </p>
       </div>
       <div className={styles.annotatedCode}>

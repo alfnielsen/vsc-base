@@ -8,24 +8,28 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 This update has a lot of small changes.
 
-It primary done to make the tsTranspiling work natually with vscode.
+It is primary done, to make the tsTranspiling work naturally with vscode.
 
-There is now the new [tsFindNode](http://vsc-base.org/#tsFindNode).
+There is now the new [tsFindNodePosition](http://vsc-base.org/#tsFindNodePosition).
 This is internally an transformer with a visitor callback like the tsCreatorTranformer,
 but it accepts only a returned boolean.
 
-When the callback returns true it returns the node and a vscode range for where the node is in the document.
+When the callback returns true, it returns the node, and a vscode range, for where the node is in the document.
 
-This can then be use with the new [insertAtRange](http://vsc-base.org/#insertAtRange),
-to replace elements in a opne document.
+This can then be use with the new [insertAtRange](http://vsc-base.org/#insertAtRange), to replace elements in a opne document, or simply to select the found not the the new [setSelectionFromRange](http://vsc-base.org/#setSelection)
 
-All the 'active' methods from vscode has remove the active part,
-and takes documenet and editors instead, but they all use the default
+The new [tsVisitWithTransformers](http://vsc-base.org/#tsVisitWithTransformers) is the same as [tsTransform](http://vsc-base.org/#tsTransform),
+but its used for visitor patterns (Where there is no actual transforming)
+
+All the methods for document with the name 'active' from vscode has remove the 'active' part,
+and takes document and editors instead, but they all use the default
 active TextDocument and active TextEditor.
 
 There is also some new methods for executing bash command,
 see [writeToTerminal](http://vsc-base.org/#writeToTerminal)
 and [execFromPath](http://vsc-base.org/#execFromPath)
+
+**Internal changes**
 
 The document script (The scripts that generates the vsc-base.org documentation),
 has been updated to use more of the standard 'markdown'.
@@ -129,11 +133,13 @@ import * as cp from 'child-process-promise'
 
 **new ts method**
 
--  [tsFindNode](http://vsc-base.orb/#tsFindNode)
+-  [tsFindNodePosition](http://vsc-base.orb/#tsFindNodePosition)
 -  [tsMatchVariable](http://vsc-base.orb/#tsMatchVariable)
 -  [tsMatchObjectProperty](http://vsc-base.orb/#tsMatchObjectProperty)
 -  [tsMatchFunction](http://vsc-base.orb/#tsMatchFunction)
 -  [tsMatchAnsector](http://vsc-base.orb/#tsMatchAnsector)
+-  [tsFindChildNode](http://vsc-base.orb/#tsFindChildNode)
+-  [tsFindGrandChildNode](http://vsc-base.orb/#tsFindGrandChildNode)
 
 ### Changes
 

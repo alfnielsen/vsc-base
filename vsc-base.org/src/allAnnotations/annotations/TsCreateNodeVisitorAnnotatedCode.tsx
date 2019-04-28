@@ -16,17 +16,10 @@ const TsCreateNodeVisitorAnnotatedCode = ({ open = false }: {open?: boolean}) =>
  Create a Ts Visitor Transformer for collecting data (Will not remove or reaplce any nodes) 
                </p>
                <p>
-                Normally used in vsc.tsTransform
- You can use: 
+                Normally used in vsc.tsTransform 
                </p>
                <p>
-                https://ts-ast-viewer.com/ 
-               </p>
-               <p>
-                or 
-               </p>
-               <p>
-                https://astexplorer.net/ 
+                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.
@@ -92,7 +85,7 @@ vsc.tsTransform(vscMethod, [collectDefs]);
  * @vscType ts
  * @returns ts.TransformerFactory<T>
  */
-export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback: vsc.TsNodeVisitorCallback, program?: ts.Program): ts.TransformerFactory<T> => \{
+export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => void, program?: ts.Program): ts.TransformerFactory<T> => \{
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -105,7 +98,6 @@ export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback:
       return (node) => ts.visitNode(node, visit);
    };
 }
-export type TsNodeVisitorCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => void;
 
 `}
       />

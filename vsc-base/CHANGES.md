@@ -2,6 +2,46 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.0
+
+###Breaking changes
+
+tsFindNodePosition is now tsFindNodePositionFromContent
+
+Remove TsNodeVisitorCallback type to make vscode autocomplete more readable.
+(When it was a ts type, the autocomplete did not show the callback interface, just the type name)
+
+Remove TsFindNodePositionCallback type.
+Remove TsTransformerCallback type.
+Remove TsMatchVariable type.
+Remove TsMatchFunction type.
+Remove TsMatchObjectProperty type.
+
+node params now accept undefined to make it easy to use. (avoid undefined check)
+(If it undefined it simply return false)
+
+Optional 'matchName' for all the above match function now accepts a string.
+(On string it matches the entire name)
+
+### Added
+
+new method ts methods:
+
+-  [tsMatchEnum](http://vsc-base.org/#tsMatchEnum)
+-  [tsMatchEnumMember](http://vsc-base.org/#tsMatchEnumMember)
+-  [tsMatchValue](http://vsc-base.org/#tsMatchValue)
+
+-  [tsFindChild](http://vsc-base.org/#tsFindChild)
+-  [tsHasChild](http://vsc-base.org/#tsHasChild)
+-  [tsFindGrandChild](http://vsc-base.org/#tsFindGrandChild)
+-  [tsHasGrandChild](http://vsc-base.org/#tsHasGrandChild)
+-  [tsHasGrandChilds](http://vsc-base.org/#tsHasGrandChilds)
+-  [tsFindParent](http://vsc-base.org/#tsFindParent)
+-  [tsFindAncestor](http://vsc-base.org/#tsFindAncestor)
+-  [tsHasAncestor](http://vsc-base.org/#tsHasAncestor)
+
+Add optional matches for all 'Match' method has new optional match options.
+
 ## 0.7.0
 
 ### General
@@ -179,8 +219,8 @@ Add maxDepth option to toString
 
 Add Raw methods:
 
--  getJSONCircularReplacer
--  toString
+-  [getJSONCircularReplacer](http://vsc-base.org/#getJSONCircularReplacer)
+-  [toString](http://vsc-base.org/#toString)
 
 ## 0.4.1
 
@@ -229,9 +269,12 @@ with vsc-base, vsc-base.org and vsc-script on one mono-respo.
 Lots of new methods.
 Important one:
 
--  pick (Let the user pick deom a list)
--  appendLineToActiveDocument ect (New methods for editing the open document)
--  relative Find path methods.
+-  [pick](http://vsc-base.org/#pick)
+   (Let the user pick deom a list)
+-  [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+   ect (New methods for editing the open document)
+-  [relative](http://vsc-base.org/#relative)
+   Find path methods.
 
 (Documentation will be added to vsc-base.org, but this will be later..)
 Version update will come when it happens.

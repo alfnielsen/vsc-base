@@ -13,21 +13,17 @@ const TsTransformAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Tranform source code using custom transformers 
+ Transform source code using custom transformers 
                </p>
                <p>
-                See tsCreateTransformer and tsCreateRemoveNodesTransformer for creating transformer 
-               </p>
-               <p>
-                
-               </p>
-               <p>
-                See also <a href='http://vsc-base.org/#tsCreateTransformer'>tsCreateTransformer</a> and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a>
+                See <a href='http://vsc-base.org/#tsCreateTransformer'>tsCreateTransformer</a> 
+ and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a> 
+ for creating transformer
                </p>
             </>
          }
          
-         codeOneLineEx={`const updatedCode = vsc.tsTransform(code, [tranformer1, tranformer2])`}
+         codeOneLineEx={`const updatedCode = vsc.tsTransform(code, [transformer1, transformer2])`}
          codeEx={``}
          code={`/**
  * @param source, transformers, compilerOptions, printer

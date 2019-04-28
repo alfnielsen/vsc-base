@@ -13,7 +13,7 @@ const TsTransformNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Tranform a ts.Node 
+ Transform a ts.Node 
                </p>
                <p>
                 (default node-type is ts.Sourcefile)

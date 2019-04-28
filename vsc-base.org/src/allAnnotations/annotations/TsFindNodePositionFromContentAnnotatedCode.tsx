@@ -3,22 +3,22 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsFindNodePositionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+const TsFindNodePositionFromContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
-         id={'tsFindNodePosition'}
-         title={'tsFindNodePosition'}
+         id={'tsFindNodePositionFromContent'}
+         title={'tsFindNodePositionFromContent'}
          open={open}
          annotation={
             <>
                <p>
                   
- Create a Ts Visitor Transformer for finding a node and it position. \
+ Create a Ts Visitor Transformer for finding a node and it position.
                </p>
             </>
          }
          
-         codeOneLineEx={`const [node, position] = vsc.tsFindNodePosition(source, findNodePositionCallback)`}
+         codeOneLineEx={`const [node, position] = vsc.tsFindNodePositionFromContent(source, findNodePositionCallback)`}
          codeEx={`
  const source = \`
    const method2 = () => \{
@@ -33,25 +33,17 @@ const TsFindNodePositionAnnotatedCode = ({ open = false }: {open?: boolean}) => 
    }
 \`
 // Find a constant with name starting with 'module' witin a function but not in an if statement
-const [_node, position] = vsc.tsFindNodePosition(source, node => \{
-   // test name of variable
-   const nameIsCorrect = vsc.tsMatchVariable(node, \{ matchName: /^module/ })
-   if (!nameIsCorrect) \{
-      return false
-   }
-   // test if is in function
-   const funcAncestor = vsc.tsFindAncestor(node, (ancestor) => vsc.tsMatchFunction(ancestor, \{ matchName: /^method/ }))
-   if (!funcAncestor) \{
-      return false
-   }
-   // test if is in if statement
-   const ifAncestor = vsc.tsFindAncestor(node, (ancestor) => ts.isIfStatement(ancestor))
-   if (!ifAncestor) \{
-      return false
-   }
-   // fund the correct node
-   return true
-})
+const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
+   vsc.tsMatchVariable(node, \{ 
+      // test name of variable
+      matchName: /^module/,
+      // test if is in function
+      hasAncestors: [
+         ancestor => vsc.tsMatchFunction(ancestor, \{ matchName: /^method/ }),
+         ancestor => ts.isIfStatement(ancestor)
+      ]
+   })
+)
 if (position) \{
    const realText = source.substring(position.start, position.end);
    // Select the source (asuming the source is from the open document)
@@ -61,7 +53,7 @@ if (position) \{
  * @vscType ts
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export const tsFindNodePosition = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program): [ts.Node | undefined, vsc.VscodePosition | undefined] => \{
+export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program): [ts.Node | undefined, vsc.VscodePosition | undefined] => \{
    let position: vsc.VscodePosition | undefined
    let foundNode: ts.Node | undefined
    let typeChecker: ts.TypeChecker | undefined
@@ -92,5 +84,5 @@ export const tsFindNodePosition = (source: string, callback: (node: ts.Node, typ
    )
 }
 
-export default TsFindNodePositionAnnotatedCode
+export default TsFindNodePositionFromContentAnnotatedCode
 

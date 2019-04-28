@@ -81,14 +81,23 @@ import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnn
 import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
 import TsDefaultCompilerOptionsAnnotatedCode from './annotations/TsDefaultCompilerOptionsAnnotatedCode'
 import TsFindAncestorAnnotatedCode from './annotations/TsFindAncestorAnnotatedCode'
-import TsFindChildNodeAnnotatedCode from './annotations/TsFindChildNodeAnnotatedCode'
-import TsFindGrandChildNodeAnnotatedCode from './annotations/TsFindGrandChildNodeAnnotatedCode'
-import TsFindNodePositionAnnotatedCode from './annotations/TsFindNodePositionAnnotatedCode'
+import TsFindChildAnnotatedCode from './annotations/TsFindChildAnnotatedCode'
+import TsFindGrandChildAnnotatedCode from './annotations/TsFindGrandChildAnnotatedCode'
+import TsFindNodePositionFromContentAnnotatedCode from './annotations/TsFindNodePositionFromContentAnnotatedCode'
 import TsGetParsedChildrenAnnotatedCode from './annotations/TsGetParsedChildrenAnnotatedCode'
+import TsHasAncestorAnnotatedCode from './annotations/TsHasAncestorAnnotatedCode'
+import TsHasAncestorsAnnotatedCode from './annotations/TsHasAncestorsAnnotatedCode'
+import TsHasChildAnnotatedCode from './annotations/TsHasChildAnnotatedCode'
+import TsHasChildrenAnnotatedCode from './annotations/TsHasChildrenAnnotatedCode'
+import TsHasGrandChildAnnotatedCode from './annotations/TsHasGrandChildAnnotatedCode'
+import TsHasGrandChildrenAnnotatedCode from './annotations/TsHasGrandChildrenAnnotatedCode'
 import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
+import TsMatchEnumAnnotatedCode from './annotations/TsMatchEnumAnnotatedCode'
+import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnotatedCode'
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
 import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
+import TsMatchValueAnnotatedCode from './annotations/TsMatchValueAnnotatedCode'
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
 import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
@@ -184,14 +193,23 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsCreateTransformerAnnotatedCode open={activeMethod === 'tsCreateTransformer'} />
       <TsDefaultCompilerOptionsAnnotatedCode open={activeMethod === 'TsDefaultCompilerOptions'} />
       <TsFindAncestorAnnotatedCode open={activeMethod === 'tsFindAncestor'} />
-      <TsFindChildNodeAnnotatedCode open={activeMethod === 'tsFindChildNode'} />
-      <TsFindGrandChildNodeAnnotatedCode open={activeMethod === 'tsFindGrandChildNode'} />
-      <TsFindNodePositionAnnotatedCode open={activeMethod === 'tsFindNodePosition'} />
+      <TsFindChildAnnotatedCode open={activeMethod === 'tsFindChild'} />
+      <TsFindGrandChildAnnotatedCode open={activeMethod === 'tsFindGrandChild'} />
+      <TsFindNodePositionFromContentAnnotatedCode open={activeMethod === 'tsFindNodePositionFromContent'} />
       <TsGetParsedChildrenAnnotatedCode open={activeMethod === 'tsGetParsedChildren'} />
+      <TsHasAncestorAnnotatedCode open={activeMethod === 'tsHasAncestor'} />
+      <TsHasAncestorsAnnotatedCode open={activeMethod === 'tsHasAncestors'} />
+      <TsHasChildAnnotatedCode open={activeMethod === 'tsHasChild'} />
+      <TsHasChildrenAnnotatedCode open={activeMethod === 'tsHasChildren'} />
+      <TsHasGrandChildAnnotatedCode open={activeMethod === 'tsHasGrandChild'} />
+      <TsHasGrandChildrenAnnotatedCode open={activeMethod === 'tsHasGrandChildren'} />
       <TsLoadModuleAnnotatedCode open={activeMethod === 'tsLoadModule'} />
       <TsLoadModuleSourceCodeAnnotatedCode open={activeMethod === 'tsLoadModuleSourceCode'} />
+      <TsMatchEnumAnnotatedCode open={activeMethod === 'tsMatchEnum'} />
+      <TsMatchEnumMemberAnnotatedCode open={activeMethod === 'tsMatchEnumMember'} />
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
       <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
+      <TsMatchValueAnnotatedCode open={activeMethod === 'tsMatchValue'} />
       <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
       <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode open={activeMethod === 'tsRewriteTranpiledCodeWithVscBaseModules'} />
       <TsTransformAnnotatedCode open={activeMethod === 'tsTransform'} />

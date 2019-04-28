@@ -19,7 +19,7 @@ const TsCreateTransformerAnnotatedCode = ({ open = false }: {open?: boolean}) =>
                 Normally used in vsc.tsTransform 
                </p>
                <p>
-                You can use  https://ts-ast-viewer.com/  or  https://astexplorer.net/ 
+                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.
@@ -28,7 +28,7 @@ const TsCreateTransformerAnnotatedCode = ({ open = false }: {open?: boolean}) =>
          }
          
          codeOneLineEx={`const transformer = vsc.tsCreateTransformer(transformerCallback)`}
-         codeEx={`// tranforms arrowFunction with one return statement to lambda function
+         codeEx={`// transforms arrowFunction with one return statement to lambda function
 const transformer = vsc.tsCreateTransformer((node) => \{
    if (!ts.isArrowFunction(node)) \{ // is not an arrow funcion
       return
@@ -58,7 +58,7 @@ const updatedCode = vsc.tsTransform(code, [transformer]);`}
  * @experimental This method can easily change, because ts api is in experimental state.
  * @returns ts.TransformerFactory<T>
  */
-export const tsCreateTransformer = <T extends ts.Node = ts.SourceFile>(callback: vsc.TsTransformerCallback, program?: ts.Program): ts.TransformerFactory<T> => \{
+export const tsCreateTransformer = <T extends ts.Node = ts.SourceFile>(callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => ts.Node | undefined, program?: ts.Program): ts.TransformerFactory<T> => \{
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -74,7 +74,6 @@ export const tsCreateTransformer = <T extends ts.Node = ts.SourceFile>(callback:
       return (node) => ts.visitNode(node, visit);
    };
 }
-export type TsTransformerCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => ts.Node | undefined;
 
 `}
       />

@@ -16,17 +16,10 @@ const TsCreateRemoveNodesTransformerAnnotatedCode = ({ open = false }: {open?: b
  Create a Ts Transformer for removing nodes 
                </p>
                <p>
-                Normally used in vsc.tsTransform
- You can use: 
+                Normally used in vsc.tsTransform 
                </p>
                <p>
-                https://ts-ast-viewer.com/ 
-               </p>
-               <p>
-                or 
-               </p>
-               <p>
-                https://astexplorer.net/ 
+                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
                 to generate the new ts nodes or node type.
@@ -49,7 +42,7 @@ const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformner]);`}
  * @vscType ts
  * @returns ts.TransformerFactory<T>
  */
-export const tsCreateRemoveNodesTransformer = <T extends ts.Node = ts.SourceFile>(callback: vsc.TsRemoveTransformerCallback, program?: ts.Program): ts.TransformerFactory<T> => \{
+export const tsCreateRemoveNodesTransformer = <T extends ts.Node = ts.SourceFile>(callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program): ts.TransformerFactory<T> => \{
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -65,8 +58,6 @@ export const tsCreateRemoveNodesTransformer = <T extends ts.Node = ts.SourceFile
       return (node) => ts.visitNode(node, visit);
    };
 }
-export type TsRemoveTransformerCallback = (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean;
-
 `}
       />
    )

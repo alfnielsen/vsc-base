@@ -58,6 +58,6 @@
       "child-process-promise": "^2.2.1",
       "fs-extra": "^7.0.1",
       "typescript": "^3.4.4",
-      "vsc-base": "^0.7.0"
+      "vsc-base": "^0.8.1"
    }
 }

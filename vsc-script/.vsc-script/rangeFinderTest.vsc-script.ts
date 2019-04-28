@@ -1,5 +1,5 @@
-//import * as vsc from 'vsc-base'
-import * as vsc from '../src/vsc-base-development/vsc-base'
+import * as vsc from 'vsc-base'
+//import * as vsc from '../src/vsc-base-development/vsc-base'
 
 import * as ts from 'typescript'
 import * as vscode from 'vscode'
@@ -15,11 +15,11 @@ export async function run(path: string) {
 		return
 	}
 	// let varFound = false
-	const [_node, position] = vsc.tsFindNodePositionFromContent(source, node => {
+	const [, position] = vsc.tsFindNodePositionFromContent(source, node => {
 		//return vsc.tsMatchExpression(node, '/module/area/file1')
 		return vsc.tsMatchValue(node, 45, {
 			hasAncestors: [
-				parent => vsc.tsMatchVariable(parent, { name: /^module/ }),
+				parent => ts.isIfStatement(parent),
 				parent => vsc.tsMatchVariable(parent, { name: /^module/ })
 			]
 		})
@@ -60,8 +60,8 @@ export const method2 = () => {
 export function method1(doit: boolean) {
 	if (doit) {
 		const moduleNumber1Path = '/module/area/file1' // <-- Find this
-		const moduleNumber2Path = 45 // <-- Find this
 		const moduleNumber3Path = true // <-- Find this
+		const moduleNumber2Path = 45 // <-- Find this
 		const moduleNumber4Path = [1, 2] // <-- Find this
 		const moduleNumber5Path = () => { } // <-- Find this
 		return moduleNumber1Path

@@ -4,10 +4,9 @@ import * as ts from 'typescript'
 import * as path from 'path'
 import * as vscode from 'vscode'
 import * as cp from 'child-process-promise'
-//import * as vsc from 'vsc-base'
-import * as vsc from './vsc-base-development/vsc-base'
+import * as vsc from 'vsc-base'
+//import * as vsc from './vsc-base-development/vsc-base'
 
-import { run } from './../.vsc-script/rangeFinderTest.vsc-script'
 
 export default class Script {
    /**
@@ -27,12 +26,6 @@ export default class Script {
       }
 
       const path = vsc.pathAsUnix(uri.fsPath)
-
-
-      //DEBUG
-      run(path);
-      return
-      //DEBUG
 
       // Collect all project scripts:
       const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')

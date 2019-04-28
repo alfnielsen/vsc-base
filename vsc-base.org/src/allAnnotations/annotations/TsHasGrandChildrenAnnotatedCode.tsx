@@ -32,7 +32,7 @@ const found = vsc.tsHasGrandChildren(node, [
  * @vscType ts
  * @returns boolean
  */
-export const tsHasGrandChildren = (node: ts.Node, callbacks: [(child: ts.Node, depth: number) => boolean]): boolean => \{
+export const tsHasGrandChildren = (node: ts.Node, callbacks: ((child: ts.Node, depth: number) => boolean)[]): boolean => \{
    for (let index = 0; index < callbacks.length; index++) \{
       const callback = callbacks[index];
       if (!vsc.tsHasGrandChild(node, callback)) \{

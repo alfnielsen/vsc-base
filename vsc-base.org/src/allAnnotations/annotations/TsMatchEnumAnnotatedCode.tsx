@@ -38,8 +38,8 @@ export const tsMatchEnum: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    if (!node || !ts.isEnumDeclaration(node)) \{ return false }
    if (!options) \{

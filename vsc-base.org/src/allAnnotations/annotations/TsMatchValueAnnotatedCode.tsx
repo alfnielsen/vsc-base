@@ -47,7 +47,7 @@ export const tsMatchValue: (
    value: (RegExp | string | number | boolean | null),
    options?: \{
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
-      hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+      hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }
 ) => boolean = (node, matchValue, options) => \{
    if (node === undefined) \{

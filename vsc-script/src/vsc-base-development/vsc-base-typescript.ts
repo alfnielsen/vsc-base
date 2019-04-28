@@ -666,7 +666,7 @@ const hasGrandChilddNode = vsc.tsHasChildren(node, [
 }) 
  * @returns ts.Node | undefined
  */
-export const tsHasChildren = (node: ts.Node, callbacks: [(child: ts.Node, depth: number) => boolean]): boolean => {
+export const tsHasChildren = (node: ts.Node, callbacks: ((child: ts.Node, depth: number) => boolean)[]): boolean => {
    for (let index = 0; index < callbacks.length; index++) {
       const callback = callbacks[index];
       if (!vsc.tsHasGrandChild(node, callback)) {
@@ -751,7 +751,7 @@ const found = vsc.tsHasGrandChildren(node, [
 }) 
  * @returns boolean
  */
-export const tsHasGrandChildren = (node: ts.Node, callbacks: [(child: ts.Node, depth: number) => boolean]): boolean => {
+export const tsHasGrandChildren = (node: ts.Node, callbacks: ((child: ts.Node, depth: number) => boolean)[]): boolean => {
    for (let index = 0; index < callbacks.length; index++) {
       const callback = callbacks[index];
       if (!vsc.tsHasGrandChild(node, callback)) {
@@ -825,7 +825,7 @@ const hasAncestor = vsc.tsHasAncestor(node, (childNode)=>{
 }) 
  * @returns boolean
  */
-export const tsHasAncestors = (node: ts.Node, callbacks: [(ansector: ts.Node, depth: number) => boolean]): boolean => {
+export const tsHasAncestors = (node: ts.Node, callbacks: ((ansector: ts.Node, depth: number) => boolean)[]): boolean => {
    for (let index = 0; index < callbacks.length; index++) {
       const callback = callbacks[index];
       if (!vsc.tsHasAncestor(node, callback)) {
@@ -857,9 +857,9 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: {
    variableName?: RegExp | string
    parentObjectPropertyName?: RegExp | string
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
    if (!node || !ts.isPropertyAssignment(node)) { return false }
    if (!options) {
@@ -928,9 +928,9 @@ const found = vsc.tsMatchFunction(node, { matchName: /^myCaller$/ })
 export const tsMatchFunction: (node: ts.Node | undefined, options?: {
    name?: RegExp | string,
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
    if (!node || !ts.isFunctionLike(node)) { return false }
    if (!options) {
@@ -997,8 +997,8 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: {
    isVar?: boolean,
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
    if (!node || !ts.isVariableDeclaration(node)) { return false }
    if (!options) {
@@ -1057,8 +1057,8 @@ export const tsMatchEnum: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
    if (!node || !ts.isEnumDeclaration(node)) { return false }
    if (!options) {
@@ -1110,9 +1110,9 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
    value?: (RegExp | string | number | boolean | null)
    enumName?: RegExp | string,
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
    if (!node || !ts.isEnumMember(node)) {
       return false
@@ -1127,7 +1127,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
       hasAncestor,
       hasGrandChild,
       hasAncestors,
-      hasGrandChildren: hasGrandChildren,
+      hasGrandChildren,
    } = options
    if (name) {
       if (name instanceof RegExp && !name.test(node.name.getText())) { return false }
@@ -1182,7 +1182,7 @@ export const tsMatchValue: (
    value: (RegExp | string | number | boolean | null),
    options?: {
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
-      hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+      hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }
 ) => boolean = (node, matchValue, options) => {
    if (node === undefined) {

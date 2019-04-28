@@ -46,9 +46,9 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: \{
    variableName?: RegExp | string
    parentObjectPropertyName?: RegExp | string
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    if (!node || !ts.isPropertyAssignment(node)) \{ return false }
    if (!options) \{

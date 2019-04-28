@@ -1010,7 +1010,7 @@ exports.tsMatchEnumMember = (node, options) => {
     if (!options) {
         return true;
     }
-    const { name, value, enumName, hasAncestor, hasGrandChild, hasAncestors, hasGrandChildren: hasGrandChildren, } = options;
+    const { name, value, enumName, hasAncestor, hasGrandChild, hasAncestors, hasGrandChildren, } = options;
     if (name) {
         if (name instanceof RegExp && !name.test(node.name.getText())) {
             return false;

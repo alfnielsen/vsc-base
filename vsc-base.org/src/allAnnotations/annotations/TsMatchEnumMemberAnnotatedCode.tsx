@@ -45,9 +45,9 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
    value?: (RegExp | string | number | boolean | null)
    enumName?: RegExp | string,
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
-   hasAncestors?: [(parent: ts.Node, depth: number) => boolean]
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
-   hasGrandChildren?: [(child: ts.Node, depth: number) => boolean]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    if (!node || !ts.isEnumMember(node)) \{
       return false
@@ -62,7 +62,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
       hasAncestor,
       hasGrandChild,
       hasAncestors,
-      hasGrandChildren: hasGrandChildren,
+      hasGrandChildren,
    } = options
    if (name) \{
       if (name instanceof RegExp && !name.test(node.name.getText())) \{ return false }

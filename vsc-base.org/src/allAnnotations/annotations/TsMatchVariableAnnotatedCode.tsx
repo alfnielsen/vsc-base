@@ -22,10 +22,10 @@ const TsMatchVariableAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Optional test if its a const, let or var. 
                </p>
                <p>
-                Optional test for tsHasAncestor ans hasGrandChild 
+                Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
+                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
                </p>
                <p>
                 Optional value can be tested against a string, a number (with a string, number or regexp). 
@@ -36,12 +36,12 @@ const TsMatchVariableAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const found = vsc.tsMatchVariable(node, options)`}
+         codeOneLineEx={`const varNode = vsc.tsMatchVariable(node, options)`}
          codeEx={`
-const found = vsc.tsMatchVariable(node, \{ matchName: /^myCaller\$/ })`}
+const varNode = vsc.tsMatchVariable(node, \{ name: /^myCaller\$/ })`}
          code={`/**
  * @vscType ts
- * @returns boolean
+ * @returns ts.VariableDeclaration | undefined
  */
 export const tsMatchVariable: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
@@ -53,46 +53,25 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: \{
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
-}) => boolean = (node, options) => \{
-   if (!node || !ts.isVariableDeclaration(node)) \{ return false }
+}) => ts.VariableDeclaration | undefined = (node, options) => \{
+   if (!node || !ts.isVariableDeclaration(node)) \{ return }
    if (!options) \{
-      return true
+      return node
    }
    const \{
-      name,
-      value,
       isConst,
       isLet,
       isVar,
-      hasAncestor,
-      hasGrandChild,
-      hasAncestors,
-      hasGrandChildren
    } = options
-   if (name !== undefined) \{
-      if (name instanceof RegExp && !name.test(node.name.getText())) \{ return false }
-      if (typeof name === 'string' && name !== node.name.getText()) \{ return false }
+   if (!vsc.tsMatchNode(node, options)) \{
+      return
    }
-   if (value !== undefined && !vsc.tsMatchValue(node.initializer, value)) \{
-      return false
-   }
-   if (isConst !== undefined && (!node.parent || isConst !== (node.parent.flags === 2))) \{ return false }
-   if (isLet !== undefined && (!node.parent || isLet !== (node.parent.flags === 1))) \{ return false }
-   if (isVar !== undefined && (!node.parent || isVar !== (node.parent.flags === 0))) \{ return false }
-   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
-      return false
-   }
-   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
-      return false
-   }
-   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
-      return false
-   }
-   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
-      return false
-   }
-   return true
+   if (isConst !== undefined && (!node.parent || isConst !== (node.parent.flags === 2))) \{ return }
+   if (isLet !== undefined && (!node.parent || isLet !== (node.parent.flags === 1))) \{ return }
+   if (isVar !== undefined && (!node.parent || isVar !== (node.parent.flags === 0))) \{ return }
+   return node
 }
+
 `}
       />
    )

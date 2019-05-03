@@ -27,6 +27,7 @@ export default class Script {
 
       const path = vsc.pathAsUnix(uri.fsPath)
 
+
       // Collect all project scripts:
       const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')
       // Create lowercase map of scripts

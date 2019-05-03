@@ -13,10 +13,10 @@ const TsMatchFunctionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a function 
+ Test if a node is a function 
                </p>
                <p>
-                (node: ts.SignatureDeclaration, Like FunctionDeclaration, FunctionExpression and ArrowFunction ect.. ) 
+                (node: ts.isArrowFunction, ts.isFunctionExpression or ts.isFunctionDeclaration) 
                </p>
                <p>
                 Optional test for its name with a string or regxep. 
@@ -25,20 +25,20 @@ const TsMatchFunctionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 (For ArrowFunction's and FunctionExpression's it will test for a variable declaration that points to the function) 
                </p>
                <p>
-                Optional test for tsHasAncestor ans hasGrandChild 
+                Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> \
+                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> \
                </p>
             </>
          }
          
-         codeOneLineEx={`const found = vsc.tsMatchFunction(node, options)`}
+         codeOneLineEx={`const funcNone = vsc.tsMatchFunction(node, options)`}
          codeEx={`
-const found = vsc.tsMatchFunction(node, \{ matchName: /^myCaller\$/ })`}
+const funcNone = vsc.tsMatchFunction(node, \{ name: /^myCaller\$/ })`}
          code={`/**
  * @vscType ts
- * @returns boolean
+ * @returns ts.ArrowFunction | ts.FunctionExpression | ts.FunctionDeclaration | undefined
  */
 export const tsMatchFunction: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string,
@@ -46,18 +46,18 @@ export const tsMatchFunction: (node: ts.Node | undefined, options?: \{
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
-}) => boolean = (node, options) => \{
-   if (!node || !ts.isFunctionLike(node)) \{ return false }
-   if (!options) \{
-      return true
+}) => ts.ArrowFunction | ts.FunctionExpression | ts.FunctionDeclaration | undefined = (node, options) => \{
+   if (!node || !(ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node))) \{
+      return
    }
-   const \{
-      name,
-      hasAncestor,
-      hasGrandChild,
-      hasAncestors,
-      hasGrandChildren,
-   } = options
+   if (!options) \{
+      return node
+   }
+   const \{ name } = options
+   delete options.name //leave name
+   if (!vsc.tsMatchNode(node, options)) \{
+      return
+   }
    if (name !== undefined) \{
       let funcName: string | undefined
       if ((ts.isArrowFunction(node) || ts.isFunctionExpression(node)) && ts.isVariableDeclaration(node.parent)) \{
@@ -67,24 +67,13 @@ export const tsMatchFunction: (node: ts.Node | undefined, options?: \{
          funcName = node.name.getText()
       }
       if (!funcName) \{
-         return false
+         return
       }
-      if (name instanceof RegExp && !name.test(funcName)) \{ return false }
-      if (typeof name === 'string' && name !== funcName) \{ return false }
+      if (name instanceof RegExp && !name.test(funcName)) \{ return }
+      if (typeof name === 'string' && name !== funcName) \{ return }
    }
-   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
-      return false
-   }
-   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
-      return false
-   }
-   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
-      return false
-   }
-   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
-      return false
-   }
-   return true
+
+   return node
 }
 
 `}

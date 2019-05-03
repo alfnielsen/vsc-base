@@ -19,10 +19,10 @@ const TsMatchObjectPropertyAnnotatedCode = ({ open = false }: {open?: boolean}) 
                 Optional test for its name with a string or regexp. 
                </p>
                <p>
-                Optional test for tsHasAncestor ans hasGrandChild 
+                Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
+                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
                </p>
                <p>
                 Optional value can be tested against a string, a number (with a string, number or regexp). 
@@ -33,12 +33,12 @@ const TsMatchObjectPropertyAnnotatedCode = ({ open = false }: {open?: boolean}) 
             </>
          }
          
-         codeOneLineEx={`const found = vsc.tsMatchObjectProperty(node, options)`}
+         codeOneLineEx={`const objNode = vsc.tsMatchObjectProperty(node, options)`}
          codeEx={`
-const found = vsc.tsMatchObjectProperty(node, \{ matchName: /^keyName\$/ })`}
+const objNode = vsc.tsMatchObjectProperty(node, \{ name: /^keyName\$/ })`}
          code={`/**
  * @vscType ts
- * @returns boolean
+ * @returns ts.PropertyAssignment | undefined
  */
 export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
@@ -49,54 +49,31 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: \{
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
-}) => boolean = (node, options) => \{
-   if (!node || !ts.isPropertyAssignment(node)) \{ return false }
+}) => ts.PropertyAssignment | undefined = (node, options) => \{
+   if (!node || !ts.isPropertyAssignment(node)) \{ return }
    if (!options) \{
-      return true
+      return node
    }
    const \{
-      name,
-      value,
       variableName,
       parentObjectPropertyName,
-      hasAncestor,
-      hasGrandChild,
-      hasAncestors,
-      hasGrandChildren
    } = options
-   if (name !== undefined) \{
-      if (name instanceof RegExp && !name.test(node.name.getText())) \{ return false }
-      if (typeof name === 'string' && name !== node.name.getText()) \{ return false }
+   if (!vsc.tsMatchNode(node, options)) \{
+      return
    }
    if (variableName !== undefined) \{
       const variable = node.parent.parent;
       if (!vsc.tsMatchVariable(variable, \{ name: variableName })) \{
-         return false
+         return
       }
    }
    if (parentObjectPropertyName !== undefined) \{
       const parentObjectProperty = node.parent.parent;
       if (!vsc.tsMatchObjectProperty(parentObjectProperty, \{ name: variableName })) \{
-         return false
+         return
       }
    }
-
-   if (value !== undefined && !vsc.tsMatchValue(node.initializer, value)) \{
-      return false
-   }
-   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
-      return false
-   }
-   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
-      return false
-   }
-   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
-      return false
-   }
-   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
-      return false
-   }
-   return true
+   return node
 }
 `}
       />

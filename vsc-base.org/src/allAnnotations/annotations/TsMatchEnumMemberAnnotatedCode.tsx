@@ -22,7 +22,7 @@ const TsMatchEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 it value, hasAncestor and hasGrandchild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
+                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
                </p>
                <p>
                 Value can be tested against a string, a number (with a string, number or regexp). 
@@ -33,12 +33,12 @@ const TsMatchEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const found = vsc.tsMatchEnumMember(node, options)`}
+         codeOneLineEx={`const enumMemberNode = vsc.tsMatchEnumMember(node, options)`}
          codeEx={`
-const found = vsc.tsMatchFunction(node, \{ matchName: /^myCaller\$/ })`}
+const enumMemberNode = vsc.tsMatchEnumMember(node, \{ name: /^myCaller\$/ })`}
          code={`/**
  * @vscType ts
- * @returns boolean
+ * @returns ts.EnumMember | undefined
  */
 export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
@@ -48,48 +48,28 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
-}) => boolean = (node, options) => \{
+}) => ts.EnumMember | undefined = (node, options) => \{
    if (!node || !ts.isEnumMember(node)) \{
-      return false
+      return
    }
    if (!options) \{
-      return true
+      return node
    }
-   const \{
-      name,
-      value,
-      enumName,
-      hasAncestor,
-      hasGrandChild,
-      hasAncestors,
-      hasGrandChildren,
-   } = options
-   if (name) \{
-      if (name instanceof RegExp && !name.test(node.name.getText())) \{ return false }
-      if (typeof name === 'string' && name !== node.name.getText()) \{ return false }
-   }
-   if (value !== undefined && !vsc.tsMatchValue(node.initializer, value)) \{
-      return false
+   const \{ enumName } = options
+   if (!vsc.tsMatchNode(node, options)) \{
+      return
    }
    if (enumName) \{
       const parentEnumName = node.parent.name
-      if (enumName instanceof RegExp && !enumName.test(parentEnumName.getText())) \{ return false }
-      if (typeof enumName === 'string' && enumName !== parentEnumName.getText()) \{ return false }
+      if (enumName instanceof RegExp && !enumName.test(parentEnumName.getText())) \{ return }
+      if (typeof enumName === 'string' && enumName !== parentEnumName.getText()) \{ return }
    }
-   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
-      return false
-   }
-   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
-      return false
-   }
-   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
-      return false
-   }
-   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
-      return false
-   }
-   return true
+   return node
 }
+
+
+
+
 
 `}
       />

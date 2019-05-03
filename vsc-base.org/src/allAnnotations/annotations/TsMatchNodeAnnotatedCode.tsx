@@ -1,0 +1,101 @@
+import React from 'react'
+import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
+
+
+
+const TsMatchNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+   return (
+      <AnnotatedCode
+         id={'tsMatchNode'}
+         title={'tsMatchNode'}
+         open={open}
+         annotation={
+            <>
+               <p>
+                  
+ Base test for node properties. 
+               </p>
+               <p>
+                Optional test for its name with a string or regexp. 
+               </p>
+               <p>
+                (return false for node that dont have name property)
+               </p>
+               <p>
+                Optional test for tsHasAncestor and hasGrandChild 
+               </p>
+               <p>
+                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
+               </p>
+               <p>
+                Optional value can be tested against a string, a number (with a string, number or regexp). 
+               </p>
+               <p>
+                (return false for node that dont have initializer)
+               </p>
+               <p>
+                See <a href='http://vsc-base.org/#tsMacthValue'>tsMacthValue</a> \
+               </p>
+            </>
+         }
+         
+         codeOneLineEx={`const found = vsc.tsMatchNode(node, options)`}
+         codeEx={`
+const found = vsc.tsMatchNode(node, \{ name: /^keyName\$/ })`}
+         code={`/**
+ * @vscType ts
+ * @returns ts.PropertyAssignment | undefined
+ */
+export const tsMatchNode: (node: ts.Node | undefined, options?: \{
+   name?: RegExp | string
+   value?: (RegExp | string | number | boolean | null)
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => \{
+   if (!node) \{ return false }
+   if (!options) \{
+      return true
+   }
+   const \{
+      name,
+      value,
+      hasAncestor,
+      hasGrandChild,
+      hasAncestors,
+      hasGrandChildren
+   } = options
+   const nameNode = (node as any).name as ts.Node
+   if (name !== undefined) \{
+      if (!nameNode) \{
+         return false
+      }
+      if (name instanceof RegExp && !name.test(nameNode.getText())) \{ return false }
+      if (typeof name === 'string' && name !== nameNode.getText()) \{ return false }
+   }
+   const initializerNode = (node as any).initializer as ts.Node
+   if (value !== undefined && (!initializerNode || !vsc.tsMatchValue(initializerNode, value))) \{
+      return false
+   }
+   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
+      return false
+   }
+   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
+      return false
+   }
+   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
+      return false
+   }
+   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
+      return false
+   }
+   return true
+}
+`}
+      />
+   )
+}
+
+export default TsMatchNodeAnnotatedCode
+

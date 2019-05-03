@@ -111,11 +111,15 @@ import {
    tsHasAncestor,
    tsHasAncestors,
    tsMatchObjectProperty,
+   tsMatchInterface,
+   tsMatchTypeRef,
    tsMatchEnum,
    tsMatchEnumMember,
    tsMatchFunction,
    tsMatchVariable,
-   tsMatchValue
+   tsMatchIdentifier,
+   tsMatchValue,
+   tsMatchNode
 } from './vsc-base-typescript';
 
 import {
@@ -255,11 +259,16 @@ export {
    tsHasGrandChildren,
    tsHasAncestor,
    tsHasAncestors,
-   //
+   //node test
+   tsMatchTypeRef,
+   tsMatchInterface,
    tsMatchEnum,
    tsMatchEnumMember,
    tsMatchObjectProperty,
    tsMatchFunction,
    tsMatchVariable,
-   tsMatchValue
+   tsMatchIdentifier,
+   //boolean tests
+   tsMatchValue,
+   tsMatchNode
 }

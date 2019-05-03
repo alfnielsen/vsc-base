@@ -16,13 +16,28 @@ export async function run(path: string) {
 	}
 	// let varFound = false
 	const [, position] = vsc.tsFindNodePositionFromContent(source, node => {
-		//return vsc.tsMatchExpression(node, '/module/area/file1')
-		return vsc.tsMatchValue(node, 45, {
-			hasAncestors: [
-				parent => ts.isIfStatement(parent),
-				parent => vsc.tsMatchVariable(parent, { name: /^module/ })
-			]
+		return !!vsc.tsMatchIdentifier(node, {
+			name: /foo/,
+			hasAncestor: (ancestor, depth) =>
+				!!vsc.tsMatchInterface(ancestor)
+				&& depth === 1
+
 		})
+
+		// return !!vsc.tsMatchValue(node, 1, {
+		// 	hasAncestor: (ancestor) => !!vsc.tsMatchEnumMember(ancestor, {
+		// 		name: /foo/,
+		// 		enumName: /foo/
+		// 	})
+		// })
+		// return vsc.tsMatchValue(node, '/module/area/file1')
+
+		// return vsc.tsMatchValue(node, 45, {
+		// 	hasAncestors: [
+		// 		parent => ts.isIfStatement(parent),
+		// 		parent => !!vsc.tsMatchVariable(parent, { name: /^module/ })
+		// 	]
+		// })
 		// test name of variable
 		// const nameIsCorrect = vsc.tsMatchVariable(node, { matchName: /^module/ })
 		// if (!nameIsCorrect) {
@@ -53,6 +68,10 @@ export async function run(path: string) {
 	}
 }
 
+interface foo33 {
+
+}
+
 export const method2 = () => {
 	const moduleNumber1Path = '/module/area/file1'
 	return moduleNumber1Path
@@ -68,3 +87,6 @@ export function method1(doit: boolean) {
 	}
 }
 
+enum foo {
+	foo1 = 1 //<-- FIND this
+}

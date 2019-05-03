@@ -43,6 +43,7 @@ export const tsHasAncestors = (node: ts.Node, callbacks: ((ansector: ts.Node, de
    return true
 }
 
+
 `}
       />
    )

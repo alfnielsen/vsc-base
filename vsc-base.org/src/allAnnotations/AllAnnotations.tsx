@@ -96,7 +96,11 @@ import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourc
 import TsMatchEnumAnnotatedCode from './annotations/TsMatchEnumAnnotatedCode'
 import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnotatedCode'
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
+import TsMatchIdentifierAnnotatedCode from './annotations/TsMatchIdentifierAnnotatedCode'
+import TsMatchInterfaceAnnotatedCode from './annotations/TsMatchInterfaceAnnotatedCode'
+import TsMatchNodeAnnotatedCode from './annotations/TsMatchNodeAnnotatedCode'
 import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
+import TsMatchTypeRefAnnotatedCode from './annotations/TsMatchTypeRefAnnotatedCode'
 import TsMatchValueAnnotatedCode from './annotations/TsMatchValueAnnotatedCode'
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
 import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
@@ -208,7 +212,11 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsMatchEnumAnnotatedCode open={activeMethod === 'tsMatchEnum'} />
       <TsMatchEnumMemberAnnotatedCode open={activeMethod === 'tsMatchEnumMember'} />
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
+      <TsMatchIdentifierAnnotatedCode open={activeMethod === 'tsMatchIdentifier'} />
+      <TsMatchInterfaceAnnotatedCode open={activeMethod === 'tsMatchInterface'} />
+      <TsMatchNodeAnnotatedCode open={activeMethod === 'tsMatchNode'} />
       <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
+      <TsMatchTypeRefAnnotatedCode open={activeMethod === 'tsMatchTypeRef'} />
       <TsMatchValueAnnotatedCode open={activeMethod === 'tsMatchValue'} />
       <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
       <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode open={activeMethod === 'tsRewriteTranpiledCodeWithVscBaseModules'} />

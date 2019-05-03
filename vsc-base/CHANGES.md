@@ -2,6 +2,40 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.5
+
+Move @types/fs-extra from devDependencies to dependencies.
+Other extension using vsc-base that dont use fs-extra needs the typings.
+(for ts building process)
+
+## 0.8.4
+
+Add ts methods
+
+-  [tsMatchIdentifier](http://vsc-base.org/#tsMatchIdentifier)
+-  [tsMatchInterface](http://vsc-base.org/#tsMatchInterface)
+-  [tsMatchTypeRef](http://vsc-base.org/#tsMatchTypeRef)
+-  [tsMatchNode](http://vsc-base.org/#tsMatchNode)
+
+The new tsMacthIdentifier is really good for smart search and replace for type/interface/variable name.
+
+The new tsMatchNode is a genelized method taking hasAncestor and grandchild methods.
+and it test is the name has an initializer used for value test,
+aswell as test if it has an name (identifier) used for name test.
+
+**Internal updates:**
+All tsMatch methods now use tsMatchNode
+
+## 0.8.2+0.8.3
+
+###Breaking changes
+
+All tsMatch (except tsMatchValue),
+now return the node casted as the node type.
+
+This is because typscript/vscode did not understand the node type,
+so you would need to do another ts.isType for casting.
+
 ## 0.8.1
 
 Fix incorrect ts interface ror tsHasChildren a tsHasGrandChildren and tsHasAncestors.

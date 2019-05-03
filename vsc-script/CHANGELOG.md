@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.3.9
+
+Update vsc-base to version 0.8.5
+
+## 0.3.8
+
+Update vsc-base to version 0.8.4
+
+## 0.3.7
+
+Update vsc-base to version 0.8.3
+
 ## 0.3.6
 
 Update vsc-base to version 0.8.1

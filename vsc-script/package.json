@@ -9,7 +9,7 @@
       "url": "https://github.com/alfnielsen/vsc-base"
    },
    "homepage": "https://vsc-base.org",
-   "version": "0.3.8",
+   "version": "0.3.9",
    "engines": {
       "vscode": "^1.32.0"
    },

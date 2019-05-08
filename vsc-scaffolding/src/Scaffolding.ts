@@ -15,11 +15,6 @@ export default class Scaffolding {
       }
       const path = vsc.pathAsUnix(uri.fsPath)
       let dir = vsc.getDir(path)
-      const isDir = vsc.isDir(path)
-      if (isDir) {
-         dir = path
-      }
-
       /**
        * Collect all project templates:
        * This scans all files for .vsc-template.js to make a list of templates
@@ -68,7 +63,7 @@ export default class Scaffolding {
       if (selectedTemplate.type === 'js') {
          template = await getJsTemplate(selectedTemplate.path)
       } else if (selectedTemplate.type === 'ts') {
-         template = await getTsTemplate(selectedTemplate.path)
+         template = await getTsTemplate(selectedTemplate.path, path)
          if (!template) {
             return
          }
@@ -106,16 +101,16 @@ const getJsTemplate = async (path: string) => {
    const template: vsc.vscTemplate = templateCompiledFunction()
    return template;
 }
-const getTsTemplate = async (path: string) => {
+const getTsTemplate = async (templatePath: string, path: string) => {
    // load script and tranpile it
    try {
       let scriptFileExport
-      scriptFileExport = await vsc.tsLoadModule(path)
+      scriptFileExport = await vsc.tsLoadModule(templatePath)
       const varifiedModule = vsc.varifyModuleMethods(scriptFileExport, ['Template'])
       if (!varifiedModule) {
          return undefined
       }
-      const template = varifiedModule.Template(path)
+      const template = varifiedModule.Template(path, templatePath)
       return template
    } catch (e) {
       vsc.showErrorMessage(e);

@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.1.2
+
+Upgrade to use vsc-base 0.8.8
+
+vsc-scaffolding source code has been move, so its now part of the mono-respo for vsc-base, vsc-base.org and vsc-script.
+
 ## 0.1.1
 
 Add async version of template.

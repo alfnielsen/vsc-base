@@ -22,10 +22,6 @@ class Scaffolding {
             }
             const path = vsc.pathAsUnix(uri.fsPath);
             let dir = vsc.getDir(path);
-            const isDir = vsc.isDir(path);
-            if (isDir) {
-                dir = path;
-            }
             /**
              * Collect all project templates:
              * This scans all files for .vsc-template.js to make a list of templates
@@ -67,7 +63,7 @@ class Scaffolding {
                 template = yield getJsTemplate(selectedTemplate.path);
             }
             else if (selectedTemplate.type === 'ts') {
-                template = yield getTsTemplate(selectedTemplate.path);
+                template = yield getTsTemplate(selectedTemplate.path, path);
                 if (!template) {
                     return;
                 }
@@ -102,16 +98,16 @@ const getJsTemplate = (path) => __awaiter(this, void 0, void 0, function* () {
     const template = templateCompiledFunction();
     return template;
 });
-const getTsTemplate = (path) => __awaiter(this, void 0, void 0, function* () {
+const getTsTemplate = (templatePath, path) => __awaiter(this, void 0, void 0, function* () {
     // load script and tranpile it
     try {
         let scriptFileExport;
-        scriptFileExport = yield vsc.tsLoadModule(path);
+        scriptFileExport = yield vsc.tsLoadModule(templatePath);
         const varifiedModule = vsc.varifyModuleMethods(scriptFileExport, ['Template']);
         if (!varifiedModule) {
             return undefined;
         }
-        const template = varifiedModule.Template(path);
+        const template = varifiedModule.Template(path, templatePath);
         return template;
     }
     catch (e) {

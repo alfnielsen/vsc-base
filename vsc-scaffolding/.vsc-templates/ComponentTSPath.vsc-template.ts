@@ -1,6 +1,6 @@
 import * as vsc from 'vsc-base'
 
-export function Template(): vsc.vscTemplate {
+export function Template(path: string, templatePath: string): vsc.vscTemplate {
 	return {
 		userInputs: [
 			{
@@ -18,7 +18,8 @@ export function Template(): vsc.vscTemplate {
 						type: 'file',
 						name: inputs => `${vsc.toPascalCase(inputs.name)}.js`,
 						content: inputs => `import React from 'react'
-
+//path: ${path}
+//templatePath: ${templatePath}
 const ${vsc.toPascalCase(inputs.name)} = ({ value }) => (
 	<div class='${vsc.toKebabCase(inputs.name)}'>{value}</div>
 )

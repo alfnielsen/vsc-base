@@ -83,9 +83,9 @@ export default ${camelize(inputs.name)}
 **EX: Component.vsc-template.ts**
 
 ```ts
-import * as vsc from 'vsc-base'
+import * as vsc from 'vsc-base'‚
 
-export function Template(): vsc.vscTemplate {
+export function Template(path: string, templatePath: string): vsc.vscTemplate {
    return {
       userInputs: [
          {
@@ -174,12 +174,12 @@ No know issues
 
 ## Links and related projects
 
-> vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding) | [source-code](https://github.com/alfnielsen/vsc-scaffolding)
+> vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding)
 
-> vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base) | [source-code](https://github.com/alfnielsen/vsc-base)
+> mono-respo for vsc-base, vsc-base.org, vsc-script and vsc-scaffolding: [source-code](https://github.com/alfnielsen/vsc-base)
 
-> vsc-base.org: [documentation](http://vsc-base.org) | [source-code](https://github.com/alfnielsen/vsc-base.org)
+> vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base)
 
-> vsc-script: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script) | [source-code](https://github.com/alfnielsen/vsc-script)
+> vsc-base.org: [documentation](http://vsc-base.org)
 
-> vsc-move: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-move) | [source-code](https://github.com/alfnielsen/vsc-move)
+> vsc-script: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script)

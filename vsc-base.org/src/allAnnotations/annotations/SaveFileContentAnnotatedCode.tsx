@@ -13,7 +13,10 @@ const SaveFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Save file
+ Save file 
+               </p>
+               <p>
+                See <a href='https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback'>fs docs for writeFile</a>
                </p>
             </>
          }
@@ -28,9 +31,10 @@ const SaveFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const saveFileContent = async (
    path: string,
-   content: string
+   content: string,
+   options?: fs.WriteFileOptions
 ): Promise<void> => \{
-   await fs.writeFile(path, content)
+   await fs.writeFile(path, content, options)
 }
 
 `}

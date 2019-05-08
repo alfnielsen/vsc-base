@@ -58,18 +58,18 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: \{
       variableName,
       parentObjectPropertyName,
    } = options
-   if (!vsc.tsMatchNode(node, options)) \{
+   if (!vsc.tsIsNode(node, options)) \{
       return
    }
    if (variableName !== undefined) \{
       const variable = node.parent.parent;
-      if (!vsc.tsMatchVariable(variable, \{ name: variableName })) \{
+      if (!vsc.tsIsVariable(variable, \{ name: variableName })) \{
          return
       }
    }
    if (parentObjectPropertyName !== undefined) \{
       const parentObjectProperty = node.parent.parent;
-      if (!vsc.tsMatchObjectProperty(parentObjectProperty, \{ name: variableName })) \{
+      if (!vsc.tsIsObjectProperty(parentObjectProperty, \{ name: variableName })) \{
          return
       }
    }

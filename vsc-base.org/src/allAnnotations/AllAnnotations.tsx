@@ -1,5 +1,6 @@
 import React from 'react'
 
+import AddFileContentAnnotatedCode from './annotations/AddFileContentAnnotatedCode'
 import AddLeadingLocalDashAnnotatedCode from './annotations/AddLeadingLocalDashAnnotatedCode'
 import AddSelectionAnnotatedCode from './annotations/AddSelectionAnnotatedCode'
 import AddSelectionFromRangeAnnotatedCode from './annotations/AddSelectionFromRangeAnnotatedCode'
@@ -12,6 +13,7 @@ import CopyAnnotatedCode from './annotations/CopyAnnotatedCode'
 import CreateSelectionAnnotatedCode from './annotations/CreateSelectionAnnotatedCode'
 import CreateVscodeRangeAndPositionAnnotatedCode from './annotations/CreateVscodeRangeAndPositionAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
+import EmptyDirAnnotatedCode from './annotations/EmptyDirAnnotatedCode'
 import ExecFromPathAnnotatedCode from './annotations/ExecFromPathAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
 import FindFilePathsFromBaseAnnotatedCode from './annotations/FindFilePathsFromBaseAnnotatedCode'
@@ -55,6 +57,8 @@ import PathAsUnixAnnotatedCode from './annotations/PathAsUnixAnnotatedCode'
 import PickAnnotatedCode from './annotations/PickAnnotatedCode'
 import PrependLineToDocumentAnnotatedCode from './annotations/PrependLineToDocumentAnnotatedCode'
 import PrependToDocumentAnnotatedCode from './annotations/PrependToDocumentAnnotatedCode'
+import RemoveAnnotatedCode from './annotations/RemoveAnnotatedCode'
+import RenameAnnotatedCode from './annotations/RenameAnnotatedCode'
 import SaveAllAnnotatedCode from './annotations/SaveAllAnnotatedCode'
 import SaveDocumentAnnotatedCode from './annotations/SaveDocumentAnnotatedCode'
 import SaveFileContentAnnotatedCode from './annotations/SaveFileContentAnnotatedCode'
@@ -62,6 +66,8 @@ import ScaffoldTemplateAnnotatedCode from './annotations/ScaffoldTemplateAnnotat
 import SetDocumentContentAnnotatedCode from './annotations/SetDocumentContentAnnotatedCode'
 import SetSelectionAnnotatedCode from './annotations/SetSelectionAnnotatedCode'
 import SetSelectionFromRangeAnnotatedCode from './annotations/SetSelectionFromRangeAnnotatedCode'
+import SetSelectionsAnnotatedCode from './annotations/SetSelectionsAnnotatedCode'
+import SetSelectionsFromRangesAnnotatedCode from './annotations/SetSelectionsFromRangesAnnotatedCode'
 import SharedPathAnnotatedCode from './annotations/SharedPathAnnotatedCode'
 import ShowErrorMessageAnnotatedCode from './annotations/ShowErrorMessageAnnotatedCode'
 import ShowMessageAnnotatedCode from './annotations/ShowMessageAnnotatedCode'
@@ -80,6 +86,7 @@ import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateR
 import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnnotatedCode'
 import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
 import TsDefaultCompilerOptionsAnnotatedCode from './annotations/TsDefaultCompilerOptionsAnnotatedCode'
+import TsFindAllNodePositionsFromContentAnnotatedCode from './annotations/TsFindAllNodePositionsFromContentAnnotatedCode'
 import TsFindAncestorAnnotatedCode from './annotations/TsFindAncestorAnnotatedCode'
 import TsFindChildAnnotatedCode from './annotations/TsFindChildAnnotatedCode'
 import TsFindGrandChildAnnotatedCode from './annotations/TsFindGrandChildAnnotatedCode'
@@ -91,6 +98,16 @@ import TsHasChildAnnotatedCode from './annotations/TsHasChildAnnotatedCode'
 import TsHasChildrenAnnotatedCode from './annotations/TsHasChildrenAnnotatedCode'
 import TsHasGrandChildAnnotatedCode from './annotations/TsHasGrandChildAnnotatedCode'
 import TsHasGrandChildrenAnnotatedCode from './annotations/TsHasGrandChildrenAnnotatedCode'
+import TsIsEnumAnnotatedCode from './annotations/TsIsEnumAnnotatedCode'
+import TsIsEnumMemberAnnotatedCode from './annotations/TsIsEnumMemberAnnotatedCode'
+import TsIsFunctionAnnotatedCode from './annotations/TsIsFunctionAnnotatedCode'
+import TsIsIdentifierAnnotatedCode from './annotations/TsIsIdentifierAnnotatedCode'
+import TsIsInterfaceAnnotatedCode from './annotations/TsIsInterfaceAnnotatedCode'
+import TsIsNodeAnnotatedCode from './annotations/TsIsNodeAnnotatedCode'
+import TsIsObjectPropertyAnnotatedCode from './annotations/TsIsObjectPropertyAnnotatedCode'
+import TsIsTypeRefAnnotatedCode from './annotations/TsIsTypeRefAnnotatedCode'
+import TsIsValueAnnotatedCode from './annotations/TsIsValueAnnotatedCode'
+import TsIsVariableAnnotatedCode from './annotations/TsIsVariableAnnotatedCode'
 import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
 import TsMatchEnumAnnotatedCode from './annotations/TsMatchEnumAnnotatedCode'
@@ -98,11 +115,11 @@ import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnot
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
 import TsMatchIdentifierAnnotatedCode from './annotations/TsMatchIdentifierAnnotatedCode'
 import TsMatchInterfaceAnnotatedCode from './annotations/TsMatchInterfaceAnnotatedCode'
-import TsMatchNodeAnnotatedCode from './annotations/TsMatchNodeAnnotatedCode'
 import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
 import TsMatchTypeRefAnnotatedCode from './annotations/TsMatchTypeRefAnnotatedCode'
-import TsMatchValueAnnotatedCode from './annotations/TsMatchValueAnnotatedCode'
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
+import TsReplaceAnnotatedCode from './annotations/TsReplaceAnnotatedCode'
+import TsReplaceAllAnnotatedCode from './annotations/TsReplaceAllAnnotatedCode'
 import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
@@ -116,6 +133,7 @@ interface AllAnnotationsProps {
 
 const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) => 
   <>
+      <AddFileContentAnnotatedCode open={activeMethod === 'addFileContent'} />
       <AddLeadingLocalDashAnnotatedCode open={activeMethod === 'addLeadingLocalDash'} />
       <AddSelectionAnnotatedCode open={activeMethod === 'addSelection'} />
       <AddSelectionFromRangeAnnotatedCode open={activeMethod === 'addSelectionFromRange'} />
@@ -128,6 +146,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <CreateSelectionAnnotatedCode open={activeMethod === 'createSelection'} />
       <CreateVscodeRangeAndPositionAnnotatedCode open={activeMethod === 'createVscodeRangeAndPosition'} />
       <DoesExistsAnnotatedCode open={activeMethod === 'doesExists'} />
+      <EmptyDirAnnotatedCode open={activeMethod === 'emptyDir'} />
       <ExecFromPathAnnotatedCode open={activeMethod === 'execFromPath'} />
       <FindFilePathsAnnotatedCode open={activeMethod === 'findFilePaths'} />
       <FindFilePathsFromBaseAnnotatedCode open={activeMethod === 'findFilePathsFromBase'} />
@@ -171,6 +190,8 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <PickAnnotatedCode open={activeMethod === 'pick'} />
       <PrependLineToDocumentAnnotatedCode open={activeMethod === 'prependLineToDocument'} />
       <PrependToDocumentAnnotatedCode open={activeMethod === 'prependToDocument'} />
+      <RemoveAnnotatedCode open={activeMethod === 'remove'} />
+      <RenameAnnotatedCode open={activeMethod === 'rename'} />
       <SaveAllAnnotatedCode open={activeMethod === 'saveAll'} />
       <SaveDocumentAnnotatedCode open={activeMethod === 'saveDocument'} />
       <SaveFileContentAnnotatedCode open={activeMethod === 'saveFileContent'} />
@@ -178,6 +199,8 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <SetDocumentContentAnnotatedCode open={activeMethod === 'setDocumentContent'} />
       <SetSelectionAnnotatedCode open={activeMethod === 'setSelection'} />
       <SetSelectionFromRangeAnnotatedCode open={activeMethod === 'setSelectionFromRange'} />
+      <SetSelectionsAnnotatedCode open={activeMethod === 'setSelections'} />
+      <SetSelectionsFromRangesAnnotatedCode open={activeMethod === 'setSelectionsFromRanges'} />
       <SharedPathAnnotatedCode open={activeMethod === 'sharedPath'} />
       <ShowErrorMessageAnnotatedCode open={activeMethod === 'showErrorMessage'} />
       <ShowMessageAnnotatedCode open={activeMethod === 'showMessage'} />
@@ -196,6 +219,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsCreateSourceFileAnnotatedCode open={activeMethod === 'tsCreateSourceFile'} />
       <TsCreateTransformerAnnotatedCode open={activeMethod === 'tsCreateTransformer'} />
       <TsDefaultCompilerOptionsAnnotatedCode open={activeMethod === 'TsDefaultCompilerOptions'} />
+      <TsFindAllNodePositionsFromContentAnnotatedCode open={activeMethod === 'tsFindAllNodePositionsFromContent'} />
       <TsFindAncestorAnnotatedCode open={activeMethod === 'tsFindAncestor'} />
       <TsFindChildAnnotatedCode open={activeMethod === 'tsFindChild'} />
       <TsFindGrandChildAnnotatedCode open={activeMethod === 'tsFindGrandChild'} />
@@ -207,6 +231,16 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsHasChildrenAnnotatedCode open={activeMethod === 'tsHasChildren'} />
       <TsHasGrandChildAnnotatedCode open={activeMethod === 'tsHasGrandChild'} />
       <TsHasGrandChildrenAnnotatedCode open={activeMethod === 'tsHasGrandChildren'} />
+      <TsIsEnumAnnotatedCode open={activeMethod === 'tsIsEnum'} />
+      <TsIsEnumMemberAnnotatedCode open={activeMethod === 'tsIsEnumMember'} />
+      <TsIsFunctionAnnotatedCode open={activeMethod === 'tsIsFunction'} />
+      <TsIsIdentifierAnnotatedCode open={activeMethod === 'tsIsIdentifier'} />
+      <TsIsInterfaceAnnotatedCode open={activeMethod === 'tsIsInterface'} />
+      <TsIsNodeAnnotatedCode open={activeMethod === 'tsIsNode'} />
+      <TsIsObjectPropertyAnnotatedCode open={activeMethod === 'tsIsObjectProperty'} />
+      <TsIsTypeRefAnnotatedCode open={activeMethod === 'tsIsTypeRef'} />
+      <TsIsValueAnnotatedCode open={activeMethod === 'tsIsValue'} />
+      <TsIsVariableAnnotatedCode open={activeMethod === 'tsIsVariable'} />
       <TsLoadModuleAnnotatedCode open={activeMethod === 'tsLoadModule'} />
       <TsLoadModuleSourceCodeAnnotatedCode open={activeMethod === 'tsLoadModuleSourceCode'} />
       <TsMatchEnumAnnotatedCode open={activeMethod === 'tsMatchEnum'} />
@@ -214,11 +248,11 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
       <TsMatchIdentifierAnnotatedCode open={activeMethod === 'tsMatchIdentifier'} />
       <TsMatchInterfaceAnnotatedCode open={activeMethod === 'tsMatchInterface'} />
-      <TsMatchNodeAnnotatedCode open={activeMethod === 'tsMatchNode'} />
       <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
       <TsMatchTypeRefAnnotatedCode open={activeMethod === 'tsMatchTypeRef'} />
-      <TsMatchValueAnnotatedCode open={activeMethod === 'tsMatchValue'} />
       <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
+      <TsReplaceAnnotatedCode open={activeMethod === 'tsReplace'} />
+      <TsReplaceAllAnnotatedCode open={activeMethod === 'tsReplaceAll'} />
       <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode open={activeMethod === 'tsRewriteTranpiledCodeWithVscBaseModules'} />
       <TsTransformAnnotatedCode open={activeMethod === 'tsTransform'} />
       <TsTransformNodeAnnotatedCode open={activeMethod === 'tsTransformNode'} />

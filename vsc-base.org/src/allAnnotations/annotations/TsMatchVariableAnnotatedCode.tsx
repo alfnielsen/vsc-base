@@ -63,7 +63,7 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: \{
       isLet,
       isVar,
    } = options
-   if (!vsc.tsMatchNode(node, options)) \{
+   if (!vsc.tsIsNode(node, options)) \{
       return
    }
    if (isConst !== undefined && (!node.parent || isConst !== (node.parent.flags === 2))) \{ return }

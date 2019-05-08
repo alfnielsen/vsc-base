@@ -42,8 +42,10 @@ import {
    VscodePosition,
    createSelection,
    setSelection,
+   setSelections,
    addSelection,
    setSelectionFromRange,
+   setSelectionsFromRanges,
    addSelectionFromRange,
    newDocument,
    getActiveTerminal,
@@ -78,6 +80,9 @@ import {
    makeDir,
    move,
    copy,
+   addFileContent,
+   emptyDir,
+   remove,
    saveFileContent,
    execFromPath,
 } from './vsc-base-system';
@@ -101,15 +106,20 @@ import {
    tsCreateSourceFile,
    tsGetParsedChildren,
    tsFindNodePositionFromContent,
+   tsFindAllNodePositionsFromContent,
+   tsReplace,
+   tsReplaceAll,
    tsFindChild,
    tsFindGrandChild,
    tsFindAncestor,
+
    tsHasChild,
    tsHasChildren,
    tsHasGrandChild,
    tsHasGrandChildren,
    tsHasAncestor,
    tsHasAncestors,
+
    tsMatchObjectProperty,
    tsMatchInterface,
    tsMatchTypeRef,
@@ -118,8 +128,18 @@ import {
    tsMatchFunction,
    tsMatchVariable,
    tsMatchIdentifier,
-   tsMatchValue,
-   tsMatchNode
+
+   tsIsObjectProperty,
+   tsIsInterface,
+   tsIsTypeRef,
+   tsIsEnum,
+   tsIsEnumMember,
+   tsIsFunction,
+   tsIsVariable,
+   tsIsIdentifier,
+
+   tsIsValue,
+   tsIsNode
 } from './vsc-base-typescript';
 
 import {
@@ -189,8 +209,10 @@ export {
    VscodePosition,
    createSelection,
    setSelection,
+   setSelections,
    addSelection,
    setSelectionFromRange,
+   setSelectionsFromRanges,
    addSelectionFromRange,
    getActiveTerminal,
    writeToTerminal,
@@ -223,6 +245,9 @@ export {
    makeDir,
    move,
    copy,
+   addFileContent,
+   emptyDir,
+   remove,
    saveFileContent,
    scaffoldTemplate,
    execFromPath,
@@ -246,8 +271,11 @@ export {
    tsTransform,
    tsVisitWithTransformers,
    tsTransformNode,
-
+   //
    tsFindNodePositionFromContent,
+   tsFindAllNodePositionsFromContent,
+   tsReplace,
+   tsReplaceAll,
    tsGetParsedChildren,
    //
    tsFindChild,
@@ -269,6 +297,14 @@ export {
    tsMatchVariable,
    tsMatchIdentifier,
    //boolean tests
-   tsMatchValue,
-   tsMatchNode
+   tsIsObjectProperty,
+   tsIsInterface,
+   tsIsTypeRef,
+   tsIsEnum,
+   tsIsEnumMember,
+   tsIsFunction,
+   tsIsVariable,
+   tsIsIdentifier,
+   tsIsValue,
+   tsIsNode
 }

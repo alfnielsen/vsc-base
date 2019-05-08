@@ -34,12 +34,12 @@ const TsFindNodePositionFromContentAnnotatedCode = ({ open = false }: {open?: bo
 \`
 // Find a constant with name starting with 'module' witin a function but not in an if statement
 const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
-   vsc.tsMatchVariable(node, \{ 
+ vsc.tsIsVariable(node, \{ 
       // test name of variable
-      matchName: /^module/,
+      name: /^module/,
       // test if is in function
       hasAncestors: [
-         ancestor => vsc.tsMatchFunction(ancestor, \{ matchName: /^method/ }),
+         ancestor => vsc.tsIsFunction(ancestor, \{ name: /^method/ }),
          ancestor => ts.isIfStatement(ancestor)
       ]
    })
@@ -53,7 +53,7 @@ if (position) \{
  * @vscType ts
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program): [ts.Node | undefined, vsc.VscodePosition | undefined] => \{
+export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [ts.Node | undefined, vsc.VscodePosition | undefined] => \{
    let position: vsc.VscodePosition | undefined
    let foundNode: ts.Node | undefined
    let typeChecker: ts.TypeChecker | undefined
@@ -62,6 +62,9 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
    }
    const visitor: ts.TransformerFactory<ts.SourceFile> = (context) => \{
       const visit: ts.Visitor = (node) => \{
+         if (node.pos < fromPosition) \{
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
          const found = callback(node, typeChecker, program);
          if (!found) \{
             return ts.visitEachChild(node, (child) => visit(child), context);
@@ -69,7 +72,7 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
          if (node === undefined) \{
             throw new Error('Node is undefined!!!')
          }
-         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end);
+         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
          foundNode = node;
          return node
       }
@@ -78,7 +81,6 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
    vsc.tsVisitWithTransformers(source, [visitor]);
    return [foundNode, position];
 }
-
 `}
       />
    )

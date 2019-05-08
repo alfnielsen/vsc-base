@@ -26,8 +26,11 @@ const GetFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @vscType System
  * @returns Promise<string>
  */
-export const getFileContent = async (path: string): Promise<string> =>
-   await fs.readFile(path, 'utf8')
+export const getFileContent = async (
+   path: string,
+   encoding = 'utf8'
+): Promise<string> =>
+   await fs.readFile(path, encoding)
 `}
       />
    )

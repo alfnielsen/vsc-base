@@ -45,7 +45,7 @@ export const tsMatchEnum: (node: ts.Node | undefined, options?: \{
    if (!options) \{
       return node
    }
-   if (!vsc.tsMatchNode(node, options)) \{
+   if (!vsc.tsIsNode(node, options)) \{
       return
    }
    return node

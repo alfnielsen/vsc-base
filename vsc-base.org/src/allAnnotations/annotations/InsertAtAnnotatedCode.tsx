@@ -32,6 +32,7 @@ export const insertAt = async (
    start: number,
    end: number = start,
    editor?: vscode.TextEditor,
+   trimSpaces = false
 ): Promise<boolean> => \{
    if (editor === undefined) \{
       editor = vsc.getActiveEditor()
@@ -40,7 +41,7 @@ export const insertAt = async (
       return Promise.resolve(false)
    }
    const source = editor.document.getText();
-   const pos = vsc.createVscodeRangeAndPosition(source, start, end)
+   const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
    const snippetString = new vscode.SnippetString(content)
    await editor.insertSnippet(snippetString, pos.range)
    return true

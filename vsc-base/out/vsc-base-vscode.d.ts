@@ -251,7 +251,7 @@ export declare const insertAtRange: (content: string, range: vscode.Range, edito
  * @oneLineEx const success = await vsc.insertAtRange(content, range)
  * @returns Promise<boolean>
  */
-export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined, trimSpaces?: boolean) => Promise<boolean>;
 /** vsc-base method
  * @description
  * Append new line content in the end of the (open) document
@@ -298,7 +298,7 @@ export declare const saveDocument: (document?: vscode.TextDocument | undefined) 
  * @oneLineEx const success = vsc.getComplexRangeObject(source, start, end)
  * @returns boolean
  */
-export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number) => vsc.VscodePosition;
+export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number, trimSpaces?: boolean) => vsc.VscodePosition;
 export declare type VscodePosition = {
     start: number;
     end: number;
@@ -318,7 +318,7 @@ export declare type VscodePosition = {
  * @oneLineEx const selection = vsc.createSelection(start, end)
  * @returns vscode.Selection
  */
-export declare const createSelection: (source: string, start: number, end?: number) => vscode.Selection;
+export declare const createSelection: (source: string, start: number, end?: number, trimSpaces?: boolean) => vscode.Selection;
 /** vsc-base method
  * @description
  * Set Selection for an TextEditor (Current document) \
@@ -332,6 +332,23 @@ export declare const createSelection: (source: string, start: number, end?: numb
  * @returns boolean
  */
 export declare const setSelection: (start: number, end?: number, editor?: vscode.TextEditor | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Set Selections for an TextEditor (Current document) \
+ * Takes a ranges array postions with start and end.
+ * Clear other selections. \
+ * returns true on success
+ * @see [setSelections](http://vsc-base.org/#setSelections)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelections(ranges)
+ * @returns boolean
+ */
+export declare const setSelections: (ranges: {
+    start: number;
+    end: number;
+}[], editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Add a Selection for an TextEditor (Current document) \
@@ -355,6 +372,19 @@ export declare const addSelection: (start: number, end?: number, editor?: vscode
  * @returns boolean
  */
 export declare const setSelectionFromRange: (range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
+/** vsc-base method
+ * @description
+ * Set Selections for an TextEditor (Current document) \
+ * Clear other selections \
+ * returns true on success
+ * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionFromRange)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelectionsFromRanges(ranges)
+ * @returns boolean
+ */
+export declare const setSelectionsFromRanges: (range: vscode.Range[], editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Add a Selection for an TextEditor (Current document) \

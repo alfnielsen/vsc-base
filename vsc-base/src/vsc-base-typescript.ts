@@ -556,12 +556,12 @@ export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback:
 `
 // Find a constant with name starting with 'module' witin a function but not in an if statement
 const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
-   vsc.tsMatchVariable(node, { 
+ vsc.tsIsVariable(node, { 
       // test name of variable
-      matchName: /^module/,
+      name: /^module/,
       // test if is in function
       hasAncestors: [
-         ancestor => vsc.tsMatchFunction(ancestor, { matchName: /^method/ }),
+         ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
          ancestor => ts.isIfStatement(ancestor)
       ]
    })
@@ -574,7 +574,7 @@ if (position) {
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
 
-export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program): [ts.Node | undefined, vsc.VscodePosition | undefined] => {
+export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [ts.Node | undefined, vsc.VscodePosition | undefined] => {
    let position: vsc.VscodePosition | undefined
    let foundNode: ts.Node | undefined
    let typeChecker: ts.TypeChecker | undefined
@@ -583,6 +583,9 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
    }
    const visitor: ts.TransformerFactory<ts.SourceFile> = (context) => {
       const visit: ts.Visitor = (node) => {
+         if (node.pos < fromPosition) {
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
          const found = callback(node, typeChecker, program);
          if (!found) {
             return ts.visitEachChild(node, (child) => visit(child), context);
@@ -590,7 +593,7 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
          if (node === undefined) {
             throw new Error('Node is undefined!!!')
          }
-         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end);
+         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
          foundNode = node;
          return node
       }
@@ -600,6 +603,142 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
    return [foundNode, position];
 }
 
+/** vsc-base method
+ * @description
+ * Create a Ts Visitor Transformer for finding a nodes and their position.
+ * @see [tsFindAllNodePositionsFromContent](http://vsc-base.org/#tsFindAllNodePositionsFromContent)
+ * @vscType ts
+ * @oneLineEx const nodePositionArray = vsc.tsFindAllNodePositionsFromContent(source, findNodePositionCallback)
+ * @ex 
+ const source = `
+   const method2 = () => {
+      const moduleNumber1Path = '/module/area/file1' // <-- Find this
+      return moduleNumber1Path // <-- Find this
+   }
+   function method1(doit){
+      if(doit){
+         const moduleNumber1Path = '/module/area/file1' // <-- Find this
+         return moduleNumber1Path // <-- Find this
+      }
+   }
+`
+// Find a constant with name starting with 'module' witin a function but not in an if statement
+const nodePositionArray = vsc.tsFindAllNodePositionsFromContent(source, node =>
+ vsc.tsIsVariable(node, { 
+      // test name of variable
+      name: /^module/,
+      // test if is in function
+      hasAncestors: [
+         ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
+         ancestor => ts.isIfStatement(ancestor)
+      ]
+   })
+)
+nodePositionArray.forEach([node, position] => {
+   vsc.addSelection(position.start, position.end)
+})
+ * @returns [ts.Node, vsc.VscodePosition][]
+ */
+
+export const tsFindAllNodePositionsFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [ts.Node, vsc.VscodePosition][] => {
+   let positions: [ts.Node, vsc.VscodePosition][] = [];
+   let position: vsc.VscodePosition
+   let foundNode: ts.Node
+   let typeChecker: ts.TypeChecker | undefined
+   if (program) {
+      typeChecker = program.getTypeChecker()
+   }
+   const visitor: ts.TransformerFactory<ts.SourceFile> = (context) => {
+      const visit: ts.Visitor = (node) => {
+         if (node.pos < fromPosition) {
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
+         const found = callback(node, typeChecker, program);
+         if (!found) {
+            return ts.visitEachChild(node, (child) => visit(child), context);
+         }
+         if (node === undefined) {
+            throw new Error('Node is undefined!!!')
+         }
+         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
+         foundNode = node;
+         positions.push([foundNode, position])
+         return ts.visitEachChild(node, (child) => visit(child), context);
+      }
+      return (node) => ts.visitNode(node, visit);
+   };
+   vsc.tsVisitWithTransformers(source, [visitor]);
+   return positions
+}
+
+
+/** vsc-base method
+ * @description
+ * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \
+ * It uses [tsFindNodePositionFromContent](http://vsc-base.org/#tsFindNodePositionFromContent) to find the node. 
+ * See also [tsReplaceAll](http://vsc-base.org/#tsReplaceAll)
+ * @see [tsReplace](http://vsc-base.org/#tsReplace)
+ * @vscType ts
+ * @oneLineEx source = vsc.tsReplace(source, replaceString, findNodePositionCallback)
+ * @ex 
+let source = `
+   const method2 = () => {
+      const moduleNumber1Path = '/module/area/file1' // <-- replace this
+      return moduleNumber1Path
+   }
+`
+// Find a constant with name starting with 'module' witin a function but not in an if statement
+source = vsc.tsReplace(source, '/module/area/file2', node => vsc.tsIsValue(node, /\/area\/file1/, {
+   hasAncestors: [
+      ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
+      ancestor => vsc.tsIsVariable(ancestor, { name: /^module.*Path/ })
+   ]
+}))
+ *
+ * @returns string
+ */
+export const tsReplace = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => {
+   const [node, position] = vsc.tsFindNodePositionFromContent(source, callback, program, fromPosition, trimSpaces);
+   if (position) {
+      //replace
+      source = source.substring(0, position.start) + replaceString + source.substring(position.end);
+   }
+   return source
+}
+/** vsc-base method
+ * @description
+ * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \
+ * It uses [tsFindNodePositionFromContent](http://vsc-base.org/#tsFindNodePositionFromContent) to find the node. 
+ * @see [tsReplace](http://vsc-base.org/#tsReplace)
+ * @vscType ts
+ * @oneLineEx source = vsc.tsReplace(source, replaceString, findNodePositionCallback)
+ * @ex 
+let source = `
+   const method2 = () => {
+      const moduleNumber1Path = '/module/area/file1' // <-- replace moduleNumber1Path
+      return moduleNumber1Path // <-- replace moduleNumber1Path
+   }
+`
+// Find a constant with name starting with 'module' witin a function but not in an if statement
+source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsIsIdentifier(node, {
+   name: 'moduleNumber1Path'
+}))
+ *
+ * @returns string
+ */
+export const tsReplaceAll = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => {
+   const positions = vsc.tsFindAllNodePositionsFromContent(source, callback, program, fromPosition, trimSpaces);
+   positions.sort(([, positionA], [, positionB]) => positionA.start - positionB.start)
+   let diff = 0
+   positions.forEach(([, position]) => {
+      const start = position.start - diff;
+      const end = position.end - diff;
+      const length = end - start;
+      diff -= replaceString.length - length
+      source = source.substring(0, start) + replaceString + source.substring(end);
+   })
+   return source
+}
 
 /** vsc-base method
  * @description
@@ -610,12 +749,10 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
  * @vscType ts
  * @oneLineEx const childNode = vsc.tsFindChild(node, childNodeTestCallback }) 
  * @ex 
-const childNode = vsc.tsFindChild(node, (childNode)=>{ 
-   return vsc.tsMatchVariable(childNode, {
-      matchName:/^varName$/, 
-      isConst: true 
-   }) 
-}) 
+const childNode = vsc.tsFindChild(node, (childNode)=> vsc.tsIdVariable(childNode, {
+   name:/^varName$/, 
+   isConst: true 
+})) 
  * @returns ts.Node | undefined
  */
 export const tsFindChild = (node: ts.Node, callback: (child: ts.Node) => boolean): ts.Node | undefined => {
@@ -639,12 +776,10 @@ export const tsFindChild = (node: ts.Node, callback: (child: ts.Node) => boolean
  * @vscType ts
  * @oneLineEx const child = vsc.tsHasChild(node, childNodeTestCallback }) 
  * @ex 
-const hasChild = vsc.tsHasChild(node, (childNode)=>{ 
-   return vsc.tsMatchVariable(childNode, {
-      matchName:/^varName$/, 
-      isConst: true 
-   }) 
-}) 
+const hasChild = vsc.tsHasChild(node, (childNode) => vsc.tsIsVariable(childNode, {
+   name:/^varName$/, 
+   isConst: true 
+})) 
  * @returns boolean
  */
 export const tsHasChild = (node: ts.Node, callback: (child: ts.Node) => boolean): boolean => {
@@ -661,8 +796,8 @@ export const tsHasChild = (node: ts.Node, callback: (child: ts.Node) => boolean)
  * @ex 
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
 const hasGrandChilddNode = vsc.tsHasChildren(node, [
-   childNode => return vsc.tsMatchVariable(childNode, { matchName:/^varName1/ }),
-   childNode => return vsc.tsMatchVariable(childNode, { matchName:/^varName2/ }) 
+   childNode => vsc.tsIsVariable(childNode, { name:/^varName1/ }),
+   childNode => vsc.tsIsVariable(childNode, { name:/^varName2/ }) 
 }) 
  * @returns ts.Node | undefined
  */
@@ -686,12 +821,10 @@ export const tsHasChildren = (node: ts.Node, callbacks: ((child: ts.Node, depth:
  * @oneLineEx const childNode = vsc.tsFindGrandChild(node, childNodeTestCallback)
  * @ex 
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
-const childNode = vsc.tsFindGrandChild(node, (childNode)=>{ 
-   return vsc.tsMatchVariable(childNode, {
-      matchName:/^varName/, 
-      isConst: true 
-   }) 
-}) 
+const childNode = vsc.tsFindGrandChild(node, (childNode) => vsc.tsIsVariable(childNode, {
+   name:/^varName/, 
+   isConst: true 
+})) 
  * @returns ts.Node | undefined
  */
 export const tsFindGrandChild = (node: ts.Node, callback: (child: ts.Node, depth: number) => boolean): ts.Node | undefined => {
@@ -724,12 +857,10 @@ export const tsFindGrandChild = (node: ts.Node, callback: (child: ts.Node, depth
  * @oneLineEx const found = vsc.tsFindGrandChild(node, childNodeTestCallback)
  * @ex 
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
-const found = vsc.tsHasGrandChild(node, (childNode)=>{ 
-   return vsc.tsMatchVariable(childNode, {
-      matchName:/^varName/, 
-      isConst: true 
-   }) 
-}) 
+const found = vsc.tsHasGrandChild(node, (childNode) => vsc.tsIsVariable(childNode, {
+   name:/^varName/, 
+   isConst: true 
+})) 
  * @returns boolean
  */
 export const tsHasGrandChild = (node: ts.Node, callback: (child: ts.Node, depth: number) => boolean): boolean => {
@@ -746,8 +877,8 @@ export const tsHasGrandChild = (node: ts.Node, callback: (child: ts.Node, depth:
  * @ex 
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
 const found = vsc.tsHasGrandChildren(node, [
-   childNode => return vsc.tsMatchVariable(childNode, { matchName:/^varName1/ }),
-   childNode => return vsc.tsMatchVariable(childNode, { matchName:/^varName2/ }) 
+   childNode => return vsc.tsIsVariable(childNode, { name:/^varName1/ }),
+   childNode => return vsc.tsIsVariable(childNode, { name:/^varName2/ }) 
 }) 
  * @returns boolean
  */
@@ -769,11 +900,9 @@ export const tsHasGrandChildren = (node: ts.Node, callbacks: ((child: ts.Node, d
  * @oneLineEx const ancestor = vsc.tsFindAncestor(node, ancestorNodeTestCallback)
  * @ex 
 // find a function with name 'someCaller'
-const ancestor = vsc.tsFindAncestor(node, (childNode)=>{ 
-   return vsc.tsMatchFunction(childNode, {
-      matchName:/^someCaller$/
-   }) 
-}) 
+const ancestor = vsc.tsFindAncestor(node, (childNode) => vsc.tsIsFunction(childNode, {
+   name:/^someCaller$/
+})) 
  * @returns ts.Node | undefined
  */
 export const tsFindAncestor = (node: ts.Node, callback: (ansector: ts.Node, depth: number) => boolean): ts.Node | undefined => {
@@ -798,11 +927,9 @@ export const tsFindAncestor = (node: ts.Node, callback: (ansector: ts.Node, dept
  * @oneLineEx const hasAncestor = vsc.tsHasAncestor(node, ancestorNodeTestCallback)
  * @ex 
 // find a function with name 'someCaller'
-const hasAncestor = vsc.tsHasAncestor(node, (childNode)=>{ 
-   return vsc.tsMatchFunction(childNode, {
-      matchName:/^someCaller$/
-   }) 
-}) 
+const hasAncestor = vsc.tsHasAncestor(node, (childNode) => vsc.tsIsFunction(childNode, {
+   name:/^someCaller$/
+})) 
  * @returns boolean
  */
 export const tsHasAncestor = (node: ts.Node, callback: (ansector: ts.Node, depth: number) => boolean): boolean => {
@@ -818,11 +945,9 @@ export const tsHasAncestor = (node: ts.Node, callback: (ansector: ts.Node, depth
  * @oneLineEx const hasAncestor = vsc.tsHasAncestor(node, ancestorNodeTestCallback)
  * @ex 
 // find a function with name 'someCaller'
-const hasAncestor = vsc.tsHasAncestor(node, (childNode)=>{ 
-   return vsc.tsMatchFunction(childNode, {
-      matchName:/^someCaller$/
-   }) 
-}) 
+const hasAncestor = vsc.tsHasAncestor(node, (childNode) => vsc.tsIsFunction(childNode, {
+   name:/^someCaller$/
+})) 
  * @returns boolean
  */
 export const tsHasAncestors = (node: ts.Node, callbacks: ((ansector: ts.Node, depth: number) => boolean)[]): boolean => {
@@ -834,7 +959,6 @@ export const tsHasAncestors = (node: ts.Node, callbacks: ((ansector: ts.Node, de
    }
    return true
 }
-
 
 
 /** vsc-base method
@@ -870,18 +994,18 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: {
       variableName,
       parentObjectPropertyName,
    } = options
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    if (variableName !== undefined) {
       const variable = node.parent.parent;
-      if (!vsc.tsMatchVariable(variable, { name: variableName })) {
+      if (!vsc.tsIsVariable(variable, { name: variableName })) {
          return
       }
    }
    if (parentObjectPropertyName !== undefined) {
       const parentObjectProperty = node.parent.parent;
-      if (!vsc.tsMatchObjectProperty(parentObjectProperty, { name: variableName })) {
+      if (!vsc.tsIsObjectProperty(parentObjectProperty, { name: variableName })) {
          return
       }
    }
@@ -918,7 +1042,7 @@ export const tsMatchFunction: (node: ts.Node | undefined, options?: {
    }
    const { name } = options
    delete options.name //leave name
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    if (name !== undefined) {
@@ -976,7 +1100,7 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: {
       isLet,
       isVar,
    } = options
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    if (isConst !== undefined && (!node.parent || isConst !== (node.parent.flags === 2))) { return }
@@ -1017,7 +1141,7 @@ export const tsMatchIdentifier: (node: ts.Node | undefined, options?: {
 
    }
    delete options.name // leave name
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    return node
@@ -1047,7 +1171,7 @@ export const tsMatchInterface: (node: ts.Node | undefined, options?: {
    if (!options) {
       return node
    }
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    return node
@@ -1081,7 +1205,7 @@ export const tsMatchTypeRef: (node: ts.Node | undefined, options?: {
    if (name instanceof RegExp && !name.test(node.typeName.getText())) { return }
    if (typeof name === 'string' && name !== node.typeName.getText()) { return }
    delete options.name //leave name
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    return node
@@ -1111,7 +1235,7 @@ export const tsMatchEnum: (node: ts.Node | undefined, options?: {
    if (!options) {
       return node
    }
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    return node
@@ -1148,7 +1272,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
       return node
    }
    const { enumName } = options
-   if (!vsc.tsMatchNode(node, options)) {
+   if (!vsc.tsIsNode(node, options)) {
       return
    }
    if (enumName) {
@@ -1161,8 +1285,183 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
 
 
 
+/** vsc-base method
+ * @description
+ * Test is a node is a object property (node: ts.PropertyAssignment) \
+ * Uses [tsMatchObjectProperty](http://vsc-base.org/#tsMatchObjectProperty)
+ * @see [tsIsObjectProperty](http://vsc-base.org/#tsIsObjectProperty)
+ * @vscType ts
+ * @oneLineEx const isObjNode = vsc.tsIsObjectProperty(node, options)
+ * @ex 
+const isObjNode = vsc.tsIsObjectProperty(node, { name: /^keyName$/ })
+ * @returns boolean
+ */
+export const tsIsObjectProperty: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   value?: (RegExp | string | number | boolean | null)
+   variableName?: RegExp | string
+   parentObjectPropertyName?: RegExp | string
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchObjectProperty(node, options)
+}
+
+/** vsc-base method
+ * @description
+ * Test if a node is a function \
+ * (node: ts.isArrowFunction, ts.isFunctionExpression or ts.isFunctionDeclaration) \
+ * Uses [tsMatchFunction](http://vsc-base.org/#tsMatchFunction)
+ * @see [tsIsFunction](http://vsc-base.org/#tsIsFunction)
+ * @vscType ts
+ * @oneLineEx const isFunctionNone = vsc.tsIsFunction(node, options)
+ * @ex 
+const isFunctionNone = vsc.tsIsFunction(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsFunction: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string,
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!tsMatchFunction(node, options)
+}
 
 
+/** vsc-base method
+ * @description
+ * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
+ * Uses [tsMatchVariable](http://vsc-base.org/#tsMatchVariable)
+ * @see [tsIsVariable](http://vsc-base.org/#tsIsVariable)
+ * @vscType ts
+ * @oneLineEx const isVariableNode = vsc.tsIsVariable(node, options)
+ * @ex 
+const isVariableNode = vsc.tsIsVariable(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsVariable: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   value?: (RegExp | string | number | boolean | null)
+   isConst?: boolean
+   isLet?: boolean
+   isVar?: boolean,
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchVariable(node, options)
+}
+
+
+/** vsc-base method
+ * @description
+ * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
+ * Uses [tsMatchIdentifier](http://vsc-base.org/#tsMatchIdentifier)
+ * @see [tsIsIdentifier](http://vsc-base.org/#tsIsIdentifier)
+ * @vscType ts
+ * @oneLineEx const isIdentifierNode = vsc.tsIsIdentifier(node, options)
+ * @ex 
+const isIdentifierNode = vsc.tsIsIdentifier(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsIdentifier: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchIdentifier(node, options)
+}
+
+/** vsc-base method
+ * @description
+ * Test is a node is an interface (node: ts.InterfaceDeclaration) \
+ * Uses [tsMatchInterface](http://vsc-base.org/#tsMatchInterface)
+ * @see [tsIsEnum](http://vsc-base.org/#tsIsEnum)
+ * @vscType ts
+ * @oneLineEx const isInterfaceNode = vsc.tsIsInterface(node, options)
+ * @ex 
+const isInterfaceNode = vsc.tsIsInterface(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsInterface: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchInterface(node, options)
+}
+
+/** vsc-base method
+ * @description
+ * Test is a node is an type reference (node: ts.TypeReferenceNode) \
+ * Uses [tsMatchTypeRef](http://vsc-base.org/#tsMatchTypeRef)
+ * @see [tsIsEnum](http://vsc-base.org/#tsIsEnum)
+ * @vscType ts
+ * @oneLineEx const isTypeRefNode = vsc.tsIsTypeRef(node, options)
+ * @ex 
+const isTypeRefNode = vsc.tsIsTypeRef(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsTypeRef: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchTypeRef(node, options)
+}
+
+/** vsc-base method
+ * @description
+ * Test is a node is an enum  declaration (node: ts.EnumDeclaration) \
+ * Uses [tsMatchEnum](http://vsc-base.org/#tsMatchEnum)
+ * @see [tsIsEnum](http://vsc-base.org/#tsIsEnum)
+ * @vscType ts
+ * @oneLineEx const isEnumNode = vsc.tsIsEnum(node, options)
+ * @ex 
+const isEnumNode = vsc.tsIsEnum(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsEnum: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchEnum(node, options)
+}
+
+/** vsc-base method
+ * @description
+ * Test is a node is a enum member (node: ts.EnumMember) \
+ * Uses [tsMatchEnumMember](http://vsc-base.org/#tsMatchEnumMember)
+ * @see [tsIsEnumMember](http://vsc-base.org/#tsIsEnumMember)
+ * @vscType ts
+ * @oneLineEx const isEnumMember = vsc.tsIsEnumMember(node, options)
+ * @ex 
+const isEnumMember = vsc.tsIsEnumMember(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsEnumMember: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   value?: (RegExp | string | number | boolean | null)
+   enumName?: RegExp | string,
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchEnumMember(node, options)
+}
 
 /** vsc-base method
  * @description
@@ -1174,14 +1473,14 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
  * Optional value can be tested against a string, a number (with a string, number or regexp). \
  * (return false for node that dont have initializer)\
  * See [tsMacthValue](http://vsc-base.org/#tsMacthValue) \
- * @see [tsMatchNode](http://vsc-base.org/#tsMatchNode)
+ * @see [tsIsNode](http://vsc-base.org/#tsIsNode)
  * @vscType ts
- * @oneLineEx const found = vsc.tsMatchNode(node, options)
+ * @oneLineEx const found = vsc.tsIsNode(node, options)
  * @ex 
-const found = vsc.tsMatchNode(node, { name: /^keyName$/ })
+const found = vsc.tsIsNode(node, { name: /^keyName$/ })
  * @returns ts.PropertyAssignment | undefined
  */
-export const tsMatchNode: (node: ts.Node | undefined, options?: {
+export const tsIsNode: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
@@ -1210,7 +1509,7 @@ export const tsMatchNode: (node: ts.Node | undefined, options?: {
       if (typeof name === 'string' && name !== nameNode.getText()) { return false }
    }
    const initializerNode = (node as any).initializer as ts.Node
-   if (value !== undefined && (!initializerNode || !vsc.tsMatchValue(initializerNode, value))) {
+   if (value !== undefined && (!initializerNode || !vsc.tsIsValue(initializerNode, value))) {
       return false
    }
    if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) {
@@ -1235,20 +1534,20 @@ export const tsMatchNode: (node: ts.Node | undefined, options?: {
  * A RegExp can be applied for string/number search. \
  * Optional test hasAncestor. \
  * See [tsHasAncestor](http://vsc-base.org/#tsHasAncestor) and [tsHasAncestors](http://vsc-base.org/#tsHasAncestors)
- * @see [tsMatchValue](http://vsc-base.org/#tsMatchValue)
+ * @see [tsIsValue](http://vsc-base.org/#tsIsValue)
  * @vscType ts
- * @oneLineEx const found = vsc.tsMatchValue(node, value)
+ * @oneLineEx const found = vsc.tsIsValue(node, value)
  * @ex 
 // Found a NumberExpression with value 12
-const foundNumberExpression = vsc.tsMatchValue(node, 12)
+const foundNumberExpression = vsc.tsIsValue(node, 12)
 // Found a NumberExpression with value 12, with a parant EnumValue
-const foundNumberExpression = vsc.tsMatchValue(node, 12, {
+const foundNumberExpression = vsc.tsIsValue(node, 12, {
    hasParent: parent => vsc.matchEnum(parent)
 })
 
  * @returns boolean
  */
-export const tsMatchValue: (
+export const tsIsValue: (
    node: ts.Node | undefined,
    value: (RegExp | string | number | boolean | null),
    options?: {
@@ -1287,9 +1586,8 @@ export const tsMatchValue: (
       matchValue instanceof RegExp
       &&
       (
-         !ts.isNumericLiteral(node)
-         || !ts.isStringLiteral(node)
-         || matchValue.test(node.text)
+         !(ts.isNumericLiteral(node) || ts.isStringLiteral(node))
+         || !matchValue.test(node.text)
       )
    ) {
       return false

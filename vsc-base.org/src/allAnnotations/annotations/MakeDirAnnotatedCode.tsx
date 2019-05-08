@@ -13,7 +13,10 @@ const MakeDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Make a folder
+ Make a folder 
+               </p>
+               <p>
+                See <a href='https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback'>fs docs for mkdir</a>
                </p>
             </>
          }

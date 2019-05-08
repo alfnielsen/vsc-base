@@ -13,7 +13,10 @@ const CopyAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Copy file/fodler
+ Copy file/folder 
+               </p>
+               <p>
+                See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md'>fs-extra docs for copy</a>
                </p>
             </>
          }
@@ -26,8 +29,12 @@ const CopyAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export const copy = async (path: string, newPath: string): Promise<void> => \{
-   await fs.copy(path, newPath)
+export const copy = async (
+   path: string,
+   newPath: string,
+   options: fs.CopyOptions
+): Promise<void> => \{
+   await fs.copy(path, newPath, options)
 }
 `}
       />

@@ -24,12 +24,10 @@ const TsHasGrandChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const found = vsc.tsFindGrandChild(node, childNodeTestCallback)`}
          codeEx={`
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
-const found = vsc.tsHasGrandChild(node, (childNode)=>\{ 
-   return vsc.tsMatchVariable(childNode, \{
-      matchName:/^varName/, 
-      isConst: true 
-   }) 
-})`}
+const found = vsc.tsHasGrandChild(node, (childNode) => vsc.tsIsVariable(childNode, \{
+   name:/^varName/, 
+   isConst: true 
+}))`}
          code={`/**
  * @vscType ts
  * @returns boolean

@@ -21,11 +21,9 @@ const TsFindAncestorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const ancestor = vsc.tsFindAncestor(node, ancestorNodeTestCallback)`}
          codeEx={`
 // find a function with name 'someCaller'
-const ancestor = vsc.tsFindAncestor(node, (childNode)=>\{ 
-   return vsc.tsMatchFunction(childNode, \{
-      matchName:/^someCaller\$/
-   }) 
-})`}
+const ancestor = vsc.tsFindAncestor(node, (childNode) => vsc.tsIsFunction(childNode, \{
+   name:/^someCaller\$/
+}))`}
          code={`/**
  * @vscType ts
  * @returns ts.Node | undefined

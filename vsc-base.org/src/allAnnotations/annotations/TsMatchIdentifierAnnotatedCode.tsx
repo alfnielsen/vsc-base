@@ -56,7 +56,7 @@ export const tsMatchIdentifier: (node: ts.Node | undefined, options?: \{
 
    }
    delete options.name // leave name
-   if (!vsc.tsMatchNode(node, options)) \{
+   if (!vsc.tsIsNode(node, options)) \{
       return
    }
    return node

@@ -72,6 +72,41 @@ export async function run(path: string) {
          <p>
             vsc-base is at the moment used as the base for two other extension, vsc-move and vsc-scaffolding, and will most likely provide the base for other extensions in the future.
          </p>
+         <h3>vsc-scaffolding</h3>
+         <p>
+            vsc-scaffolding is a scaffolding extension, that is based on vsc-base. (vsc.Template)<br/>
+            It uses vsc-template files (like script's vsc-script files) and if you use ts files (js is allowed),<br/>
+            you can use vsc-base in the exact same way as vsc-script. 
+         </p>
+         <p>
+            A vsc-scaffolding is a typescript file named {'{script-name}'}.vsc-template.ts, 
+            which is executed by right-clicking on a file in vscode and selecting 'vsc Scaffolding'.<br/>
+            <i>(The vsc-scaffolding extension most be installed!)</i>
+         </p>
+         <p>
+            The vsc-script must contains a single export that is an (*async) function named Template that returns a vsc.Template. <br/>
+            <i>*It can be async or not! (async methods returns a {'Promise<vsc.Template>'})</i><br/>
+            It uses <a href='http://vsc-base.org/#scaffoldTemplate'>vsc.scaffoldTemplate </a>
+         </p>
+         <b>async template</b>
+            <HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export async function Template(path: string): Promise<vsc.Template> {
+   // (...)
+   return {} // <-- Template
+}
+`} />
+            <b>not template</b>
+            <HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export function Template(path: string): vsc.Template {
+   // (...)
+   return {} // <-- Template
+}
+`} />
+
          <h4>Open-source GPL-3</h4>
          <p>
          vsc-base, vsc-script ( and related extension project: vsc-scaffolding and vsc-move) are all open-source project

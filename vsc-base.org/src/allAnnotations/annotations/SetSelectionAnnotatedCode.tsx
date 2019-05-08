@@ -48,7 +48,6 @@ export const setSelection = (
    editor.selection = selection
    return true
 }
-
 `}
       />
    )

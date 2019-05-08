@@ -40,7 +40,8 @@ export const addSelection = (
    }
    const source = editor.document.getText()
    const selection = vsc.createSelection(source, start, end)
-   editor.selections.push(selection)
+   editor.selections = [selection, ...editor.selections]
+   //editor.selections.push(selection)
    return true
 }
 

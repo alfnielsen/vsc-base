@@ -26,12 +26,10 @@ const TsHasChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          
          codeOneLineEx={`const child = vsc.tsHasChild(node, childNodeTestCallback })`}
          codeEx={`
-const hasChild = vsc.tsHasChild(node, (childNode)=>\{ 
-   return vsc.tsMatchVariable(childNode, \{
-      matchName:/^varName\$/, 
-      isConst: true 
-   }) 
-})`}
+const hasChild = vsc.tsHasChild(node, (childNode) => vsc.tsIsVariable(childNode, \{
+   name:/^varName\$/, 
+   isConst: true 
+}))`}
          code={`/**
  * @vscType ts
  * @returns boolean

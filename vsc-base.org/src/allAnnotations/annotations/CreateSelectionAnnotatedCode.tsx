@@ -29,8 +29,9 @@ export const createSelection = (
    source: string,
    start: number,
    end: number = start,
+   trimSpaces = true
 ): vscode.Selection => \{
-   const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end)
+   const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
    const selection = new vscode.Selection(complexRangeObject.startPosition, complexRangeObject.endPosition)
    return selection
 }

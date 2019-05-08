@@ -2,6 +2,75 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.7
+
+### Add
+
+new system methods:
+
+-  [addFileContent](http://vsc-base.ord/#addFileContent)
+-  [emptyDir](http://vsc-base.ord/#emptyDir)
+-  [remove](http://vsc-base.ord/#remove)
+
+### Changes
+
+saveFileContent, copy, move and getReadStream now takes an optional options object.
+
+(The options is the fs and fs-extra options for the underlaying methods)
+
+vsc-base script docs contains the links the the doc for all underlaying method.
+
+getFileContent now takes an optional encoding (default is utf8)
+
+## 0.8.6
+
+### Breaking changes
+
+tsMatchValue is now [tsIsValue](http://vsc-base.ord/#tsIsValue)
+
+tsMatchNode is now [tsIsNode](http://vsc-base.ord/#tsIsNode)
+
+This is to follow a common pattern where 'is' returns a boolean,
+and 'match' returns a node.
+
+### Small Breaking changes
+
+createVscodeRangeAndPosition has now optional trimSpaces (default true).
+When ts returns pos and end from a node it includes leading and trailing space.
+For most transpiling we need to not have the spaces included.
+To enable previous behavior set trimSpaces to false.
+
+### Add
+
+new ts methods:
+
+-  [tsIsObjectProperty](http://vsc-base.ord/#tsIsObjectProperty)
+-  [tsIsInterface](http://vsc-base.ord/#tsIsInterface)
+-  [tsIsTypeRef](http://vsc-base.ord/#tsIsTypeRef)
+-  [tsIsEnum](http://vsc-base.ord/#tsIsEnum)
+-  [tsIsEnumMember](http://vsc-base.ord/#tsIsEnumMember)
+-  [tsIsFunction](http://vsc-base.ord/#tsIsFunction)
+-  [tsIsVariable](http://vsc-base.ord/#tsIsVariable)
+-  [tsIsIdentifier](http://vsc-base.ord/#tsIsIdentifier)
+
+new vscode methods:
+
+-  [setSelections](http://vsc-base.ord/#setSelections)
+-  [setSelectionsFromRanges](http://vsc-base.ord/#setSelectionsFromRanges)
+
+### Changes
+
+tsFindNodePositionFromContent now takes an optional fromPosition (number).
+This is used to only match nodes from a specific point an a source.
+
+### Fixes:
+
+tsIsValue regexp match for strings and numbers is fixed.
+
+addSelection is now working correct
+
+addSelectionFromRange is now working correct
+
 ## 0.8.5
 
 Move @types/fs-extra from devDependencies to dependencies.

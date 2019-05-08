@@ -13,7 +13,10 @@ const GetReadStreamAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get a file ReadStream
+ Get a file ReadStream 
+               </p>
+               <p>
+                See <a href='https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options'>fs docs for createReadStream</a>
                </p>
             </>
          }
@@ -29,15 +32,18 @@ const GetReadStreamAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @vscType System
  * @returns fs.ReadStream
  */
-export const getReadStream = (path: string) => \{
-   const stream = fs.createReadStream(path, \{
+export const getReadStream = (
+   path: string,
+   options = \{
       flags: 'r',
       encoding: 'utf-8',
       fd: undefined,
       mode: 438, // 0666 in Octal
       autoClose: false,
       highWaterMark: 64 * 1024
-   })
+   }
+) => \{
+   const stream = fs.createReadStream(path, options)
    return stream
 }
 `}

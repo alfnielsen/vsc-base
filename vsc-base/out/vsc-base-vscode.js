@@ -358,7 +358,7 @@ exports.insertAtRange = (content, range, editor) => __awaiter(this, void 0, void
  * @oneLineEx const success = await vsc.insertAtRange(content, range)
  * @returns Promise<boolean>
  */
-exports.insertAt = (content, start, end = start, editor) => __awaiter(this, void 0, void 0, function* () {
+exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => __awaiter(this, void 0, void 0, function* () {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
@@ -366,7 +366,7 @@ exports.insertAt = (content, start, end = start, editor) => __awaiter(this, void
         return Promise.resolve(false);
     }
     const source = editor.document.getText();
-    const pos = vsc.createVscodeRangeAndPosition(source, start, end);
+    const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces);
     const snippetString = new vscode.SnippetString(content);
     yield editor.insertSnippet(snippetString, pos.range);
     return true;
@@ -430,13 +430,24 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
  * @oneLineEx const success = vsc.getComplexRangeObject(source, start, end)
  * @returns boolean
  */
-exports.createVscodeRangeAndPosition = (source, start, end = start) => {
+exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces = true) => {
+    if (trimSpaces) {
+        const found = source.substring(start, end);
+        const startSpaces = found.match(/^\s+/);
+        if (startSpaces) {
+            start += startSpaces[0].length;
+        }
+        const endSpaces = found.match(/\s+$/);
+        if (endSpaces) {
+            end -= endSpaces[0].length;
+        }
+    }
     const startLines = source.substr(0, start).split("\n");
     const endLines = source.substr(0, end).split("\n");
     const startLineNumber = startLines.length - 1;
     const endLineNumber = endLines.length - 1;
-    const startPosition = new vscode.Position(startLineNumber, startLines[startLines.length - 1].length + 1);
-    const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length + 1);
+    const startPosition = new vscode.Position(startLineNumber, startLines[startLines.length - 1].length);
+    const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length);
     const range = new vscode.Range(startPosition, endPosition);
     return {
         start,
@@ -458,8 +469,8 @@ exports.createVscodeRangeAndPosition = (source, start, end = start) => {
  * @oneLineEx const selection = vsc.createSelection(start, end)
  * @returns vscode.Selection
  */
-exports.createSelection = (source, start, end = start) => {
-    const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end);
+exports.createSelection = (source, start, end = start, trimSpaces = true) => {
+    const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces);
     const selection = new vscode.Selection(complexRangeObject.startPosition, complexRangeObject.endPosition);
     return selection;
 };
@@ -490,6 +501,30 @@ exports.setSelection = (start, end = start, editor) => {
 };
 /** vsc-base method
  * @description
+ * Set Selections for an TextEditor (Current document) \
+ * Takes a ranges array postions with start and end.
+ * Clear other selections. \
+ * returns true on success
+ * @see [setSelections](http://vsc-base.org/#setSelections)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelections(ranges)
+ * @returns boolean
+ */
+exports.setSelections = (ranges, editor) => {
+    if (!editor) {
+        editor = vsc.getActiveEditor();
+    }
+    if (!editor) {
+        return false;
+    }
+    const source = editor.document.getText();
+    editor.selections = ranges.map((range) => vsc.createSelection(source, range.start, range.end));
+    return true;
+};
+/** vsc-base method
+ * @description
  * Add a Selection for an TextEditor (Current document) \
  * returns true on success
  * @see [addSelection](http://vsc-base.org/#addSelection)
@@ -506,7 +541,8 @@ exports.addSelection = (start, end = start, editor) => {
     }
     const source = editor.document.getText();
     const selection = vsc.createSelection(source, start, end);
-    editor.selections.push(selection);
+    editor.selections = [selection, ...editor.selections];
+    //editor.selections.push(selection)
     return true;
 };
 /** vsc-base method
@@ -534,6 +570,28 @@ exports.setSelectionFromRange = (range, editor) => {
 };
 /** vsc-base method
  * @description
+ * Set Selections for an TextEditor (Current document) \
+ * Clear other selections \
+ * returns true on success
+ * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionFromRange)
+ * @param range
+ * @param editor
+ * @vscType Vscode
+ * @oneLineEx const success = vsc.setSelectionsFromRanges(ranges)
+ * @returns boolean
+ */
+exports.setSelectionsFromRanges = (range, editor) => {
+    if (!editor) {
+        editor = vsc.getActiveEditor();
+    }
+    if (!editor) {
+        return false;
+    }
+    editor.selections = range.map(range => new vscode.Selection(range.start, range.end));
+    return true;
+};
+/** vsc-base method
+ * @description
  * Add a Selection for an TextEditor (Current document) \
  * returns true on success
  * @see [addSelectionFromRange](http://vsc-base.org/#addSelectionFromRange)
@@ -550,7 +608,7 @@ exports.addSelectionFromRange = (range, editor) => {
     if (!editor) {
         return false;
     }
-    editor.selections.push(new vscode.Selection(range.start, range.end));
+    editor.selections = [new vscode.Selection(range.start, range.end), ...editor.selections];
     return true;
 };
 /** vsc-base method

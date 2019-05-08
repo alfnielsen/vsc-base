@@ -38,10 +38,9 @@ export const addSelectionFromRange = (
    if (!editor) \{
       return false;
    }
-   editor.selections.push(new vscode.Selection(range.start, range.end))
+   editor.selections = [new vscode.Selection(range.start, range.end), ...editor.selections]
    return true
 }
-
 
 `}
       />

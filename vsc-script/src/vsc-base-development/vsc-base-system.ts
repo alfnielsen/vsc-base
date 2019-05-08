@@ -63,7 +63,8 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
 
 /** vsc-base method
  * @description 
- * Get a file ReadStream
+ * Get a file ReadStream \
+ * See [fs docs for createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
  * @see [getReadStream](http://vsc-base.org/#getReadStream)
  * @param path
  * @dependencyExternal fs
@@ -76,15 +77,18 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
  }
  * @returns fs.ReadStream
  */
-export const getReadStream = (path: string) => {
-   const stream = fs.createReadStream(path, {
+export const getReadStream = (
+   path: string,
+   options = {
       flags: 'r',
       encoding: 'utf-8',
       fd: undefined,
       mode: 438, // 0666 in Octal
       autoClose: false,
       highWaterMark: 64 * 1024
-   })
+   }
+) => {
+   const stream = fs.createReadStream(path, options)
    return stream
 }
 
@@ -132,8 +136,11 @@ export const getDir = (path: string) => {
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
-export const getFileContent = async (path: string): Promise<string> =>
-   await fs.readFile(path, 'utf8')
+export const getFileContent = async (
+   path: string,
+   encoding = 'utf8'
+): Promise<string> =>
+   await fs.readFile(path, encoding)
 
 /** vsc-base method
  * @description 
@@ -237,7 +244,8 @@ export const isDir = (path: string): boolean => {
 
 /** vsc-base method
  * @description 
- * Make a folder
+ * Make a folder \
+ * See [fs docs for mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
  * @see [makeDir](http://vsc-base.org/#makeDir)
  * @param path
  * @param newPathstring
@@ -256,7 +264,8 @@ export const makeDir = async (folderPath: string): Promise<void> => {
 
 /** vsc-base method
  * @description 
- * Move a file or folder
+ * Move a file or folder \
+ * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
  * @param path
  * @param newPathstring
@@ -265,13 +274,38 @@ export const makeDir = async (folderPath: string): Promise<void> => {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export const move = async (path: string, newPath: string): Promise<void> => {
-   await fs.move(path, newPath)
+export const move = async (
+   path: string,
+   newPath: string,
+   options?: fs.MoveOptions
+): Promise<void> => {
+   await fs.move(path, newPath, options)
 }
 
 /** vsc-base method
  * @description 
- * Copy file/fodler
+ * Rename a file or folder \
+ * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
+ * @see [move](http://vsc-base.org/#move)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.move(oldPath, newPath)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+export const rename = async (
+   path: string,
+   newPath: string,
+): Promise<void> => {
+   await fs.rename(path, newPath)
+}
+
+
+/** vsc-base method
+ * @description 
+ * Copy file/folder \
+ * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
  * @param path
  * @param newPathstring
@@ -280,13 +314,50 @@ export const move = async (path: string, newPath: string): Promise<void> => {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export const copy = async (path: string, newPath: string): Promise<void> => {
-   await fs.copy(path, newPath)
+export const copy = async (
+   path: string,
+   newPath: string,
+   options: fs.CopyOptions
+): Promise<void> => {
+   await fs.copy(path, newPath, options)
 }
 
 /** vsc-base method
  * @description 
- * Save file
+ * Remove file/folder \
+ * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
+ * @see [remove](http://vsc-base.org/#remove)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+export const remove = async (path: string): Promise<void> => {
+   await fs.remove(path)
+}
+
+/** vsc-base method
+ * @description 
+ * emptyDir folder \
+ * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
+ * @see [emptyDir](http://vsc-base.org/#emptyDir)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+export const emptyDir = async (path: string): Promise<void> => {
+   await fs.emptyDir(path)
+}
+
+/** vsc-base method
+ * @description 
+ * Save file \
+ * See [fs docs for writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
  * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
  * @param path
  * @param content
@@ -297,8 +368,30 @@ export const copy = async (path: string, newPath: string): Promise<void> => {
  */
 export const saveFileContent = async (
    path: string,
-   content: string
+   content: string,
+   options?: fs.WriteFileOptions
 ): Promise<void> => {
-   await fs.writeFile(path, content)
+   await fs.writeFile(path, content, options)
+}
+
+
+/** vsc-base method
+ * @description 
+ * Append content to a file \
+ * See [fs docs for appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback)
+ * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
+ * @param path
+ * @param content
+ * @vscType System
+ * @dependencyExternal fs
+ * @oneLineEx await vsc.saveFileContent(path, source)
+ * @returns Promise<void>
+ */
+export const addFileContent = async (
+   path: string,
+   content: string,
+   options?: fs.WriteFileOptions
+): Promise<void> => {
+   await fs.appendFile(path, content, options)
 }
 

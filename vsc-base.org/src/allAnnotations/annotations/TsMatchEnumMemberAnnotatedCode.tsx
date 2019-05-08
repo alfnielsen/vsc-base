@@ -56,7 +56,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
       return node
    }
    const \{ enumName } = options
-   if (!vsc.tsMatchNode(node, options)) \{
+   if (!vsc.tsIsNode(node, options)) \{
       return
    }
    if (enumName) \{
@@ -66,9 +66,6 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
    }
    return node
 }
-
-
-
 
 
 `}

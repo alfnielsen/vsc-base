@@ -1,0 +1,55 @@
+{
+   "name": "vsc-scaffolding",
+   "displayName": "vsc-scaffolding",
+   "description": "Full scaffolding with your own templates.",
+   "publisher": "alfnielsen",
+   "icon": "vsc-base-icon.png",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/alfnielsen/vsc-scaffolding"
+   },
+   "homepage": "https://github.com/alfnielsen/vsc-scaffolding",
+   "version": "0.1.1",
+   "engines": {
+      "vscode": "^1.32.0"
+   },
+   "categories": [
+      "Other"
+   ],
+   "activationEvents": [
+      "onCommand:extension.vscScaffolding"
+   ],
+   "main": "./out/extension.js",
+   "contributes": {
+      "menus": {
+         "explorer/context": [
+            {
+               "command": "extension.vscScaffolding",
+               "group": "1_modification",
+               "when": "explorerViewletVisible"
+            }
+         ]
+      },
+      "commands": [
+         {
+            "command": "extension.vscScaffolding",
+            "title": "vsc Scaffolding"
+         }
+      ]
+   },
+   "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "postinstall": "node ./node_modules/vscode/bin/install",
+      "test": "npm run compile && node ./node_modules/vscode/bin/test"
+   },
+   "devDependencies": {
+      "tslint": "^5.12.1",
+      "typescript": "^3.3.1",
+      "vscode": "^1.1.33"
+   },
+   "dependencies": {
+      "vsc-base": "^0.8.5"
+   }
+}

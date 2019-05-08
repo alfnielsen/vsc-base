@@ -100,7 +100,8 @@ exports.getLineStreamReader = (readStream) => function () {
 };
 /** vsc-base method
  * @description
- * Get a file ReadStream
+ * Get a file ReadStream \
+ * See [fs docs for createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
  * @see [getReadStream](http://vsc-base.org/#getReadStream)
  * @param path
  * @dependencyExternal fs
@@ -113,15 +114,15 @@ exports.getLineStreamReader = (readStream) => function () {
  }
  * @returns fs.ReadStream
  */
-exports.getReadStream = (path) => {
-    const stream = fs.createReadStream(path, {
-        flags: 'r',
-        encoding: 'utf-8',
-        fd: undefined,
-        mode: 438,
-        autoClose: false,
-        highWaterMark: 64 * 1024
-    });
+exports.getReadStream = (path, options = {
+    flags: 'r',
+    encoding: 'utf-8',
+    fd: undefined,
+    mode: 438,
+    autoClose: false,
+    highWaterMark: 64 * 1024
+}) => {
+    const stream = fs.createReadStream(path, options);
     return stream;
 };
 /** vsc-base method
@@ -166,7 +167,7 @@ exports.getDir = (path) => {
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
-exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, 'utf8'); });
+exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, encoding); });
 /** vsc-base method
  * @description
  * Get file source as json \
@@ -252,7 +253,8 @@ exports.isDir = (path) => {
 };
 /** vsc-base method
  * @description
- * Make a folder
+ * Make a folder \
+ * See [fs docs for mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
  * @see [makeDir](http://vsc-base.org/#makeDir)
  * @param path
  * @param newPathstring
@@ -271,7 +273,8 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
 });
 /** vsc-base method
  * @description
- * Move a file or folder
+ * Move a file or folder \
+ * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
  * @param path
  * @param newPathstring
@@ -280,12 +283,28 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.move(path, newPath);
+exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.move(path, newPath, options);
 });
 /** vsc-base method
  * @description
- * Copy file/fodler
+ * Rename a file or folder \
+ * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
+ * @see [move](http://vsc-base.org/#move)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.move(oldPath, newPath)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.rename = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.rename(path, newPath);
+});
+/** vsc-base method
+ * @description
+ * Copy file/folder \
+ * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
  * @param path
  * @param newPathstring
@@ -294,12 +313,43 @@ exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.copy(path, newPath);
+exports.copy = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.copy(path, newPath, options);
 });
 /** vsc-base method
  * @description
- * Save file
+ * Remove file/folder \
+ * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
+ * @see [remove](http://vsc-base.org/#remove)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.remove = (path) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.remove(path);
+});
+/** vsc-base method
+ * @description
+ * emptyDir folder \
+ * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
+ * @see [emptyDir](http://vsc-base.org/#emptyDir)
+ * @param path
+ * @param newPathstring
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.emptyDir = (path) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.emptyDir(path);
+});
+/** vsc-base method
+ * @description
+ * Save file \
+ * See [fs docs for writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
  * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
  * @param path
  * @param content
@@ -308,7 +358,22 @@ exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
  * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
-exports.saveFileContent = (path, content) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.writeFile(path, content);
+exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.writeFile(path, content, options);
+});
+/** vsc-base method
+ * @description
+ * Append content to a file \
+ * See [fs docs for appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback)
+ * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
+ * @param path
+ * @param content
+ * @vscType System
+ * @dependencyExternal fs
+ * @oneLineEx await vsc.saveFileContent(path, source)
+ * @returns Promise<void>
+ */
+exports.addFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.appendFile(path, content, options);
 });
 //# sourceMappingURL=vsc-base-system.js.map

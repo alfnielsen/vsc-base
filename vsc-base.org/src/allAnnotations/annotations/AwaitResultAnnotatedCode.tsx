@@ -24,13 +24,13 @@ const AwaitResultAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.awaitResult(result)`}
          codeEx={`
  const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
- const result = varifiedModule.run()
- await vsc.awaitResult(result)`}
+ let result = varifiedModule.run()
+ result = await vsc.awaitResult(result)`}
          code={`/**
  * @vscType ts
  * @returns Promise<any>
  */
-export const awaitResult = async (result: any): Promise<any> => \{
+export const awaitResult = async <T = any>(result: any): Promise<T> => \{
    if (result instanceof Promise) \{
       return result
    } else \{

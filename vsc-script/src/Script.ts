@@ -4,8 +4,8 @@ import * as ts from 'typescript'
 import * as path from 'path'
 import * as vscode from 'vscode'
 import * as cp from 'child-process-promise'
-//import * as vsc from 'vsc-base'
-import * as vsc from './vsc-base-development/vsc-base'
+import * as vsc from 'vsc-base'
+// import * as vsc from './vsc-base-development/vsc-base'
 
 
 export default class Script {
@@ -92,9 +92,9 @@ export default class Script {
       }
       try {
          const result = varifiedModule.run(path, this.getLibs())
-         await vsc.awaitResult(result)
-         if (typeof result === 'string') {
-            vsc.showMessage(`Script done: ${result}`)
+         const resultString = await vsc.awaitResult<string>(result)
+         if (typeof resultString === 'string') {
+            vsc.showMessage(`Script done: ${resultString}`)
          } else {
             vsc.showMessage('Script done.')
          }

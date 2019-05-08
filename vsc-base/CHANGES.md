@@ -2,6 +2,10 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.8
+
+Add generic to awaitResult (default any)
+
 ## 0.8.7
 
 ### Add

@@ -194,8 +194,8 @@ exports.varifyModuleMethods = (_module, methods) => {
  * @oneLineEx await vsc.awaitResult(result)
  * @ex
  const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
- const result = varifiedModule.run()
- await vsc.awaitResult(result)
+ let result = varifiedModule.run()
+ result = await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {

@@ -126,11 +126,11 @@ export declare const varifyModuleMethods: (_module: {
  * @oneLineEx await vsc.awaitResult(result)
  * @ex
  const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
- const result = varifiedModule.run()
- await vsc.awaitResult(result)
+ let result = varifiedModule.run()
+ result = await vsc.awaitResult(result)
  * @returns Promise<any>
  */
-export declare const awaitResult: (result: any) => Promise<any>;
+export declare const awaitResult: <T = any>(result: any) => Promise<T>;
 /** vsc-base method
  * @description
  * Transform source code using custom transformers \

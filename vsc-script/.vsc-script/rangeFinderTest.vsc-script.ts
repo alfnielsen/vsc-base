@@ -5,17 +5,16 @@ import * as ts from 'typescript'
 import * as vscode from 'vscode'
 import { tsIsIdentifier } from '../src/vsc-base-development/vsc-base-typescript';
 
-let log = '';
+let logger = '';
 
 
 export async function run(path: string) {
 
-	let fileContent = await vsc.getFileContent(path);
-	fileContent = fileContent.replace('let logger =', 'let logger =')
-	await vsc.saveFileContent(path, fileContent)
-	await vsc.addFileContent(path, '//CONTENT IN THE END!!!')
-
-	return;
+	// let fileContent = await vsc.getFileContent(path);
+	// fileContent = fileContent.replace('let log =', 'let logger =')
+	// await vsc.saveFileContent(path, fileContent)
+	// await vsc.addFileContent(path, '//CONTENT IN THE END!!!')
+	// return;
 
 	vsc.showMessage("Start finding node... ")
 	const source = vsc.getDocumentContent()
@@ -25,59 +24,59 @@ export async function run(path: string) {
 	}
 
 
-	// // let varFound = false
-	// const [node, position] = vsc.tsFindNodePositionFromContent(source, node => {
-	// 	// return vsc.tsIsIdentifier(node, {
-	// 	// 	name: /foo3/,
-	// 	// 	hasAncestor: (ancestor, depth) =>
-	// 	// 		vsc.tsIsInterface(ancestor)
-	// 	// 		&& depth === 1
-	// 	// })
+	// let varFound = false
+	const [node, position] = vsc.tsFindNodePositionFromContent(source, node => {
+		return vsc.tsIsIdentifier(node, {
+			name: /foo3/,
+			hasAncestor: (ancestor, depth) =>
+				vsc.tsIsInterface(ancestor)
+				&& depth === 1
+		})
 
-	// 	// return vsc.tsIsValue(node, 1, {
-	// 	// 	hasAncestor: (ancestor) => vsc.tsIsEnumMember(ancestor, {
-	// 	// 		name: /foo/,
-	// 	// 		enumName: /foo/
-	// 	// 	})
-	// 	// })
-	// 	// return vsc.tsMatchValue(node, '/module/area/file1')
+		// return vsc.tsIsValue(node, 1, {
+		// 	hasAncestor: (ancestor) => vsc.tsIsEnumMember(ancestor, {
+		// 		name: /foo/,
+		// 		enumName: /foo/
+		// 	})
+		// })
+		// return vsc.tsMatchValue(node, '/module/area/file1')
 
-	// 	// return vsc.tsIsValue(node, 45, {
-	// 	// 	hasAncestors: [
-	// 	// 		parent => ts.isIfStatement(parent),
-	// 	// 		parent => vsc.tsIsVariable(parent, { name: /^module/ })
-	// 	// 	]
-	// 	// })
+		// return vsc.tsIsValue(node, 45, {
+		// 	hasAncestors: [
+		// 		parent => ts.isIfStatement(parent),
+		// 		parent => vsc.tsIsVariable(parent, { name: /^module/ })
+		// 	]
+		// })
 
-	// 	// test name of variable
-	// 	return vsc.tsMatchVariable(node, {
-	// 		name: /^module/,
-	// 		hasAncestors: [
-	// 			ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
-	// 			ancestor => ts.isIfStatement(ancestor)
-	// 		]
-	// 	})
-	// })
-	// if (position) {
-	// 	const realTextNode = source.substring(node.pos, node.end);
-	// 	const realText = source.substring(position.start, position.end);
-	// 	//insertAt('\n  newcontent: 12,', position.start - 10);
-	// 	//const range = new vscode.Range(position.startPosition, position.startPosition);
-	// 	vsc.setSelection(position.start, position.end)
-	// 	//insertAtRange('\n  newcontent: 12,', range);
-	// 	//vsc.showMessage(realText)
-	// 	//vsc.showMessage('RE: ' + realTextNode)
-	// 	//vsc.appendLineToActiveDocument(vsc.toJSONString(position))
-	// } else {
-	// 	vsc.showMessage('Not found!')
-	// }
+		// test name of variable
+		// return vsc.tsMatchVariable(node, {
+		// 	name: /^module/,
+		// 	hasAncestors: [
+		// 		ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
+		// 		ancestor => ts.isIfStatement(ancestor)
+		// 	]
+		// })
+	})
+	if (position) {
+		const realTextNode = source.substring(node.pos, node.end);
+		const realText = source.substring(position.start, position.end);
+		//insertAt('\n  newcontent: 12,', position.start - 10);
+		//const range = new vscode.Range(position.startPosition, position.startPosition);
+		vsc.setSelection(position.start, position.end)
+		//insertAtRange('\n  newcontent: 12,', range);
+		//vsc.showMessage(realText)
+		//vsc.showMessage('RE: ' + realTextNode)
+		//vsc.appendLineToActiveDocument(vsc.toJSONString(position))
+	} else {
+		vsc.showMessage('Not found!')
+	}
 
+	// -- Select all vars::
 
-
-	const positions = vsc.tsFindAllNodePositionsFromContent(source, node =>
-		vsc.tsIsIdentifier(node, { name: /^module/ })
-	)
-	vsc.setSelectionsFromRanges(positions.map(([, p]) => p.range);
+	// const positions = vsc.tsFindAllNodePositionsFromContent(source, node =>
+	// 	vsc.tsIsIdentifier(node, { name: /^module/ })
+	// )
+	// vsc.setSelectionsFromRanges(positions.map(([, p]) => p.range);
 
 
 }
@@ -106,3 +105,4 @@ export function method1(doit: boolean) {
 enum foo {
 	foo1 = 1 //<-- FIND this
 }
+

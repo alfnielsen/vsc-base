@@ -4,6 +4,7 @@ This is a mono-respo for:
 
 - vsc-base (npm module)
 - vsc-script (vscode extension) 
+- vsc-scaffolding (vscode extension) 
 - vsc-base.org (documentation wesite)
 
 All documentation is on [vsc-base.org](http:///vsc-base.org)

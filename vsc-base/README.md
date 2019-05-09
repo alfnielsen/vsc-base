@@ -23,7 +23,7 @@ or
 >> yarn add vsc-base
 ```
 
-When you only use vsc-base for vsc-script and/or vsc-scaffolding, you can install it a devDependency instead:
+When you only use vsc-base for vsc-script and/or vsc-scaffolding, you can install it as devDependency instead:
 
 ```
 >> npm i vsc-base --save-dev

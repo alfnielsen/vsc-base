@@ -80,7 +80,7 @@ The uri is the path to the file/folder right-clicked in vscode when the user run
 
 vsc-script also accepts name.vsc-script-onsave.ts files.
 
-They wil be executed on save (i nalphabetical order).
+They wil be executed on save (in alphabetical order).
 
 Dont have to many (They will slow down vscode save)
 

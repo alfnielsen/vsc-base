@@ -6,7 +6,7 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 ### Small breaking changes
 
-getPackageFilePaths and getPackageDependencies now by default exlude package.json under .vscode-test
+[getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) and [getPackageDependencies](http://vsc-base.org/#getPackageDependencies) now by default exlude package.json under .vscode-test
 
 (The folder vscode create while tesing extensions)
 

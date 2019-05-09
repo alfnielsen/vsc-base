@@ -204,7 +204,7 @@ export declare const rename: (path: string, newPath: string) => Promise<void>;
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export declare const copy: (path: string, newPath: string, options: fs.CopyOptions) => Promise<void>;
+export declare const copy: (path: string, newPath: string, options?: fs.CopyOptions | undefined) => Promise<void>;
 /** vsc-base method
  * @description
  * Remove file/folder \

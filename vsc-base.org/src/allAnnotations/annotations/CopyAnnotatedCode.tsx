@@ -32,7 +32,7 @@ const CopyAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 export const copy = async (
    path: string,
    newPath: string,
-   options: fs.CopyOptions
+   options?: fs.CopyOptions
 ): Promise<void> => \{
    await fs.copy(path, newPath, options)
 }

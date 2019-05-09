@@ -9,7 +9,6 @@ let logger = '';
 
 
 export async function run(path: string) {
-
 	// let fileContent = await vsc.getFileContent(path);
 	// fileContent = fileContent.replace('let log =', 'let logger =')
 	// await vsc.saveFileContent(path, fileContent)

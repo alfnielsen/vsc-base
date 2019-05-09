@@ -2,6 +2,25 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.9
+
+### Changes
+
+'copy' param 'options' is now optional (It was never ment to be requiret!)
+
+### Add medthods
+
+-  [insertAt](http://vsc-base.org/#insertAt)
+-  [insertAtRange](http://vsc-base.org/#insertAtRange)
+
+**Internal:**
+vsc-base now use direct export of sub files.
+(Default import of vsc should be posssible, and wil maybe be added in future versions)
+
+Earlier version of vsc-base made imports of sub files directly,
+this was never ment to be a final solution and is now changes.
+(The insert Methods did exist but they was not exported before)
+
 ## 0.8.8
 
 Add generic to awaitResult (default any)

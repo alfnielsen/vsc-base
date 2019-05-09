@@ -17,7 +17,7 @@
       "Other"
    ],
    "activationEvents": [
-      "onCommand:extension.vscScript"
+      "*"
    ],
    "main": "./dist/extension",
    "contributes": {
@@ -34,6 +34,17 @@
          {
             "command": "extension.vscScript",
             "title": "vsc Script"
+         },
+         {
+            "command": "extension.vscScriptOnSave",
+            "title": "vsc Script (Open document)"
+         }
+      ],
+      "keybindings": [
+         {
+            "command": "extension.vscScriptOnSave",
+            "key": "ctrl+alt+o",
+            "when": "editorTextFocus"
          }
       ]
    },

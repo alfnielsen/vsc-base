@@ -13,7 +13,11 @@ const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Find packages file paths in project.
+ Find packages file paths in project. /
+ Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> 
+               </p>
+               <p>
+                It can be used to control which package.json files should be included.
                </p>
             </>
          }
@@ -24,8 +28,10 @@ const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
  * @dependencyInternal findFilePaths
  * @returns Promise<string[]>
  */
-export const getPackageFilePaths = async (): Promise<string[]> => \{
-   const packageFiles = await vsc.findFilePaths('**/package.json')
+export const getPackageFilePaths = async (
+   exclude = '**/\{node_modules,.vscode-test}/**'
+): Promise<string[]> => \{
+   const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
    return packageFiles
 }
 `}

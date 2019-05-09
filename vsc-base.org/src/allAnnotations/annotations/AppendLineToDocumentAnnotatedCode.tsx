@@ -18,7 +18,7 @@ const AppendLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) =
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.appendLineToActiveDocument(content)`}
+         codeOneLineEx={`const success = await vsc.appendLineToDocument(content)`}
          codeEx={``}
          code={`/**
  * @param content, editor

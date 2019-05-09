@@ -122,16 +122,20 @@ export declare const getJsonContent: <TStructure = unknown>(path: string, throws
 export declare const getConfig: <T>(projectName: string, property: string, defaultValue: T) => T;
 /** vsc-base method
  * @description
- * Find packages file paths in project.
+ * Find packages file paths in project. /
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-export declare const getPackageFilePaths: () => Promise<string[]>;
+export declare const getPackageFilePaths: (exclude?: string) => Promise<string[]>;
 /** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
@@ -139,7 +143,7 @@ export declare const getPackageFilePaths: () => Promise<string[]>;
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
-export declare const getPackageDependencies: () => Promise<{
+export declare const getPackageDependencies: (exclude?: string) => Promise<{
     [key: string]: string;
 }[]>;
 /** vsc-base method

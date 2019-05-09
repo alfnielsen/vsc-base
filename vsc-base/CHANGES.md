@@ -2,6 +2,26 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.11
+
+### Small breaking changes
+
+getPackageFilePaths and getPackageDependencies now by default exlude package.json under .vscode-test
+
+(The folder vscode create while tesing extensions)
+
+To get the original behavioer add optional exclude params: '\*\*/node_modules/\*\*'
+
+### Add
+
+[getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) and [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
+now take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths).
+It can be used to control which package.json files should be included.
+
+## 0.8.10
+
+Update docs (typings)
+
 ## 0.8.9
 
 ### Changes

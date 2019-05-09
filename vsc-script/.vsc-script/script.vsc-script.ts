@@ -43,7 +43,7 @@ export async function run(path: string) {
 
    let scriptFileExport: { [key: string]: unknown }
    try {
-      scriptFileExport = await vsc.loadTsModule(selectedScript.path)
+      scriptFileExport = await vsc.tsLoadModule(selectedScript.path)
    } catch (e) {
       vsc.showErrorMessage('Error: ' + e)
       return

@@ -24,7 +24,7 @@ export async function run(path: string) {
    const basePath = dir + '/vsc-base.ts';
    const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
    await vsc.copy(basePath, newPath)
-
+   vsc.showMessage(`Compiling Done`)
 }
 type CodePart = {
    meta: string

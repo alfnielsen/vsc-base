@@ -1,5 +1,5 @@
-import * as vscode from 'vscode'
 import * as vsc from './vsc-base'
+import * as vscode from 'vscode'
 
 /** vsc-base method
  * @description 
@@ -393,7 +393,7 @@ export const prependToDocument = async (
  * @description 
  * Insert content at vscode.Range
  * Return true on success, false if the document or textEditor was not open/correct
- * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @see [insertAtRange](http://vsc-base.org/#insertAtRange)
  * @param content
  * @param range
  * @param editor
@@ -422,13 +422,13 @@ export const insertAtRange = async (
  * @description 
  * Insert content at position (start and optional end postion)
  * Return true on success, false if the document or textEditor was not open/correct
- * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @see [insertAt](http://vsc-base.org/#insertAt)
  * @param content
  * @param range
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAtRange(content, range)
+ * @oneLineEx const success = await vsc.insertAt(content, start, end)
  * @returns Promise<boolean>
  */
 export const insertAt = async (
@@ -454,12 +454,12 @@ export const insertAt = async (
 /** vsc-base method
  * @description 
  * Append new line content in the end of the (open) document
- * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @see [appendLineToDocument](http://vsc-base.org/#appendLineToDocument)
  * @param content
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @oneLineEx const success = await vsc.appendLineToDocument(content)
  * @returns Promise<boolean>
  */
 export const appendLineToDocument = async (
@@ -474,13 +474,12 @@ export const appendLineToDocument = async (
 /** vsc-base method
  * @description 
  * Prepend new line content in the start of the (open) document
- * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @see [prependLineToDocument](http://vsc-base.org/#prependLineToDocument)
  * @param content
  * @param document
  * @param editor
- * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @oneLineEx const success = await vsc.prependLineToDocument(content)
  * @returns Promise<boolean>
  */
 export const prependLineToDocument = async (
@@ -494,10 +493,10 @@ export const prependLineToDocument = async (
  * @description 
  * Save active open file. \
  * Return true for succes, and false if there was no open document
- * @see [saveActiveDocument](http://vsc-base.org/#saveActiveDocument)
+ * @see [saveDocument](http://vsc-base.org/#saveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.saveActiveDocument(content)
+ * @oneLineEx const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
 export const saveDocument = async (
@@ -518,11 +517,11 @@ export const saveDocument = async (
 /** vsc-base method
  * @description 
  * Takes a start and end and return vscode positons and range objects.
- * @see [getComplexRangeObject](http://vsc-base.org/#getComplexRangeObject)
+ * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.getComplexRangeObject(source, start, end)
+ * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
 export const createVscodeRangeAndPosition = (source: string, start: number, end: number = start, trimSpaces = true): vsc.VscodePosition => {
@@ -700,7 +699,7 @@ export const setSelectionFromRange = (
  * Set Selections for an TextEditor (Current document) \
  * Clear other selections \
  * returns true on success
- * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionFromRange)
+ * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionsFromRanges)
  * @param range
  * @param editor
  * @vscType Vscode

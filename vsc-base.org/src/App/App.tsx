@@ -69,9 +69,38 @@ export async function run(path: string) {
             Script's are easy to customize, copy and share and provide an easy way of doing custom automation.<br/>
             Extension are for generel common automation/easening/linting ect. for vscode that is specified to a point where it can be used for any project.
          </p>
+         <h3>vsc-script - onSave</h3>
          <p>
-            vsc-base is at the moment used as the base for two other extension, vsc-move and vsc-scaffolding, and will most likely provide the base for other extensions in the future.
+            vsc-script supports onSave actions, with filesnamed {'{script-name}'}.vsc-script-onsave.ts, 
+            which is executed when an open document is saved. (Use with caution!)<br/>
+            <i>(The vsc-script extension most be installed!)</i><br/>
+            All onsave script will be executed iIn alphabetical order.<br/>
+            (Dont have to many onsave script - it will slow down your vscode on save!)
          </p>
+         <p>
+            vsc-script supports onSave actions, with filesnamed {'{script-name}'}.vsc-script-onsave.ts, 
+            which is executed when an open document is saved. (Use with caution!)<br/>
+            <i>(The vsc-script extension most be installed!)</i>
+         </p>
+         <p>
+            The vsc-script must contains a single export that is an (async) function named runOnSave. <br/>
+            The parameters for the run is a string, that is the file-path for the open document being saved.<br/>
+            The script is on at 'onWillSaveTextDocument' time, which means that any changes done to the document by the script will be saved.
+         </p>
+            <HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export async function run(path: string) {
+   if (vsc.isDir(path)) {
+      vsc.showErrorMessage('Only works on files!')
+   }
+   let source = await vsc.getFileContent(path)
+   source = source.replace('test', 'Test')
+   await vsc.saveFileContent(path, source)
+   vsc.showErrorMessage('Update file!')
+}
+`} />
+
          <h3>vsc-scaffolding</h3>
          <p>
             vsc-scaffolding is a scaffolding extension, that is based on vsc-base. (vsc.Template)<br/>

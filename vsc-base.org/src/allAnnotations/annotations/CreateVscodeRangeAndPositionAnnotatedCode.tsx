@@ -18,7 +18,7 @@ const CreateVscodeRangeAndPositionAnnotatedCode = ({ open = false }: {open?: boo
             </>
          }
          
-         codeOneLineEx={`const success = vsc.getComplexRangeObject(source, start, end)`}
+         codeOneLineEx={`const success = vsc.createVscodeRangeAndPosition(source, start, end)`}
          codeEx={``}
          code={`/**
  * @param range, editor

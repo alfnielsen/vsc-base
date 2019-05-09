@@ -14,6 +14,10 @@ const GetPackageDependenciesAnnotatedCode = ({ open = false }: {open?: boolean})
                <p>
                   
  Find package.json files and collect the dependencies and devDependencies.
+ Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> / <a href='http://vsc-base.org/#getPackageFilePaths'>getPackageFilePaths</a> 
+               </p>
+               <p>
+                It can be used to control which package.json files should be included.
                </p>
             </>
          }
@@ -26,12 +30,14 @@ const GetPackageDependenciesAnnotatedCode = ({ open = false }: {open?: boolean})
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<\{ [key: string]: string }[]
  */
-export const getPackageDependencies = async (): Promise<
+export const getPackageDependencies = async (
+   exclude = '**/\{node_modules,.vscode-test}/**'
+): Promise<
    \{ [key: string]: string }[]
 > => \{
    let dependencies: \{ [k: string]: string } = \{}
    let devDependencies: \{ [k: string]: string } = \{}
-   const packageFilePaths = await vsc.getPackageFilePaths()
+   const packageFilePaths = await vsc.getPackageFilePaths(exclude)
    for (let i = 0; i < packageFilePaths.length; i++) \{
       const packageFile = packageFilePaths[i]
       const packageJson = await vsc.getJsonContent<\{

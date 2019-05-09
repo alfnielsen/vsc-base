@@ -180,20 +180,26 @@ export const getConfig = <T>(
 
 /** vsc-base method
  * @description 
- * Find packages file paths in project.
+ * Find packages file paths in project. /
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-export const getPackageFilePaths = async (): Promise<string[]> => {
-   const packageFiles = await vsc.findFilePaths('**/package.json')
+export const getPackageFilePaths = async (
+   exclude = '**/{node_modules,.vscode-test}/**'
+): Promise<string[]> => {
+   const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
    return packageFiles
 }
 
 /** vsc-base method
  * @description 
  * Find package.json files and collect the dependencies and devDependencies.
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
@@ -201,12 +207,14 @@ export const getPackageFilePaths = async (): Promise<string[]> => {
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
-export const getPackageDependencies = async (): Promise<
+export const getPackageDependencies = async (
+   exclude = '**/{node_modules,.vscode-test}/**'
+): Promise<
    { [key: string]: string }[]
 > => {
    let dependencies: { [k: string]: string } = {}
    let devDependencies: { [k: string]: string } = {}
-   const packageFilePaths = await vsc.getPackageFilePaths()
+   const packageFilePaths = await vsc.getPackageFilePaths(exclude)
    for (let i = 0; i < packageFilePaths.length; i++) {
       const packageFile = packageFilePaths[i]
       const packageJson = await vsc.getJsonContent<{

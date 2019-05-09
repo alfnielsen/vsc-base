@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const vscode = require("vscode");
 const vsc = require("./vsc-base");
+const vscode = require("vscode");
 /** vsc-base method
  * @description
  * Prompt user for a question
@@ -325,7 +325,7 @@ exports.prependToDocument = (content, editor) => __awaiter(this, void 0, void 0,
  * @description
  * Insert content at vscode.Range
  * Return true on success, false if the document or textEditor was not open/correct
- * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @see [insertAtRange](http://vsc-base.org/#insertAtRange)
  * @param content
  * @param range
  * @param editor
@@ -349,13 +349,13 @@ exports.insertAtRange = (content, range, editor) => __awaiter(this, void 0, void
  * @description
  * Insert content at position (start and optional end postion)
  * Return true on success, false if the document or textEditor was not open/correct
- * @see [appendToDocument](http://vsc-base.org/#appendToDocument)
+ * @see [insertAt](http://vsc-base.org/#insertAt)
  * @param content
  * @param range
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAtRange(content, range)
+ * @oneLineEx const success = await vsc.insertAt(content, start, end)
  * @returns Promise<boolean>
  */
 exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => __awaiter(this, void 0, void 0, function* () {
@@ -374,12 +374,12 @@ exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => 
 /** vsc-base method
  * @description
  * Append new line content in the end of the (open) document
- * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @see [appendLineToDocument](http://vsc-base.org/#appendLineToDocument)
  * @param content
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @oneLineEx const success = await vsc.appendLineToDocument(content)
  * @returns Promise<boolean>
  */
 exports.appendLineToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
@@ -388,13 +388,12 @@ exports.appendLineToDocument = (content, editor) => __awaiter(this, void 0, void
 /** vsc-base method
  * @description
  * Prepend new line content in the start of the (open) document
- * @see [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+ * @see [prependLineToDocument](http://vsc-base.org/#prependLineToDocument)
  * @param content
  * @param document
  * @param editor
- * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToActiveDocument(content)
+ * @oneLineEx const success = await vsc.prependLineToDocument(content)
  * @returns Promise<boolean>
  */
 exports.prependLineToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
@@ -404,10 +403,10 @@ exports.prependLineToDocument = (content, editor) => __awaiter(this, void 0, voi
  * @description
  * Save active open file. \
  * Return true for succes, and false if there was no open document
- * @see [saveActiveDocument](http://vsc-base.org/#saveActiveDocument)
+ * @see [saveDocument](http://vsc-base.org/#saveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.saveActiveDocument(content)
+ * @oneLineEx const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
 exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* () {
@@ -423,11 +422,11 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
 /** vsc-base method
  * @description
  * Takes a start and end and return vscode positons and range objects.
- * @see [getComplexRangeObject](http://vsc-base.org/#getComplexRangeObject)
+ * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.getComplexRangeObject(source, start, end)
+ * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
 exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces = true) => {
@@ -573,7 +572,7 @@ exports.setSelectionFromRange = (range, editor) => {
  * Set Selections for an TextEditor (Current document) \
  * Clear other selections \
  * returns true on success
- * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionFromRange)
+ * @see [setSelectionsFromRanges](http://vsc-base.org/#setSelectionsFromRanges)
  * @param range
  * @param editor
  * @vscType Vscode

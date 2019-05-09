@@ -21,7 +21,7 @@ const SaveDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.saveActiveDocument(content)`}
+         codeOneLineEx={`const success = await vsc.saveDocument(content)`}
          codeEx={``}
          code={`/**
  * @dependencyInternal getActiveDocument

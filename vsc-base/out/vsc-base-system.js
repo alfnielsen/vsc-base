@@ -197,19 +197,23 @@ exports.getConfig = (projectName, property, defaultValue) => {
 };
 /** vsc-base method
  * @description
- * Find packages file paths in project.
+ * Find packages file paths in project. /
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-exports.getPackageFilePaths = () => __awaiter(this, void 0, void 0, function* () {
-    const packageFiles = yield vsc.findFilePaths('**/package.json');
+exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
+    const packageFiles = yield vsc.findFilePaths('**/package.json', exclude);
     return packageFiles;
 });
 /** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
@@ -217,10 +221,10 @@ exports.getPackageFilePaths = () => __awaiter(this, void 0, void 0, function* ()
  * @todo Use unknow guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
-exports.getPackageDependencies = () => __awaiter(this, void 0, void 0, function* () {
+exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
     let dependencies = {};
     let devDependencies = {};
-    const packageFilePaths = yield vsc.getPackageFilePaths();
+    const packageFilePaths = yield vsc.getPackageFilePaths(exclude);
     for (let i = 0; i < packageFilePaths.length; i++) {
         const packageFile = packageFilePaths[i];
         const packageJson = yield vsc.getJsonContent(packageFile);

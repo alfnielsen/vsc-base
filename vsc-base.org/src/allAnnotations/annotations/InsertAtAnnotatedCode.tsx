@@ -19,7 +19,7 @@ const InsertAtAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.insertAtRange(content, range)`}
+         codeOneLineEx={`const success = await vsc.insertAt(content, start, end)`}
          codeEx={``}
          code={`/**
  * @param content, range, editor

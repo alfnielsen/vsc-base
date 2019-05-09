@@ -18,11 +18,10 @@ const PrependLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) 
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.appendLineToActiveDocument(content)`}
+         codeOneLineEx={`const success = await vsc.prependLineToDocument(content)`}
          codeEx={``}
          code={`/**
  * @param content, document, editor
- * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
  * @returns Promise<boolean>
  */

@@ -1,0 +1,1 @@
+/Users/alfnielsen/Dropbox/Coding/vsc-base/vsc-script/package.json

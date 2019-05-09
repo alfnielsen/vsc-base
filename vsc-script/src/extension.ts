@@ -17,17 +17,38 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const script = new Script()
 
-	let disposable = vscode.commands.registerCommand('extension.vscScript', (uri?: vscode.Uri, uris?: vscode.Uri[]) => {
-			if(uri === undefined){
-				vscode.window.showErrorMessage("vsc-script most be run from vscode context menu by rigth-clicking a file or folder and run 'vsc Script'");
-				return;
+	let disposableScriptCommand = vscode.commands.registerCommand('extension.vscScript', (uri?: vscode.Uri, uris?: vscode.Uri[]) => {
+		if (uri === undefined || !vscode.window.activeTextEditor) {
+			vscode.window.showErrorMessage("vsc-script can only be run from vscode explore context menu or an open document");
+			return;
+		} else if (uri === undefined) {
+			uri = vscode.window.activeTextEditor.document.uri
+		}
+		script.run(uri)
+	})
+
+	let disposableShortcut = vscode.commands.registerTextEditorCommand(
+		'extension.vscScriptOnSave',
+		() => {
+			if (!vscode.window.activeTextEditor) {
+				return
 			}
-			script.run(uri)
+			script.runOnSave(vscode.window.activeTextEditor.document.uri)
 		}
 	)
 
-	context.subscriptions.push(disposable)
+	let disposableOnSave = vscode.workspace.onWillSaveTextDocument((event: vscode.TextDocumentWillSaveEvent) => {
+		event.waitUntil(
+			script.runOnSave(event.document.uri)
+		);
+	})
+
+	context.subscriptions.push(disposableScriptCommand)
+	context.subscriptions.push(disposableShortcut)
+	context.subscriptions.push(disposableOnSave)
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
+
+

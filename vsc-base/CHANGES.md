@@ -10,7 +10,7 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 (The folder vscode create while tesing extensions)
 
-To get the original behavioer add optional exclude params: '\*\*/node_modules/\*\*'
+To get the original behavior, add optional 'exclude' params: '\*\*/node_modules/\*\*'
 
 ### Add
 

@@ -17,9 +17,10 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 vsc-base now use direct export of sub files.
 (Default import of vsc should be possible, and will maybe be added in future versions)
 
-Earlier version of vsc-base made imports of sub files directly,
+Earlier version of vsc-base made imports of sub files manual,
 this was never meant to be a final solution and is now changes.
-(The insert Methods did exist but they was not exported before)
+
+(The insert methods did exist but they was not exported before)
 
 ## 0.8.8
 

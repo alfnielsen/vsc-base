@@ -50,6 +50,6 @@
       "vscode": "^1.1.33"
    },
    "dependencies": {
-      "vsc-base": "^0.8.9"
+      "vsc-base": "^0.8.11"
    }
 }

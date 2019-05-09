@@ -46,7 +46,6 @@ A script file is written in typescript.
 ```ts
 // documentation on http://vsc-base.org
 import * as vsc from 'vsc-base'
-import * as vscode from 'vscode'
 
 export async function run(path: string) {
    let source = await vsc.getFileContent(path)
@@ -77,9 +76,24 @@ The script must export one async function named 'run' that takes an Uri (vscode.
 
 The uri is the path to the file/folder right-clicked in vscode when the user runs the script.
 
+vsc-script also accepts name.vsc-script-onsave.ts files.
+
+They wil be executed on save (i nalphabetical order).
+
+Dont have to many (They will slow down vscode save)
+
+```ts
+// documentation on http://vsc-base.org
+import * as vsc from 'vsc-base'
+
+export async function runOnSave(path: string) {
+   //Use vsc.getDocumentContent() and vsc.insertAt() and other method to change document before its saved
+}
+```
+
 ## vsc-base
 
-vsc-script is based on vsc-base. (And vsc-base, vsc-base.org and vsc-script shares one mono-respo)
+vsc-script is based on vsc-base. (And vsc-base, vsc-base.org, vsc-script and vsc-scaffolding shares one mono-respo)
 
 vsc-base will get more convenient method over time for working with folder/files,
 paths, strings and other elements that make it easier to create vscode extension and writen vsc-scripts.
@@ -92,8 +106,6 @@ paths, strings and other elements that make it easier to create vscode extension
 
 > [vsc-base release-notes](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
-### Related projects
+### Related extensions
 
-> vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding) | [source-code](https://github.com/alfnielsen/vsc-scaffolding)
-
-> vsc-move: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-move) | [source-code](https://github.com/alfnielsen/vsc-move)
+> vsc-scaffolding: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scafolding)

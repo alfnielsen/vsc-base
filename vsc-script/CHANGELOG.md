@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.0
+
+Update vsc-base to version 0.8.10
+
+Add name.vsc-base-onsave.ts files. (Script that will execute on save)
+
 ## 0.3.11
 
 Update vsc-base to version 0.8.9

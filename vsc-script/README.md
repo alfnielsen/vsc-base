@@ -76,7 +76,7 @@ The script must export one async function named 'run' that takes an Uri (vscode.
 
 The uri is the path to the file/folder right-clicked in vscode when the user runs the script.
 
-### onSave script's
+### onSave script's (Preview)
 
 vsc-script also accepts name.vsc-script-onsave.ts files.
 

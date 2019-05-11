@@ -18,16 +18,29 @@ or run the command manual:
 2. Write: 'vsc Organize Imports'
 3. Press Enter to execute the organize
 
-## Tech!
+## Extension Settings
+
+
+**Format on save**
+
+|type           | deault | description |
+|-|-|-|
+|boolean|true|Run vsc-organize-imports on save|
+
+**Space between import groups**
+
+|type           | deault | description |
+|-|-|-|
+|boolean|true|Add emptyline between import groups: global, local/absolute and relative paths.|
+
+## Links and related projects
 
 This extension is build with [vsc-base](http://vsc-base.org).
 
 The source code is alse find it vsc-base monorespo: [source-code](https://github.com/alfnielsen/vsc-base)
 
-## Extension Settings
-
-## Links and related projects
-
+### Links
+ 
 > mono-respo: [source-code](https://github.com/alfnielsen/vsc-base)
 
 > vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base)

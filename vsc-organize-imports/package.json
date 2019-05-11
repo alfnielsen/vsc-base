@@ -8,7 +8,7 @@
       "type": "git",
       "url": "https://github.com/alfnielsen/vsc-base"
    },
-   "homepage": "https://github.com/alfnielsen/vsc-base/vsc-organize-imports",
+   "homepage": "https://github.com/alfnielsen/vsc-base",
    "version": "0.0.1",
    "engines": {
       "vscode": "^1.32.0"

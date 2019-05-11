@@ -6,9 +6,9 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 ### Small breaking changes
 
-[getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) and [getPackageDependencies](http://vsc-base.org/#getPackageDependencies) now by default exlude package.json under .vscode-test
+[getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) and [getPackageDependencies](http://vsc-base.org/#getPackageDependencies) now by default exclude package.json under .vscode-test
 
-(The folder vscode create while tesing extensions)
+(The folder vscode create while testing extensions)
 
 To get the original behavior, add optional 'exclude' params: '\*\*/node_modules/\*\*'
 

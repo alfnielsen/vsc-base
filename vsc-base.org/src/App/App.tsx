@@ -69,7 +69,7 @@ export async function run(path: string) {
             Script's are easy to customize, copy and share and provide an easy way of doing custom automation.<br/>
             Extension are for generel common automation/easening/linting ect. for vscode that is specified to a point where it can be used for any project.
          </p>
-         <h3>vsc-script - onSave</h3>
+         <h3>vsc-script - onSave (Preview)</h3>
          <p>
             vsc-script supports onSave actions, with files named {'{script-name}'}.vsc-script-onsave.ts, 
             which is executed when an open document is saved. (Use with caution!)<br/>

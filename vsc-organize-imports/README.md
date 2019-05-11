@@ -14,7 +14,7 @@ If "Format on save" is disabled, you can use the keybinding
 (Be default ctrl+alt+o)
 or run the command manual:
 
-1. Open Visial studio Code's command bar (ctrl+shift+p)
+1. Open Visual Studio Code's command bar (ctrl+shift+p)
 2. Write: 'vsc Organize Imports'
 3. Press Enter to execute the organize
 

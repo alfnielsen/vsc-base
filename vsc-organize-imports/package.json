@@ -17,7 +17,10 @@
       "Other"
    ],
    "activationEvents": [
-      "*"
+      "onLanguage:typescript",
+      "onLanguage:typescriptreact",
+      "onLanguage:javascript",
+      "onLanguage:javascriptreact"
    ],
    "main": "./out/extension.js",
    "contributes": {
@@ -39,11 +42,13 @@
          "title": "vsc Organize Imports",
          "properties": {
             "vscMove.formatOnSave": {
+               "title": "Format on save",
                "type": "boolean",
                "default": "true",
-               "description": "Format on save."
+               "description": "Run vsc-organize-imports on save"
             },
             "vscMove.spaceBetweenImportGroups": {
+               "title": "Space between import groups",
                "type": "boolean",
                "default": "true",
                "description": "Add emptyline between import groups: global, local/absolute and relative paths."

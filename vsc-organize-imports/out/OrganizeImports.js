@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vsc = require("vsc-base");
-const SortImports_1 = require("./cleaners/SortImports");
-class CleanCode {
+const SortImports_1 = require("./SortImports");
+class OrganizeImports {
     getConfig(property, defaultValue) {
         return vsc.getConfig('vscOrganizeImports', property, defaultValue);
     }
@@ -24,10 +24,20 @@ class CleanCode {
                 return;
             }
             //load settings:
-            const spaceBetweenImportGroups = this.getConfig('spaceBetweenImportGroups', true);
-            yield SortImports_1.SortImports(content, spaceBetweenImportGroups);
+            const spaceBetweenImportGroups = this.getConfig('spaceBetweenImportGroups', false);
+            const orderSpecifiers = this.getConfig('orderSpecifiers', false);
+            const orderSpecifiersAsSingleLine = this.getConfig('orderSpecifiersAsSingleLine', false);
+            const editor = vsc.getActiveEditor();
+            let selection;
+            if (editor) {
+                selection = editor.selection;
+            }
+            yield SortImports_1.SortImports(content, spaceBetweenImportGroups, orderSpecifiers, orderSpecifiersAsSingleLine);
+            if (editor && selection) {
+                editor.selection = selection;
+            }
         });
     }
 }
-exports.default = CleanCode;
-//# sourceMappingURL=CleanCode.js.map
+exports.default = OrganizeImports;
+//# sourceMappingURL=OrganizeImports.js.map

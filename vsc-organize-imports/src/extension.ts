@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 
-import CleanCode from './CleanCode'
+import OrganizeImports from './OrganizeImports'
 
 // The module 'vscode' contains the VS Code extensibility API
 
@@ -16,20 +16,10 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 
-	const cleanCode = new CleanCode()
-
-	// let disposableScriptCommand = vscode.commands.registerCommand('extension.vscCleanCode', (uri?: vscode.Uri, uris?: vscode.Uri[]) => {
-	// 	if (uri === undefined || !vscode.window.activeTextEditor) {
-	// 		vscode.window.showErrorMessage("vsc-script can only be run from an open document");
-	// 		return;
-	// 	} else if (uri === undefined) {
-	// 		uri = vscode.window.activeTextEditor.document.uri
-	// 	}
-	// 	cleanCode.run(uri)
-	// })
+	const cleanCode = new OrganizeImports()
 
 	let disposableShortcut = vscode.commands.registerTextEditorCommand(
-		'extension.vscScriptOnSave',
+		'extension.vscOrganizeImports',
 		() => {
 			if (!vscode.window.activeTextEditor) {
 				return
@@ -39,7 +29,8 @@ export function activate(context: vscode.ExtensionContext) {
 	)
 
 	let disposableOnSave = vscode.workspace.onWillSaveTextDocument((event: vscode.TextDocumentWillSaveEvent) => {
-		if (cleanCode.formatOnSave) {
+		const formatOnSave = cleanCode.getConfig('formatOnSave', true)
+		if (formatOnSave) {
 			event.waitUntil(
 				cleanCode.run(event.document.uri)
 			);

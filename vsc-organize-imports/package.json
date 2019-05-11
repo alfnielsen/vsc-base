@@ -1,7 +1,7 @@
 {
    "name": "vsc-organize-imports",
    "displayName": "vsc-organize-imports",
-   "description": "Organize imports in ts/js files. (Kepp format like single-line/multiline and keeps comments)",
+   "description": "Organize imports in ts/js files. (Keep line structure (single-line/multi-line) and keeps comments)",
    "publisher": "alfnielsen",
    "icon": "vsc-base-icon.png",
    "repository": {
@@ -41,17 +41,29 @@
          "type": "object",
          "title": "vsc Organize Imports",
          "properties": {
-            "vscMove.formatOnSave": {
+            "vscOrganizeImports.formatOnSave": {
                "title": "Format on save",
                "type": "boolean",
                "default": "true",
                "description": "Run vsc-organize-imports on save"
             },
-            "vscMove.spaceBetweenImportGroups": {
+            "vscOrganizeImports.spaceBetweenImportGroups": {
                "title": "Space between import groups",
                "type": "boolean",
-               "default": "true",
-               "description": "Add emptyline between import groups: global, local/absolute and relative paths."
+               "default": "false",
+               "description": "Add empty line between import groups: global, local/absolute and relative paths."
+            },
+            "vscOrganizeImports.orderSpecifiers": {
+               "title": "Sort named imports",
+               "type": "boolean",
+               "default": "false",
+               "description": "Sort each imports named specifiers. ex: import { a, b, c }"
+            },
+            "vscOrganizeImports.orderSpecifiersAsSingleLine": {
+               "title": "Make import as single lines",
+               "type": "boolean",
+               "default": "false",
+               "description": "This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line."
             }
          }
       }

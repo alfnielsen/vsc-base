@@ -20,18 +20,29 @@ or run the command manual:
 
 ## Extension Settings
 
-
 **Format on save**
 
-|type           | deault | description |
-|-|-|-|
-|boolean|true|Run vsc-organize-imports on save|
+| type    | default | description                      |
+| ------- | ------- | -------------------------------- |
+| boolean | true    | Run vsc-organize-imports on save |
 
 **Space between import groups**
 
-|type           | deault | description |
-|-|-|-|
-|boolean|true|Add emptyline between import groups: global, local/absolute and relative paths.|
+| type    | default | description                                                                      |
+| ------- | ------- | -------------------------------------------------------------------------------- |
+| boolean | false   | Add empty line between import groups: global, local/absolute and relative paths. |
+
+**Sort named imports**
+
+| type    | default | description                                                |
+| ------- | ------- | ---------------------------------------------------------- |
+| boolean | false   | Sort each imports named specifiers. ex: import { a, b, c } |
+
+**Space between import groups**
+
+| type    | default | description                                                                                           |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| boolean | false   | This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line. |
 
 ## Links and related projects
 
@@ -40,7 +51,7 @@ This extension is build with [vsc-base](http://vsc-base.org).
 The source code is alse find it vsc-base monorespo: [source-code](https://github.com/alfnielsen/vsc-base)
 
 ### Links
- 
+
 > mono-respo: [source-code](https://github.com/alfnielsen/vsc-base)
 
 > vsc-base: [npm-module](https://www.npmjs.com/package/vsc-base)

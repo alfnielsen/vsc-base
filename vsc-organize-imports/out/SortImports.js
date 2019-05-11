@@ -10,8 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const vsc = require("vsc-base");
-require("src");
-function SortImports(content, spaceBetweenImportGroups) {
+function SortImports(content, spaceBetweenImportGroups, orderSpecifiers, orderSpecifiersAsSingleLine) {
     return __awaiter(this, void 0, void 0, function* () {
         //Find first node that is not in import
         const imports = mapImports(content);
@@ -24,14 +23,21 @@ function SortImports(content, spaceBetweenImportGroups) {
         //sort
         imports.sort((a, b) => a.path.localeCompare(b.path));
         //TODO: sort specifiers (maybe)
-        // imports.forEach(imp => {
-        //   if (imp.specifiers) {
-        //     imp.specifiers.sort((a, b) => a.name.localeCompare(b.name))
-        //   }
-        //   if (imp.name) {
-        //     imp.specifiers.sort((a, b) => a.name.localeCompare(b.name))
-        //   }
-        // })
+        if (orderSpecifiers) {
+            imports.map(imp => {
+                if (imp.specifiers) {
+                    imp.specifiers.sort((a, b) => a.name.localeCompare(b.name));
+                    if (orderSpecifiersAsSingleLine) {
+                        const specifierContent = imp.specifiers.map(s => s.fullString).join(', ');
+                        imp.fullString = imp.fullString.replace(/\{[^}]+\}/, '{ ' + specifierContent + ' }');
+                    }
+                    else {
+                        const specifierContent = imp.specifiers.map(s => s.fullString).join(',\n  ');
+                        imp.fullString = imp.fullString.replace(/\{[^}]+\}/, '{\n  ' + specifierContent + '\n}');
+                    }
+                }
+            });
+        }
         const newImportContent = yield organizeImports(imports, spaceBetweenImportGroups);
         yield vsc.insertAt(newImportContent, firstImport.pos.start, lastImport.pos.end);
     });
@@ -111,7 +117,7 @@ const mapImports = (content) => {
             }
             if (importClause.namedBindings && ts.isNamedImports(importClause.namedBindings)) {
                 specifiers = importClause.namedBindings.elements.map(e => ({
-                    fullString: e.getText(),
+                    fullString: e.getText().trim(),
                     node: e,
                     name: e.name.getText()
                 }));

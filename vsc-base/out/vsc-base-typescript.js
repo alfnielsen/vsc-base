@@ -1174,6 +1174,66 @@ exports.tsMatchEnumMember = (node, options) => {
 };
 /** vsc-base method
  * @description
+ * Test is a node is a call expression (node: ts.CallExpression) \
+ * and optional test for its name, and arguments.\
+ * it's value, hasAncestor and hasGrandchild \
+ * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
+ * @see [tsMatchCall](http://vsc-base.org/#tsMatchCall)
+ * @vscType ts
+ * @oneLineEx const callNode = vsc.tsMatchCall(node, options)
+ * @ex
+const callNode = vsc.tsMatchCall(node, { name: /^myCaller$/ })
+ * @returns ts.CallExpression | undefined
+ */
+exports.tsMatchCall = (node, options) => {
+    if (!node || !ts.isCallExpression(node)) {
+        return;
+    }
+    if (!options) {
+        return node;
+    }
+    const { name, hasArgument, hasArguments } = options;
+    delete options.name; //leave name
+    if (!vsc.tsIsNode(node, options)) {
+        return;
+    }
+    if (name) {
+        const callName = node.expression.getText();
+        if (name instanceof RegExp && !name.test(callName)) {
+            return;
+        }
+        if (typeof name === 'string' && name !== callName) {
+            return;
+        }
+    }
+    if (hasArgument && !node.arguments.some(arg => hasArgument(arg))) {
+        return;
+    }
+    if (hasArguments && !hasArguments.every(_hasArgument => {
+        return node.arguments.some(arg => _hasArgument(arg));
+    })) {
+        return;
+    }
+    return node;
+};
+/** vsc-base method
+ * @description
+ * Test is a node is a call expression (node: ts.CallExpression) \
+ * and optional test for its name, and arguments.\
+ * it's value, hasAncestor and hasGrandchild \
+ * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
+ * @see [tsIsCall](http://vsc-base.org/#tsIsCall)
+ * @vscType ts
+ * @oneLineEx const isCall = vsc.tsIsCall(node, options)
+ * @ex
+const isCall = vsc.tsMatchCall(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+exports.tsIsCall = (node, options) => {
+    return !!vsc.tsMatchCall(node, options);
+};
+/** vsc-base method
+ * @description
  * Test is a node is a object property (node: ts.PropertyAssignment) \
  * Uses [tsMatchObjectProperty](http://vsc-base.org/#tsMatchObjectProperty)
  * @see [tsIsObjectProperty](http://vsc-base.org/#tsIsObjectProperty)
@@ -1309,7 +1369,7 @@ exports.tsIsNode = (node, options) => {
     if (!options) {
         return true;
     }
-    const { name, value, hasAncestor, hasGrandChild, hasAncestors, hasGrandChildren } = options;
+    const { name, value, hasParent, hasAncestor, hasGrandChild, hasAncestors, hasGrandChildren } = options;
     const nameNode = node.name;
     if (name !== undefined) {
         if (!nameNode) {
@@ -1324,6 +1384,9 @@ exports.tsIsNode = (node, options) => {
     }
     const initializerNode = node.initializer;
     if (value !== undefined && (!initializerNode || !vsc.tsIsValue(initializerNode, value))) {
+        return false;
+    }
+    if (hasParent && !hasParent(node.parent)) {
         return false;
     }
     if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) {
@@ -1393,7 +1456,10 @@ exports.tsIsValue = (node, matchValue, options) => {
     if (!options) {
         return true;
     }
-    const { hasAncestor, hasAncestors, } = options;
+    const { hasParent, hasAncestor, hasAncestors, } = options;
+    if (hasParent && !hasParent(node.parent)) {
+        return false;
+    }
     if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) {
         return false;
     }

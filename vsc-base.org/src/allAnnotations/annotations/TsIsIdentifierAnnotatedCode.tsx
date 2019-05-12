@@ -30,6 +30,7 @@ const isIdentifierNode = vsc.tsIsIdentifier(node, \{ name: /^myCaller\$/ })`}
  */
 export const tsIsIdentifier: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{

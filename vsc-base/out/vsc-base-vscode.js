@@ -249,19 +249,19 @@ exports.getDocumentContent = (document) => {
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.setDocumentContent(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.setDocumentContent(content)
+ * @returns boolean
  */
-exports.setDocumentContent = (content, editor) => __awaiter(this, void 0, void 0, function* () {
+exports.setDocumentContent = (content, editor) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
     if (editor === undefined) {
-        return Promise.resolve(false);
+        return false;
     }
     const fullRange = vsc.getFullDocumentRange(editor.document);
-    return yield exports.insertAtRange(content, fullRange, editor);
-});
+    return exports.insertAtRange(content, fullRange, editor);
+};
 /** vsc-base method
  * @description
  * Get a vscode.Range for the entire document
@@ -289,20 +289,20 @@ exports.getFullDocumentRange = (document) => {
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @returns boolean
  */
-exports.appendToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
+exports.appendToDocument = (content, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
     if (!editor) {
-        return Promise.resolve(false);
+        return false;
     }
     const startPosition = new vscode.Position(editor.document.lineCount, 0);
     const endPosition = new vscode.Position(editor.document.lineCount, 0);
     const fullRange = new vscode.Range(startPosition, endPosition);
-    return yield exports.insertAtRange(content, fullRange, editor);
-});
+    return exports.insertAtRange(content, fullRange, editor);
+};
 /** vsc-base method
  * @description
  * Prepend new content in the end of the open document.
@@ -312,15 +312,15 @@ exports.appendToDocument = (content, editor) => __awaiter(this, void 0, void 0, 
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.prependToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @oneLineEx vsc.prependToDocument(editor, document, content)
+ * @returns boolean
  */
-exports.prependToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
+exports.prependToDocument = (content, editor) => {
     const startPosition = new vscode.Position(0, 0);
     const endPosition = new vscode.Position(0, 0);
     const startRange = new vscode.Range(startPosition, endPosition);
-    return yield exports.insertAtRange(content, startRange, editor);
-});
+    return exports.insertAtRange(content, startRange, editor);
+};
 /** vsc-base method
  * @description
  * Insert content at vscode.Range
@@ -331,20 +331,24 @@ exports.prependToDocument = (content, editor) => __awaiter(this, void 0, void 0,
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAtRange(content, range)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAtRange(content, range)
+ * @returns boolean
  */
-exports.insertAtRange = (content, range, editor) => __awaiter(this, void 0, void 0, function* () {
+exports.insertAtRange = (content, range, editor) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
     if (editor === undefined) {
-        return Promise.resolve(false);
+        return false;
     }
-    const snippetString = new vscode.SnippetString(content);
-    yield editor.insertSnippet(snippetString, range);
+    // Use TextEdit to avoid scrolling the document
+    const edits = [];
+    edits.push(vscode.TextEdit.replace(range, content));
+    const workspaceEdit = new vscode.WorkspaceEdit();
+    workspaceEdit.set(editor.document.uri, edits);
+    vscode.workspace.applyEdit(workspaceEdit);
     return true;
-});
+};
 /** vsc-base method
  * @description
  * Insert content at position (start and optional end position)
@@ -355,22 +359,21 @@ exports.insertAtRange = (content, range, editor) => __awaiter(this, void 0, void
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAt(content, start, end)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAt(content, start, end)
+ * @returns boolean
  */
-exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => __awaiter(this, void 0, void 0, function* () {
+exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
     if (editor === undefined) {
-        return Promise.resolve(false);
+        return false;
     }
     const source = editor.document.getText();
     const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces);
-    const snippetString = new vscode.SnippetString(content);
-    yield editor.insertSnippet(snippetString, pos.range);
+    vsc.insertAtRange(content, pos.range, editor);
     return true;
-});
+};
 /** vsc-base method
  * @description
  * Append new line content in the end of the (open) document
@@ -379,12 +382,12 @@ exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => 
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.appendLineToDocument(content)
+ * @returns boolean
  */
-exports.appendLineToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
-    return yield vsc.appendToDocument('\n' + content, editor);
-});
+exports.appendLineToDocument = (content, editor) => {
+    return vsc.appendToDocument('\n' + content, editor);
+};
 /** vsc-base method
  * @description
  * Prepend new line content in the start of the (open) document
@@ -393,12 +396,12 @@ exports.appendLineToDocument = (content, editor) => __awaiter(this, void 0, void
  * @param document
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = await vsc.prependLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.prependLineToDocument(content)
+ * @returns boolean
  */
-exports.prependLineToDocument = (content, editor) => __awaiter(this, void 0, void 0, function* () {
-    return yield vsc.prependToDocument(content + '\n', editor);
-});
+exports.prependLineToDocument = (content, editor) => {
+    return vsc.prependToDocument(content + '\n', editor);
+};
 /** vsc-base method
  * @description
  * Save active open file. \
@@ -421,18 +424,22 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
 });
 /** vsc-base method
  * @description
- * Takes a start and end and return vscode positions and range objects.
+ * Takes a start and end and return vscode positions and range objects. \
+ * Also returns the content and fullContent properties and orgStart and Org End. \
+ * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
- * @param range
- * @param editor
  * @vscType Vscode
  * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
-exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces = true) => {
-    if (trimSpaces) {
+exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAndComments = true) => {
+    const fullContent = source.substring(start, end);
+    const orgStart = start;
+    const orgEnd = end;
+    if (trimSpacesAndComments) {
+        const matcher = /^((\/\*[\s\S]*?\*\/)|(\/\/[^\n]*\n)|([\s\n]+))*/;
         const found = source.substring(start, end);
-        const startSpaces = found.match(/^\s+/);
+        const startSpaces = found.match(matcher);
         if (startSpaces) {
             start += startSpaces[0].length;
         }
@@ -441,6 +448,7 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces =
             end -= endSpaces[0].length;
         }
     }
+    const content = source.substring(start, end);
     const startLines = source.substr(0, start).split("\n");
     const endLines = source.substr(0, end).split("\n");
     const startLineNumber = startLines.length - 1;
@@ -449,6 +457,7 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces =
     const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length);
     const range = new vscode.Range(startPosition, endPosition);
     return {
+        content,
         start,
         end,
         startLineNumber,
@@ -456,6 +465,9 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces =
         startPosition,
         endPosition,
         range,
+        fullContent,
+        orgStart,
+        orgEnd
     };
 };
 /** vsc-base method

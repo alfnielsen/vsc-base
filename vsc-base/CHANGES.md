@@ -2,6 +2,18 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.20
+
+## Add
+
+All 'tsIs' and 'tsMatch' methods that already has the optional options: 'hasAncestor',
+now also has the option: 'hasParent'
+
+new method:
+
+-  [tsMatchCall](http://vsc-base.org/#tsMatchCall)
+-  [tsIsCall](http://vsc-base.org/#tsIsCall)
+
 ## 0.8.19
 
 ### Breaking changes

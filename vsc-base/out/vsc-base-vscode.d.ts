@@ -182,10 +182,10 @@ export declare const getDocumentContent: (document?: vscode.TextDocument | undef
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.setDocumentContent(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.setDocumentContent(content)
+ * @returns boolean
  */
-export declare const setDocumentContent: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const setDocumentContent: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Get a vscode.Range for the entire document
@@ -208,9 +208,9 @@ export declare const getFullDocumentRange: (document: vscode.TextDocument) => vs
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export declare const appendToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const appendToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Prepend new content in the end of the open document.
@@ -220,10 +220,10 @@ export declare const appendToDocument: (content: string, editor?: vscode.TextEdi
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.prependToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @oneLineEx vsc.prependToDocument(editor, document, content)
+ * @returns boolean
  */
-export declare const prependToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const prependToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Insert content at vscode.Range
@@ -234,10 +234,10 @@ export declare const prependToDocument: (content: string, editor?: vscode.TextEd
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAtRange(content, range)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAtRange(content, range)
+ * @returns boolean
  */
-export declare const insertAtRange: (content: string, range: vscode.Range, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const insertAtRange: (content: string, range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Insert content at position (start and optional end position)
@@ -248,10 +248,10 @@ export declare const insertAtRange: (content: string, range: vscode.Range, edito
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAt(content, start, end)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAt(content, start, end)
+ * @returns boolean
  */
-export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined, trimSpaces?: boolean) => Promise<boolean>;
+export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined, trimSpaces?: boolean) => boolean;
 /** vsc-base method
  * @description
  * Append new line content in the end of the (open) document
@@ -260,10 +260,10 @@ export declare const insertAt: (content: string, start: number, end?: number, ed
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.appendLineToDocument(content)
+ * @returns boolean
  */
-export declare const appendLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const appendLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Prepend new line content in the start of the (open) document
@@ -272,10 +272,10 @@ export declare const appendLineToDocument: (content: string, editor?: vscode.Tex
  * @param document
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = await vsc.prependLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.prependLineToDocument(content)
+ * @returns boolean
  */
-export declare const prependLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => Promise<boolean>;
+export declare const prependLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
 /** vsc-base method
  * @description
  * Save active open file. \
@@ -289,16 +289,17 @@ export declare const prependLineToDocument: (content: string, editor?: vscode.Te
 export declare const saveDocument: (document?: vscode.TextDocument | undefined) => Promise<boolean>;
 /** vsc-base method
  * @description
- * Takes a start and end and return vscode positions and range objects.
+ * Takes a start and end and return vscode positions and range objects. \
+ * Also returns the content and fullContent properties and orgStart and Org End. \
+ * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
- * @param range
- * @param editor
  * @vscType Vscode
  * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
-export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number, trimSpaces?: boolean) => vsc.VscodePosition;
+export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number, trimSpacesAndComments?: boolean) => vsc.VscodePosition;
 export declare type VscodePosition = {
+    content: string;
     start: number;
     end: number;
     startLineNumber: number;
@@ -306,6 +307,9 @@ export declare type VscodePosition = {
     startPosition: vscode.Position;
     endPosition: vscode.Position;
     range: vscode.Range;
+    fullContent: string;
+    orgStart: number;
+    orgEnd: number;
 };
 /** vsc-base method
  * @description

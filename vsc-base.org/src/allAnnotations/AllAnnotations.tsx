@@ -99,6 +99,7 @@ import TsHasChildAnnotatedCode from './annotations/TsHasChildAnnotatedCode'
 import TsHasChildrenAnnotatedCode from './annotations/TsHasChildrenAnnotatedCode'
 import TsHasGrandChildAnnotatedCode from './annotations/TsHasGrandChildAnnotatedCode'
 import TsHasGrandChildrenAnnotatedCode from './annotations/TsHasGrandChildrenAnnotatedCode'
+import TsIsCallAnnotatedCode from './annotations/TsIsCallAnnotatedCode'
 import TsIsEnumAnnotatedCode from './annotations/TsIsEnumAnnotatedCode'
 import TsIsEnumMemberAnnotatedCode from './annotations/TsIsEnumMemberAnnotatedCode'
 import TsIsFunctionAnnotatedCode from './annotations/TsIsFunctionAnnotatedCode'
@@ -111,6 +112,7 @@ import TsIsValueAnnotatedCode from './annotations/TsIsValueAnnotatedCode'
 import TsIsVariableAnnotatedCode from './annotations/TsIsVariableAnnotatedCode'
 import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
+import TsMatchCallAnnotatedCode from './annotations/TsMatchCallAnnotatedCode'
 import TsMatchEnumAnnotatedCode from './annotations/TsMatchEnumAnnotatedCode'
 import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnotatedCode'
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
@@ -233,6 +235,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsHasChildrenAnnotatedCode open={activeMethod === 'tsHasChildren'} />
       <TsHasGrandChildAnnotatedCode open={activeMethod === 'tsHasGrandChild'} />
       <TsHasGrandChildrenAnnotatedCode open={activeMethod === 'tsHasGrandChildren'} />
+      <TsIsCallAnnotatedCode open={activeMethod === 'tsIsCall'} />
       <TsIsEnumAnnotatedCode open={activeMethod === 'tsIsEnum'} />
       <TsIsEnumMemberAnnotatedCode open={activeMethod === 'tsIsEnumMember'} />
       <TsIsFunctionAnnotatedCode open={activeMethod === 'tsIsFunction'} />
@@ -245,6 +248,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsIsVariableAnnotatedCode open={activeMethod === 'tsIsVariable'} />
       <TsLoadModuleAnnotatedCode open={activeMethod === 'tsLoadModule'} />
       <TsLoadModuleSourceCodeAnnotatedCode open={activeMethod === 'tsLoadModuleSourceCode'} />
+      <TsMatchCallAnnotatedCode open={activeMethod === 'tsMatchCall'} />
       <TsMatchEnumAnnotatedCode open={activeMethod === 'tsMatchEnum'} />
       <TsMatchEnumMemberAnnotatedCode open={activeMethod === 'tsMatchEnumMember'} />
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />

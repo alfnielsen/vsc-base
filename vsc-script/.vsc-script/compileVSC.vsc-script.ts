@@ -16,8 +16,10 @@ export async function run(path: string) {
    // Now create all element/files used by the the vsc-base.org project
    await CompileToVscBaseOrg(dir, parts)
 
-   vsc.showMessage('Cloning to vsc-base..')
 
+
+
+   vsc.showMessage('Cloning to vsc-base..')
    // Now Copy the source files the vsc-base project
    for (const filePath of vscFiles) {
       const newPath = filePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
@@ -25,7 +27,16 @@ export async function run(path: string) {
    }
    const basePath = dir + '/vsc-base.ts';
    const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
+   //copy files to base
    await vsc.copy(basePath, newPath)
+   //delete old out
+   const vscBaseDir = dir.replace('vsc-script/src/vsc-base-development', 'vsc-base');
+   await vsc.remove(vscBaseDir + '/out')
+   //run build:
+   vsc.showMessage("Building vsc-base ..")
+
+   await vsc.execFromPath("yarn build", vscBaseDir)
+
    vsc.showMessage(`Compiling Done`)
 }
 type CodePart = {
@@ -85,6 +96,7 @@ const createPartMap = async (vscFiles: string[]) => {
 const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    // For vsc-base.org we change the path to point into that project (in this mono-respo)
    const orgDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
+   const orgRootDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org');
    const anoDir = orgDir + '/annotations'
    // Create all code Annotation Components
    await writeAllAnnotationComponent(anoDir, parts)
@@ -101,6 +113,10 @@ const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    rawPathContent = rawPathContent.replace("import * as vsc from './vsc-base'", "import * as vsc from './vsc-base-raw'")
    // Save the modified vsc-base-raw to vsc-base-org project:
    await vsc.saveFileContent(newRawPath, rawPathContent)
+
+   vsc.showMessage("Building vsc-base.org ...")
+   //build
+   await vsc.execFromPath('yarn build', orgRootDir)
 
 }
 

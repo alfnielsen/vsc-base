@@ -30,6 +30,7 @@ const isInterfaceNode = vsc.tsIsInterface(node, \{ name: /^myCaller\$/ })`}
  */
 export const tsIsInterface: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]

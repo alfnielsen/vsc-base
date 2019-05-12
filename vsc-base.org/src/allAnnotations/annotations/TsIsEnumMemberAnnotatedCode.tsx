@@ -32,6 +32,7 @@ export const tsIsEnumMember: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
    enumName?: RegExp | string,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean

@@ -46,6 +46,7 @@ export const tsIsValue: (
    node: ts.Node | undefined,
    value: (RegExp | string | number | boolean | null),
    options?: \{
+      hasParent: (parent: ts.Node) => boolean
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
       hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }
@@ -91,9 +92,13 @@ export const tsIsValue: (
       return true
    }
    const \{
+      hasParent,
       hasAncestor,
       hasAncestors,
    } = options;
+   if (hasParent && !hasParent(node.parent)) \{
+      return false
+   }
    if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
       return false
    }

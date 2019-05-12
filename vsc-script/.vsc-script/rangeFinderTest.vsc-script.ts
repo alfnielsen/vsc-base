@@ -8,7 +8,8 @@ let logger = '';
 
 
 export async function run(path: string) {
-	const fooo = () => { }
+	const fooo = (...args: number[]) => { }
+	const foo1 = (...args: number[]) => { }
 	// let fileContent = await vsc.getFileContent(path);
 	// fileContent = fileContent.replace('let log =', 'let logger =')
 	// await vsc.saveFileContent(path, fileContent)
@@ -20,7 +21,10 @@ export async function run(path: string) {
 		 */
 		//commetn11
 		//asdasd
-		fooo(),
+		fooo(34, 34521, 12, 1),
+		foo1(34, 36521, 12, 1),
+		fooo(34, 24, 12),
+		fooo(34, 24, 12, 1),
 		/**
 		 * sdsss
 		 */
@@ -29,18 +33,31 @@ export async function run(path: string) {
 		fooo(),
 	]
 
+	const ass = 'ParentTest'
 
 	vsc.showMessage("Start finding node... ")
 	const source = vsc.getDocumentContent()
 	if (!source) {
-		vsc.showMessage("No opnen document!")
+		vsc.showMessage("No open document!")
 		return
 	}
-	const [node1, pos1] = vsc.tsFindNodePositionFromContent(source, node => ts.isCallExpression(node) && node.expression.getText() === 'fooo')
-	vsc.showMessage(pos1.content)
-	vsc.showMessage(pos1.fullContent)
+	const [node1, pos1] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsIsCall(node, {
+		name: /^foo/,
+		hasArguments: [
+			arg => vsc.tsIsValue(arg, 1),
+		]
+	})
+	)
+	// vsc.showMessage(pos1.content)
+	// vsc.showMessage(pos1.fullContent)
 	vsc.setSelectionFromRange(pos1.range)
 
+	// const [node1, pos1] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsIsValue(node, 'ParentTest', {
+	// 	hasParent: node => vsc.tsIsVariable(node, { name: 'ass' })
+	// }))
+	// vsc.setSelectionFromRange(pos1.range)
+
+	vsc.showMessage("DONE")
 	return
 
 	// let varFound = false
@@ -123,30 +140,4 @@ export function method1(doit: boolean) {
 
 enum foo {
 	foo1 = 1 //<-- FIND this
-}
-
-{
-	"content": "foo33",
-		"start": 2521,
-			"end": 2526,
-				"startLineNumber": 86,
-					"endLineNumber": 86,
-						"startPosition": {
-		"line": 86,
-			"character": 10
-	},
-	"endPosition": {
-		"line": 86,
-			"character": 15
-	},
-	"range": [
-		{
-			"line": 86,
-			"character": 10
-		},
-		{
-			"line": 86,
-			"character": 15
-		}
-	]
 }

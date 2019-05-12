@@ -981,6 +981,7 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: {
    value?: (RegExp | string | number | boolean | null)
    variableName?: RegExp | string
    parentObjectPropertyName?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1029,6 +1030,7 @@ const funcNone = vsc.tsMatchFunction(node, { name: /^myCaller$/ })
  */
 export const tsMatchFunction: (node: ts.Node | undefined, options?: {
    name?: RegExp | string,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1086,6 +1088,7 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: {
    isConst?: boolean
    isLet?: boolean
    isVar?: boolean,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1125,6 +1128,7 @@ const identifierNode = vsc.tsMatchIdentifier(node, { name: /^myCaller$/ })
  */
 export const tsMatchIdentifier: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
 }) => ts.Identifier | undefined = (node, options) => {
@@ -1160,6 +1164,7 @@ const interfaceNode = vsc.tsMatchInterface(node, { name: /^myCaller$/ })
  */
 export const tsMatchInterface: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1190,6 +1195,7 @@ const typeRefNode = vsc.tsMatchTypeRef(node, { name: /^myCaller$/ })
  */
 export const tsMatchTypeRef: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1224,6 +1230,7 @@ const enumNode = vsc.tsMatchEnum(node, { name: /^myCaller$/ })
  */
 export const tsMatchEnum: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1256,6 +1263,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
    enumName?: RegExp | string,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1279,6 +1287,82 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: {
    return node
 }
 
+/** vsc-base method
+ * @description
+ * Test is a node is a call expression (node: ts.CallExpression) \
+ * and optional test for its name, and arguments.\
+ * it's value, hasAncestor and hasGrandchild \
+ * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
+ * @see [tsMatchCall](http://vsc-base.org/#tsMatchCall)
+ * @vscType ts
+ * @oneLineEx const callNode = vsc.tsMatchCall(node, options)
+ * @ex 
+const callNode = vsc.tsMatchCall(node, { name: /^myCaller$/ })
+ * @returns ts.CallExpression | undefined
+ */
+export const tsMatchCall: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasArgument?: (parent: ts.Node) => boolean
+   hasArguments?: ((parent: ts.Node) => boolean)[]
+   hasParent?: (parent: ts.Node) => boolean
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => ts.CallExpression | undefined = (node, options) => {
+   if (!node || !ts.isCallExpression(node)) {
+      return
+   }
+   if (!options) {
+      return node
+   }
+   const { name, hasArgument, hasArguments } = options
+   delete options.name //leave name
+   if (!vsc.tsIsNode(node, options)) {
+      return
+   }
+   if (name) {
+      const callName = node.expression.getText()
+      if (name instanceof RegExp && !name.test(callName)) { return }
+      if (typeof name === 'string' && name !== callName) { return }
+   }
+   if (hasArgument && !node.arguments.some(arg => hasArgument(arg))) {
+      return
+   }
+   if (hasArguments && !hasArguments.every(_hasArgument => {
+      return node.arguments.some(arg => _hasArgument(arg));
+   })) {
+      return
+   }
+   return node
+}
+
+/** vsc-base method
+ * @description
+ * Test is a node is a call expression (node: ts.CallExpression) \
+ * and optional test for its name, and arguments.\
+ * it's value, hasAncestor and hasGrandchild \
+ * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
+ * @see [tsIsCall](http://vsc-base.org/#tsIsCall)
+ * @vscType ts
+ * @oneLineEx const isCall = vsc.tsIsCall(node, options)
+ * @ex 
+const isCall = vsc.tsMatchCall(node, { name: /^myCaller$/ })
+ * @returns boolean
+ */
+export const tsIsCall: (node: ts.Node | undefined, options?: {
+   name?: RegExp | string
+   hasArgument?: (parent: ts.Node) => boolean
+   hasArguments?: ((parent: ts.Node) => boolean)[]
+   hasParent?: (parent: ts.Node) => boolean
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchCall(node, options)
+}
+
 
 
 /** vsc-base method
@@ -1297,6 +1381,7 @@ export const tsIsObjectProperty: (node: ts.Node | undefined, options?: {
    value?: (RegExp | string | number | boolean | null)
    variableName?: RegExp | string
    parentObjectPropertyName?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1319,6 +1404,7 @@ const isFunctionNone = vsc.tsIsFunction(node, { name: /^myCaller$/ })
  */
 export const tsIsFunction: (node: ts.Node | undefined, options?: {
    name?: RegExp | string,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1345,6 +1431,7 @@ export const tsIsVariable: (node: ts.Node | undefined, options?: {
    isConst?: boolean
    isLet?: boolean
    isVar?: boolean,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1367,6 +1454,7 @@ const isIdentifierNode = vsc.tsIsIdentifier(node, { name: /^myCaller$/ })
  */
 export const tsIsIdentifier: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => {
@@ -1386,6 +1474,7 @@ const isInterfaceNode = vsc.tsIsInterface(node, { name: /^myCaller$/ })
  */
 export const tsIsInterface: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1407,6 +1496,7 @@ const isTypeRefNode = vsc.tsIsTypeRef(node, { name: /^myCaller$/ })
  */
 export const tsIsTypeRef: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1428,6 +1518,7 @@ const isEnumNode = vsc.tsIsEnum(node, { name: /^myCaller$/ })
  */
 export const tsIsEnum: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
@@ -1451,6 +1542,7 @@ export const tsIsEnumMember: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
    enumName?: RegExp | string,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1479,6 +1571,7 @@ const found = vsc.tsIsNode(node, { name: /^keyName$/ })
 export const tsIsNode: (node: ts.Node | undefined, options?: {
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
@@ -1491,6 +1584,7 @@ export const tsIsNode: (node: ts.Node | undefined, options?: {
    const {
       name,
       value,
+      hasParent,
       hasAncestor,
       hasGrandChild,
       hasAncestors,
@@ -1506,6 +1600,9 @@ export const tsIsNode: (node: ts.Node | undefined, options?: {
    }
    const initializerNode = (node as any).initializer as ts.Node
    if (value !== undefined && (!initializerNode || !vsc.tsIsValue(initializerNode, value))) {
+      return false
+   }
+   if (hasParent && !hasParent(node.parent)) {
       return false
    }
    if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) {
@@ -1547,6 +1644,7 @@ export const tsIsValue: (
    node: ts.Node | undefined,
    value: (RegExp | string | number | boolean | null),
    options?: {
+      hasParent: (parent: ts.Node) => boolean
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
       hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }
@@ -1592,9 +1690,13 @@ export const tsIsValue: (
       return true
    }
    const {
+      hasParent,
       hasAncestor,
       hasAncestors,
    } = options;
+   if (hasParent && !hasParent(node.parent)) {
+      return false
+   }
    if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) {
       return false
    }

@@ -34,6 +34,7 @@ export const tsIsVariable: (node: ts.Node | undefined, options?: \{
    isConst?: boolean
    isLet?: boolean
    isVar?: boolean,
+   hasParent?: (parent: ts.Node) => boolean
    hasAncestor?: (parent: ts.Node, depth: number) => boolean
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]

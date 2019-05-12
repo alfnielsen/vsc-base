@@ -13,7 +13,7 @@ const TsCreateNodeVisitorAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Create a Ts Visitor Transformer for collecting data (Will not remove or reaplce any nodes) 
+ Create a Ts Visitor Transformer for collecting data (Will not remove or replace any nodes) 
                </p>
                <p>
                 Normally used in vsc.tsTransform 

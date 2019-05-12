@@ -17,7 +17,7 @@ const IsSubPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Does subpath start with parentPath
+ Does sub-path start with parentPath
                </p>
             </>
          }

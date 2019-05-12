@@ -17,10 +17,10 @@ const PathAsUnixAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Reaplve all '\\'  with '/' 
+ Replace all '\\'  with '/' 
                </p>
                <p>
-                (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+                (Convert all path this way to make them system safe - work both on unix/linux/mac and windows)
                </p>
             </>
          }

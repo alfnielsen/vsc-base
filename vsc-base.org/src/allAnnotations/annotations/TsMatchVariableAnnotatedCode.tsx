@@ -25,13 +25,13 @@ const TsMatchVariableAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
+                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
                </p>
                <p>
                 Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthValue'>tsMacthValue</a>
+                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a>
                </p>
             </>
          }

@@ -18,7 +18,7 @@ import ExecFromPathAnnotatedCode from './annotations/ExecFromPathAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
 import FindFilePathsFromBaseAnnotatedCode from './annotations/FindFilePathsFromBaseAnnotatedCode'
 import FindRelativeFilePathsAnnotatedCode from './annotations/FindRelativeFilePathsAnnotatedCode'
-import GetAbsolutePathFromRelatrivePathAnnotatedCode from './annotations/GetAbsolutePathFromRelatrivePathAnnotatedCode'
+import GetAbsolutePathFromRelativePathAnnotatedCode from './annotations/GetAbsolutePathFromRelativePathAnnotatedCode'
 import GetActiveDocumentAnnotatedCode from './annotations/GetActiveDocumentAnnotatedCode'
 import GetActiveEditorAnnotatedCode from './annotations/GetActiveEditorAnnotatedCode'
 import GetActiveTerminalAnnotatedCode from './annotations/GetActiveTerminalAnnotatedCode'
@@ -38,7 +38,7 @@ import GetPackageFilePathsAnnotatedCode from './annotations/GetPackageFilePathsA
 import GetReadStreamAnnotatedCode from './annotations/GetReadStreamAnnotatedCode'
 import GetRelativePathAnnotatedCode from './annotations/GetRelativePathAnnotatedCode'
 import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
-import GetSubrelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubrelativePathFromAbsoluteRootPathAnnotatedCode'
+import GetSubRelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubRelativePathFromAbsoluteRootPathAnnotatedCode'
 import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
 import GetVscDefaultModuleMapAnnotatedCode from './annotations/GetVscDefaultModuleMapAnnotatedCode'
 import InsertAtAnnotatedCode from './annotations/InsertAtAnnotatedCode'
@@ -79,6 +79,7 @@ import ToJSONStringAnnotatedCode from './annotations/ToJSONStringAnnotatedCode'
 import ToKebabCaseAnnotatedCode from './annotations/ToKebabCaseAnnotatedCode'
 import ToPascalCaseAnnotatedCode from './annotations/ToPascalCaseAnnotatedCode'
 import ToSnakeCaseAnnotatedCode from './annotations/ToSnakeCaseAnnotatedCode'
+import ToTitleCaseAnnotatedCode from './annotations/ToTitleCaseAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
 import TsCreateNodeVisitorAnnotatedCode from './annotations/TsCreateNodeVisitorAnnotatedCode'
@@ -125,7 +126,7 @@ import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import TsVisitWithTransformersAnnotatedCode from './annotations/TsVisitWithTransformersAnnotatedCode'
-import VarifyModuleMethodsAnnotatedCode from './annotations/VarifyModuleMethodsAnnotatedCode'
+import VerifyModuleMethodsAnnotatedCode from './annotations/VerifyModuleMethodsAnnotatedCode'
 import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
 interface AllAnnotationsProps {
    activeMethod: string
@@ -151,7 +152,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <FindFilePathsAnnotatedCode open={activeMethod === 'findFilePaths'} />
       <FindFilePathsFromBaseAnnotatedCode open={activeMethod === 'findFilePathsFromBase'} />
       <FindRelativeFilePathsAnnotatedCode open={activeMethod === 'findRelativeFilePaths'} />
-      <GetAbsolutePathFromRelatrivePathAnnotatedCode open={activeMethod === 'getAbsolutePathFromRelatrivePath'} />
+      <GetAbsolutePathFromRelativePathAnnotatedCode open={activeMethod === 'getAbsolutePathFromRelativePath'} />
       <GetActiveDocumentAnnotatedCode open={activeMethod === 'getActiveDocument'} />
       <GetActiveEditorAnnotatedCode open={activeMethod === 'getActiveEditor'} />
       <GetActiveTerminalAnnotatedCode open={activeMethod === 'getActiveTerminal'} />
@@ -171,7 +172,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <GetReadStreamAnnotatedCode open={activeMethod === 'getReadStream'} />
       <GetRelativePathAnnotatedCode open={activeMethod === 'getRelativePath'} />
       <GetRootPathAnnotatedCode open={activeMethod === 'getRootPath'} />
-      <GetSubrelativePathFromAbsoluteRootPathAnnotatedCode open={activeMethod === 'getSubrelativePathFromAbsoluteRootPath'} />
+      <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode open={activeMethod === 'getSubRelativePathFromAbsoluteRootPath'} />
       <GetTimestampAnnotatedCode open={activeMethod === 'getTimestamp'} />
       <GetVscDefaultModuleMapAnnotatedCode open={activeMethod === 'getVscDefaultModuleMap'} />
       <InsertAtAnnotatedCode open={activeMethod === 'insertAt'} />
@@ -212,6 +213,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <ToKebabCaseAnnotatedCode open={activeMethod === 'toKebabCase'} />
       <ToPascalCaseAnnotatedCode open={activeMethod === 'toPascalCase'} />
       <ToSnakeCaseAnnotatedCode open={activeMethod === 'toSnakeCase'} />
+      <ToTitleCaseAnnotatedCode open={activeMethod === 'toTitleCase'} />
       <TrimDashesAnnotatedCode open={activeMethod === 'trimDashes'} />
       <TrimLeadingDashAnnotatedCode open={activeMethod === 'trimLeadingDash'} />
       <TsCreateNodeVisitorAnnotatedCode open={activeMethod === 'tsCreateNodeVisitor'} />
@@ -258,7 +260,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsTransformNodeAnnotatedCode open={activeMethod === 'tsTransformNode'} />
       <TsTranspileAnnotatedCode open={activeMethod === 'tsTranspile'} />
       <TsVisitWithTransformersAnnotatedCode open={activeMethod === 'tsVisitWithTransformers'} />
-      <VarifyModuleMethodsAnnotatedCode open={activeMethod === 'varifyModuleMethods'} />
+      <VerifyModuleMethodsAnnotatedCode open={activeMethod === 'verifyModuleMethods'} />
       <WriteToTerminalAnnotatedCode open={activeMethod === 'writeToTerminal'} />
   </>
 

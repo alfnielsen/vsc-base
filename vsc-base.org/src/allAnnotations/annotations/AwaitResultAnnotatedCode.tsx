@@ -23,8 +23,8 @@ const AwaitResultAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          
          codeOneLineEx={`await vsc.awaitResult(result)`}
          codeEx={`
- const varifiedModule = vsc.varifyModuleMethods(_module, ['run'])
- let result = varifiedModule.run()
+ const verifiedModule = vsc.verifyModuleMethods(_module, ['run'])
+ let result = verifiedModule.run()
  result = await vsc.awaitResult(result)`}
          code={`/**
  * @vscType ts

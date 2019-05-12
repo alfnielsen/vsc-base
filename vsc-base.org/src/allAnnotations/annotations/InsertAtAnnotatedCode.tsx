@@ -13,7 +13,7 @@ const InsertAtAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Insert content at position (start and optional end postion)
+ Insert content at position (start and optional end position)
  Return true on success, false if the document or textEditor was not open/correct
                </p>
             </>

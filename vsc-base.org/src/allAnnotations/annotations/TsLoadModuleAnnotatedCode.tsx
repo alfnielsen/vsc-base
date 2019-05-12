@@ -22,16 +22,16 @@ const TsLoadModuleAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Returning an plainObject with the scripts exports. 
                </p>
                <p>
-                export default xxx transpile's to export.default 
+                export default xxx transpile to export.default 
                </p>
                <p>
-                IMPORTANT Dont just run code you dont now, this can cause injection! 
+                IMPORTANT Don't just run code you don't now, this can cause injection! 
                </p>
                <p>
-                IMPORTANT Be carefull when running scripts that also uses tsLoadModule, this can break down entire systems! 
+                IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! 
                </p>
                <p>
-                (If you start a recursive change that dont stop..)
+                (If you start a recursive change that don't stop..)
                </p>
             </>
          }
@@ -41,16 +41,16 @@ const TsLoadModuleAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 try \{
    moduleObj = await vsc.tsLoadModule(path)
 } catch (e)\{
-   vsc.showErrorMessage(\`Loadeding module coused an error: \$\{e}\`)
+   vsc.showErrorMessage(\`Loading module coursed an error: \$\{e}\`)
    return
 }
-const varifiedModule = vsc.varifyModuleMethods(moduleObj, ['run'])
-if (!varifiedModule) \{
-   vsc.showErrorMessage(\`Module didnt have 'run' :: \$\{JSON.stringify(moduleObj)}\`)
+const verifiedModule = vsc.verifyModuleMethods(moduleObj, ['run'])
+if (!verifiedModule) \{
+   vsc.showErrorMessage(\`Module didn't have 'run' :: \$\{JSON.stringify(moduleObj)}\`)
    return
 }
 try \{
-   const result = varifiedModule.run()
+   const result = verifiedModule.run()
    await vsc.awaitResult(result)
    vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
 } catch (e) \{

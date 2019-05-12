@@ -16,7 +16,7 @@ const SaveDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  Save active open file. 
                </p>
                <p>
-                Return true for succes, and false if there was no open document
+                Return true for success, and false if there was no open document
                </p>
             </>
          }

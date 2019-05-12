@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const vsc = require("./vsc-base");
 const vscode = require("vscode");
+const vsc = require("./vsc-base");
 /** vsc-base method
  * @description
  * Prompt user for a question
@@ -93,7 +93,7 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
 });
 /** vsc-base method
  * @description
- * Find files based from a releative to a path
+ * Find files based from a relative to a path
  * @see [findRelativeFilePaths](http://vsc-base.org/#findRelativeFilePaths)
  * @param path
  * @param relativePath
@@ -101,16 +101,16 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
  * @param exclude
  * @param maxResults
  * @dependencyExternal vscode
- * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @dependencyInternal getDir, joinPath, cleanPath, trimDashes, findFilePathsFromBase
  * @vscType Vscode
  * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
  * @ex
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.lenght===0){
+if(moduleFileInParentFolder.length===0){
    vsc.showErrorMessage('Module file was not found in parent folder')
    return
 }
-if(moduleFileInParentFolder.lenght>1){
+if(moduleFileInParentFolder.length>1){
    vsc.showErrorMessage('More than one Module file was found in parent folder')
    return
 }
@@ -144,7 +144,7 @@ exports.getActiveTerminal = () => {
  * If addNewLine = true (it's the default value), the text written will be executed. \
  * This will also happen if the text contains newline feeds (\n or \r\n) \
  * **NOTE:** \
- * if you use this method in an extension the end user need to be able to actaully \
+ * if you use this method in an extension the end user need to be able to actually \
  * execute the command! \
  * This method is mostly design for vsc-script's, where you have control of the environment. \
  * See also [execFromPath](http://vsc-base.org/#execFromPath)
@@ -347,7 +347,7 @@ exports.insertAtRange = (content, range, editor) => __awaiter(this, void 0, void
 });
 /** vsc-base method
  * @description
- * Insert content at position (start and optional end postion)
+ * Insert content at position (start and optional end position)
  * Return true on success, false if the document or textEditor was not open/correct
  * @see [insertAt](http://vsc-base.org/#insertAt)
  * @param content
@@ -402,7 +402,7 @@ exports.prependLineToDocument = (content, editor) => __awaiter(this, void 0, voi
 /** vsc-base method
  * @description
  * Save active open file. \
- * Return true for succes, and false if there was no open document
+ * Return true for success, and false if there was no open document
  * @see [saveDocument](http://vsc-base.org/#saveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
@@ -421,7 +421,7 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
 });
 /** vsc-base method
  * @description
- * Takes a start and end and return vscode positons and range objects.
+ * Takes a start and end and return vscode positions and range objects.
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
  * @param range
  * @param editor
@@ -501,7 +501,7 @@ exports.setSelection = (start, end = start, editor) => {
 /** vsc-base method
  * @description
  * Set Selections for an TextEditor (Current document) \
- * Takes a ranges array postions with start and end.
+ * Takes a ranges array positions with start and end.
  * Clear other selections. \
  * returns true on success
  * @see [setSelections](http://vsc-base.org/#setSelections)

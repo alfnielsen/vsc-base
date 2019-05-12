@@ -19,10 +19,10 @@ const TsMatchInterfaceAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 and optional test for its name with a string or regexp. 
                </p>
                <p>
-                Optional test for hasAncestor and hasGrandhild. 
+                Optional test for hasAncestor and hasGrandchild. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> \
+                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }

@@ -19,7 +19,7 @@ const ExecFromPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 (Execute a command using child-process-promise) 
                </p>
                <p>
-                <b>NOTE:</b> If you use this method in an extension the end user need to be able to actaully 
+                <b>NOTE:</b> If you use this method in an extension the end user need to be able to actually 
  execute the command! 
                </p>
                <p>

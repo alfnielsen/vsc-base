@@ -16,19 +16,13 @@ const TsMatchEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  Test is a node is a enum member (node: ts.EnumMember) 
                </p>
                <p>
-                and optional test for its name, the enum's name (it parant) 
+                and optional test for its name, the enum' name (its parent) 
                </p>
                <p>
                 it value, hasAncestor and hasGrandchild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
-               </p>
-               <p>
-                Value can be tested against a string, a number (with a string, number or regexp). 
-               </p>
-               <p>
-                See <a href='http://vsc-base.org/#tsMacthValue'>tsMacthValue</a>
+                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }

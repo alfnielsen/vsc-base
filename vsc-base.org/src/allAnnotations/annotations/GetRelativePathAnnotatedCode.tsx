@@ -25,8 +25,8 @@ const GetRelativePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
       test={
          <MethodTest
             initialArgs={ { 
-    fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
-    toPath: 'c:/somefolder/other/someFile.js'
+    fromPath: 'c:/folder/sub1/sub2/someFile.js',
+    toPath: 'c:/folder/other/someFile.js'
  }}
             onClickCall={(args, printResult) => {
    const relativePath = vsc.getRelativePath(args.fromPath, args.toPath)

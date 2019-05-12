@@ -25,14 +25,14 @@ const TsFindNodePositionFromContentAnnotatedCode = ({ open = false }: {open?: bo
       const moduleNumber1Path = '/module/area/file1'
       return moduleNumber1Path
    }
-   function method1(doit)\{
-      if(doit)\{
+   function method1(doIt)\{
+      if(doIt)\{
          const moduleNumber1Path = '/module/area/file1' // <-- Find this
          return moduleNumber1Path
       }
    }
 \`
-// Find a constant with name starting with 'module' witin a function but not in an if statement
+// Find a constant with name starting with 'module' within a function but not in an if statement
 const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
  vsc.tsIsVariable(node, \{ 
       // test name of variable
@@ -46,7 +46,7 @@ const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
 )
 if (position) \{
    const realText = source.substring(position.start, position.end);
-   // Select the source (asuming the source is from the open document)
+   // Select the source (assuming the source is from the open document)
    vsc.setSelection(position.start, position.end)
 }`}
          code={`/**

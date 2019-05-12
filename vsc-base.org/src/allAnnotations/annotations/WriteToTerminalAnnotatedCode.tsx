@@ -25,7 +25,7 @@ const WriteToTerminalAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 <b>NOTE:</b> 
                </p>
                <p>
-                if you use this method in an extension the end user need to be able to actaully 
+                if you use this method in an extension the end user need to be able to actually 
                </p>
                <p>
                 execute the command! 

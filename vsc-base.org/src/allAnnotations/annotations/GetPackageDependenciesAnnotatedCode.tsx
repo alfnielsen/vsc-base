@@ -27,7 +27,7 @@ const GetPackageDependenciesAnnotatedCode = ({ open = false }: {open?: boolean})
          code={`/**
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
- * @todo Use unknow guard check instead of any casting
+ * @todo Use unknown guard check instead of any casting
  * @returns Promise<\{ [key: string]: string }[]
  */
 export const getPackageDependencies = async (

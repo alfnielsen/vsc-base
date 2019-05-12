@@ -30,7 +30,7 @@ let source = \`
       return moduleNumber1Path
    }
 \`
-// Find a constant with name starting with 'module' witin a function but not in an if statement
+// Find a constant with name starting with 'module' within a function but not in an if statement
 source = vsc.tsReplace(source, '/module/area/file2', node => vsc.tsIsValue(node, /\\/area\\/file1/, \{
    hasAncestors: [
       ancestor => vsc.tsIsFunction(ancestor, \{ name: /^method/ }),

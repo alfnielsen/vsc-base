@@ -29,7 +29,7 @@ let source = \`
       return moduleNumber1Path // <-- replace moduleNumber1Path
    }
 \`
-// Find a constant with name starting with 'module' witin a function but not in an if statement
+// Find a constant with name starting with 'module' within a function but not in an if statement
 source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsIsIdentifier(node, \{
    name: 'moduleNumber1Path'
 }))

@@ -7,11 +7,11 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+const GetSubRelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
-         id={'getSubrelativePathFromAbsoluteRootPath'}
-         title={'getSubrelativePathFromAbsoluteRootPath'}
+         id={'getSubRelativePathFromAbsoluteRootPath'}
+         title={'getSubRelativePathFromAbsoluteRootPath'}
          open={open}
          annotation={
             <>
@@ -26,17 +26,17 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {
          <MethodTest
             initialArgs={{
    path: 'c:/root/module/file.ts',
-   absolutePathFromRoot: 'module/submodule/file2',
+   absolutePathFromRoot: 'module/sub-module/file2',
    rootPath: 'c:/root'
 }}
             onClickCall={(args, setResult) => {
-   const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
+   const res = vsc.getSubRelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
    setResult(res)
 }}
          />
       }
       
-         codeOneLineEx={`const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
+         codeOneLineEx={`const subRelativePath = vsc.getSubRelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
          codeEx={``}
          code={`/**
  * @param path, rootPath, absolutePathFromRoot
@@ -44,7 +44,7 @@ const GetSubrelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @returns string
  */
-export const getSubrelativePathFromAbsoluteRootPath = (
+export const getSubRelativePathFromAbsoluteRootPath = (
    path: string,
    absolutePathFromRoot: string,
    rootPath: string
@@ -66,5 +66,5 @@ export const getSubrelativePathFromAbsoluteRootPath = (
    )
 }
 
-export default GetSubrelativePathFromAbsoluteRootPathAnnotatedCode
+export default GetSubRelativePathFromAbsoluteRootPathAnnotatedCode
 

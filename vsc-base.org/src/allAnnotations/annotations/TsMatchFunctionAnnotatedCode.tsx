@@ -19,7 +19,7 @@ const TsMatchFunctionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 (node: ts.isArrowFunction, ts.isFunctionExpression or ts.isFunctionDeclaration) 
                </p>
                <p>
-                Optional test for its name with a string or regxep. 
+                Optional test for its name with a string or regexp. 
                </p>
                <p>
                 (For ArrowFunction's and FunctionExpression's it will test for a variable declaration that points to the function) 
@@ -28,7 +28,7 @@ const TsMatchFunctionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> \
+                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }

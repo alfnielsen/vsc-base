@@ -3,26 +3,26 @@ import * as vsc from './vsc-base'
 /** vsc-base method
  * @description 
  * Transform an absolute path from root, to a sub-relative path.
- * @see [getSubrelativePathFromAbsoluteRootPath](http://vsc-base.org/#getSubrelativePathFromAbsoluteRootPath)
+ * @see [getSubRelativePathFromAbsoluteRootPath](http://vsc-base.org/#getSubRelativePathFromAbsoluteRootPath)
  * @param path
  * @param rootPath
  * @param absolutePathFromRoot
  * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
- * @oneLineEx const subrelativePath = vsc.getSubrelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
+ * @oneLineEx const subRelativePath = vsc.getSubRelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
  * @testPrinterArgument
 {
    path: 'c:/root/module/file.ts',
-   absolutePathFromRoot: 'module/submodule/file2',
+   absolutePathFromRoot: 'module/sub-module/file2',
    rootPath: 'c:/root'
 }
  * @testPrinter (args, setResult) => {
-   const res = vsc.getSubrelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
+   const res = vsc.getSubRelativePathFromAbsoluteRootPath(args.path, args.absolutePathFromRoot, args.rootPath)
    setResult(res)
 }
  * @returns string
  */
-export const getSubrelativePathFromAbsoluteRootPath = (
+export const getSubRelativePathFromAbsoluteRootPath = (
    path: string,
    absolutePathFromRoot: string,
    rootPath: string
@@ -122,10 +122,10 @@ export const toSnakeCase = (str: string, upperCase = false): string => {
 
 /** vsc-base method
  * @description 
- * Format a string to camal-case. \
+ * Format a string to camel-case. \
  * Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' \
- * All non word seperators will be removed and the word charector after will be transforms to upper case.
+ * All non word separators will be removed and the word character after will be transforms to upper case.
  * @see [toCamelCase](http://vsc-base.org/#toCamelCase)
  * @param str
  * @vscType Raw
@@ -147,9 +147,9 @@ export const toCamelCase = (str: string): string =>
 
 /** vsc-base method
  * @description 
- * Format a string to camal-case. Commonly used to define js/ts variable names. \
+ * Format a string to camel-case. Commonly used to define js/ts variable names. \
  * Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' \
- * All non word seperators will be removed and the word charector after will be transforms to upper case
+ * All non word separators will be removed and the word character after will be transforms to upper case
  * @see [toPascalCase](http://vsc-base.org/#toPascalCase)
  * @param str
  * @vscType Raw
@@ -167,6 +167,31 @@ export const toCamelCase = (str: string): string =>
 export const toPascalCase = (str: string): string =>
    str[0].toUpperCase() +
    str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase())
+
+
+/** vsc-base method
+ * @description 
+ * Format a string to a title string  \
+ * Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' \
+ * All non word separators will be removed and the word character after will be transforms to upper case
+ * @see [toPascalCase](http://vsc-base.org/#toPascalCase)
+ * @param str
+ * @vscType Raw
+ * @testPrinterArgument 
+{
+   str: 'some-name'
+}
+ * @testPrinter (args, printResult) => {
+   const result = vsc.toPascalCase(args.str)
+   printResult(result)
+}
+ * @oneLineEx const name = vsc.toPascalCase(inputName)
+ * @returns string
+ */
+export const toTitleCase = (str: string): string =>
+   str[0].toLowerCase() +
+   str.substr(1)
+      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => ` ${chr.toUpperCase()}`)
 
 
 /** vsc-base method
@@ -239,7 +264,7 @@ export const getJsonParts = <TStructure = any>(
 
 /** vsc-base method
  * @description 
- * Does path start with charactor [a-zA-Z@] \
+ * Does path start with character [a-zA-Z@] \
  * (not '/' or './' or '../')
  * @see [isAbsolutePath](http://vsc-base.org/#isAbsolutePath)
  * @param path
@@ -265,7 +290,7 @@ export const isAbsolutePath = (
 
 /** vsc-base method
  * @description 
- * Does subpath start with parentPath
+ * Does sub-path start with parentPath
  * @see [isSubPath](http://vsc-base.org/#isSubPath)
  * @param path
  * @param parentPath
@@ -318,8 +343,8 @@ export const joinPaths = (path1: string, path2: string): string => {
 
 /** vsc-base method
  * @description 
- * Reaplve all '\\'  with '/' \
- * (Convert all path this way to make them system safe - wotk both on unix/linux/mac and windows)
+ * Replace all '\\'  with '/' \
+ * (Convert all path this way to make them system safe - work both on unix/linux/mac and windows)
  * @see [pathAsUnix](http://vsc-base.org/#pathAsUnix)
  * @param path
  * @vscType Raw
@@ -348,8 +373,8 @@ export const pathAsUnix = (path: string): string => {
  * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
  * @testPrinterArgument
  { 
-    fromPath: 'c:/somefolder/sub1/sub2/someFile.js',
-    toPath: 'c:/somefolder/other/someFile.js'
+    fromPath: 'c:/folder/sub1/sub2/someFile.js',
+    toPath: 'c:/folder/other/someFile.js'
  }
  * @testPrinter (args, printResult) => {
    const relativePath = vsc.getRelativePath(args.fromPath, args.toPath)
@@ -375,38 +400,38 @@ export const getRelativePath = (fromPath: string, toPath: string): string => {
 
 /** vsc-base method
  * @description 
- * Transform a relative path to an abspolute path.
- * @see [getAbsolutePathFromRelatrivePath](http://vsc-base.org/#getAbsolutePathFromRelatrivePath)
+ * Transform a relative path to an absolute path.
+ * @see [getAbsolutePathFromRelativePath](http://vsc-base.org/#getAbsolutePathFromRelativePath)
  * @param path File from where the relative path begins
- * @param pathRelatriveToPath The relative path
+ * @param pathRelativeToPath The relative path
  * @param rootPath The root path
  * @param realPathTest Test if the real  The root path
  * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
- * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelatrivePath(path, pathRelatriveToPath, rootPath)
+ * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelativePath(path, pathRelativeToPath, rootPath)
  * @testPrinterArgument
 {
    path: 'c:/root/area/module1/file.ts',
-   pathRelatriveToPath: '../module2/file2.ts',
+   pathRelativeToPath: '../module2/file2.ts',
    rootPath: 'c:/root'
 }
  * @testPrinter (args, setResult) => {
-     const res = vsc.getAbsolutePathFromRelatrivePath(args.path, args.pathRelatriveToPath, args.rootPath)
+     const res = vsc.getAbsolutePathFromRelativePath(args.path, args.pathRelativeToPath, args.rootPath)
      setResult(res)
 }
  * @returns string
  */
-export const getAbsolutePathFromRelatrivePath = (
+export const getAbsolutePathFromRelativePath = (
    path: string,
-   pathRelatriveToPath: string,
+   pathRelativeToPath: string,
    rootPath: string
 ): string => {
-   if (vsc.isAbsolutePath(pathRelatriveToPath)) {
-      return pathRelatriveToPath
+   if (vsc.isAbsolutePath(pathRelativeToPath)) {
+      return pathRelativeToPath
    }
    let [dir] = vsc.splitPath(path)
    dir += '/'
-   const relativePath = dir + pathRelatriveToPath
+   const relativePath = dir + pathRelativeToPath
    let cleanRelativePath = vsc.cleanPath(relativePath)
    let absolutePathToRelative = vsc.subtractPath(cleanRelativePath, rootPath)
    absolutePathToRelative = vsc.trimLeadingDash(absolutePathToRelative)
@@ -450,7 +475,7 @@ export const sharedPath = (path1: string, path2: string): string => {
 /** vsc-base method
  * @description 
  * await wrap for setTimeout. \
- * Mostly used for debug asyc.
+ * Mostly used for debug async.
  * @see [sleep](http://vsc-base.org/#sleep)
  * @param ms
  * @oneLineEx await vsc.sleep(2000)
@@ -729,7 +754,7 @@ export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => {
 
 /** vsc-base method
  * @description 
- * Clone an JSON Object (any type) and reaplce all properties with the given name with a new value. \
+ * Clone an JSON Object (any type) and replace all properties with the given name with a new value. \
  * This method goes through the object structure and replace children that has the given name/key
  * @see [keyValueReplacer](http://vsc-base.org/#keyValueReplacer)
  * @param obj 
@@ -768,8 +793,8 @@ export const keyValueReplacer = (obj: unknown, key: string, newValue: any): any 
 
 /** vsc-base method
  * @description 
- * Clone an JSON Object (any type) going trought is entire tree structure. \
- * This method goes through the object structure, and call the given callback on esh child (and granchild). \
+ * Clone an JSON Object (any type) going through its entire tree structure. \
+ * This method goes through the object structure, and call the given callback on esh child (and grandchild). \
  * The call back can replace each child or stop the iteration. \
  * See [maxDepthReplacer](http://vsc-base.org/#maxDepthReplacer) and [keyValueReplacer](http://vsc-base.org/#keyValueReplacer) \
  * they both use the objectWalker.
@@ -847,8 +872,8 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => {
             if (depth !== 0) {
                nextAncestorKeyList.unshift(key)
             }
-            const restult = objectWalkerRecursive(child, index, depth + 1, nextAncestorsList, nextAncestorKeyList)
-            return restult
+            const result = objectWalkerRecursive(child, index, depth + 1, nextAncestorsList, nextAncestorKeyList)
+            return result
          })
       }
       if (typeof obj === "object" && obj !== null) {
@@ -858,8 +883,8 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => {
             if (depth !== 0) {
                nextAncestorKeyList.unshift(key)
             }
-            const restult = objectWalkerRecursive(child, currentKey, depth + 1, nextAncestorsList, nextAncestorKeyList)
-            obj[currentKey] = restult
+            const result = objectWalkerRecursive(child, currentKey, depth + 1, nextAncestorsList, nextAncestorKeyList)
+            obj[currentKey] = result
          }
       }
       return obj

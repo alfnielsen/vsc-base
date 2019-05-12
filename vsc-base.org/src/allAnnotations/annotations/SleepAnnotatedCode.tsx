@@ -20,7 +20,7 @@ const SleepAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  await wrap for setTimeout. 
                </p>
                <p>
-                Mostly used for debug asyc.
+                Mostly used for debug async.
                </p>
             </>
          }

@@ -7,26 +7,23 @@ import * as vsc from '../vsc-base-raw'
 import MethodTest from 'components/MethodTest/MethodTest'
 
 
-const ToCamelCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+const ToTitleCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
-         id={'toCamelCase'}
-         title={'toCamelCase'}
+         id={'toTitleCase'}
+         title={'toTitleCase'}
          open={open}
          annotation={
             <>
                <p>
                   
- Format a string to camel-case. 
+ Format a string to a title string  
                </p>
                <p>
-                Commonly used to define js/ts variable names. 
+                Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' 
                </p>
                <p>
-                Ex: 'Some-Name' => 'someName', 'some_name' => 'someName', 'some.name' => 'someName' 
-               </p>
-               <p>
-                All non word separators will be removed and the word character after will be transforms to upper case.
+                All non word separators will be removed and the word character after will be transforms to upper case
                </p>
             </>
          }
@@ -35,30 +32,31 @@ const ToCamelCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          <MethodTest
             initialArgs={
 {
-   str: 'Some-name'
+   str: 'some-name'
 }}
             onClickCall={(args, printResult) => {
-   const result = vsc.toCamelCase(args.str)
+   const result = vsc.toPascalCase(args.str)
    printResult(result)
 }}
          />
       }
       
-         codeOneLineEx={`const name = vsc.toCamelCase(inputName)`}
+         codeOneLineEx={`const name = vsc.toPascalCase(inputName)`}
          codeEx={``}
          code={`/**
  * @param str
  * @vscType Raw
  * @returns string
  */
-export const toCamelCase = (str: string): string =>
+export const toTitleCase = (str: string): string =>
    str[0].toLowerCase() +
    str.substr(1)
-      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase())
+      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => \` \$\{chr.toUpperCase()}\`)
+
 `}
       />
    )
 }
 
-export default ToCamelCaseAnnotatedCode
+export default ToTitleCaseAnnotatedCode
 

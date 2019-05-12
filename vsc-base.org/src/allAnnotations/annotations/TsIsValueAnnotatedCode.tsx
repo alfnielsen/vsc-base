@@ -34,7 +34,7 @@ const TsIsValueAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeEx={`
 // Found a NumberExpression with value 12
 const foundNumberExpression = vsc.tsIsValue(node, 12)
-// Found a NumberExpression with value 12, with a parant EnumValue
+// Found a NumberExpression with value 12, with a parent EnumValue
 const foundNumberExpression = vsc.tsIsValue(node, 12, \{
    hasParent: parent => vsc.matchEnum(parent)
 })`}
@@ -69,7 +69,7 @@ export const tsIsValue: (
    ) \{
       return false
    }
-   //ts's NumericLiteral has prop text that is s string, so we cast the matchValue.
+   //ts' NumericLiteral has prop text that is s string, so we cast the matchValue.
    if (
       typeof matchValue === 'number'
       &&

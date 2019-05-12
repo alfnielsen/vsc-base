@@ -17,7 +17,7 @@ const IsAbsolutePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Does path start with charactor [a-zA-Z@] 
+ Does path start with character [a-zA-Z@] 
                </p>
                <p>
                 (not '/' or './' or '../')

@@ -19,7 +19,7 @@ const TsIsNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Optional test for its name with a string or regexp. 
                </p>
                <p>
-                (return false for node that dont have name property)
+                (return false for node that don't have name property)
                </p>
                <p>
                 Optional test for tsHasAncestor and hasGrandChild 
@@ -31,10 +31,10 @@ const TsIsNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-                (return false for node that dont have initializer)
+                (return false for node that don't have initializer)
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthValue'>tsMacthValue</a> \
+                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a> \
                </p>
             </>
          }

@@ -25,14 +25,14 @@ const TsFindAllNodePositionsFromContentAnnotatedCode = ({ open = false }: {open?
       const moduleNumber1Path = '/module/area/file1' // <-- Find this
       return moduleNumber1Path // <-- Find this
    }
-   function method1(doit)\{
-      if(doit)\{
+   function method1(doIt)\{
+      if(doIt)\{
          const moduleNumber1Path = '/module/area/file1' // <-- Find this
          return moduleNumber1Path // <-- Find this
       }
    }
 \`
-// Find a constant with name starting with 'module' witin a function but not in an if statement
+// Find a constant with name starting with 'module' within a function but not in an if statement
 const nodePositionArray = vsc.tsFindAllNodePositionsFromContent(source, node =>
  vsc.tsIsVariable(node, \{ 
       // test name of variable

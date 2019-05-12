@@ -13,7 +13,7 @@ const FindRelativeFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Find files based from a releative to a path
+ Find files based from a relative to a path
                </p>
             </>
          }
@@ -21,11 +21,11 @@ const FindRelativeFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) 
          codeOneLineEx={`const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)`}
          codeEx={`
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.lenght===0)\{
+if(moduleFileInParentFolder.length===0)\{
    vsc.showErrorMessage('Module file was not found in parent folder')
    return
 }
-if(moduleFileInParentFolder.lenght>1)\{
+if(moduleFileInParentFolder.length>1)\{
    vsc.showErrorMessage('More than one Module file was found in parent folder')
    return
 }
@@ -34,7 +34,7 @@ const modulePath = moduleFileInParentFolder[0];
          code={`/**
  * @param path, relativePath, includePattern, exclude, maxResults
  * @dependencyExternal vscode
- * @dependencyInternal getDir, joinPath, cleanPath, trimDases, findFilePathsFromBase
+ * @dependencyInternal getDir, joinPath, cleanPath, trimDashes, findFilePathsFromBase
  * @vscType Vscode
  * @returns Promise<string[]>
  */

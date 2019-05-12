@@ -2,6 +2,22 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.13-0.8.17
+
+Upgrade dependencies
+
+Due to problem with upgrading fs-extra
+(There has been some small changes to make use it vsc worked as expected)
+
+## 0.8.12
+
+### Breaking changes
+
+Spellcheck has found some typos:
+
+getSubrelativePathFromAbsoluteRootPath is now [getSubRelativePathFromAbsoluteRootPath](http://vsc-base/#getSubRelativePathFromAbsoluteRootPath)
+varifyModuleMethods is now [verifyModuleMethods](http://vsc-base/#verifyModuleMethods)
+
 ## 0.8.11
 
 ### Small breaking changes

@@ -16,7 +16,7 @@ const SetSelectionsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  Set Selections for an TextEditor (Current document) 
                </p>
                <p>
-                Takes a ranges array postions with start and end.
+                Takes a ranges array positions with start and end.
  Clear other selections. 
                </p>
                <p>

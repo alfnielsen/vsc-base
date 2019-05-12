@@ -1,10 +1,10 @@
 'use strict'
+import * as cp from 'child-process-promise'
 import * as fs from 'fs-extra'
 import * as ts from 'typescript'
-import * as path from 'path'
-import * as vscode from 'vscode'
-import * as cp from 'child-process-promise'
 import * as vsc from 'vsc-base'
+import * as vscode from 'vscode'
+import * as path from 'path'
 // import * as vsc from './vsc-base-development/vsc-base'
 
 export default class Script {
@@ -33,7 +33,7 @@ export default class Script {
    }
 
    async loadAndRunScript(path: string, scriptPath: string, method: string) {
-      // load script and tranpile it
+      // load script and transpile it
       let scriptFileExport
       try {
          scriptFileExport = await vsc.tsLoadModule(scriptPath)
@@ -41,15 +41,15 @@ export default class Script {
          let jsCompiledCode = ''
          if (e instanceof vsc.TSLoadModuleError) {
             jsCompiledCode = e.transpiledCode
-            this.errorLog('104.1: Error in vsc-Script trying to transpile the loaded module. This error is properply incorrect formatting of the module file. Open the script file in vscode and ensure that ts cont find any errors.', scriptPath, e, `${jsCompiledCode}`)
+            this.errorLog('104.1: Error in vsc-Script trying to transpile the loaded module. This error is properly incorrect formatting of the module file. Open the script file in vscode and ensure that ts cont find any errors.', scriptPath, e, `${jsCompiledCode}`)
          } else {
             const transpiledTs = await vsc.tsTranspile(scriptPath)
             this.errorLog('104.2: Error in vsc-Script trying to transpile the loaded module. Please report it to https://github.com/alfnielsen/vsc-base/issues and include the error-log', scriptPath, e, `${transpiledTs}`)
          }
          return
       }
-      const varifiedModule = vsc.varifyModuleMethods(scriptFileExport, [method])
-      if (!varifiedModule) {
+      const verifiedModule = vsc.verifyModuleMethods(scriptFileExport, [method])
+      if (!verifiedModule) {
          vsc.showErrorMessage(
             `Script did not contain method called '${method}' :: ${JSON.stringify(
                scriptFileExport
@@ -58,7 +58,7 @@ export default class Script {
          return
       }
       try {
-         varifiedModule[method](path, this.getLibs())
+         verifiedModule[method](path, this.getLibs())
       } catch (e) {
          const sourceJs = await vsc.tsLoadModuleSourceCode(scriptPath)
          this.errorLog(`105: Running compiled 'run' method. The error is in the '${method}' method.`, scriptPath, e, `${sourceJs}`)

@@ -13,7 +13,7 @@ const CreateVscodeRangeAndPositionAnnotatedCode = ({ open = false }: {open?: boo
             <>
                <p>
                   
- Takes a start and end and return vscode positons and range objects.
+ Takes a start and end and return vscode positions and range objects.
                </p>
             </>
          }

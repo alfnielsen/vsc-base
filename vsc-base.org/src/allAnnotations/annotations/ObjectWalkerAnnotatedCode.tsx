@@ -17,10 +17,10 @@ const ObjectWalkerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Clone an JSON Object (any type) going trought is entire tree structure. 
+ Clone an JSON Object (any type) going through its entire tree structure. 
                </p>
                <p>
-                This method goes through the object structure, and call the given callback on esh child (and granchild). 
+                This method goes through the object structure, and call the given callback on esh child (and grandchild). 
                </p>
                <p>
                 The call back can replace each child or stop the iteration. 
@@ -109,8 +109,8 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => \
             if (depth !== 0) \{
                nextAncestorKeyList.unshift(key)
             }
-            const restult = objectWalkerRecursive(child, index, depth + 1, nextAncestorsList, nextAncestorKeyList)
-            return restult
+            const result = objectWalkerRecursive(child, index, depth + 1, nextAncestorsList, nextAncestorKeyList)
+            return result
          })
       }
       if (typeof obj === "object" && obj !== null) \{
@@ -120,8 +120,8 @@ export const objectWalker = (obj: any, callback: ObjectWalkerCallback): any => \
             if (depth !== 0) \{
                nextAncestorKeyList.unshift(key)
             }
-            const restult = objectWalkerRecursive(child, currentKey, depth + 1, nextAncestorsList, nextAncestorKeyList)
-            obj[currentKey] = restult
+            const result = objectWalkerRecursive(child, currentKey, depth + 1, nextAncestorsList, nextAncestorKeyList)
+            obj[currentKey] = result
          }
       }
       return obj

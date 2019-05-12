@@ -30,14 +30,14 @@ const TsCreateRemoveNodesTransformerAnnotatedCode = ({ open = false }: {open?: b
          codeOneLineEx={`const transformer = vsc.tsCreateRemoveNodesTransformer(transformerCallback)`}
          codeEx={`
 // Remove all 'debugger' statements
-const removeDebuggerTransformner = vsc.tsCreateRemoveNodesTransformer((node) => \{
+const removeDebuggerTransformer = vsc.tsCreateRemoveNodesTransformer((node) => \{
    if (ts.isDebuggerStatement(node)) \{
       return true
    }
    return false
 });   
 //Run transformer:
-const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformner]);`}
+const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformer]);`}
          code={`/**
  * @vscType ts
  * @returns ts.TransformerFactory<T>

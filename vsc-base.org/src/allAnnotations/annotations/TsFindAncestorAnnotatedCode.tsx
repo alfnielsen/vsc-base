@@ -28,15 +28,15 @@ const ancestor = vsc.tsFindAncestor(node, (childNode) => vsc.tsIsFunction(childN
  * @vscType ts
  * @returns ts.Node | undefined
  */
-export const tsFindAncestor = (node: ts.Node, callback: (ansector: ts.Node, depth: number) => boolean): ts.Node | undefined => \{
-   let ansector = node.parent, depth = 0
-   while (ansector) \{
+export const tsFindAncestor = (node: ts.Node, callback: (ancestor: ts.Node, depth: number) => boolean): ts.Node | undefined => \{
+   let ancestor = node.parent, depth = 0
+   while (ancestor) \{
       depth += 1;
-      const found = callback(ansector, depth)
+      const found = callback(ancestor, depth)
       if (found) \{
-         return ansector
+         return ancestor
       }
-      ansector = ansector.parent
+      ancestor = ancestor.parent
    }
    return undefined
 }

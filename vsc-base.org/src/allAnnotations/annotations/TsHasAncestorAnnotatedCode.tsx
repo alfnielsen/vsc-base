@@ -31,7 +31,7 @@ const hasAncestor = vsc.tsHasAncestor(node, (childNode) => vsc.tsIsFunction(chil
  * @vscType ts
  * @returns boolean
  */
-export const tsHasAncestor = (node: ts.Node, callback: (ansector: ts.Node, depth: number) => boolean): boolean => \{
+export const tsHasAncestor = (node: ts.Node, callback: (ancestor: ts.Node, depth: number) => boolean): boolean => \{
    return !!vsc.tsFindAncestor(node, callback)
 }
 `}

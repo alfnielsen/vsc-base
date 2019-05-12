@@ -24,7 +24,7 @@ const MakeDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.makeDir(path)`}
          codeEx={``}
          code={`/**
- * @param path, newPathstring
+ * @param folderPath
  * @vscType System
  * @dependencyExternal fs
  * @returns Promise<void>

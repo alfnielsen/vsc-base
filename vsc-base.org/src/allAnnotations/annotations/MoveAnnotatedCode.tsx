@@ -24,7 +24,6 @@ const MoveAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.move(oldPath, newPath)`}
          codeEx={``}
          code={`/**
- * @param path, newPathstring
  * @vscType System
  * @dependencyExternal fs
  * @returns Promise<void>

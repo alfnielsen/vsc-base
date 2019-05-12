@@ -1,11 +1,11 @@
 /// <reference types="node" />
-import * as fs from 'fs-extra';
 import * as cp from 'child-process-promise';
+import * as fs from 'fs-extra';
 /** vsc-base method
  * @description
  * Execute a bash command. \
  * (Execute a command using child-process-promise) \
- * **NOTE:** If you use this method in an extension the end user need to be able to actaully
+ * **NOTE:** If you use this method in an extension the end user need to be able to actually
  * execute the command! \
  * This method is mostly design for vsc-script's, where you have control of the environment. \
  * See also [vsc.writeToTerminal](http://vsc-base.org/#writeToTerminal)
@@ -140,7 +140,7 @@ export declare const getPackageFilePaths: (exclude?: string) => Promise<string[]
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
- * @todo Use unknow guard check instead of any casting
+ * @todo Use unknown guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
 export declare const getPackageDependencies: (exclude?: string) => Promise<{
@@ -162,8 +162,7 @@ export declare const isDir: (path: string) => boolean;
  * Make a folder \
  * See [fs docs for mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
  * @see [makeDir](http://vsc-base.org/#makeDir)
- * @param path
- * @param newPathstring
+ * @param folderPath
  * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
@@ -175,8 +174,6 @@ export declare const makeDir: (folderPath: string) => Promise<void>;
  * Move a file or folder \
  * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
@@ -188,8 +185,6 @@ export declare const move: (path: string, newPath: string, options?: fs.MoveOpti
  * Rename a file or folder \
  * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
  * @see [move](http://vsc-base.org/#move)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
@@ -201,8 +196,6 @@ export declare const rename: (path: string, newPath: string) => Promise<void>;
  * Copy file/folder \
  * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
@@ -214,8 +207,6 @@ export declare const copy: (path: string, newPath: string, options?: fs.CopyOpti
  * Remove file/folder \
  * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
  * @see [remove](http://vsc-base.org/#remove)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.remove(path)
  * @dependencyExternal fs
@@ -227,8 +218,6 @@ export declare const remove: (path: string) => Promise<void>;
  * emptyDir folder \
  * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
  * @see [emptyDir](http://vsc-base.org/#emptyDir)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.remove(path)
  * @dependencyExternal fs

@@ -13,22 +13,16 @@ const TsMatchIdentifierAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a variable declaration (node: ts.VariableDeclaration) 
+ Test is a node is a identifier (node: ts.Identifier) 
                </p>
                <p>
                 Optional test for its name with a string or regexp, 
                </p>
                <p>
-                Optional test if its a const, let or var. 
-               </p>
-               <p>
                 Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsMacthNode'>tsMacthNode</a> 
-               </p>
-               <p>
-                Optional value can be tested against a string, a number (with a string, number or regexp). \
+                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }

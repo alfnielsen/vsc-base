@@ -19,31 +19,30 @@ const InsertAtAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.insertAt(content, start, end)`}
+         codeOneLineEx={`const success = vsc.insertAt(content, start, end)`}
          codeEx={``}
          code={`/**
  * @param content, range, editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const insertAt = async (
+export const insertAt = (
    content: string,
    start: number,
    end: number = start,
    editor?: vscode.TextEditor,
    trimSpaces = false
-): Promise<boolean> => \{
+): boolean => \{
    if (editor === undefined) \{
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) \{
-      return Promise.resolve(false)
+      return false
    }
    const source = editor.document.getText();
    const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
-   const snippetString = new vscode.SnippetString(content)
-   await editor.insertSnippet(snippetString, pos.range)
+   vsc.insertAtRange(content, pos.range, editor)
    return true
 }
 `}

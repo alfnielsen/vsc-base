@@ -19,24 +19,23 @@ const PrependToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`await vsc.prependToDocument(editor, document, content)`}
+         codeOneLineEx={`vsc.prependToDocument(editor, document, content)`}
          codeEx={``}
          code={`/**
  * @param content, editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const prependToDocument = async (
+export const prependToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => \{
+): boolean => \{
    const startPosition = new vscode.Position(0, 0)
    const endPosition = new vscode.Position(0, 0)
    const startRange = new vscode.Range(startPosition, endPosition)
-   return await insertAtRange(content, startRange, editor);
+   return insertAtRange(content, startRange, editor);
 }
-
 
 `}
       />

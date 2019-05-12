@@ -299,21 +299,21 @@ export const getDocumentContent = (
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.setDocumentContent(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.setDocumentContent(content)
+ * @returns boolean
  */
-export const setDocumentContent = async (
+export const setDocumentContent = (
    content: string,
    editor?: vscode.TextEditor,
-): Promise<boolean> => {
+): boolean => {
    if (editor === undefined) {
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) {
-      return Promise.resolve(false)
+      return false
    }
    const fullRange = vsc.getFullDocumentRange(editor.document)
-   return await insertAtRange(content, fullRange, editor);
+   return insertAtRange(content, fullRange, editor);
 }
 
 /** vsc-base method
@@ -346,22 +346,22 @@ export const getFullDocumentRange = (
  * @dependencyExternal vscode
  * @vscType Vscode
  * @oneLineEx await vsc.appendToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const appendToDocument = async (
+export const appendToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => {
+): boolean => {
    if (!editor) {
       editor = vsc.getActiveEditor()
    }
    if (!editor) {
-      return Promise.resolve(false)
+      return false
    }
    const startPosition = new vscode.Position(editor.document.lineCount, 0)
    const endPosition = new vscode.Position(editor.document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)
-   return await insertAtRange(content, fullRange, editor);
+   return insertAtRange(content, fullRange, editor);
 }
 
 
@@ -374,19 +374,18 @@ export const appendToDocument = async (
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.prependToDocument(editor, document, content)
- * @returns Promise<boolean>
+ * @oneLineEx vsc.prependToDocument(editor, document, content)
+ * @returns boolean
  */
-export const prependToDocument = async (
+export const prependToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => {
+): boolean => {
    const startPosition = new vscode.Position(0, 0)
    const endPosition = new vscode.Position(0, 0)
    const startRange = new vscode.Range(startPosition, endPosition)
-   return await insertAtRange(content, startRange, editor);
+   return insertAtRange(content, startRange, editor);
 }
-
 
 
 /** vsc-base method
@@ -399,22 +398,26 @@ export const prependToDocument = async (
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAtRange(content, range)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAtRange(content, range)
+ * @returns boolean
  */
-export const insertAtRange = async (
+export const insertAtRange = (
    content: string,
    range: vscode.Range,
    editor?: vscode.TextEditor,
-): Promise<boolean> => {
+): boolean => {
    if (editor === undefined) {
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) {
-      return Promise.resolve(false)
+      return false
    }
-   const snippetString = new vscode.SnippetString(content)
-   await editor.insertSnippet(snippetString, range)
+   // Use TextEdit to avoid scrolling the document
+   const edits: vscode.TextEdit[] = []
+   edits.push(vscode.TextEdit.replace(range, content))
+   const workspaceEdit = new vscode.WorkspaceEdit();
+   workspaceEdit.set(editor.document.uri, edits);
+   vscode.workspace.applyEdit(workspaceEdit);
    return true
 }
 
@@ -428,26 +431,25 @@ export const insertAtRange = async (
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = await vsc.insertAt(content, start, end)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.insertAt(content, start, end)
+ * @returns boolean
  */
-export const insertAt = async (
+export const insertAt = (
    content: string,
    start: number,
    end: number = start,
    editor?: vscode.TextEditor,
    trimSpaces = false
-): Promise<boolean> => {
+): boolean => {
    if (editor === undefined) {
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) {
-      return Promise.resolve(false)
+      return false
    }
    const source = editor.document.getText();
    const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
-   const snippetString = new vscode.SnippetString(content)
-   await editor.insertSnippet(snippetString, pos.range)
+   vsc.insertAtRange(content, pos.range, editor)
    return true
 }
 
@@ -459,14 +461,14 @@ export const insertAt = async (
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.appendLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.appendLineToDocument(content)
+ * @returns boolean
  */
-export const appendLineToDocument = async (
+export const appendLineToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => {
-   return await vsc.appendToDocument('\n' + content, editor)
+): boolean => {
+   return vsc.appendToDocument('\n' + content, editor)
 }
 
 
@@ -479,14 +481,14 @@ export const appendLineToDocument = async (
  * @param document
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = await vsc.prependLineToDocument(content)
- * @returns Promise<boolean>
+ * @oneLineEx const success = vsc.prependLineToDocument(content)
+ * @returns boolean
  */
-export const prependLineToDocument = async (
+export const prependLineToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => {
-   return await vsc.prependToDocument(content + '\n', editor)
+): boolean => {
+   return vsc.prependToDocument(content + '\n', editor)
 }
 
 /** vsc-base method
@@ -536,6 +538,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
          end -= endSpaces[0].length;
       }
    }
+   const content = source.substring(start, end)
    const startLines = source.substr(0, start).split("\n");
    const endLines = source.substr(0, end).split("\n");
    const startLineNumber = startLines.length - 1
@@ -544,6 +547,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
    const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length);
    const range = new vscode.Range(startPosition, endPosition);
    return {
+      content,
       start,
       end,
       startLineNumber,
@@ -553,7 +557,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
       range,
    }
 }
-export type VscodePosition = { start: number, end: number, startLineNumber: number, endLineNumber: number, startPosition: vscode.Position, endPosition: vscode.Position, range: vscode.Range }
+export type VscodePosition = { content: string, start: number, end: number, startLineNumber: number, endLineNumber: number, startPosition: vscode.Position, endPosition: vscode.Position, range: vscode.Range }
 
 
 

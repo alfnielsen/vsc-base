@@ -2,6 +2,30 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.18
+
+### Breaking changes
+
+insertAtRange and all method using it is now NOT async:
+
+insertAt,
+insertAtRange,
+prependToDocument
+setDocumentContent
+appendLineToDocument
+prependLineToDocument
+
+The underlying vscode commands has been changed to vscode.TextEdit, insert of snippets.
+
+One major reason for this, is the scrolling behavior of the active document.
+
+With snippets it scrolls to the change, but this is most of the time not what we want.
+
+### Add
+
+VscodePosition (result of createVscodeRangeAndPosition and tsFindPositionFromContent ect),
+now has 'content'
+
 ## 0.8.13-0.8.17
 
 Upgrade dependencies

@@ -8,52 +8,52 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const assert = require("assert");
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
-// import { mock } from 'simple-mock'
+// import {  } from 'simple-mock'
 const vsc = require("../vsc-base-development/vsc-base");
 // Defines a Mocha test suite to group tests of similar kind together
 suite('Vsc base Tests', function () {
     // Defines a Mocha unit test
-    suite('getSubrelativePathFromAbsoluteRootPath', () => {
+    suite('getSubRelativePathFromAbsoluteRootPath', () => {
         test(' 1', () => {
-            const r1 = vsc.getSubrelativePathFromAbsoluteRootPath('c:/root/modules/file1.js', 'modules/file2.js', 'c:/root/');
+            const r1 = vsc.getSubRelativePathFromAbsoluteRootPath('c:/root/modules/file1.js', 'modules/file2.js', 'c:/root/');
             assert.equal(r1, './file2.js');
         });
     });
-    suite('relatrivePathToAbsolutePath', () => {
+    suite('relativePathToAbsolutePath', () => {
         test(' 1', () => {
-            const r1 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.js', '../file2', 'c:/root/');
+            const r1 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.js', '../file2', 'c:/root/');
             assert.equal(r1, 'file2');
         });
         test(' 2', () => {
-            const r2 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.ts', './file2', 'c:/root/');
+            const r2 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.ts', './file2', 'c:/root/');
             assert.equal(r2, 'modules/file2');
         });
         test(' 3', () => {
-            const r3 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.tsx', './sub/file2', 'c:/root/');
+            const r3 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.tsx', './sub/file2', 'c:/root/');
             assert.equal(r3, 'modules/sub/file2');
         });
         test(' 4', () => {
-            const r4 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.jsx', 'modules/file3', 'c:/root/');
+            const r4 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.jsx', 'modules/file3', 'c:/root/');
             assert.equal(r4, 'modules/file3');
         });
         test(' 5', () => {
-            const r5 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.jsx', 'react', 'c:/root/');
+            const r5 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.jsx', 'react', 'c:/root/');
             assert.equal(r5, 'react'); // besuce it looks like an absolute path!
         });
         test(' 6', () => {
-            const r6 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.js', '../modules/file2', 'c:/root/');
+            const r6 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.js', '../modules/file2', 'c:/root/');
             assert.equal(r6, 'modules/file2');
         });
         test(' 7', () => {
-            const r7 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.js', '../modules2/file4', 'c:/root/');
+            const r7 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.js', '../modules2/file4', 'c:/root/');
             assert.equal(r7, 'modules2/file4');
         });
         test(' 8', () => {
-            const r8 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/file1.js', '../file2', 'c:/root');
+            const r8 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/file1.js', '../file2', 'c:/root');
             assert.equal(r8, 'file2');
         });
         test(' 9', () => {
-            const r9 = vsc.getAbsolutePathFromRelatrivePath('c:/root/modules/sub/sub2/file1.js', '../../file2', 'c:/root');
+            const r9 = vsc.getAbsolutePathFromRelativePath('c:/root/modules/sub/sub2/file1.js', '../../file2', 'c:/root');
             assert.equal(r9, 'modules/file2');
         });
     });

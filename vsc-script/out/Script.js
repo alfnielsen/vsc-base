@@ -8,12 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cp = require("child-process-promise");
 const fs = require("fs-extra");
 const ts = require("typescript");
-const path = require("path");
-const vscode = require("vscode");
-const cp = require("child-process-promise");
 const vsc = require("vsc-base");
+const vscode = require("vscode");
+const path = require("path");
 //import * as vsc from './vsc-base-development/vsc-base'
 class Script {
     /**
@@ -21,6 +21,57 @@ class Script {
      */
     getLibs() {
         return { fs, ts, path, vscode, vsc, cp };
+    }
+    runOnSave(uri) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const path = vsc.pathAsUnix(uri.fsPath);
+            // Collect all project scripts:
+            const scriptFiles = yield vsc.findFilePaths('**/*.vsc-script-onsave.ts');
+            scriptFiles.sort((a, b) => {
+                const matchA = a.match(/\/.*$/);
+                const matchB = b.match(/\/.*$/);
+                if (!matchA || !matchB) {
+                    return 0;
+                }
+                return matchA[0].localeCompare((matchB[0]));
+            });
+            for (const filePath of scriptFiles) {
+                yield this.loadAndRunScript(path, filePath, 'runOnSave');
+            }
+        });
+    }
+    loadAndRunScript(path, scriptPath, method) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // load script and transpile it
+            let scriptFileExport;
+            try {
+                scriptFileExport = yield vsc.tsLoadModule(scriptPath);
+            }
+            catch (e) {
+                let jsCompiledCode = '';
+                if (e instanceof vsc.TSLoadModuleError) {
+                    jsCompiledCode = e.transpiledCode;
+                    this.errorLog('104.1: Error in vsc-Script trying to transpile the loaded module. This error is properly incorrect formatting of the module file. Open the script file in vscode and ensure that ts cont find any errors.', scriptPath, e, `${jsCompiledCode}`);
+                }
+                else {
+                    const transpiledTs = yield vsc.tsTranspile(scriptPath);
+                    this.errorLog('104.2: Error in vsc-Script trying to transpile the loaded module. Please report it to https://github.com/alfnielsen/vsc-base/issues and include the error-log', scriptPath, e, `${transpiledTs}`);
+                }
+                return;
+            }
+            const verifiedModule = vsc.verifyModuleMethods(scriptFileExport, [method]);
+            if (!verifiedModule) {
+                vsc.showErrorMessage(`Script did not contain method called '${method}' :: ${JSON.stringify(scriptFileExport)}`);
+                return;
+            }
+            try {
+                verifiedModule[method](path, this.getLibs());
+            }
+            catch (e) {
+                const sourceJs = yield vsc.tsLoadModuleSourceCode(scriptPath);
+                this.errorLog(`105: Running compiled 'run' method. The error is in the '${method}' method.`, scriptPath, e, `${sourceJs}`);
+            }
+        });
     }
     /**
      * The main method that runs
@@ -63,42 +114,7 @@ class Script {
                 vsc.showErrorMessage(`ERROR (103): NOTE: vsc-script didn't find your script '${scriptName}'. The script must be in a file called '${scriptName}.vsc-script.js'`);
                 return;
             }
-            // load script and tranpile it
-            let scriptFileExport;
-            try {
-                scriptFileExport = yield vsc.tsLoadModule(selectedScript.path);
-            }
-            catch (e) {
-                let jsCompiledCode = '';
-                if (e instanceof vsc.TSLoadModuleError) {
-                    jsCompiledCode = e.transpiledCode;
-                    this.errorLog('104.1: Error in vsc-Script trying to transpile the loaded module. This error is properply incorrect formatting of the module file. Open the script file in vscode and ensure that ts cont find any errors.', selectedScript.path, e, `${jsCompiledCode}`);
-                }
-                else {
-                    const transpiledTs = yield vsc.tsTranspile(selectedScript.path);
-                    this.errorLog('104.2: Error in vsc-Script trying to transpile the loaded module. Please report it to https://github.com/alfnielsen/vsc-base/issues and include the error-log', selectedScript.path, e, `${transpiledTs}`);
-                }
-                return;
-            }
-            const varifiedModule = vsc.varifyModuleMethods(scriptFileExport, ['run']);
-            if (!varifiedModule) {
-                vsc.showErrorMessage(`Script did not contain method called 'run' :: ${JSON.stringify(scriptFileExport)}`);
-                return;
-            }
-            try {
-                const result = varifiedModule.run(path, this.getLibs());
-                yield vsc.awaitResult(result);
-                if (typeof result === 'string') {
-                    vsc.showMessage(`Script done: ${result}`);
-                }
-                else {
-                    vsc.showMessage('Script done.');
-                }
-            }
-            catch (e) {
-                const sourceJs = yield vsc.tsLoadModuleSourceCode(selectedScript.path);
-                this.errorLog(`105: Running compiled 'run' method. The error is in the 'run' method.`, selectedScript.path, e, `${sourceJs}`);
-            }
+            yield this.loadAndRunScript(path, selectedScript.path, 'run');
         });
     }
     errorLog(errorDescription, selectedScriptPath, e, method) {

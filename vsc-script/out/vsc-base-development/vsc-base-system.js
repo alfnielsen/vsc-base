@@ -27,15 +27,15 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
     function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cp = require("child-process-promise");
 const fs = require("fs-extra");
 const vscode = require("vscode");
 const vsc = require("./vsc-base");
-const cp = require("child-process-promise");
 /** vsc-base method
  * @description
  * Execute a bash command. \
  * (Execute a command using child-process-promise) \
- * **NOTE:** If you use this method in an extension the end user need to be able to actaully
+ * **NOTE:** If you use this method in an extension the end user need to be able to actually
  * execute the command! \
  * This method is mostly design for vsc-script's, where you have control of the environment. \
  * See also [vsc.writeToTerminal](http://vsc-base.org/#writeToTerminal)
@@ -100,7 +100,8 @@ exports.getLineStreamReader = (readStream) => function () {
 };
 /** vsc-base method
  * @description
- * Get a file ReadStream
+ * Get a file ReadStream \
+ * See [fs docs for createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
  * @see [getReadStream](http://vsc-base.org/#getReadStream)
  * @param path
  * @dependencyExternal fs
@@ -113,15 +114,15 @@ exports.getLineStreamReader = (readStream) => function () {
  }
  * @returns fs.ReadStream
  */
-exports.getReadStream = (path) => {
-    const stream = fs.createReadStream(path, {
-        flags: 'r',
-        encoding: 'utf-8',
-        fd: undefined,
-        mode: 438,
-        autoClose: false,
-        highWaterMark: 64 * 1024
-    });
+exports.getReadStream = (path, options = {
+    flags: 'r',
+    encoding: 'utf-8',
+    fd: undefined,
+    mode: 438,
+    autoClose: false,
+    highWaterMark: 64 * 1024
+}) => {
+    const stream = fs.createReadStream(path, options);
     return stream;
 };
 /** vsc-base method
@@ -166,7 +167,7 @@ exports.getDir = (path) => {
  * @oneLineEx const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
-exports.getFileContent = (path) => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, 'utf8'); });
+exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, encoding); });
 /** vsc-base method
  * @description
  * Get file source as json \
@@ -196,30 +197,34 @@ exports.getConfig = (projectName, property, defaultValue) => {
 };
 /** vsc-base method
  * @description
- * Find packages file paths in project.
+ * Find packages file paths in project. /
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-exports.getPackageFilePaths = () => __awaiter(this, void 0, void 0, function* () {
-    const packageFiles = yield vsc.findFilePaths('**/package.json');
+exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
+    const packageFiles = yield vsc.findFilePaths('**/package.json', exclude);
     return packageFiles;
 });
 /** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
+ * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
+ * It can be used to control which package.json files should be included.
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
  * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
- * @todo Use unknow guard check instead of any casting
+ * @todo Use unknown guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
-exports.getPackageDependencies = () => __awaiter(this, void 0, void 0, function* () {
+exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
     let dependencies = {};
     let devDependencies = {};
-    const packageFilePaths = yield vsc.getPackageFilePaths();
+    const packageFilePaths = yield vsc.getPackageFilePaths(exclude);
     for (let i = 0; i < packageFilePaths.length; i++) {
         const packageFile = packageFilePaths[i];
         const packageJson = yield vsc.getJsonContent(packageFile);
@@ -252,10 +257,10 @@ exports.isDir = (path) => {
 };
 /** vsc-base method
  * @description
- * Make a folder
+ * Make a folder \
+ * See [fs docs for mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
  * @see [makeDir](http://vsc-base.org/#makeDir)
- * @param path
- * @param newPathstring
+ * @param folderPath
  * @vscType System
  * @dependencyExternal fs
  * @oneLineEx await vsc.makeDir(path)
@@ -271,35 +276,73 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
 });
 /** vsc-base method
  * @description
- * Move a file or folder
+ * Move a file or folder \
+ * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.move = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.move(path, newPath);
+exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.move(path, newPath, options);
 });
 /** vsc-base method
  * @description
- * Copy file/fodler
+ * Rename a file or folder \
+ * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
+ * @see [move](http://vsc-base.org/#move)
+ * @vscType System
+ * @oneLineEx await vsc.move(oldPath, newPath)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.rename = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.rename(path, newPath);
+});
+/** vsc-base method
+ * @description
+ * Copy file/folder \
+ * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
- * @param path
- * @param newPathstring
  * @vscType System
  * @oneLineEx await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.copy(path, newPath);
+exports.copy = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.copy(path, newPath, options);
 });
 /** vsc-base method
  * @description
- * Save file
+ * Remove file/folder \
+ * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
+ * @see [remove](http://vsc-base.org/#remove)
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.remove = (path) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.remove(path);
+});
+/** vsc-base method
+ * @description
+ * emptyDir folder \
+ * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
+ * @see [emptyDir](http://vsc-base.org/#emptyDir)
+ * @vscType System
+ * @oneLineEx await vsc.remove(path)
+ * @dependencyExternal fs
+ * @returns Promise<void>
+ */
+exports.emptyDir = (path) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.emptyDir(path);
+});
+/** vsc-base method
+ * @description
+ * Save file \
+ * See [fs docs for writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
  * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
  * @param path
  * @param content
@@ -308,7 +351,22 @@ exports.copy = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
  * @oneLineEx await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
-exports.saveFileContent = (path, content) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.writeFile(path, content);
+exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.writeFile(path, content, options);
+});
+/** vsc-base method
+ * @description
+ * Append content to a file \
+ * See [fs docs for appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback)
+ * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
+ * @param path
+ * @param content
+ * @vscType System
+ * @dependencyExternal fs
+ * @oneLineEx await vsc.saveFileContent(path, source)
+ * @returns Promise<void>
+ */
+exports.addFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+    yield fs.appendFile(path, content, options);
 });
 //# sourceMappingURL=vsc-base-system.js.map

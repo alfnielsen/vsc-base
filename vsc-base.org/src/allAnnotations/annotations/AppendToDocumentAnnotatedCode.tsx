@@ -27,22 +27,22 @@ const AppendToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @param content, document, editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const appendToDocument = async (
+export const appendToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => \{
+): boolean => \{
    if (!editor) \{
       editor = vsc.getActiveEditor()
    }
    if (!editor) \{
-      return Promise.resolve(false)
+      return false
    }
    const startPosition = new vscode.Position(editor.document.lineCount, 0)
    const endPosition = new vscode.Position(editor.document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)
-   return await insertAtRange(content, fullRange, editor);
+   return insertAtRange(content, fullRange, editor);
 }
 
 `}

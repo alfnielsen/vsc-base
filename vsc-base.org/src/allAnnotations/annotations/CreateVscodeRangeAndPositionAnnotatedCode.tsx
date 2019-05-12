@@ -37,6 +37,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
          end -= endSpaces[0].length;
       }
    }
+   const content = source.substring(start, end)
    const startLines = source.substr(0, start).split("\\n");
    const endLines = source.substr(0, end).split("\\n");
    const startLineNumber = startLines.length - 1
@@ -45,6 +46,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
    const endPosition = new vscode.Position(endLineNumber, endLines[endLines.length - 1].length);
    const range = new vscode.Range(startPosition, endPosition);
    return \{
+      content,
       start,
       end,
       startLineNumber,
@@ -54,7 +56,7 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
       range,
    }
 }
-export type VscodePosition = \{ start: number, end: number, startLineNumber: number, endLineNumber: number, startPosition: vscode.Position, endPosition: vscode.Position, range: vscode.Range }
+export type VscodePosition = \{ content: string, start: number, end: number, startLineNumber: number, endLineNumber: number, startPosition: vscode.Position, endPosition: vscode.Position, range: vscode.Range }
 
 
 `}

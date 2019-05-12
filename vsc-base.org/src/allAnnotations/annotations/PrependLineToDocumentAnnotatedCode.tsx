@@ -18,18 +18,18 @@ const PrependLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) 
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.prependLineToDocument(content)`}
+         codeOneLineEx={`const success = vsc.prependLineToDocument(content)`}
          codeEx={``}
          code={`/**
  * @param content, document, editor
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const prependLineToDocument = async (
+export const prependLineToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => \{
-   return await vsc.prependToDocument(content + '\\n', editor)
+): boolean => \{
+   return vsc.prependToDocument(content + '\\n', editor)
 }
 `}
       />

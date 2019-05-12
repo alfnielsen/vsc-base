@@ -1,7 +1,7 @@
-import * as vsc from 'vsc-base'
 //import * as vsc from '../src/vsc-base-development/vsc-base'
 
 import * as ts from 'typescript'
+import * as vsc from 'vsc-base'
 
 export async function run(path: string) {
 	vsc.showMessage("Start finding node... ")

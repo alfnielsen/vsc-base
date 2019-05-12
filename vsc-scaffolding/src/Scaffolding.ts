@@ -20,9 +20,9 @@ export default class Scaffolding {
        * This scans all files for .vsc-template.js to make a list of templates
        * @todo Maybe move this code, so it do not scan all file every times it run
        */
-      const templatefiles = await vsc.findFilePaths('**/*.vsc-template.{js,ts}')
+      const templateFiles = await vsc.findFilePaths('**/*.vsc-template.{js,ts}')
       const templates: { name: string; name_lower: string; type: string, path: string }[] = []
-      templatefiles.forEach(filePath => {
+      templateFiles.forEach(filePath => {
          const match = filePath.match(/([\w\-]+)\.vsc\-template\.([jt]s)$/)
          if (match) {
             const name = match[1]
@@ -102,15 +102,15 @@ const getJsTemplate = async (path: string) => {
    return template;
 }
 const getTsTemplate = async (templatePath: string, path: string) => {
-   // load script and tranpile it
+   // load script and transpile it
    try {
       let scriptFileExport
       scriptFileExport = await vsc.tsLoadModule(templatePath)
-      const varifiedModule = vsc.varifyModuleMethods(scriptFileExport, ['Template'])
-      if (!varifiedModule) {
+      const verifiedModule = vsc.verifyModuleMethods(scriptFileExport, ['Template'])
+      if (!verifiedModule) {
          return undefined
       }
-      const template = varifiedModule.Template(path, templatePath)
+      const template = verifiedModule.Template(path, templatePath)
       return template
    } catch (e) {
       vsc.showErrorMessage(e);

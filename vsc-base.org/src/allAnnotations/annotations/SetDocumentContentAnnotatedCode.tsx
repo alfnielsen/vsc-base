@@ -21,27 +21,27 @@ const SetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.setDocumentContent(content)`}
+         codeOneLineEx={`const success = vsc.setDocumentContent(content)`}
          codeEx={``}
          code={`/**
  * @param content, editor
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const setDocumentContent = async (
+export const setDocumentContent = (
    content: string,
    editor?: vscode.TextEditor,
-): Promise<boolean> => \{
+): boolean => \{
    if (editor === undefined) \{
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) \{
-      return Promise.resolve(false)
+      return false
    }
    const fullRange = vsc.getFullDocumentRange(editor.document)
-   return await insertAtRange(content, fullRange, editor);
+   return insertAtRange(content, fullRange, editor);
 }
 `}
       />

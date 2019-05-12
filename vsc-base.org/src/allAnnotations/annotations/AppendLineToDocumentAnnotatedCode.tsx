@@ -18,19 +18,19 @@ const AppendLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) =
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.appendLineToDocument(content)`}
+         codeOneLineEx={`const success = vsc.appendLineToDocument(content)`}
          codeEx={``}
          code={`/**
  * @param content, editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const appendLineToDocument = async (
+export const appendLineToDocument = (
    content: string,
    editor?: vscode.TextEditor
-): Promise<boolean> => \{
-   return await vsc.appendToDocument('\\n' + content, editor)
+): boolean => \{
+   return vsc.appendToDocument('\\n' + content, editor)
 }
 
 

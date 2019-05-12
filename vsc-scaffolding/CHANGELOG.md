@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.5
+
+Upgrade to use vsc-base 0.8.18
+
 ## 0.1.4
 
 Upgrade to use vsc-base 0.8.11

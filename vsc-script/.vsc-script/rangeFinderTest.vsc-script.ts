@@ -1,7 +1,7 @@
-import * as vsc from 'vsc-base'
 //import * as vsc from '../src/vsc-base-development/vsc-base'
 
 import * as ts from 'typescript'
+import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 import { tsIsIdentifier } from '../src/vsc-base-development/vsc-base-typescript';
 
@@ -65,7 +65,7 @@ export async function run(path: string) {
 		//insertAtRange('\n  newcontent: 12,', range);
 		//vsc.showMessage(realText)
 		//vsc.showMessage('RE: ' + realTextNode)
-		//vsc.appendLineToActiveDocument(vsc.toJSONString(position))
+		vsc.appendLineToDocument(vsc.toJSONString(position))
 	} else {
 		vsc.showMessage('Not found!')
 	}
@@ -104,4 +104,3 @@ export function method1(doit: boolean) {
 enum foo {
 	foo1 = 1 //<-- FIND this
 }
-

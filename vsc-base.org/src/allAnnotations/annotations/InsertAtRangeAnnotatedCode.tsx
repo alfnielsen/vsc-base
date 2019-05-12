@@ -19,27 +19,31 @@ const InsertAtRangeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const success = await vsc.insertAtRange(content, range)`}
+         codeOneLineEx={`const success = vsc.insertAtRange(content, range)`}
          codeEx={``}
          code={`/**
  * @param content, range, editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @returns Promise<boolean>
+ * @returns boolean
  */
-export const insertAtRange = async (
+export const insertAtRange = (
    content: string,
    range: vscode.Range,
    editor?: vscode.TextEditor,
-): Promise<boolean> => \{
+): boolean => \{
    if (editor === undefined) \{
       editor = vsc.getActiveEditor()
    }
    if (editor === undefined) \{
-      return Promise.resolve(false)
+      return false
    }
-   const snippetString = new vscode.SnippetString(content)
-   await editor.insertSnippet(snippetString, range)
+   // Use TextEdit to avoid scrolling the document
+   const edits: vscode.TextEdit[] = []
+   edits.push(vscode.TextEdit.replace(range, content))
+   const workspaceEdit = new vscode.WorkspaceEdit();
+   workspaceEdit.set(editor.document.uri, edits);
+   vscode.workspace.applyEdit(workspaceEdit);
    return true
 }
 `}

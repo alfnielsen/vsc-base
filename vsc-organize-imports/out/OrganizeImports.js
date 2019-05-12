@@ -27,15 +27,7 @@ class OrganizeImports {
             const spaceBetweenImportGroups = this.getConfig('spaceBetweenImportGroups', false);
             const orderSpecifiers = this.getConfig('orderSpecifiers', false);
             const orderSpecifiersAsSingleLine = this.getConfig('orderSpecifiersAsSingleLine', false);
-            const editor = vsc.getActiveEditor();
-            let selection;
-            if (editor) {
-                selection = editor.selection;
-            }
             yield SortImports_1.SortImports(content, spaceBetweenImportGroups, orderSpecifiers, orderSpecifiersAsSingleLine);
-            if (editor && selection) {
-                editor.selection = selection;
-            }
         });
     }
 }

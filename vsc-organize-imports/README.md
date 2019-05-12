@@ -3,8 +3,8 @@
 The is an vscode extension.
 
 The project's organize imports in ts/js files alphabetical.
-It dont change format for single/multiline imports.
-It dont removes comments.
+It don't change format for single/multi-line imports.
+It don't removes comments. (except inner comment, when order named are activated)
 
 ## Usage
 

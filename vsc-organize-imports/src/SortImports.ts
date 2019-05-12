@@ -1,5 +1,6 @@
 import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
+import * as vscode from 'vscode'
 
 type Imports = {
   node: ts.ImportDeclaration
@@ -15,11 +16,11 @@ export async function SortImports(
   spaceBetweenImportGroups: boolean,
   orderSpecifiers: boolean,
   orderSpecifiersAsSingleLine: boolean
-) {
+): Promise<vscode.TextEdit[] | undefined> {
   //Find first node that is not in import
   const imports = mapImports(content);
   if (!imports) {
-    return
+    return Promise.resolve(undefined)
   }
   //find last import
   const firstImport = imports.sort((a, b) => a.pos.end - b.pos.end)[0]
@@ -43,7 +44,16 @@ export async function SortImports(
     })
   }
   const newImportContent = await organizeImports(imports, spaceBetweenImportGroups)
-  await vsc.insertAt(newImportContent, firstImport.pos.start, lastImport.pos.end)
+  //await vsc.insertAt(newImportContent, firstImport.pos.start, lastImport.pos.end)
+
+  //todo redo this and use insertAt (when vsc-base use the same reaplce)
+  const range = new vscode.Range(firstImport.pos.startPosition, lastImport.pos.endPosition)
+  const edits: vscode.TextEdit[] = []
+  edits.push(vscode.TextEdit.replace(range, newImportContent))
+  const workspaceEdit = new vscode.WorkspaceEdit();
+  workspaceEdit.set(vscode.window.activeTextEditor!.document.uri, edits);
+  vscode.workspace.applyEdit(workspaceEdit);
+
 }
 
 const organizeImports = async (imports: Imports, spaceBetweenImportGroups: boolean) => {

@@ -20,15 +20,7 @@ export default class OrganizeImports {
       const orderSpecifiers = this.getConfig('orderSpecifiers', false)
       const orderSpecifiersAsSingleLine = this.getConfig('orderSpecifiersAsSingleLine', false)
 
-      const editor = vsc.getActiveEditor()
-      let selection: vscode.Selection | undefined
-      if (editor) {
-         selection = editor.selection
-      }
       await SortImports(content, spaceBetweenImportGroups, orderSpecifiers, orderSpecifiersAsSingleLine)
-      if (editor && selection) {
-         editor.selection = selection
-      }
    }
 }
 

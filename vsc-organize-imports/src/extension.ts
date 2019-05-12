@@ -1,5 +1,4 @@
 import * as vscode from 'vscode'
-
 import OrganizeImports from './OrganizeImports'
 
 // The module 'vscode' contains the VS Code extensibility API

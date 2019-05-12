@@ -6,10 +6,10 @@ See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Rele
 
 ### Breaking changes
 
-VscodePosition (return from [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition) and [tsFindPositionFromContent](http://vsc-base.org/#tsFindPositionFromContent) ect.)
+VscodePosition (result from [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition) and [tsFindPositionFromContent](http://vsc-base.org/#tsFindPositionFromContent) ect.)
 now has fullContent, orgStart and orgEnd.
 
-The start property now remove comments as well as spaces.
+It will now remove comments as well as spaces.
 (The orgStart, orgEnd and fullContent has the contains the position and content without removing spaces and comments)
 
 [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition) optional params trimSpaces is now trimSpacesAndComments.

@@ -522,8 +522,6 @@ export const saveDocument = async (
  * Also returns the content and fullContent properties and orgStart and Org End. \
  * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
- * @param range
- * @param editor
  * @vscType Vscode
  * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean

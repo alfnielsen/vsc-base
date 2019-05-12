@@ -16,6 +16,8 @@ export async function run(path: string) {
    // Now create all element/files used by the the vsc-base.org project
    await CompileToVscBaseOrg(dir, parts)
 
+   vsc.showMessage('Cloning to vsc-base..')
+
    // Now Copy the source files the vsc-base project
    for (const filePath of vscFiles) {
       const newPath = filePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
@@ -81,20 +83,20 @@ const createPartMap = async (vscFiles: string[]) => {
 }
 
 const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
-   // For vsc-base.org we change the path to point into that project (in this mono-respose)
+   // For vsc-base.org we change the path to point into that project (in this mono-respo)
    const orgDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
    const anoDir = orgDir + '/annotations'
    // Create all code Annotation Components
-   await writeAllAnotationComponent(anoDir, parts)
-   // Create main Coponent for the annotations:
+   await writeAllAnnotationComponent(anoDir, parts)
+   // Create main Component for the annotations:
    await writeMainAnnotationComponent(orgDir, parts);
-   // To enable live testing on vsc-base we copy the 'vsc-base-raw.ts' vsc-base.org aswell.
+   // To enable live testing on vsc-base we copy the 'vsc-base-raw.ts' vsc-base.org as well.
    const rawPath = dir + '/vsc-base-raw.ts';
    const newRawPath = rawPath.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
    let rawPathContent = await vsc.getFileContent(rawPath);
-   // reaplce import vsc-base to point to itself instead!
+   // replace import vsc-base to point to itself instead!
    // In vsc-base.org we connect use vscode or system,
-   // so we need to chenge the vsc-base-raw file just a little, so it dont point at the general vsc-base,
+   // so we need to change the vsc-base-raw file just a little, so it don't point at the general vsc-base,
    // but instead point at itself!
    rawPathContent = rawPathContent.replace("import * as vsc from './vsc-base'", "import * as vsc from './vsc-base-raw'")
    // Save the modified vsc-base-raw to vsc-base-org project:
@@ -102,7 +104,7 @@ const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
 
 }
 
-const writeAllAnotationComponent = async (anoDir: string, parts: CodePart[]) => {
+const writeAllAnnotationComponent = async (anoDir: string, parts: CodePart[]) => {
    // vsc-base.org has a React called Annotation (which is the one this script maps to)
    for (const part of parts) {
       // Create a Annotation React component

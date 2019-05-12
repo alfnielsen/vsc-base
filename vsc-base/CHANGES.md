@@ -2,18 +2,30 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.19
+
+### Breaking changes
+
+VscodePosition (return from [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition) and [tsFindPositionFromContent](http://vsc-base.org/#tsFindPositionFromContent) ect.)
+now has fullContent, orgStart and orgEnd.
+
+The start property now remove comments as well as spaces.
+(The orgStart, orgEnd and fullContent has the contains the position and content without removing spaces and comments)
+
+[createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition) optional params trimSpaces is now trimSpacesAndComments.
+
 ## 0.8.18
 
 ### Breaking changes
 
 insertAtRange and all method using it is now NOT async:
 
-insertAt,
-insertAtRange,
-prependToDocument
-setDocumentContent
-appendLineToDocument
-prependLineToDocument
+-  [insertAt](http://vsc-base.org/#insertAt)
+-  [insertAtRange](http://vsc-base.org/#insertAtRange)
+-  [setDocumentContent](http://vsc-base.org/#setDocumentContent)
+-  [prependToDocument](http://vsc-base.org/#prependToDocument)
+-  [appendLineToDocument](http://vsc-base.org/#appendLineToDocument)
+-  [prependLineToDocument](http://vsc-base.org/#prependLineToDocument)
 
 The underlying vscode commands has been changed to vscode.TextEdit, insert of snippets.
 

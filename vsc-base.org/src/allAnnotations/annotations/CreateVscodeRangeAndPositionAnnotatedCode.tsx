@@ -13,7 +13,13 @@ const CreateVscodeRangeAndPositionAnnotatedCode = ({ open = false }: {open?: boo
             <>
                <p>
                   
- Takes a start and end and return vscode positions and range objects.
+ Takes a start and end and return vscode positions and range objects. 
+               </p>
+               <p>
+                Also returns the content and fullContent properties and orgStart and Org End. 
+               </p>
+               <p>
+                (The normal ts ast compiler has spaces and comment included in the node pos and node end)
                </p>
             </>
          }
@@ -25,10 +31,14 @@ const CreateVscodeRangeAndPositionAnnotatedCode = ({ open = false }: {open?: boo
  * @vscType Vscode
  * @returns boolean
  */
-export const createVscodeRangeAndPosition = (source: string, start: number, end: number = start, trimSpaces = true): vsc.VscodePosition => \{
-   if (trimSpaces) \{
+export const createVscodeRangeAndPosition = (source: string, start: number, end: number = start, trimSpacesAndComments = true): vsc.VscodePosition => \{
+   const fullContent = source.substring(start, end)
+   const orgStart = start;
+   const orgEnd = end;
+   if (trimSpacesAndComments) \{
+      const matcher = /^((\\/\\*[\\s\\S]*?\\*\\/)|(\\/\\/[^\\n]*\\n)|([\\s\\n]+))*/
       const found = source.substring(start, end)
-      const startSpaces = found.match(/^\\s+/)
+      const startSpaces = found.match(matcher)
       if (startSpaces) \{
          start += startSpaces[0].length;
       }
@@ -54,9 +64,24 @@ export const createVscodeRangeAndPosition = (source: string, start: number, end:
       startPosition,
       endPosition,
       range,
+      fullContent,
+      orgStart,
+      orgEnd
    }
 }
-export type VscodePosition = \{ content: string, start: number, end: number, startLineNumber: number, endLineNumber: number, startPosition: vscode.Position, endPosition: vscode.Position, range: vscode.Range }
+export type VscodePosition = \{
+   content: string,
+   start: number,
+   end: number,
+   startLineNumber: number,
+   endLineNumber: number,
+   startPosition: vscode.Position,
+   endPosition: vscode.Position,
+   range: vscode.Range
+   fullContent: string,
+   orgStart: number,
+   orgEnd: number
+}
 
 
 `}

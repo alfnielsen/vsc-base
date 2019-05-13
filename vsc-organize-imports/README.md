@@ -50,6 +50,11 @@ This extension is build with [vsc-base](http://vsc-base.org).
 
 The source code is alse find it vsc-base monorespo: [source-code](https://github.com/alfnielsen/vsc-base)
 
+### Known issues
+
+imports from node_modules sub folder like 'react-spring/renderprops' (devdependensy: react-spring), 
+is noot match as globals. (This will be fix soon)
+
 ### Links
 
 > mono-respo: [source-code](https://github.com/alfnielsen/vsc-base)

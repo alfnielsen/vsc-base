@@ -126,8 +126,9 @@ export declare const toPascalCase: (str: string) => string;
  * @description
  * Format a string to a title string  \
  * Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' \
- * All non word separators will be removed and the word character after will be transforms to upper case
- * @see [toPascalCase](http://vsc-base.org/#toPascalCase)
+ * All non word separators will be removed and the word character after will be transforms to upper case, \
+ * if allWordUppercase is true only the first word will have uppercase.
+ * @see [toTitleCase](http://vsc-base.org/#toTitleCase)
  * @param str
  * @vscType Raw
  * @testPrinterArgument
@@ -135,13 +136,13 @@ export declare const toPascalCase: (str: string) => string;
    str: 'some-name'
 }
  * @testPrinter (args, printResult) => {
-   const result = vsc.toPascalCase(args.str)
+   const result = vsc.toTitleCase(args.str)
    printResult(result)
 }
- * @oneLineEx const name = vsc.toPascalCase(inputName)
+ * @oneLineEx const name = vsc.toTitleCase(inputName)
  * @returns string
  */
-export declare const toTitleCase: (str: string) => string;
+export declare const toTitleCase: (str: string, allWordUpperCase?: boolean) => string;
 /** vsc-base method
  * @description
  * Get clean path. \

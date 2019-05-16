@@ -1,6 +1,7 @@
 import * as cp from 'child-process-promise'
 import * as fs from 'fs-extra'
 import * as vscode from 'vscode'
+
 import * as vsc from './vsc-base'
 
 /** vsc-base method
@@ -180,7 +181,7 @@ export const getConfig = <T>(
 
 /** vsc-base method
  * @description 
- * Find packages file paths in project. /
+ * Find package.json file paths in project. /
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
  * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)

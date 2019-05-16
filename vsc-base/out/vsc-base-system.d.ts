@@ -122,7 +122,7 @@ export declare const getJsonContent: <TStructure = unknown>(path: string, throws
 export declare const getConfig: <T>(projectName: string, property: string, defaultValue: T) => T;
 /** vsc-base method
  * @description
- * Find packages file paths in project. /
+ * Find package.json file paths in project. /
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
  * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)

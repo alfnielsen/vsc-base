@@ -25,9 +25,15 @@
    padding-top: 15px;
    line-height: 20px;
 }
+
 .logoNote {
    font-size: 12px;
    margin-left: 10px;
+}
+@media only screen and (max-width: 800px) {
+   .logoNote {
+      display: none;
+   }
 }
 
 .mainNav {
@@ -40,6 +46,9 @@
    text-align: center;
    display: block;
    color: #fff;
+}
+.logo:hover {
+   color: #ddd !important;
 }
 
 .mainNav a {

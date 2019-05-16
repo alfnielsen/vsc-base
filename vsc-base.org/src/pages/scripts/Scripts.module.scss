@@ -1,0 +1,21 @@
+@import 'style/variables.scss';
+
+.description {
+   padding: 30px;
+}
+
+.annotatedCode {
+   display: block;
+   background: $dark;
+   color: #fff;
+   padding: 10px 30px;
+}
+
+.titleNote {
+   font-size: 12px;
+}
+.warning {
+   background: #f99;
+   padding: 5px;
+   margin-bottom: 40px;
+}

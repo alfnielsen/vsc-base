@@ -1,16 +1,13 @@
 import React, { ReactNode } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import styles from './Header.module.scss'
 
 const Header = () => (
    <div className={styles.header}>
-      <a className={styles.logo} href='/'>
+      <NavLink className={styles.logo} to='/'>
          <span>vsc-base.org</span>
-         <span className={styles.logoNote}>
-            {' '}
-            - Visual Studio Code Script and Extension Base
-         </span>
-      </a>
+      </NavLink>
       <ul className={styles.mainNav}>
          <li>
             <a

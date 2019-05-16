@@ -13,7 +13,7 @@ const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Find packages file paths in project. /
+ Find package.json file paths in project. /
  Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> 
                </p>
                <p>

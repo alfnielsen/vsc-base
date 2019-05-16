@@ -2,6 +2,12 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.21
+
+### fix
+
+Fix [ToTitleCase](http://vsc-base.org/#ToTitleCase)
+
 ## 0.8.20
 
 ## Add

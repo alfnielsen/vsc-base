@@ -40,15 +40,15 @@ The base url, from root path, for matching absolute paths
 
 Number of empty lines after global imports
 
-**empty Lines AfterAbsolute Imports**
+**Empty Lines AfterAbsolute Imports**
 
 Number of empty lines after absolute imports
 
-**empty Lines Local Imports**
+**Empty Lines Local Imports**
 
 Number of empty lines after local imports
 
-**empty Lines After Imports**
+**Empty Lines After Imports**
 
 Number of empty lines after all imports
 

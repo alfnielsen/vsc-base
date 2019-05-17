@@ -1,7 +1,7 @@
 'use strict'
+
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
-
 import { SortImports } from './SortImports'
 
 export default class OrganizeImports {

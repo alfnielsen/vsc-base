@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.0.4
+
+### Fix
+
+Now the extension work with 'use strict' before the imports.
+
 ## 0.0.3
 
 ### General

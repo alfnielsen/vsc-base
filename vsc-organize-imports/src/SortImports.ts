@@ -4,6 +4,7 @@ import * as vscode from 'vscode'
 
 type Imports = {
   node: ts.ImportDeclaration
+  pos: vsc.VscodePosition
   name?: string
   specifiers: { fullString: string, name: string, node: ts.ImportSpecifier }[]
   path: string
@@ -25,13 +26,16 @@ export async function SortImports(
   const sourceFile = vsc.tsCreateSourceFile(content)
   const children = vsc.tsGetParsedChildren(sourceFile)
 
-  const firstNode = children.find(node =>
-    !ts.isImportDeclaration(node)
-    && !(ts.isExpressionStatement(node) && node.expression.getText() === 'use strict')
-  )
+  const firstNode = children.find(node => {
+    if (ts.isExpressionStatement(node)) {
+      const text = node.expression.getText()
+      return (text !== "'use strict'" && text !== '"use strict"')
+    }
+    return !ts.isImportDeclaration(node)
+  })
 
   const _imports = children.filter(node =>
-    ts.isImportDeclaration(node) && (!firstNode || node.pos < firstNode.pos))
+    ts.isImportDeclaration(node) && (!firstNode || node.pos < firstNode.pos)) as ts.ImportDeclaration[]
 
   //Find first node that is not in import
   const imports = mapImports(content, _imports);
@@ -55,11 +59,10 @@ export async function SortImports(
     emptyLinesAfterImports
   )
 
-  let contentToFirst: string
   let end = lastImport.node.end
   end += content.substr(end).match(/[\n\s]*/)![0].length
 
-  vsc.insertAt(newImportContent, firstImport.node.pos, end)
+  vsc.insertAt(newImportContent, firstImport.pos.start, end)
 
 }
 
@@ -152,11 +155,10 @@ const organizeImports = async (
   return newImportContent
 }
 
-const mapImports = (content: string, _imports: ts.Node[]) => {
+const mapImports = (content: string, _imports: ts.ImportDeclaration[]) => {
   // All imports before first statement, mapped with import path
   // Map with name?, fullString, and named imports info
   const imports: Imports = _imports.map((node, index) => {
-    const importNode = node as ts.ImportDeclaration
     let name = ''
     const fullString = content
       .substring(
@@ -165,7 +167,7 @@ const mapImports = (content: string, _imports: ts.Node[]) => {
       )
       .trim();
     let specifiers: { fullString: string, name: string, node: ts.ImportSpecifier }[] = []
-    const importClause = importNode.importClause
+    const importClause = node.importClause
     //named imports (specifiers)
     if (importClause) {
       if (importClause.name) {
@@ -179,12 +181,14 @@ const mapImports = (content: string, _imports: ts.Node[]) => {
         }))
       }
     }
+    const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
     return ({
       name,
+      pos,
       specifiers,
       fullString,
-      node: importNode as ts.ImportDeclaration,
-      path: importNode.moduleSpecifier
+      node: node,
+      path: node.moduleSpecifier
         .getText()
         .replace(/^['"]|['"]$/g, ''),
     })

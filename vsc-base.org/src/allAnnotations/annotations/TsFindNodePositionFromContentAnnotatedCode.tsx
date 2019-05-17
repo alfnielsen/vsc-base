@@ -53,7 +53,7 @@ if (position) \{
  * @vscType ts
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export const tsFindNodePositionFromContent = <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => \{
+export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => \{
    let position: vsc.VscodePosition | undefined
    let foundNode: TNode | undefined
    let typeChecker: ts.TypeChecker | undefined

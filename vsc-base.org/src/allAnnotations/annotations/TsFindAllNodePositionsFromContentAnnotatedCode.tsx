@@ -51,7 +51,7 @@ nodePositionArray.forEach([node, position] => \{
  * @vscType ts
  * @returns [ts.Node, vsc.VscodePosition][]
  */
-export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => \{
+export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => \{
    let positions: [TNode, vsc.VscodePosition][] = [];
    let position: vsc.VscodePosition
    let foundNode: TNode

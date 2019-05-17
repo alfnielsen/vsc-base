@@ -2,6 +2,16 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.22
+
+### Add
+
+Add generic to [tsFindNodePositionFromContent](http://vsc-base.org/#tsFindNodePositionFromContent) and [tsFindAllNodePositionsFromContent](http://vsc-base.org/#tsFindAllNodePositionsFromContent)
+
+This is to avoid having to cast node after finding it.
+
+(vscode / typescript can't see that you kind of node you found)
+
 ## 0.8.21
 
 ### fix

@@ -51,10 +51,10 @@ nodePositionArray.forEach([node, position] => \{
  * @vscType ts
  * @returns [ts.Node, vsc.VscodePosition][]
  */
-export const tsFindAllNodePositionsFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [ts.Node, vsc.VscodePosition][] => \{
-   let positions: [ts.Node, vsc.VscodePosition][] = [];
+export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => \{
+   let positions: [TNode, vsc.VscodePosition][] = [];
    let position: vsc.VscodePosition
-   let foundNode: ts.Node
+   let foundNode: TNode
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -72,7 +72,7 @@ export const tsFindAllNodePositionsFromContent = (source: string, callback: (nod
             throw new Error('Node is undefined!!!')
          }
          position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
-         foundNode = node;
+         foundNode = node as TNode;
          positions.push([foundNode, position])
          return ts.visitEachChild(node, (child) => visit(child), context);
       }

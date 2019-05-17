@@ -53,9 +53,9 @@ if (position) \{
  * @vscType ts
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export const tsFindNodePositionFromContent = (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [ts.Node | undefined, vsc.VscodePosition | undefined] => \{
+export const tsFindNodePositionFromContent = <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => \{
    let position: vsc.VscodePosition | undefined
-   let foundNode: ts.Node | undefined
+   let foundNode: TNode | undefined
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -73,7 +73,7 @@ export const tsFindNodePositionFromContent = (source: string, callback: (node: t
             throw new Error('Node is undefined!!!')
          }
          position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
-         foundNode = node;
+         foundNode = node as TNode
          return node
       }
       return (node) => ts.visitNode(node, visit);

@@ -594,6 +594,7 @@ export const tsFindNodePositionFromContent = <TNode extends ts.Node>(source: str
             throw new Error('Node is undefined!!!')
          }
          position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
+         foundNode = node as TNode
          return node
       }
       return (node) => ts.visitNode(node, visit);

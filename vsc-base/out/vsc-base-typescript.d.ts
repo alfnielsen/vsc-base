@@ -379,7 +379,7 @@ if (position) {
 }
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export declare const tsFindNodePositionFromContent: (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker | undefined, program?: ts.Program | undefined) => boolean, program?: ts.Program | undefined, fromPosition?: number, trimSpaces?: boolean) => [ts.Node | undefined, vsc.VscodePosition | undefined];
+export declare const tsFindNodePositionFromContent: <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker | undefined, program?: ts.Program | undefined) => boolean, program?: ts.Program | undefined, fromPosition?: number, trimSpaces?: boolean) => [TNode | undefined, vsc.VscodePosition | undefined];
 /** vsc-base method
  * @description
  * Create a Ts Visitor Transformer for finding a nodes and their position.
@@ -416,7 +416,7 @@ nodePositionArray.forEach([node, position] => {
 })
  * @returns [ts.Node, vsc.VscodePosition][]
  */
-export declare const tsFindAllNodePositionsFromContent: (source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker | undefined, program?: ts.Program | undefined) => boolean, program?: ts.Program | undefined, fromPosition?: number, trimSpaces?: boolean) => [ts.Node, vsc.VscodePosition][];
+export declare const tsFindAllNodePositionsFromContent: <TNode extends ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker | undefined, program?: ts.Program | undefined) => boolean, program?: ts.Program | undefined, fromPosition?: number, trimSpaces?: boolean) => [TNode, vsc.VscodePosition][];
 /** vsc-base method
  * @description
  * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \

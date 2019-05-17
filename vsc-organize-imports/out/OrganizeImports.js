@@ -23,11 +23,21 @@ class OrganizeImports {
             if (!content) {
                 return;
             }
+            const path = uri.path;
             //load settings:
-            const spaceBetweenImportGroups = this.getConfig('spaceBetweenImportGroups', false);
             const orderSpecifiers = this.getConfig('orderSpecifiers', false);
             const orderSpecifiersAsSingleLine = this.getConfig('orderSpecifiersAsSingleLine', false);
-            yield SortImports_1.SortImports(content, spaceBetweenImportGroups, orderSpecifiers, orderSpecifiersAsSingleLine);
+            const baseUrl = this.getConfig('baseUrl', 'src');
+            const emptyLinesAfterGlobalImports = this.getConfig('emptyLinesAfterGlobalImports', 0);
+            const emptyLinesAfterAbsoluteImports = this.getConfig('emptyLinesAfterAbsoluteImports', 0);
+            const emptyLinesLocalImports = this.getConfig('emptyLinesLocalImports', 0);
+            const emptyLinesAfterImports = this.getConfig('emptyLinesAfterImports', 1);
+            const rootPath = vsc.getRootPath(path);
+            if (!rootPath) {
+                return;
+            }
+            const basePath = vsc.joinPaths(rootPath, baseUrl);
+            yield SortImports_1.SortImports(basePath, content, emptyLinesAfterGlobalImports, emptyLinesAfterAbsoluteImports, emptyLinesLocalImports, emptyLinesAfterImports, orderSpecifiers, orderSpecifiersAsSingleLine);
         });
     }
 }

@@ -20,11 +20,30 @@ or run the command manual:
 
 ## Extension Settings
 
-**Format on save**
+**Format On Save**
+Run vsc-organize-imports on save
 
-| type    | default | description                      |
-| ------- | ------- | -------------------------------- |
-| boolean | true    | Run vsc-organize-imports on save |
+**Order Specifiers**
+Sort each imports named specifiers. ex: import { a, b, c }
+
+**Order
+Specifiers As Single Line**
+This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line
+
+**Base Url**
+The base url, from root path, for matching absolute paths
+
+**Empty Lines After Global Imports**
+Number of empty lines after global imports
+
+**empty Lines AfterAbsolute Imports**
+Number of empty lines after absolute imports
+
+**empty Lines Local Imports**
+Number of empty lines after local imports
+
+**empty Lines After Imports**
+Number of empty lines after all imports
 
 **Space between import groups**
 

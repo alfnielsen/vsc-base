@@ -47,12 +47,6 @@
                "default": "true",
                "description": "Run vsc-organize-imports on save"
             },
-            "vscOrganizeImports.spaceBetweenImportGroups": {
-               "title": "Space between import groups",
-               "type": "boolean",
-               "default": "false",
-               "description": "Add empty line between import groups: global, local/absolute and relative paths."
-            },
             "vscOrganizeImports.orderSpecifiers": {
                "title": "Sort named imports",
                "type": "boolean",
@@ -64,6 +58,36 @@
                "type": "boolean",
                "default": "false",
                "description": "This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line."
+            },
+            "vscOrganizeImports.baseUrl": {
+               "title": "Base url",
+               "type": "string",
+               "default": "src",
+               "description": "The base url, from root path, for matching absolute paths"
+            },
+            "vscOrganizeImports.emptyLinesAfterGlobalImports": {
+               "title": "Empty Lines After Global Imports",
+               "type": "number",
+               "default": "0",
+               "description": "Number of empty lines after global imports"
+            },
+            "vscOrganizeImports.emptyLinesAfterAbsoluteImports": {
+               "title": "Empty Lines After Absolute Imports",
+               "type": "number",
+               "default": "0",
+               "description": "Number of empty lines after absolute imports"
+            },
+            "vscOrganizeImports.emptyLinesLocalImports": {
+               "title": "Empty Lines After Local Imports",
+               "type": "number",
+               "default": "0",
+               "description": "Number of empty lines after local imports"
+            },
+            "vscOrganizeImports.emptyLinesAfterImports": {
+               "title": "Empty Lines After All Imports",
+               "type": "number",
+               "default": "1",
+               "description": "Number of empty lines after all imports"
             }
          }
       }
@@ -81,6 +105,6 @@
       "vscode": "^1.1.33"
    },
    "dependencies": {
-      "vsc-base": "^0.8.11"
+      "vsc-base": "^0.8.20"
    }
 }

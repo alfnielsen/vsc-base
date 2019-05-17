@@ -4,6 +4,8 @@ import * as vscode from 'vscode'
 //import * as vsc from '../src/vsc-base-development/vsc-base'
 import { tsIsIdentifier } from '../src/vsc-base-development/vsc-base-typescript';
 
+//hmm
+
 let logger = '';
 
 

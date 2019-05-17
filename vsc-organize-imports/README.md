@@ -21,47 +21,36 @@ or run the command manual:
 ## Extension Settings
 
 **Format On Save**
+
 Run vsc-organize-imports on save
 
 **Order Specifiers**
+
 Sort each imports named specifiers. ex: import { a, b, c }
 
-**Order
-Specifiers As Single Line**
+**Order Specifiers As Single Line**
+
 This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line
 
 **Base Url**
+
 The base url, from root path, for matching absolute paths
 
 **Empty Lines After Global Imports**
+
 Number of empty lines after global imports
 
 **empty Lines AfterAbsolute Imports**
+
 Number of empty lines after absolute imports
 
 **empty Lines Local Imports**
+
 Number of empty lines after local imports
 
 **empty Lines After Imports**
+
 Number of empty lines after all imports
-
-**Space between import groups**
-
-| type    | default | description                                                                      |
-| ------- | ------- | -------------------------------------------------------------------------------- |
-| boolean | false   | Add empty line between import groups: global, local/absolute and relative paths. |
-
-**Sort named imports**
-
-| type    | default | description                                                |
-| ------- | ------- | ---------------------------------------------------------- |
-| boolean | false   | Sort each imports named specifiers. ex: import { a, b, c } |
-
-**Space between import groups**
-
-| type    | default | description                                                                                           |
-| ------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| boolean | false   | This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line. |
 
 ## Links and related projects
 
@@ -71,7 +60,7 @@ The source code is alse find it vsc-base monorespo: [source-code](https://github
 
 ### Known issues
 
-imports from node_modules sub folder like 'react-spring/renderprops' (devdependensy: react-spring), 
+imports from node_modules sub folder like 'react-spring/renderprops' (devdependensy: react-spring),
 is noot match as globals. (This will be fix soon)
 
 ### Links

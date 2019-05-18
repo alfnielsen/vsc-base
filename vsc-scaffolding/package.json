@@ -9,7 +9,7 @@
       "url": "https://github.com/alfnielsen/vsc-scaffolding"
    },
    "homepage": "https://github.com/alfnielsen/vsc-scaffolding",
-   "version": "0.1.7",
+   "version": "0.1.8",
    "engines": {
       "vscode": "^1.32.0"
    },
@@ -50,6 +50,6 @@
       "vscode": "^1.1.34"
    },
    "dependencies": {
-      "vsc-base": "^0.8.20"
+      "vsc-base": "^0.8.23"
    }
 }

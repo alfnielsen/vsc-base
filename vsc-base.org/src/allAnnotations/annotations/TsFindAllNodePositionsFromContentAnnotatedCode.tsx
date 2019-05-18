@@ -34,7 +34,7 @@ const TsFindAllNodePositionsFromContentAnnotatedCode = ({ open = false }: {open?
 \`
 // Find a constant with name starting with 'module' within a function but not in an if statement
 const nodePositionArray = vsc.tsFindAllNodePositionsFromContent(source, node =>
- vsc.tsIsVariable(node, \{ 
+ vsc.tsMatchVariable(node, \{ 
       // test name of variable
       name: /^module/,
       // test if is in function
@@ -51,10 +51,8 @@ nodePositionArray.forEach([node, position] => \{
  * @vscType ts
  * @returns [ts.Node, vsc.VscodePosition][]
  */
-export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => \{
+export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => \{
    let positions: [TNode, vsc.VscodePosition][] = [];
-   let position: vsc.VscodePosition
-   let foundNode: TNode
    let typeChecker: ts.TypeChecker | undefined
    if (program) \{
       typeChecker = program.getTypeChecker()
@@ -64,16 +62,15 @@ export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Nod
          if (node.pos < fromPosition) \{
             return ts.visitEachChild(node, (child) => visit(child), context);
          }
-         const found = callback(node, typeChecker, program);
-         if (!found) \{
+         const _foundNode = callback(node, typeChecker, program);
+         if (!_foundNode) \{
             return ts.visitEachChild(node, (child) => visit(child), context);
          }
          if (node === undefined) \{
             throw new Error('Node is undefined!!!')
          }
-         position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
-         foundNode = node as TNode;
-         positions.push([foundNode, position])
+         const position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
+         positions.push([_foundNode, position])
          return ts.visitEachChild(node, (child) => visit(child), context);
       }
       return (node) => ts.visitNode(node, visit);

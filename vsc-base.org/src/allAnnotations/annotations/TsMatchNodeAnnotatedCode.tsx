@@ -3,11 +3,11 @@ import AnnotatedCode from 'components/AnnotatedCode/AnnotatedCode'
 
 
 
-const TsIsNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
+const TsMatchNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
    return (
       <AnnotatedCode
-         id={'tsIsNode'}
-         title={'tsIsNode'}
+         id={'tsMatchNode'}
+         title={'tsMatchNode'}
          open={open}
          annotation={
             <>
@@ -39,14 +39,14 @@ const TsIsNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             </>
          }
          
-         codeOneLineEx={`const found = vsc.tsIsNode(node, options)`}
+         codeOneLineEx={`const foundNode = vsc.tsMatchNode(node, options)`}
          codeEx={`
-const found = vsc.tsIsNode(node, \{ name: /^keyName\$/ })`}
+const foundNode = vsc.tsMatchNode(node, \{ name: /^keyName\$/ })`}
          code={`/**
  * @vscType ts
- * @returns boolean
+ * @returns s.Node | undefined
  */
-export const tsIsNode: (node: ts.Node | undefined, options?: \{
+export const tsMatchNode: (node: ts.Node | undefined, options?: \{
    name?: RegExp | string
    value?: (RegExp | string | number | boolean | null)
    hasParent?: (parent: ts.Node) => boolean
@@ -54,53 +54,16 @@ export const tsIsNode: (node: ts.Node | undefined, options?: \{
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    hasGrandChild?: (child: ts.Node, depth: number) => boolean
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
-}) => boolean = (node, options) => \{
-   if (!node) \{ return false }
-   if (!options) \{
-      return true
+}) => ts.Node | undefined = (node, options) => \{
+   if (vsc.tsIsNode(node, options)) \{
+      return node
    }
-   const \{
-      name,
-      value,
-      hasParent,
-      hasAncestor,
-      hasGrandChild,
-      hasAncestors,
-      hasGrandChildren
-   } = options
-   const nameNode = (node as any).name as ts.Node
-   if (name !== undefined) \{
-      if (!nameNode) \{
-         return false
-      }
-      if (name instanceof RegExp && !name.test(nameNode.getText())) \{ return false }
-      if (typeof name === 'string' && name !== nameNode.getText()) \{ return false }
-   }
-   const initializerNode = (node as any).initializer as ts.Node
-   if (value !== undefined && (!initializerNode || !vsc.tsIsValue(initializerNode, value))) \{
-      return false
-   }
-   if (hasParent && !hasParent(node.parent)) \{
-      return false
-   }
-   if (hasAncestor && !vsc.tsHasAncestor(node, hasAncestor)) \{
-      return false
-   }
-   if (hasAncestors && !vsc.tsHasAncestors(node, hasAncestors)) \{
-      return false
-   }
-   if (hasGrandChild && !vsc.tsHasGrandChild(node, hasGrandChild)) \{
-      return false
-   }
-   if (hasGrandChildren && !vsc.tsHasGrandChildren(node, hasGrandChildren)) \{
-      return false
-   }
-   return true
+   return undefined
 }
 `}
       />
    )
 }
 
-export default TsIsNodeAnnotatedCode
+export default TsMatchNodeAnnotatedCode
 

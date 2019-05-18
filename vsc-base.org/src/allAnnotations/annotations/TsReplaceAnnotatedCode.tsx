@@ -31,7 +31,7 @@ let source = \`
    }
 \`
 // Find a constant with name starting with 'module' within a function but not in an if statement
-source = vsc.tsReplace(source, '/module/area/file2', node => vsc.tsIsValue(node, /\\/area\\/file1/, \{
+source = vsc.tsReplace(source, '/module/area/file2', node => vsc.tsMatchValue(node, /\\/area\\/file1/, \{
    hasAncestors: [
       ancestor => vsc.tsIsFunction(ancestor, \{ name: /^method/ }),
       ancestor => vsc.tsIsVariable(ancestor, \{ name: /^module.*Path/ })
@@ -42,7 +42,7 @@ source = vsc.tsReplace(source, '/module/area/file2', node => vsc.tsIsValue(node,
  * @vscType ts
  * @returns string
  */
-export const tsReplace = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => \{
+export const tsReplace = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => ts.Node, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => \{
    const [node, position] = vsc.tsFindNodePositionFromContent(source, callback, program, fromPosition, trimSpaces);
    if (position) \{
       //replace

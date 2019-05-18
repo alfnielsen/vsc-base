@@ -2,6 +2,24 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.23
+
+### Breaking changes
+
+Fix problems with [tsFindNodePositionFromContent](http://vsc-base.org/#tsFindNodePositionFromContent) and [tsFindAllNodePositionsFromContent](http://vsc-base.org/#tsFindAllNodePositionsFromContent)
+
+The callback has change from returning a boolean to now returning a node.
+
+Is this done to enable correct generic for the return node.
+
+Use vsc 'match' function instead of 'is' function in the callback.
+
+### Add
+
+[tsMatchNode](http://vsc-base.org/#tsMatchNode) and [tsMatchValueNode](http://vsc-base.org/#tsMatchValueNode),
+
+They are the same has [tsIsNode](http://vsc-base.org/#tsMatchNode) and [tsIsValue](http://vsc-base.org/#tsMatchValueNode), but they return a ts.Node.
+
 ## 0.8.22
 
 ### Add

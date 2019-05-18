@@ -43,13 +43,12 @@ export async function run(path: string) {
 		vsc.showMessage("No open document!")
 		return
 	}
-	const [node1, pos1] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsIsCall(node, {
+	const [node1, pos1] = vsc.tsFindNodePositionFromContent<ts.CallExpression>(source, node => vsc.tsIsCall(node, {
 		name: /^foo/,
 		hasArguments: [
 			arg => vsc.tsIsValue(arg, 1),
 		]
-	})
-	)
+	}))
 	// vsc.showMessage(pos1.content)
 	// vsc.showMessage(pos1.fullContent)
 	vsc.setSelectionFromRange(pos1.range)

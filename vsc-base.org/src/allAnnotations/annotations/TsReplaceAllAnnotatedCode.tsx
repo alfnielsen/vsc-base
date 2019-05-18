@@ -30,7 +30,7 @@ let source = \`
    }
 \`
 // Find a constant with name starting with 'module' within a function but not in an if statement
-source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsIsIdentifier(node, \{
+source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsMatchIdentifier(node, \{
    name: 'moduleNumber1Path'
 }))
 `}
@@ -38,7 +38,7 @@ source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsIsIdentifier(no
  * @vscType ts
  * @returns string
  */
-export const tsReplaceAll = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => \{
+export const tsReplaceAll = (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => ts.Node, program?: ts.Program, fromPosition = 0, trimSpaces = true): string => \{
    const positions = vsc.tsFindAllNodePositionsFromContent(source, callback, program, fromPosition, trimSpaces);
    positions.sort(([, positionA], [, positionB]) => positionA.start - positionB.start)
    let diff = 0

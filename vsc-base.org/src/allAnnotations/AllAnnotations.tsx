@@ -118,8 +118,10 @@ import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnot
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
 import TsMatchIdentifierAnnotatedCode from './annotations/TsMatchIdentifierAnnotatedCode'
 import TsMatchInterfaceAnnotatedCode from './annotations/TsMatchInterfaceAnnotatedCode'
+import TsMatchNodeAnnotatedCode from './annotations/TsMatchNodeAnnotatedCode'
 import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
 import TsMatchTypeRefAnnotatedCode from './annotations/TsMatchTypeRefAnnotatedCode'
+import TsMatchValueNodeAnnotatedCode from './annotations/TsMatchValueNodeAnnotatedCode'
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
 import TsReplaceAnnotatedCode from './annotations/TsReplaceAnnotatedCode'
 import TsReplaceAllAnnotatedCode from './annotations/TsReplaceAllAnnotatedCode'
@@ -254,8 +256,10 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
       <TsMatchIdentifierAnnotatedCode open={activeMethod === 'tsMatchIdentifier'} />
       <TsMatchInterfaceAnnotatedCode open={activeMethod === 'tsMatchInterface'} />
+      <TsMatchNodeAnnotatedCode open={activeMethod === 'tsMatchNode'} />
       <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
       <TsMatchTypeRefAnnotatedCode open={activeMethod === 'tsMatchTypeRef'} />
+      <TsMatchValueNodeAnnotatedCode open={activeMethod === 'tsMatchValueNode'} />
       <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
       <TsReplaceAnnotatedCode open={activeMethod === 'tsReplace'} />
       <TsReplaceAllAnnotatedCode open={activeMethod === 'tsReplaceAll'} />

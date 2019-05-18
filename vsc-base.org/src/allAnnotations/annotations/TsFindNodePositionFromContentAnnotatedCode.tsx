@@ -34,7 +34,7 @@ const TsFindNodePositionFromContentAnnotatedCode = ({ open = false }: {open?: bo
 \`
 // Find a constant with name starting with 'module' within a function but not in an if statement
 const [_node, position] = vsc.tsFindNodePositionFromContent(source, node =>
- vsc.tsIsVariable(node, \{ 
+ vsc.tsMatchVariable(node, \{ 
       // test name of variable
       name: /^module/,
       // test if is in function
@@ -53,7 +53,7 @@ if (position) \{
  * @vscType ts
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => boolean, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => \{
+export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => \{
    let position: vsc.VscodePosition | undefined
    let foundNode: TNode | undefined
    let typeChecker: ts.TypeChecker | undefined
@@ -65,15 +65,15 @@ export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(s
          if (node.pos < fromPosition) \{
             return ts.visitEachChild(node, (child) => visit(child), context);
          }
-         const found = callback(node, typeChecker, program);
-         if (!found) \{
+         const _foundNode = callback(node, typeChecker, program);
+         if (!_foundNode) \{
             return ts.visitEachChild(node, (child) => visit(child), context);
          }
          if (node === undefined) \{
             throw new Error('Node is undefined!!!')
          }
          position = vsc.createVscodeRangeAndPosition(source, node.pos, node.end, trimSpaces);
-         foundNode = node as TNode
+         foundNode = _foundNode
          return node
       }
       return (node) => ts.visitNode(node, visit);

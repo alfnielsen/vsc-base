@@ -46,48 +46,6 @@
                "type": "boolean",
                "default": "true",
                "description": "Run vsc-organize-imports on save"
-            },
-            "vscOrganizeImports.orderSpecifiers": {
-               "title": "Sort named imports",
-               "type": "boolean",
-               "default": "false",
-               "description": "Sort each imports named specifiers. ex: import { a, b, c }"
-            },
-            "vscOrganizeImports.orderSpecifiersAsSingleLine": {
-               "title": "Make import as single lines",
-               "type": "boolean",
-               "default": "false",
-               "description": "This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line."
-            },
-            "vscOrganizeImports.baseUrl": {
-               "title": "Base url",
-               "type": "string",
-               "default": "src",
-               "description": "The base url, from root path, for matching absolute paths"
-            },
-            "vscOrganizeImports.emptyLinesAfterGlobalImports": {
-               "title": "Empty Lines After Global Imports",
-               "type": "number",
-               "default": "0",
-               "description": "Number of empty lines after global imports"
-            },
-            "vscOrganizeImports.emptyLinesAfterAbsoluteImports": {
-               "title": "Empty Lines After Absolute Imports",
-               "type": "number",
-               "default": "0",
-               "description": "Number of empty lines after absolute imports"
-            },
-            "vscOrganizeImports.emptyLinesLocalImports": {
-               "title": "Empty Lines After Local Imports",
-               "type": "number",
-               "default": "0",
-               "description": "Number of empty lines after local imports"
-            },
-            "vscOrganizeImports.emptyLinesAfterImports": {
-               "title": "Empty Lines After All Imports",
-               "type": "number",
-               "default": "1",
-               "description": "Number of empty lines after all imports"
             }
          }
       }
@@ -105,6 +63,51 @@
       "vscode": "^1.1.33"
    },
    "dependencies": {
-      "vsc-base": "^0.8.20"
+      "vsc-base": "^0.8.24"
+   },
+   "vsc-organize-imports": {
+      "orderSpecifiers": true,
+      "orderSpecifiersAsSingleLine": true,
+      "baseUrl": "src",
+      "emptyLinesAfterImports": 1,
+      "emptyLinesBetweenFilledGroups": 1,
+      "groups": [
+         {
+            "groups": [
+               "global"
+            ],
+            "sortBy": "sortPath",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "globalDirect"
+            ],
+            "sortBy": "sortPath",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "absolute"
+            ],
+            "sortBy": "sortPath",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "relative"
+            ],
+            "sortBy": "sortPath",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "absoluteDirect",
+               "relativeDirect"
+            ],
+            "sortBy": "sortPath",
+            "emptyLines": true
+         }
+      ]
    }
 }

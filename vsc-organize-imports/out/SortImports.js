@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const vsc = require("vsc-base");
-function SortImports(basePath, content, emptyLinesAfterGlobalImports, emptyLinesAfterAbsoluteImports, emptyLinesLocalImports, emptyLinesAfterImports, orderSpecifiers, orderSpecifiersAsSingleLine) {
+function SortImports(path, content, options) {
     return __awaiter(this, void 0, void 0, function* () {
         // Find first non imports: (exclude 'use strict' and sourceFile')
         const sourceFile = vsc.tsCreateSourceFile(content);
@@ -24,107 +24,134 @@ function SortImports(basePath, content, emptyLinesAfterGlobalImports, emptyLines
         });
         const _imports = children.filter(node => ts.isImportDeclaration(node) && (!firstNode || node.pos < firstNode.pos));
         //Find first node that is not in import
-        const imports = mapImports(content, _imports);
+        const imports = mapImports(content, _imports, options);
         if (!imports) {
             return Promise.resolve(undefined);
         }
         //find last import
         const firstImport = imports[0];
         const lastImport = imports[imports.length - 1];
-        if (orderSpecifiers) {
-            sortNamedImports(imports, orderSpecifiersAsSingleLine);
-        }
-        const newImportContent = yield organizeImports(imports, basePath, emptyLinesAfterGlobalImports, emptyLinesAfterAbsoluteImports, emptyLinesLocalImports, emptyLinesAfterImports);
+        const fillDir = vsc.getDir(path);
+        const newImportContent = yield organizeImports(fillDir, imports, options);
         let end = lastImport.node.end;
         end += content.substr(end).match(/[\n\s]*/)[0].length;
         vsc.insertAt(newImportContent, firstImport.pos.start, end);
     });
 }
 exports.SortImports = SortImports;
-const sortNamedImports = (imports, orderSpecifiersAsSingleLine) => {
-    imports.map(imp => {
-        if (imp.specifiers) {
-            imp.specifiers.sort((a, b) => a.name.localeCompare(b.name));
-            if (orderSpecifiersAsSingleLine) {
-                const specifierContent = imp.specifiers.map(s => s.fullString).join(', ');
-                imp.fullString = imp.fullString.replace(/\{[^}]+\}/, '{ ' + specifierContent + ' }');
-            }
-            else {
-                const specifierContent = imp.specifiers.map(s => s.fullString).join(',\n  ');
-                imp.fullString = imp.fullString.replace(/\{[^}]+\}/, '{\n  ' + specifierContent + '\n}');
-            }
-        }
-    });
+const sortNamedImports = (specifiers, fullString, orderSpecifiersAsSingleLine) => {
+    specifiers.sort((a, b) => a.name.localeCompare(b.name));
+    if (orderSpecifiersAsSingleLine) {
+        const specifierContent = specifiers.map(s => s.fullString).join(', ');
+        fullString = fullString.replace(/\{[^}]+\}/, '{ ' + specifierContent + ' }');
+    }
+    else {
+        const specifierContent = specifiers.map(s => s.fullString).join(',\n  ');
+        fullString = fullString.replace(/\{[^}]+\}/, '{\n  ' + specifierContent + '\n}');
+    }
+    return fullString;
 };
-const organizeImports = (imports, basePath, emptyLinesAfterGlobalImports, emptyLinesAfterAbsoluteImports, emptyLinesLocalImports, emptyLinesAfterImports) => __awaiter(this, void 0, void 0, function* () {
-    const moduleExtensionRegExp = /\.([tj]sx?)+$/;
-    const localRegExp = /^\./;
+const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, void 0, function* () {
+    const relativeRegExp = /^\./;
     const groups = {
-        localImports: [],
-        absoluteImports: [],
-        directImports: [],
-        globalImports: [],
+        //locals (absolute)
+        absoluteDirect: [],
+        absolute: [],
+        //local (relative)
+        relativeDirect: [],
+        relative: [],
+        //globals
+        globalDirect: [],
+        global: [],
     };
     //split into global / local
     imports.forEach(_import => {
-        if (localRegExp.test(_import.path)) {
-            groups.localImports.push(_import);
-            return;
+        let fullPath = '';
+        const relative = relativeRegExp.test(_import.path);
+        if (relative) {
+            fullPath = vsc.joinPaths(fillDir, _import.path);
         }
-        const fullPath = vsc.joinPaths(basePath, _import.path);
-        if (moduleExtensionRegExp.test(_import.path) && vsc.doesExists(fullPath)) {
-            groups.absoluteImports.push(_import);
-            return;
+        else {
+            fullPath = vsc.joinPaths(options.basePath, _import.path);
         }
-        if (vsc.doesExists(fullPath + '.ts') ||
+        //base groups settings:
+        let local = vsc.doesExists(fullPath);
+        if (!local &&
+            vsc.doesExists(fullPath + '.ts') ||
             vsc.doesExists(fullPath + '.tsx') ||
             vsc.doesExists(fullPath + '.js') ||
             vsc.doesExists(fullPath + '.jsx')) {
-            groups.absoluteImports.push(_import);
-            return;
+            local = true;
         }
-        if (!_import.node.importClause) {
-            groups.directImports.push(_import);
-            return;
+        const direct = !_import.node.importClause;
+        const hasDefault = !!_import.name;
+        const hasNamed = _import.specifiers.length > 0;
+        if (local && relative) {
+            if (direct) {
+                groups.relativeDirect.push(_import);
+            }
+            else {
+                groups.relative.push(_import);
+            }
         }
-        groups.globalImports.push(_import);
+        else if (local) {
+            if (direct) {
+                groups.absoluteDirect.push(_import);
+            }
+            else {
+                groups.absolute.push(_import);
+            }
+        }
+        else {
+            if (direct) {
+                groups.globalDirect.push(_import);
+            }
+            else if (hasDefault && hasNamed) {
+                groups.global.push(_import);
+            }
+        }
     });
-    const defaultMapping = [
-        { groups: ['globalImports'], emptyLinesAfterGroup: emptyLinesAfterGlobalImports },
-        { groups: ['absoluteImports'], emptyLinesAfterGroup: emptyLinesAfterAbsoluteImports },
-        { groups: ['localImports'], emptyLinesAfterGroup: emptyLinesLocalImports },
-        { groups: ['directImports'], emptyLinesAfterGroup: 0 },
-    ];
+    const defaultMapping = options.groups;
     let newImportContent = "";
     defaultMapping.forEach((groupOptions, index) => {
         let group = [];
         groupOptions.groups.forEach(groupName => {
-            group = [...groups[groupName]];
+            group = [...group, ...groups[groupName]];
         });
         if (group.length === 0) {
             return;
         }
         // sort
-        group.sort((a, b) => a.path.localeCompare(b.path));
+        if (groupOptions.sortBy === 'path') {
+            group.sort((a, b) => a.path.localeCompare(b.path));
+        }
+        else if (groupOptions.sortBy === 'name') {
+            group.sort((a, b) => a.sortName.localeCompare(b.sortName));
+        }
+        else {
+            group.sort((a, b) => a.node.getText().localeCompare(b.node.getText()));
+        }
         // join and add
         newImportContent += group.map(imp => imp.fullString).join('\n') + '\n';
-        // add spaces
-        for (let space = 0; space < groupOptions.emptyLinesAfterGroup; space++) {
-            newImportContent += '\n';
+        if (!newImportContent.match(/\n\n$/) && groupOptions.emptyLines) {
+            // add spaces
+            for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
+                newImportContent = '\n' + newImportContent;
+            }
         }
     });
     newImportContent = newImportContent.trim() + '\n';
-    for (let lines = 0; lines < emptyLinesAfterImports; lines++) {
+    for (let lines = 0; lines < options.emptyLinesAfterImports; lines++) {
         newImportContent += '\n';
     }
     return newImportContent;
 });
-const mapImports = (content, _imports) => {
+const mapImports = (content, _imports, options) => {
     // All imports before first statement, mapped with import path
     // Map with name?, fullString, and named imports info
     const imports = _imports.map((node, index) => {
-        let name = '';
-        const fullString = content
+        let name = '', sortName = '';
+        let importFullString = content
             .substring(index === 0 ? node.pos : _imports[index - 1].end + 1, node.end)
             .trim();
         let specifiers = [];
@@ -133,6 +160,7 @@ const mapImports = (content, _imports) => {
         if (importClause) {
             if (importClause.name) {
                 name = importClause.name.getText();
+                sortName = name;
             }
             if (importClause.namedBindings && ts.isNamedImports(importClause.namedBindings)) {
                 specifiers = importClause.namedBindings.elements.map(e => ({
@@ -140,14 +168,19 @@ const mapImports = (content, _imports) => {
                     node: e,
                     name: e.name.getText()
                 }));
+                if (options.orderSpecifiers) {
+                    importFullString = sortNamedImports(specifiers, importFullString, options.orderSpecifiersAsSingleLine);
+                }
+                sortName = sortName + specifiers.map(s => s.name).join();
             }
         }
         const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
         return ({
             name,
+            sortName,
             pos,
             specifiers,
-            fullString,
+            fullString: importFullString,
             node: node,
             path: node.moduleSpecifier
                 .getText()

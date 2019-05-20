@@ -24,44 +24,122 @@ or run the command manual:
 
 Run vsc-organize-imports on save
 
-**Order Specifiers**
+### All options is defined in the package.json
 
-Sort each imports named specifiers. ex: import { a, b, c }
+The option model is defined in the package.json file.
 
-**Order Specifiers As Single Line**
+####Base options:
 
-This is only applied if 'Sort named imports' is true. If this is false the output will be multi-line
+**orderSpecifiers**: true | false
 
-**Base Url**
+(Sort named imports aka: import {a, b, c} from '')
 
-The base url, from root path, for matching absolute paths
+**orderSpecifiersAsSingleLine**: true | false
 
-**Empty Lines After Global Imports**
+**baseUrl**: string (normally: "src")
 
-Number of empty lines after global imports
+**emptyLinesAfterImports**: number (normally 1 or 2)
 
-**Empty Lines AfterAbsolute Imports**
+**emptyLinesBetweenFilledGroups**: number (normally 1 or 2)
 
-Number of empty lines after absolute imports
+**Groups** can be defined (from the base-groups)
 
-**Empty Lines Local Imports**
+Groups has 3 options: (The extension find the defined base-groups, but they are joined into the group the defined in package.json)
 
-Number of empty lines after local imports
+**sortBy**: "path" | "name"
 
-**Empty Lines After Imports**
+**emptyLines**: true | false
 
-Number of empty lines after all imports
+**groups**: list of bae-group names
+
+The base-group are: "globalDirect", "global", "absoluteDirect", "absolute", "relativeDirect" nad "relative"
+
+```ts
+//globalDirect:
+import '@storybook/theme'
+//globalWithNamed:
+import React from 'react'
+import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
+import * as ts from 'typescript'
+
+//absoluteDirect
+import 'module/style.css'
+//absoluteWithNamed
+import module from 'module/myModule'
+import module from 'module/myModule.ts'
+import { module } from 'module/myModule'
+import module, { moduleProp } from 'module/myModule'
+
+//relativeDirect
+import '../../module/style.css'
+import './module/style.css'
+//relativeWithNamed
+import module from '../module/myModule'
+import module from './module/myModule.ts'
+import { module } from '../module/myModule'
+import { module } from './module/myModule'
+import module, { moduleProp } from './module/myModule'
+import module, { moduleProp } from '../module/myModule'
+```
+
+Only option left is 'Format On Save' all other is now defined in package.json:
+
+**package.json:**
+
+```json
+   "vsc-organize-imports": {
+      "orderSpecifiers": true,
+      "orderSpecifiersAsSingleLine": true,
+      "baseUrl": "src",
+      "emptyLinesAfterImports": 1,
+      "emptyLinesBetweenFilledGroups": 1,
+      "groups": [
+         {
+            "groups": [
+               "global"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+					],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+				"groups": [
+					"absolute"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+				"groups": [
+					"relative"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+				"groups": [
+               "globalDirect"
+               "absoluteDirect",
+               "relativeDirect"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         }
+      ]
+   }
+```
 
 ## Links and related projects
 
 This extension is build with [vsc-base](http://vsc-base.org).
 
-The source code is alse find it vsc-base monorespo: [source-code](https://github.com/alfnielsen/vsc-base)
-
-### Known issues
-
-imports from node_modules sub folder like 'react-spring/renderprops' (devdependensy: react-spring),
-is noot match as globals. (This will be fix soon)
+The source code is find in vsc-base mono-respo: [source-code](https://github.com/alfnielsen/vsc-base)
 
 ### Links
 

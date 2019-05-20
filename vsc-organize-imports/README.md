@@ -26,13 +26,17 @@ Run vsc-organize-imports on save
 
 ### All options is defined in the package.json
 
+Only option in vscode settings is 'Format On Save', all other is now defined in package.json:
+
 The option model is defined in the package.json file.
 
-####Base options:
+### Base options:
 
 **orderSpecifiers**: true | false
 
-(Sort named imports aka: import {a, b, c} from '')
+Sort named imports:
+> import {a, b, c} from 'module'
+
 
 **orderSpecifiersAsSingleLine**: true | false
 
@@ -42,17 +46,19 @@ The option model is defined in the package.json file.
 
 **emptyLinesBetweenFilledGroups**: number (normally 1 or 2)
 
-**Groups** can be defined (from the base-groups)
+### Group options:
 
-Groups has 3 options: (The extension find the defined base-groups, but they are joined into the group the defined in package.json)
+Groups can be defined (from the base-groups)
+
+Groups has 3 options: (This extension finds base-groups, but they are joined into the groups the defined in package.json)
 
 **sortBy**: "path" | "name"
 
 **emptyLines**: true | false
 
-**groups**: list of bae-group names
+**groups**: list of base-group names
 
-The base-group are: "globalDirect", "global", "absoluteDirect", "absolute", "relativeDirect" nad "relative"
+The base-group are: "globalDirect", "global", "absoluteDirect", "absolute", "relativeDirect" and "relative"
 
 ```ts
 //globalDirect:
@@ -83,8 +89,6 @@ import module, { moduleProp } from './module/myModule'
 import module, { moduleProp } from '../module/myModule'
 ```
 
-Only option left is 'Format On Save' all other is now defined in package.json:
-
 **package.json:**
 
 ```json
@@ -104,27 +108,21 @@ Only option left is 'Format On Save' all other is now defined in package.json:
          },
          {
             "groups": [
-					],
-            "sortBy": "path",
-            "emptyLines": true
-         },
-         {
-				"groups": [
-					"absolute"
+               "absolute"
             ],
             "sortBy": "path",
             "emptyLines": true
          },
          {
-				"groups": [
-					"relative"
+            "groups": [
+               "relative"
             ],
             "sortBy": "path",
             "emptyLines": true
          },
          {
-				"groups": [
-               "globalDirect"
+            "groups": [
+               "globalDirect",
                "absoluteDirect",
                "relativeDirect"
             ],

@@ -136,7 +136,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
         if (!newImportContent.match(/\n\n$/) && groupOptions.emptyLines) {
             // add spaces
             for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
-                newImportContent = '\n' + newImportContent;
+                newImportContent = newImportContent + '\n';
             }
         }
     });

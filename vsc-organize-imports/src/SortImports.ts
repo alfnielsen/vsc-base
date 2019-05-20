@@ -181,7 +181,7 @@ const organizeImports = async (
     if (!newImportContent.match(/\n\n$/) && groupOptions.emptyLines) {
       // add spaces
       for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
-        newImportContent = '\n' + newImportContent;
+        newImportContent = newImportContent + '\n';
       }
     }
   })

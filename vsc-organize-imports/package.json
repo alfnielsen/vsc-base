@@ -76,36 +76,30 @@
             "groups": [
                "global"
             ],
-            "sortBy": "sortPath",
-            "emptyLines": true
-         },
-         {
-            "groups": [
-               "globalDirect"
-            ],
-            "sortBy": "sortPath",
+            "sortBy": "path",
             "emptyLines": true
          },
          {
             "groups": [
                "absolute"
             ],
-            "sortBy": "sortPath",
+            "sortBy": "path",
             "emptyLines": true
          },
          {
             "groups": [
                "relative"
             ],
-            "sortBy": "sortPath",
+            "sortBy": "path",
             "emptyLines": true
          },
          {
             "groups": [
+               "globalDirect",
                "absoluteDirect",
                "relativeDirect"
             ],
-            "sortBy": "sortPath",
+            "sortBy": "path",
             "emptyLines": true
          }
       ]

@@ -34,6 +34,7 @@ export const getPackageFilePaths = async (
    const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
    return packageFiles
 }
+
 `}
       />
    )

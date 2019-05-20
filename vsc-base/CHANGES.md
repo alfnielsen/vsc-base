@@ -2,6 +2,12 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.24
+
+### Add
+
+-  [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+
 ## 0.8.23
 
 ### Breaking changes

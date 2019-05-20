@@ -37,6 +37,7 @@ import GetPackageDependenciesAnnotatedCode from './annotations/GetPackageDepende
 import GetPackageFilePathsAnnotatedCode from './annotations/GetPackageFilePathsAnnotatedCode'
 import GetReadStreamAnnotatedCode from './annotations/GetReadStreamAnnotatedCode'
 import GetRelativePathAnnotatedCode from './annotations/GetRelativePathAnnotatedCode'
+import GetRootPackageJsonAnnotatedCode from './annotations/GetRootPackageJsonAnnotatedCode'
 import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
 import GetSubRelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubRelativePathFromAbsoluteRootPathAnnotatedCode'
 import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
@@ -175,6 +176,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <GetPackageFilePathsAnnotatedCode open={activeMethod === 'getPackageFilePaths'} />
       <GetReadStreamAnnotatedCode open={activeMethod === 'getReadStream'} />
       <GetRelativePathAnnotatedCode open={activeMethod === 'getRelativePath'} />
+      <GetRootPackageJsonAnnotatedCode open={activeMethod === 'getRootPackageJson'} />
       <GetRootPathAnnotatedCode open={activeMethod === 'getRootPath'} />
       <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode open={activeMethod === 'getSubRelativePathFromAbsoluteRootPath'} />
       <GetTimestampAnnotatedCode open={activeMethod === 'getTimestamp'} />

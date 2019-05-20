@@ -133,6 +133,15 @@ export declare const getConfig: <T>(projectName: string, property: string, defau
 export declare const getPackageFilePaths: (exclude?: string) => Promise<string[]>;
 /** vsc-base method
  * @description
+ * Get json from package.json in the project root.
+ * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+ * @dependencyInternal findFilePaths
+ * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @returns Promise<T = any>
+ */
+export declare const getRootPackageJson: <T = any>(rootPath: string) => Promise<T>;
+/** vsc-base method
+ * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
  * It can be used to control which package.json files should be included.

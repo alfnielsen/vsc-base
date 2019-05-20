@@ -2,7 +2,6 @@ import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 //import * as vsc from '../src/vsc-base-development/vsc-base'
-import { tsIsIdentifier } from '../src/vsc-base-development/vsc-base-typescript';
 
 //hmm
 

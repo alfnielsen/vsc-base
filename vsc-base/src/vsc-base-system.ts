@@ -1,7 +1,6 @@
 import * as cp from 'child-process-promise'
 import * as fs from 'fs-extra'
 import * as vscode from 'vscode'
-
 import * as vsc from './vsc-base'
 
 /** vsc-base method
@@ -195,6 +194,24 @@ export const getPackageFilePaths = async (
    const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
    return packageFiles
 }
+
+
+/** vsc-base method
+ * @description 
+ * Get json from package.json in the project root.
+ * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+ * @dependencyInternal findFilePaths
+ * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @returns Promise<T = any>
+ */
+export const getRootPackageJson = async <T = any>(
+   rootPath: string
+): Promise<T> => {
+   const packageJsonPath = vsc.joinPaths(rootPath, 'package.json')
+   const packageJson = await vsc.getJsonContent<T>(packageJsonPath)
+   return packageJson
+}
+
 
 /** vsc-base method
  * @description 

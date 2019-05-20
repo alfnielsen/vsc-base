@@ -211,6 +211,19 @@ exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') =>
 });
 /** vsc-base method
  * @description
+ * Get json from package.json in the project root.
+ * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+ * @dependencyInternal findFilePaths
+ * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @returns Promise<T = any>
+ */
+exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, function* () {
+    const packageJsonPath = vsc.joinPaths(rootPath, 'package.json');
+    const packageJson = yield vsc.getJsonContent(packageJsonPath);
+    return packageJson;
+});
+/** vsc-base method
+ * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
  * It can be used to control which package.json files should be included.

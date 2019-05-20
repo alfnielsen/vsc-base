@@ -4,9 +4,9 @@
 
 ### Breaking changes
 
-The option model is has been moved to the package.json file.
+The option model has been moved to the package.json file.
 
-Now groups can be defined (from the base-groups) and how many empty lines after each defined group:
+Now groups can be defined (from the base-groups) and how many empty lines after each defined group and sort method:
 
 Only option left is 'Format On Save' all other is now defined in package.json:
 

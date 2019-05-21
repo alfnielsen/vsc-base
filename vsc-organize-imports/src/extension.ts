@@ -14,7 +14,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "vsc-organize-imports" is now active!')
-
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -65,14 +64,54 @@ const runExtension = async (uri?: vscode.Uri) => {
 
 
 const getOptions = async (rootPath: string) => {
+	let options: SortImportsOptions = {
+		"orderSpecifiers": true,
+		"orderSpecifiersAsSingleLine": true,
+		"baseUrl": "src",
+		"basePath": "",
+		"emptyLinesAfterImports": 1,
+		"emptyLinesBetweenFilledGroups": 1,
+		"groups": [
+			{
+				"groups": [
+					"global"
+				],
+				"sortBy": "path",
+				"emptyLines": true
+			},
+			{
+				"groups": [
+					"absolute"
+				],
+				"sortBy": "path",
+				"emptyLines": true
+			},
+			{
+				"groups": [
+					"relative"
+				],
+				"sortBy": "path",
+				"emptyLines": true
+			},
+			{
+				"groups": [
+					"globalDirect",
+					"absoluteDirect",
+					"relativeDirect"
+				],
+				"sortBy": "path",
+				"emptyLines": true
+			}
+		]
+	}
 	//load settings:
 	const packageJson = await vsc.getRootPackageJson<{
 		"vsc-organize-imports": SortImportsOptions
 	}>(rootPath);
-	if (packageJson["vsc-organize-imports"] === undefined) {
-		vsc.showErrorMessage("vsc-organize-imports was not found in the package.json root file!")
-		return;
+	if (packageJson["vsc-organize-imports"] !== undefined) {
+		const packageJsonOptions = packageJson["vsc-organize-imports"] as SortImportsOptions;
+		options = { ...options, ...packageJsonOptions }
+		return options;
 	}
-	const packageJsonOptions = packageJson["vsc-organize-imports"] as SortImportsOptions;
-	return packageJsonOptions;
+	return options
 }

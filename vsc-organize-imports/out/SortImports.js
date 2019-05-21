@@ -84,8 +84,9 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
             local = true;
         }
         const direct = !_import.node.importClause;
-        const hasDefault = !!_import.name;
-        const hasNamed = _import.specifiers.length > 0;
+        // const hasDefault = !!_import.name
+        // const hasNamed = _import.specifiers.length > 0
+        // const nameSpace = _import.node.importClause && _import.node.importClause.namedBindings && ts.isNamespaceImport(_import.node.importClause.namedBindings)
         if (local && relative) {
             if (direct) {
                 groups.relativeDirect.push(_import);
@@ -106,7 +107,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
             if (direct) {
                 groups.globalDirect.push(_import);
             }
-            else if (hasDefault && hasNamed) {
+            else {
                 groups.global.push(_import);
             }
         }

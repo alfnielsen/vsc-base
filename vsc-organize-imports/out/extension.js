@@ -60,13 +60,53 @@ const runExtension = (uri) => __awaiter(this, void 0, void 0, function* () {
     return cleanCode.run(options, uri);
 });
 const getOptions = (rootPath) => __awaiter(this, void 0, void 0, function* () {
+    let options = {
+        "orderSpecifiers": true,
+        "orderSpecifiersAsSingleLine": true,
+        "baseUrl": "src",
+        "basePath": "",
+        "emptyLinesAfterImports": 1,
+        "emptyLinesBetweenFilledGroups": 1,
+        "groups": [
+            {
+                "groups": [
+                    "global"
+                ],
+                "sortBy": "path",
+                "emptyLines": true
+            },
+            {
+                "groups": [
+                    "absolute"
+                ],
+                "sortBy": "path",
+                "emptyLines": true
+            },
+            {
+                "groups": [
+                    "relative"
+                ],
+                "sortBy": "path",
+                "emptyLines": true
+            },
+            {
+                "groups": [
+                    "globalDirect",
+                    "absoluteDirect",
+                    "relativeDirect"
+                ],
+                "sortBy": "path",
+                "emptyLines": true
+            }
+        ]
+    };
     //load settings:
     const packageJson = yield vsc.getRootPackageJson(rootPath);
-    if (packageJson["vsc-organize-imports"] === undefined) {
-        vsc.showErrorMessage("vsc-organize-imports was not found in the package.json root file!");
-        return;
+    if (packageJson["vsc-organize-imports"] !== undefined) {
+        const packageJsonOptions = packageJson["vsc-organize-imports"];
+        options = Object.assign({}, options, packageJsonOptions);
+        return options;
     }
-    const packageJsonOptions = packageJson["vsc-organize-imports"];
-    return packageJsonOptions;
+    return options;
 });
 //# sourceMappingURL=extension.js.map

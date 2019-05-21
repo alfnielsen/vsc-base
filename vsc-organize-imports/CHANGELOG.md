@@ -1,5 +1,54 @@
 # Change Log
 
+## 0.1.2
+
+Add default settings:
+
+```json
+"orderSpecifiers": true,
+"orderSpecifiersAsSingleLine": true,
+"baseUrl": "src",
+"basePath": "",
+"emptyLinesAfterImports": 1,
+"emptyLinesBetweenFilledGroups": 1,
+"groups": [
+  {
+    "groups": [
+      "global"
+    ],
+    "sortBy": "path",
+    "emptyLines": true
+  },
+  {
+    "groups": [
+      "absolute"
+    ],
+    "sortBy": "path",
+    "emptyLines": true
+  },
+  {
+    "groups": [
+      "relative"
+    ],
+    "sortBy": "path",
+    "emptyLines": true
+  },
+  {
+    "groups": [
+      "globalDirect",
+      "absoluteDirect",
+      "relativeDirect"
+    ],
+    "sortBy": "path",
+    "emptyLines": true
+  }
+]
+```
+
+## 0.1.1
+
+Fix bug for global namespace imports
+
 ## 0.1.0
 
 ### Breaking changes

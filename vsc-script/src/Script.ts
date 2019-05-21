@@ -5,6 +5,7 @@ import * as path from 'path'
 import * as ts from 'typescript'
 //import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
+
 import * as vsc from './vsc-base-development/vsc-base'
 
 export default class Script {

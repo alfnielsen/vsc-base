@@ -134,8 +134,10 @@ const organizeImports = async (
       local = true
     }
     const direct = !_import.node.importClause
-    const hasDefault = !!_import.name
-    const hasNamed = _import.specifiers.length > 0
+
+    // const hasDefault = !!_import.name
+    // const hasNamed = _import.specifiers.length > 0
+    // const nameSpace = _import.node.importClause && _import.node.importClause.namedBindings && ts.isNamespaceImport(_import.node.importClause.namedBindings)
 
     if (local && relative) {
       if (direct) {
@@ -152,7 +154,7 @@ const organizeImports = async (
     } else {
       if (direct) {
         groups.globalDirect.push(_import)
-      } else if (hasDefault && hasNamed) {
+      } else {
         groups.global.push(_import)
       }
     }

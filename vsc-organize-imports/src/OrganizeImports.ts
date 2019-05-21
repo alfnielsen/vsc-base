@@ -1,7 +1,7 @@
 'use strict'
-
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
+
 import { SortImports, SortImportsOptions } from './SortImports'
 
 export default class OrganizeImports {
@@ -17,7 +17,7 @@ export default class OrganizeImports {
       if (!content) {
          return
       }
-      const path = uri.path
+      const path = vsc.pathAsUnix(uri.path)
 
       const rootPath = vsc.getRootPath(path)
       if (!rootPath) {

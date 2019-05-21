@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const vsc = require("vsc-base");
 const vscode = require("vscode");
 const OrganizeImports_1 = require("./OrganizeImports");
-const vsc = require("vsc-base");
 const cleanCode = new OrganizeImports_1.default();
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below

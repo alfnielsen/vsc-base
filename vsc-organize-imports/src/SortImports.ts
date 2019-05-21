@@ -2,7 +2,6 @@ import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 
-
 type ImportSpecifier = { fullString: string, name: string, node: ts.ImportSpecifier }
 
 type Import = {
@@ -167,6 +166,9 @@ const organizeImports = async (
       group = [...group, ...groups[groupName]]
     })
     if (group.length === 0) {
+      if (groupOptions.emptyLines) {
+        newImportContent = addEmptyLines(newImportContent, options)
+      }
       return
     }
     // sort
@@ -180,11 +182,8 @@ const organizeImports = async (
 
     // join and add
     newImportContent += group.map(imp => imp.fullString).join('\n') + '\n'
-    if (!newImportContent.match(/\n\n$/) && groupOptions.emptyLines) {
-      // add spaces
-      for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
-        newImportContent = newImportContent + '\n';
-      }
+    if (groupOptions.emptyLines) {
+      newImportContent = addEmptyLines(newImportContent, options)
     }
   })
   newImportContent = newImportContent.trim() + '\n'
@@ -194,11 +193,24 @@ const organizeImports = async (
   return newImportContent
 }
 
+const addEmptyLines = (newImportContent: string, options: SortImportsOptions) => {
+  if (!newImportContent.match(/\n\n$/)) {
+    // add spaces
+    for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
+      newImportContent = newImportContent + '\n';
+    }
+  }
+  return newImportContent
+}
+
 const mapImports = (content: string, _imports: ts.ImportDeclaration[], options: SortImportsOptions) => {
   // All imports before first statement, mapped with import path
   // Map with name?, fullString, and named imports info
   const imports: Imports = _imports.map((node, index) => {
     let name = '', sortName = ''
+    const path = node.moduleSpecifier
+      .getText()
+      .replace(/^['"]|['"]$/g, '')
     let importFullString = content
       .substring(
         index === 0 ? node.pos : _imports[index - 1].end + 1,
@@ -223,7 +235,11 @@ const mapImports = (content: string, _imports: ts.ImportDeclaration[], options: 
           importFullString = sortNamedImports(specifiers, importFullString, options.orderSpecifiersAsSingleLine)
         }
         sortName = sortName + specifiers.map(s => s.name).join()
+      } else if (importClause.namedBindings && ts.isNamespaceImport(importClause.namedBindings)) {
+        sortName = importClause.namedBindings.name.getText()
       }
+    } else {
+      sortName = "___" + path
     }
     const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
     return ({
@@ -233,9 +249,7 @@ const mapImports = (content: string, _imports: ts.ImportDeclaration[], options: 
       specifiers,
       fullString: importFullString,
       node: node,
-      path: node.moduleSpecifier
-        .getText()
-        .replace(/^['"]|['"]$/g, ''),
+      path,
     })
   })
   return imports

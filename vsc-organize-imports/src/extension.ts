@@ -1,7 +1,8 @@
+import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
+
 import OrganizeImports from './OrganizeImports'
 import { SortImportsOptions } from './SortImports';
-import * as vsc from 'vsc-base'
 
 const cleanCode = new OrganizeImports()
 

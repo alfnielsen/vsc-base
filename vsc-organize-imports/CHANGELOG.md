@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.1.3
+
+Fix windows path (it had problems with absolute paths on windows)
+
+Fix empty-line true for groups that have no members.
+
+(Now it will ensure that a space will come between to groups if one of the groups between them have empty-line)
+
+Before it could miss an empty-line if no imports of a group has found.
+
+Update sort by name. (See readme)
+
 ## 0.1.2
 
 Add default settings:

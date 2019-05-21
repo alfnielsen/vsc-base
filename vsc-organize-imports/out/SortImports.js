@@ -120,6 +120,9 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
             group = [...group, ...groups[groupName]];
         });
         if (group.length === 0) {
+            if (groupOptions.emptyLines) {
+                newImportContent = addEmptyLines(newImportContent, options);
+            }
             return;
         }
         // sort
@@ -134,11 +137,8 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
         }
         // join and add
         newImportContent += group.map(imp => imp.fullString).join('\n') + '\n';
-        if (!newImportContent.match(/\n\n$/) && groupOptions.emptyLines) {
-            // add spaces
-            for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
-                newImportContent = newImportContent + '\n';
-            }
+        if (groupOptions.emptyLines) {
+            newImportContent = addEmptyLines(newImportContent, options);
         }
     });
     newImportContent = newImportContent.trim() + '\n';
@@ -147,11 +147,23 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
     }
     return newImportContent;
 });
+const addEmptyLines = (newImportContent, options) => {
+    if (!newImportContent.match(/\n\n$/)) {
+        // add spaces
+        for (let space = 0; space < options.emptyLinesBetweenFilledGroups; space++) {
+            newImportContent = newImportContent + '\n';
+        }
+    }
+    return newImportContent;
+};
 const mapImports = (content, _imports, options) => {
     // All imports before first statement, mapped with import path
     // Map with name?, fullString, and named imports info
     const imports = _imports.map((node, index) => {
         let name = '', sortName = '';
+        const path = node.moduleSpecifier
+            .getText()
+            .replace(/^['"]|['"]$/g, '');
         let importFullString = content
             .substring(index === 0 ? node.pos : _imports[index - 1].end + 1, node.end)
             .trim();
@@ -174,6 +186,12 @@ const mapImports = (content, _imports, options) => {
                 }
                 sortName = sortName + specifiers.map(s => s.name).join();
             }
+            else if (importClause.namedBindings && ts.isNamespaceImport(importClause.namedBindings)) {
+                sortName = importClause.namedBindings.name.getText();
+            }
+        }
+        else {
+            sortName = "___" + path;
         }
         const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
         return ({
@@ -183,9 +201,7 @@ const mapImports = (content, _imports, options) => {
             specifiers,
             fullString: importFullString,
             node: node,
-            path: node.moduleSpecifier
-                .getText()
-                .replace(/^['"]|['"]$/g, ''),
+            path,
         });
     });
     return imports;

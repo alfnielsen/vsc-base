@@ -23,7 +23,7 @@ class OrganizeImports {
             if (!content) {
                 return;
             }
-            const path = uri.path;
+            const path = vsc.pathAsUnix(uri.path);
             const rootPath = vsc.getRootPath(path);
             if (!rootPath) {
                 return;

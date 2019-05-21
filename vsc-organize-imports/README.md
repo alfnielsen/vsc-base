@@ -35,8 +35,8 @@ The option model is defined in the package.json file.
 **orderSpecifiers**: true | false
 
 Sort named imports:
-> import {a, b, c} from 'module'
 
+> import {a, b, c} from 'module'
 
 **orderSpecifiersAsSingleLine**: true | false
 
@@ -87,6 +87,28 @@ import { module } from '../module/myModule'
 import { module } from './module/myModule'
 import module, { moduleProp } from './module/myModule'
 import module, { moduleProp } from '../module/myModule'
+```
+
+Sort by name:
+
+**Example of one groups containing all base-groups and sorted by name**
+
+```ts
+// direct import comes first, and are sorted by path
+import './../Home/Home.module.scss'
+import './Home.module.scss'
+// sort by names/alias used in the file, meaning alias names are use here (in this case _A)
+import { Action as _A, Dispatch as I2 } from 'redux'
+// Default name are used if the import has it (in this case a)
+import a from './../Home/Home.module.scss'
+// namespace imports uses the alias name (In this case AAA)
+import * as Aaa from 'vsc-base'
+// Default name are used, ignoring the named imports (In this case B)
+import B, { FC as A } from 'react'
+// The first named import (or its alias) are used if no default name (in this case connect)
+import { connect, Action as DAction } from 'react-redux'
+import { HomeActionType } from 'modules/home/Home.redux'
+import styles from './Home.module.scss'
 ```
 
 **package.json:**

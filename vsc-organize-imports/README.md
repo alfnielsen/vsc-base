@@ -91,7 +91,7 @@ import module, { moduleProp } from '../module/myModule'
 
 Sort by name:
 
-**Example of one groups containing all base-groups and sorted by name**
+**Example of one defined group containing all base-groups and sorted by name**
 
 ```ts
 // direct import comes first, and are sorted by path

@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.4
+
+Fix duplication of comment before first import.
+
 ## 0.1.3
 
 Fix windows path (it had problems with absolute paths on windows)

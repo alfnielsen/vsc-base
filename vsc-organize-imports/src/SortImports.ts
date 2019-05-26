@@ -1,3 +1,4 @@
+'use strict'
 import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
@@ -47,10 +48,14 @@ export async function SortImports(
   const sourceFile = vsc.tsCreateSourceFile(content)
   const children = vsc.tsGetParsedChildren(sourceFile)
 
+  let strictNode: ts.ExpressionStatement | undefined;
   const firstNode = children.find(node => {
     if (ts.isExpressionStatement(node)) {
       const text = node.expression.getText()
-      return (text !== "'use strict'" && text !== '"use strict"')
+      if (text === "'use strict'" || text === '"use strict"') {
+        strictNode = node;
+      }
+      return !strictNode
     }
     return !ts.isImportDeclaration(node)
   })
@@ -69,7 +74,7 @@ export async function SortImports(
 
   const fillDir = vsc.getDir(path)
 
-  const newImportContent = await organizeImports(
+  let newImportContent = await organizeImports(
     fillDir,
     imports,
     options
@@ -78,7 +83,11 @@ export async function SortImports(
   let end = lastImport.node.end
   end += content.substr(end).match(/[\n\s]*/)![0].length
 
-  vsc.insertAt(newImportContent, firstImport.pos.start, end)
+  if (strictNode) {
+    newImportContent = '\n' + newImportContent;
+  }
+
+  vsc.insertAt(newImportContent, firstImport.node.pos, end)
 
 }
 

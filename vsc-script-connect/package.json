@@ -1,0 +1,71 @@
+{
+   "name": "vsc-script-connect",
+   "displayName": "vsc-script-connect",
+   "description": "Create your own scripts on the fly and run them in vscode.",
+   "publisher": "alfnielsen",
+   "icon": "vsc-base-icon.png",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/alfnielsen/vsc-base"
+   },
+   "homepage": "https://vsc-base.org",
+   "version": "0.4.5",
+   "engines": {
+      "vscode": "^1.32.0"
+   },
+   "categories": [
+      "Other"
+   ],
+   "activationEvents": [
+      "*"
+   ],
+   "main": "./dist/extension",
+   "contributes": {
+      "menus": {
+         "explorer/context": [
+            {
+               "command": "extension.vscScriptConnect",
+               "group": "1_modification",
+               "when": "explorerViewletVisible"
+            }
+         ]
+      },
+      "commands": [
+         {
+            "command": "extension.vscScriptConnect",
+            "title": "vsc Script Connect"
+         }
+      ]
+   },
+   "scripts": {
+      "vscode:prepublish": "webpack --mode production",
+      "compile": "webpack --mode none",
+      "watch": "webpack --mode none --watch",
+      "test-compile": "tsc -p ./"
+   },
+   "devDependencies": {
+      "@types/fs-extra": "^5.1.0",
+      "@types/mocha": "^5.2.6",
+      "@types/node": "^12.0.0",
+      "ts-loader": "^6.0.0",
+      "tslint": "^5.16.0",
+      "vscode": "^1.1.34",
+      "webpack": "^4.31.0",
+      "webpack-cli": "^3.3.2"
+   },
+   "dependencies": {
+      "@types/child-process-promise": "^2.2.1",
+      "@types/express": "^4.16.1",
+      "@types/socket.io": "^2.1.2",
+      "@types/socket.io-client": "^1.4.32",
+      "@types/vscode": "^1.33.0",
+      "child-process-promise": "^2.2.1",
+      "express": "^4.17.0",
+      "fs-extra": "^7.0.1",
+      "http": "0.0.0",
+      "socket.io": "^2.2.0",
+      "socket.io-client": "^2.2.0",
+      "typescript": "^3.4.5",
+      "vsc-base": "^0.8.24"
+   }
+}

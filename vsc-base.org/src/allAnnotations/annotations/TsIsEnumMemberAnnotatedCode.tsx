@@ -40,6 +40,9 @@ export const tsIsEnumMember: (node: ts.Node | undefined, options?: \{
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchEnumMember(node, options)
 }
+
+
+
 `}
       />
    )

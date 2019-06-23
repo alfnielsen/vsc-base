@@ -90,9 +90,9 @@ export class TSLoadModuleError extends Error \{
    }
 }
 
-const loadTsModule_Eval = async (
+const loadTsModule_Eval = (
    sourceJs: string
-): Promise<\{ [key: string]: unknown }> => \{
+): \{ [key: string]: unknown } => \{
    //Wrap code in enclosed function. Add vsc as only dependency.
    const wrapExports = \`_exports = (function()\{var exports = \{};\\n\$\{sourceJs}\\nreturn exports})()\`
    let _exports: \{ [key: string]: unknown } = \{}

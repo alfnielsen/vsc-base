@@ -105,6 +105,7 @@ import TsIsEnumAnnotatedCode from './annotations/TsIsEnumAnnotatedCode'
 import TsIsEnumMemberAnnotatedCode from './annotations/TsIsEnumMemberAnnotatedCode'
 import TsIsFunctionAnnotatedCode from './annotations/TsIsFunctionAnnotatedCode'
 import TsIsIdentifierAnnotatedCode from './annotations/TsIsIdentifierAnnotatedCode'
+import TsIsImportAnnotatedCode from './annotations/TsIsImportAnnotatedCode'
 import TsIsInterfaceAnnotatedCode from './annotations/TsIsInterfaceAnnotatedCode'
 import TsIsNodeAnnotatedCode from './annotations/TsIsNodeAnnotatedCode'
 import TsIsObjectPropertyAnnotatedCode from './annotations/TsIsObjectPropertyAnnotatedCode'
@@ -118,6 +119,7 @@ import TsMatchEnumAnnotatedCode from './annotations/TsMatchEnumAnnotatedCode'
 import TsMatchEnumMemberAnnotatedCode from './annotations/TsMatchEnumMemberAnnotatedCode'
 import TsMatchFunctionAnnotatedCode from './annotations/TsMatchFunctionAnnotatedCode'
 import TsMatchIdentifierAnnotatedCode from './annotations/TsMatchIdentifierAnnotatedCode'
+import TsMatchImportAnnotatedCode from './annotations/TsMatchImportAnnotatedCode'
 import TsMatchInterfaceAnnotatedCode from './annotations/TsMatchInterfaceAnnotatedCode'
 import TsMatchNodeAnnotatedCode from './annotations/TsMatchNodeAnnotatedCode'
 import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPropertyAnnotatedCode'
@@ -244,6 +246,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsIsEnumMemberAnnotatedCode open={activeMethod === 'tsIsEnumMember'} />
       <TsIsFunctionAnnotatedCode open={activeMethod === 'tsIsFunction'} />
       <TsIsIdentifierAnnotatedCode open={activeMethod === 'tsIsIdentifier'} />
+      <TsIsImportAnnotatedCode open={activeMethod === 'tsIsImport'} />
       <TsIsInterfaceAnnotatedCode open={activeMethod === 'tsIsInterface'} />
       <TsIsNodeAnnotatedCode open={activeMethod === 'tsIsNode'} />
       <TsIsObjectPropertyAnnotatedCode open={activeMethod === 'tsIsObjectProperty'} />
@@ -257,6 +260,7 @@ const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) =>
       <TsMatchEnumMemberAnnotatedCode open={activeMethod === 'tsMatchEnumMember'} />
       <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
       <TsMatchIdentifierAnnotatedCode open={activeMethod === 'tsMatchIdentifier'} />
+      <TsMatchImportAnnotatedCode open={activeMethod === 'tsMatchImport'} />
       <TsMatchInterfaceAnnotatedCode open={activeMethod === 'tsMatchInterface'} />
       <TsMatchNodeAnnotatedCode open={activeMethod === 'tsMatchNode'} />
       <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />

@@ -49,7 +49,8 @@ export const tsReplace = (source: string, replaceString: string, callback: (node
       source = source.substring(0, position.start) + replaceString + source.substring(position.end);
    }
    return source
-}`}
+}
+`}
       />
    )
 }

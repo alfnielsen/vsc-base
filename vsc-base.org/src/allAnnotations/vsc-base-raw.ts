@@ -62,7 +62,6 @@ export const addLeadingLocalDash = (path: string): string => {
 }
 
 
-
 /** vsc-base method
  * @description 
  * Format a string from camel-case to kebab-case \

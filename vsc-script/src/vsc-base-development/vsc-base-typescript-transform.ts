@@ -2,7 +2,6 @@ import * as ts from 'typescript'
 
 import * as vsc from './vsc-base'
 
-
 /** vsc-base method
  * @description 
  * Transform source code using custom transformers \
@@ -277,7 +276,7 @@ if (position) {
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
 
-export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => {
+export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode | undefined, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode | undefined, vsc.VscodePosition | undefined] => {
    let position: vsc.VscodePosition | undefined
    let foundNode: TNode | undefined
    let typeChecker: ts.TypeChecker | undefined
@@ -343,7 +342,7 @@ nodePositionArray.forEach([node, position] => {
  * @returns [ts.Node, vsc.VscodePosition][]
  */
 
-export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => {
+export const tsFindAllNodePositionsFromContent = <TNode extends ts.Node = ts.Node>(source: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker, program?: ts.Program) => TNode | undefined, program?: ts.Program, fromPosition = 0, trimSpaces = true): [TNode, vsc.VscodePosition][] => {
    let positions: [TNode, vsc.VscodePosition][] = [];
    let typeChecker: ts.TypeChecker | undefined
    if (program) {
@@ -405,6 +404,7 @@ export const tsReplace = (source: string, replaceString: string, callback: (node
    }
    return source
 }
+
 /** vsc-base method
  * @description
  * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \
@@ -439,8 +439,6 @@ export const tsReplaceAll = (source: string, replaceString: string, callback: (n
    })
    return source
 }
-
-
 
 
 

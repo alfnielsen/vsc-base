@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import useReactRouter from 'use-react-router';
+
 import AllAnnotations from '../../allAnnotations/AllAnnotations'
 import HighlightedCode from '../../components/HighlightedCode/HighlightedCode';
 import styles from './Home.module.scss'
@@ -127,7 +128,7 @@ export async function runOnSave() {
             <HighlightedCode code={`// replaceTest.vsc-script.ts
 import * as vsc from 'vsc-base'
 
-export async function Template(path: string): Promise<vsc.Template> {
+export async function Template(path: string): Promise<vsc.vscTemplate> {
    // (...)
    return {} // <-- Template
 }
@@ -135,9 +136,8 @@ export async function Template(path: string): Promise<vsc.Template> {
             <b>not template</b>
             <HighlightedCode code={`// replaceTest.vsc-script.ts
 import * as vsc from 'vsc-base'
-import { NavLink } from 'react-router-dom';
 
-export function Template(path: string): vsc.Template {
+export function Template(path: string): vsc.vscTemplate {
    // (...)
    return {} // <-- Template
 }
@@ -165,7 +165,7 @@ export function Template(path: string): vsc.Template {
          <h4>Links</h4>
          <ul>
          <li>
-            vsc-base, vsc-base.org and vsc-script: <a href='https://github.com/alfnielsen/vsc-base'>source-code</a>
+            mono-respo: <a href='https://github.com/alfnielsen/vsc-base'>source-code</a>
             </li>
             <li>
             vsc-base release notes: <a href='https://github.com/alfnielsen/vsc-base/wiki/Release-notes'>release-notes</a>
@@ -177,7 +177,7 @@ export function Template(path: string): vsc.Template {
             vsc-script: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script'>vscode-extension</a>
             </li>
             <li>
-            vsc-scaffolding: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding'>vscode-extension</a> | <a href='https://github.com/alfnielsen/vsc-scaffolding'>source-code</a>
+            vsc-scaffolding: <a href='https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding'>vscode-extension</a>
             </li>
          </ul>
       </div>

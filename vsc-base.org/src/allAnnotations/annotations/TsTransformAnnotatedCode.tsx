@@ -48,7 +48,6 @@ export const tsTransform = (
    return print
 }
 
-
 `}
       />
    )

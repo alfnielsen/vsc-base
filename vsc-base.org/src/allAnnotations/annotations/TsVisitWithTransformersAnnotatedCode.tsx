@@ -40,7 +40,6 @@ export const tsVisitWithTransformers = (
    const sourceFile = vsc.tsCreateSourceFile(source)
    vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
 }
-
 `}
       />
    )

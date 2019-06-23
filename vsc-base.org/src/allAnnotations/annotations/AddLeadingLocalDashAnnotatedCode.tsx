@@ -45,7 +45,6 @@ export const addLeadingLocalDash = (path: string): string => \{
    return './' + path
 }
 
-
 `}
       />
    )

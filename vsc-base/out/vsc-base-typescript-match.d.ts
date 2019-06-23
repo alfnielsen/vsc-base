@@ -620,7 +620,7 @@ const foundNumberExpression = vsc.tsIsValue(node, 12, {
  * @returns boolean
  */
 export declare const tsIsValue: (node: ts.Node | undefined, value: (RegExp | string | number | boolean | null), options?: {
-    hasParent: (parent: ts.Node) => boolean;
+    hasParent?: (parent: ts.Node) => boolean;
     hasAncestor?: (parent: ts.Node, depth: number) => boolean;
     hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[];
 }) => boolean;
@@ -670,7 +670,7 @@ const foundNode = vsc.tsMatchValueNode(node, 12, {
  * @returns s.Node | undefined
  */
 export declare const tsMatchValueNode: (node: ts.Node | undefined, value: (RegExp | string | number | boolean | null), options?: {
-    hasParent: (parent: ts.Node) => boolean;
+    hasParent?: (parent: ts.Node) => boolean;
     hasAncestor?: (parent: ts.Node, depth: number) => boolean;
     hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[];
 }) => ts.Node | undefined;

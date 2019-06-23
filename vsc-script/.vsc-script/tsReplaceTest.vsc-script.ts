@@ -13,12 +13,14 @@ export async function run(path: string) {
 			return moduleNumber1Path
 		}
 		`
-	source = vsc.tsReplace(source, "'/file'", node => vsc.tsIsValue(node, /file1/, {
+	source = vsc.tsReplace(source, "'/file'", node => vsc.tsMatchValueNode(node, /file1/, {
+      hasParent: ()=>true,
 		hasAncestors: [
 			ancestor => vsc.tsIsFunction(ancestor, { name: /^method/ }),
 			//ancestor => vsc.tsIsVariable(ancestor, { name: /^module.*Path/ })
 		]
-	}))
+   }))
+   
 	// Find a constant with name starting with 'module' witin a function but not in an if statement
 	source = vsc.tsReplaceAll(source, 'A', node => vsc.tsIsIdentifier(node, {
 		name: 'moduleNumber1Path'

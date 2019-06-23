@@ -1,6 +1,6 @@
 # vsc-base
 
-vsc-base as a module that aims to make it esaier to create vscode extensions.
+vsc-base as a module that aims to make it easier to create vscode extensions.
 
 It's also the base for using the [vsc-script extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-script) and [vsc-scaffolding extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-scaffolding).
 

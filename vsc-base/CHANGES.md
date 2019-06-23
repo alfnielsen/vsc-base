@@ -2,6 +2,12 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.26
+
+### Fix
+
+made 'hasParent' option in [tsIsValue](http://vsc-base.org/#tsIsValue) and [tsMatchValueNode](http://vsc-base.org/#tsMatchValueNode)
+
 ## 0.8.25
 
 ### Add

@@ -1028,7 +1028,7 @@ export const tsIsValue: (
    node: ts.Node | undefined,
    value: (RegExp | string | number | boolean | null),
    options?: {
-      hasParent: (parent: ts.Node) => boolean
+      hasParent?: (parent: ts.Node) => boolean
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
       hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }
@@ -1146,7 +1146,7 @@ export const tsMatchValueNode: (
    node: ts.Node | undefined,
    value: (RegExp | string | number | boolean | null),
    options?: {
-      hasParent: (parent: ts.Node) => boolean
+      hasParent?: (parent: ts.Node) => boolean
       hasAncestor?: (parent: ts.Node, depth: number) => boolean
       hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
    }

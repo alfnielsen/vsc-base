@@ -2,6 +2,16 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.25
+
+### Add
+
+Add [tsIsImport](http://vsc-base.org/#tsIsImport) and [tsMatchImport](http://vsc-base.org/#tsMatchImport)
+
+### Change
+
+Fix generic problems with callback (Callback now accept undefined) in [tsFindNodePositionFromContent](http://vsc-base.org/#tsFindNodePositionFromContent) and [tsFindAllNodePositionsFromContent](http://vsc-base.org/#tsFindAllNodePositionsFromContent)
+
 ## 0.8.24
 
 ### Add

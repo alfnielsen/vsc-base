@@ -186,6 +186,7 @@ export const getConfig = <T>(
  * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
+ * @vscType System
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
@@ -202,6 +203,7 @@ export const getPackageFilePaths = async (
  * Get json from package.json in the project root.
  * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
  * @dependencyInternal findFilePaths
+ * @vscType System
  * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
  * @returns Promise<T = any>
  */

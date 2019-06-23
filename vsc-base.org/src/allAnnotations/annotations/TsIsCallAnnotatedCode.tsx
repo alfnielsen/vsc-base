@@ -47,7 +47,6 @@ export const tsIsCall: (node: ts.Node | undefined, options?: \{
    return !!vsc.tsMatchCall(node, options)
 }
 
-
 `}
       />
    )

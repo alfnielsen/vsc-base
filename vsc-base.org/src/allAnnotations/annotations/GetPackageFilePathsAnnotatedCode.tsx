@@ -26,6 +26,7 @@ const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
          codeEx={``}
          code={`/**
  * @dependencyInternal findFilePaths
+ * @vscType System
  * @returns Promise<string[]>
  */
 export const getPackageFilePaths = async (

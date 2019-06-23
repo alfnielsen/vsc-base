@@ -1,5 +1,19 @@
 @import 'style/variables.scss';
 
+input[type='text'] {
+   border: 0;
+   padding: 5px;
+   outline: none;
+}
+label {
+   margin-left: 15px;
+   input {
+      margin-right: 5px;
+   }
+}
+.annotationArea {
+   min-height: 400px;
+}
 .logo {
    display: block;
    position: relative;

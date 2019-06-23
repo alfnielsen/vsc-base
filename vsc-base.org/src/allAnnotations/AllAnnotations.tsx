@@ -135,147 +135,162 @@ import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import TsVisitWithTransformersAnnotatedCode from './annotations/TsVisitWithTransformersAnnotatedCode'
 import VerifyModuleMethodsAnnotatedCode from './annotations/VerifyModuleMethodsAnnotatedCode'
 import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
+
+const annotations = [
+  { vscType: 'system', name: 'addfilecontent', component: (open: boolean) => <AddFileContentAnnotatedCode key={'addFileContent'} open={open} /> },
+  { vscType: 'raw', name: 'addleadinglocaldash', component: (open: boolean) => <AddLeadingLocalDashAnnotatedCode key={'addLeadingLocalDash'} open={open} /> },
+  { vscType: 'vscode', name: 'addselection', component: (open: boolean) => <AddSelectionAnnotatedCode key={'addSelection'} open={open} /> },
+  { vscType: 'vscode', name: 'addselectionfromrange', component: (open: boolean) => <AddSelectionFromRangeAnnotatedCode key={'addSelectionFromRange'} open={open} /> },
+  { vscType: 'vscode', name: 'appendlinetodocument', component: (open: boolean) => <AppendLineToDocumentAnnotatedCode key={'appendLineToDocument'} open={open} /> },
+  { vscType: 'vscode', name: 'appendtodocument', component: (open: boolean) => <AppendToDocumentAnnotatedCode key={'appendToDocument'} open={open} /> },
+  { vscType: 'vscode', name: 'ask', component: (open: boolean) => <AskAnnotatedCode key={'ask'} open={open} /> },
+  { vscType: 'ts', name: 'awaitresult', component: (open: boolean) => <AwaitResultAnnotatedCode key={'awaitResult'} open={open} /> },
+  { vscType: 'raw', name: 'cleanpath', component: (open: boolean) => <CleanPathAnnotatedCode key={'cleanPath'} open={open} /> },
+  { vscType: 'system', name: 'copy', component: (open: boolean) => <CopyAnnotatedCode key={'copy'} open={open} /> },
+  { vscType: 'vscode', name: 'createselection', component: (open: boolean) => <CreateSelectionAnnotatedCode key={'createSelection'} open={open} /> },
+  { vscType: 'vscode', name: 'createvscoderangeandposition', component: (open: boolean) => <CreateVscodeRangeAndPositionAnnotatedCode key={'createVscodeRangeAndPosition'} open={open} /> },
+  { vscType: 'system', name: 'doesexists', component: (open: boolean) => <DoesExistsAnnotatedCode key={'doesExists'} open={open} /> },
+  { vscType: 'system', name: 'emptydir', component: (open: boolean) => <EmptyDirAnnotatedCode key={'emptyDir'} open={open} /> },
+  { vscType: 'system', name: 'execfrompath', component: (open: boolean) => <ExecFromPathAnnotatedCode key={'execFromPath'} open={open} /> },
+  { vscType: 'vscode', name: 'findfilepaths', component: (open: boolean) => <FindFilePathsAnnotatedCode key={'findFilePaths'} open={open} /> },
+  { vscType: 'vscode', name: 'findfilepathsfrombase', component: (open: boolean) => <FindFilePathsFromBaseAnnotatedCode key={'findFilePathsFromBase'} open={open} /> },
+  { vscType: 'vscode', name: 'findrelativefilepaths', component: (open: boolean) => <FindRelativeFilePathsAnnotatedCode key={'findRelativeFilePaths'} open={open} /> },
+  { vscType: 'raw', name: 'getabsolutepathfromrelativepath', component: (open: boolean) => <GetAbsolutePathFromRelativePathAnnotatedCode key={'getAbsolutePathFromRelativePath'} open={open} /> },
+  { vscType: 'vscode', name: 'getactivedocument', component: (open: boolean) => <GetActiveDocumentAnnotatedCode key={'getActiveDocument'} open={open} /> },
+  { vscType: 'vscode', name: 'getactiveeditor', component: (open: boolean) => <GetActiveEditorAnnotatedCode key={'getActiveEditor'} open={open} /> },
+  { vscType: 'vscode', name: 'getactiveterminal', component: (open: boolean) => <GetActiveTerminalAnnotatedCode key={'getActiveTerminal'} open={open} /> },
+  { vscType: 'system', name: 'getconfig', component: (open: boolean) => <GetConfigAnnotatedCode key={'getConfig'} open={open} /> },
+  { vscType: 'system', name: 'getdir', component: (open: boolean) => <GetDirAnnotatedCode key={'getDir'} open={open} /> },
+  { vscType: 'vscode', name: 'getdocumentcontent', component: (open: boolean) => <GetDocumentContentAnnotatedCode key={'getDocumentContent'} open={open} /> },
+  { vscType: 'vscode', name: 'getdocumentpath', component: (open: boolean) => <GetDocumentPathAnnotatedCode key={'getDocumentPath'} open={open} /> },
+  { vscType: 'raw', name: 'geterrorinfo', component: (open: boolean) => <GetErrorInfoAnnotatedCode key={'getErrorInfo'} open={open} /> },
+  { vscType: 'system', name: 'getfilecontent', component: (open: boolean) => <GetFileContentAnnotatedCode key={'getFileContent'} open={open} /> },
+  { vscType: 'vscode', name: 'getfulldocumentrange', component: (open: boolean) => <GetFullDocumentRangeAnnotatedCode key={'getFullDocumentRange'} open={open} /> },
+  { vscType: 'raw', name: 'getjsoncircularreplacer', component: (open: boolean) => <GetJSONCircularReplacerAnnotatedCode key={'getJSONCircularReplacer'} open={open} /> },
+  { vscType: 'system', name: 'getjsoncontent', component: (open: boolean) => <GetJsonContentAnnotatedCode key={'getJsonContent'} open={open} /> },
+  { vscType: 'raw', name: 'getjsonparts', component: (open: boolean) => <GetJsonPartsAnnotatedCode key={'getJsonParts'} open={open} /> },
+  { vscType: 'system', name: 'getlinestreamreader', component: (open: boolean) => <GetLineStreamReaderAnnotatedCode key={'getLineStreamReader'} open={open} /> },
+  { vscType: 'system', name: 'getpackagedependencies', component: (open: boolean) => <GetPackageDependenciesAnnotatedCode key={'getPackageDependencies'} open={open} /> },
+  { vscType: 'system', name: 'getpackagefilepaths', component: (open: boolean) => <GetPackageFilePathsAnnotatedCode key={'getPackageFilePaths'} open={open} /> },
+  { vscType: 'system', name: 'getreadstream', component: (open: boolean) => <GetReadStreamAnnotatedCode key={'getReadStream'} open={open} /> },
+  { vscType: 'raw', name: 'getrelativepath', component: (open: boolean) => <GetRelativePathAnnotatedCode key={'getRelativePath'} open={open} /> },
+  { vscType: 'system', name: 'getrootpackagejson', component: (open: boolean) => <GetRootPackageJsonAnnotatedCode key={'getRootPackageJson'} open={open} /> },
+  { vscType: 'vscode', name: 'getrootpath', component: (open: boolean) => <GetRootPathAnnotatedCode key={'getRootPath'} open={open} /> },
+  { vscType: 'raw', name: 'getsubrelativepathfromabsoluterootpath', component: (open: boolean) => <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode key={'getSubRelativePathFromAbsoluteRootPath'} open={open} /> },
+  { vscType: 'raw', name: 'gettimestamp', component: (open: boolean) => <GetTimestampAnnotatedCode key={'getTimestamp'} open={open} /> },
+  { vscType: 'system', name: 'getvscdefaultmodulemap', component: (open: boolean) => <GetVscDefaultModuleMapAnnotatedCode key={'getVscDefaultModuleMap'} open={open} /> },
+  { vscType: 'vscode', name: 'insertat', component: (open: boolean) => <InsertAtAnnotatedCode key={'insertAt'} open={open} /> },
+  { vscType: 'vscode', name: 'insertatrange', component: (open: boolean) => <InsertAtRangeAnnotatedCode key={'insertAtRange'} open={open} /> },
+  { vscType: 'raw', name: 'isabsolutepath', component: (open: boolean) => <IsAbsolutePathAnnotatedCode key={'isAbsolutePath'} open={open} /> },
+  { vscType: 'system', name: 'isdir', component: (open: boolean) => <IsDirAnnotatedCode key={'isDir'} open={open} /> },
+  { vscType: 'raw', name: 'issubpath', component: (open: boolean) => <IsSubPathAnnotatedCode key={'isSubPath'} open={open} /> },
+  { vscType: 'raw', name: 'joinpaths', component: (open: boolean) => <JoinPathsAnnotatedCode key={'joinPaths'} open={open} /> },
+  { vscType: 'raw', name: 'keyvaluereplacer', component: (open: boolean) => <KeyValueReplacerAnnotatedCode key={'keyValueReplacer'} open={open} /> },
+  { vscType: 'system', name: 'makedir', component: (open: boolean) => <MakeDirAnnotatedCode key={'makeDir'} open={open} /> },
+  { vscType: 'raw', name: 'maxdepthreplacer', component: (open: boolean) => <MaxDepthReplacerAnnotatedCode key={'maxDepthReplacer'} open={open} /> },
+  { vscType: 'system', name: 'move', component: (open: boolean) => <MoveAnnotatedCode key={'move'} open={open} /> },
+  { vscType: 'vscode', name: 'newdocument', component: (open: boolean) => <NewDocumentAnnotatedCode key={'newDocument'} open={open} /> },
+  { vscType: 'raw', name: 'objectwalker', component: (open: boolean) => <ObjectWalkerAnnotatedCode key={'objectWalker'} open={open} /> },
+  { vscType: 'raw', name: 'pathasunix', component: (open: boolean) => <PathAsUnixAnnotatedCode key={'pathAsUnix'} open={open} /> },
+  { vscType: 'vscode', name: 'pick', component: (open: boolean) => <PickAnnotatedCode key={'pick'} open={open} /> },
+  { vscType: 'vscode', name: 'prependlinetodocument', component: (open: boolean) => <PrependLineToDocumentAnnotatedCode key={'prependLineToDocument'} open={open} /> },
+  { vscType: 'vscode', name: 'prependtodocument', component: (open: boolean) => <PrependToDocumentAnnotatedCode key={'prependToDocument'} open={open} /> },
+  { vscType: 'system', name: 'remove', component: (open: boolean) => <RemoveAnnotatedCode key={'remove'} open={open} /> },
+  { vscType: 'system', name: 'rename', component: (open: boolean) => <RenameAnnotatedCode key={'rename'} open={open} /> },
+  { vscType: 'vscode', name: 'saveall', component: (open: boolean) => <SaveAllAnnotatedCode key={'saveAll'} open={open} /> },
+  { vscType: 'vscode', name: 'savedocument', component: (open: boolean) => <SaveDocumentAnnotatedCode key={'saveDocument'} open={open} /> },
+  { vscType: 'system', name: 'savefilecontent', component: (open: boolean) => <SaveFileContentAnnotatedCode key={'saveFileContent'} open={open} /> },
+  { vscType: 'system', name: 'scaffoldtemplate', component: (open: boolean) => <ScaffoldTemplateAnnotatedCode key={'scaffoldTemplate'} open={open} /> },
+  { vscType: 'vscode', name: 'setdocumentcontent', component: (open: boolean) => <SetDocumentContentAnnotatedCode key={'setDocumentContent'} open={open} /> },
+  { vscType: 'vscode', name: 'setselection', component: (open: boolean) => <SetSelectionAnnotatedCode key={'setSelection'} open={open} /> },
+  { vscType: 'vscode', name: 'setselectionfromrange', component: (open: boolean) => <SetSelectionFromRangeAnnotatedCode key={'setSelectionFromRange'} open={open} /> },
+  { vscType: 'vscode', name: 'setselections', component: (open: boolean) => <SetSelectionsAnnotatedCode key={'setSelections'} open={open} /> },
+  { vscType: 'vscode', name: 'setselectionsfromranges', component: (open: boolean) => <SetSelectionsFromRangesAnnotatedCode key={'setSelectionsFromRanges'} open={open} /> },
+  { vscType: 'raw', name: 'sharedpath', component: (open: boolean) => <SharedPathAnnotatedCode key={'sharedPath'} open={open} /> },
+  { vscType: 'vscode', name: 'showerrormessage', component: (open: boolean) => <ShowErrorMessageAnnotatedCode key={'showErrorMessage'} open={open} /> },
+  { vscType: 'vscode', name: 'showmessage', component: (open: boolean) => <ShowMessageAnnotatedCode key={'showMessage'} open={open} /> },
+  { vscType: 'raw', name: 'sleep', component: (open: boolean) => <SleepAnnotatedCode key={'sleep'} open={open} /> },
+  { vscType: 'raw', name: 'splitpath', component: (open: boolean) => <SplitPathAnnotatedCode key={'splitPath'} open={open} /> },
+  { vscType: 'raw', name: 'subtractpath', component: (open: boolean) => <SubtractPathAnnotatedCode key={'subtractPath'} open={open} /> },
+  { vscType: 'raw', name: 'tocamelcase', component: (open: boolean) => <ToCamelCaseAnnotatedCode key={'toCamelCase'} open={open} /> },
+  { vscType: 'raw', name: 'tojsonstring', component: (open: boolean) => <ToJSONStringAnnotatedCode key={'toJSONString'} open={open} /> },
+  { vscType: 'raw', name: 'tokebabcase', component: (open: boolean) => <ToKebabCaseAnnotatedCode key={'toKebabCase'} open={open} /> },
+  { vscType: 'raw', name: 'topascalcase', component: (open: boolean) => <ToPascalCaseAnnotatedCode key={'toPascalCase'} open={open} /> },
+  { vscType: 'raw', name: 'tosnakecase', component: (open: boolean) => <ToSnakeCaseAnnotatedCode key={'toSnakeCase'} open={open} /> },
+  { vscType: 'raw', name: 'totitlecase', component: (open: boolean) => <ToTitleCaseAnnotatedCode key={'toTitleCase'} open={open} /> },
+  { vscType: 'raw', name: 'trimdashes', component: (open: boolean) => <TrimDashesAnnotatedCode key={'trimDashes'} open={open} /> },
+  { vscType: 'raw', name: 'trimleadingdash', component: (open: boolean) => <TrimLeadingDashAnnotatedCode key={'trimLeadingDash'} open={open} /> },
+  { vscType: 'ts', name: 'tscreatenodevisitor', component: (open: boolean) => <TsCreateNodeVisitorAnnotatedCode key={'tsCreateNodeVisitor'} open={open} /> },
+  { vscType: 'ts', name: 'tscreateremovenodestransformer', component: (open: boolean) => <TsCreateRemoveNodesTransformerAnnotatedCode key={'tsCreateRemoveNodesTransformer'} open={open} /> },
+  { vscType: 'ts', name: 'tscreatesourcefile', component: (open: boolean) => <TsCreateSourceFileAnnotatedCode key={'tsCreateSourceFile'} open={open} /> },
+  { vscType: 'ts', name: 'tscreatetransformer', component: (open: boolean) => <TsCreateTransformerAnnotatedCode key={'tsCreateTransformer'} open={open} /> },
+  { vscType: 'ts', name: 'tsdefaultcompileroptions', component: (open: boolean) => <TsDefaultCompilerOptionsAnnotatedCode key={'TsDefaultCompilerOptions'} open={open} /> },
+  { vscType: 'ts', name: 'tsfindallnodepositionsfromcontent', component: (open: boolean) => <TsFindAllNodePositionsFromContentAnnotatedCode key={'tsFindAllNodePositionsFromContent'} open={open} /> },
+  { vscType: 'ts', name: 'tsfindancestor', component: (open: boolean) => <TsFindAncestorAnnotatedCode key={'tsFindAncestor'} open={open} /> },
+  { vscType: 'ts', name: 'tsfindchild', component: (open: boolean) => <TsFindChildAnnotatedCode key={'tsFindChild'} open={open} /> },
+  { vscType: 'ts', name: 'tsfindgrandchild', component: (open: boolean) => <TsFindGrandChildAnnotatedCode key={'tsFindGrandChild'} open={open} /> },
+  { vscType: 'ts', name: 'tsfindnodepositionfromcontent', component: (open: boolean) => <TsFindNodePositionFromContentAnnotatedCode key={'tsFindNodePositionFromContent'} open={open} /> },
+  { vscType: 'ts', name: 'tsgetparsedchildren', component: (open: boolean) => <TsGetParsedChildrenAnnotatedCode key={'tsGetParsedChildren'} open={open} /> },
+  { vscType: 'ts', name: 'tshasancestor', component: (open: boolean) => <TsHasAncestorAnnotatedCode key={'tsHasAncestor'} open={open} /> },
+  { vscType: 'ts', name: 'tshasancestors', component: (open: boolean) => <TsHasAncestorsAnnotatedCode key={'tsHasAncestors'} open={open} /> },
+  { vscType: 'ts', name: 'tshaschild', component: (open: boolean) => <TsHasChildAnnotatedCode key={'tsHasChild'} open={open} /> },
+  { vscType: 'ts', name: 'tshaschildren', component: (open: boolean) => <TsHasChildrenAnnotatedCode key={'tsHasChildren'} open={open} /> },
+  { vscType: 'ts', name: 'tshasgrandchild', component: (open: boolean) => <TsHasGrandChildAnnotatedCode key={'tsHasGrandChild'} open={open} /> },
+  { vscType: 'ts', name: 'tshasgrandchildren', component: (open: boolean) => <TsHasGrandChildrenAnnotatedCode key={'tsHasGrandChildren'} open={open} /> },
+  { vscType: 'ts', name: 'tsiscall', component: (open: boolean) => <TsIsCallAnnotatedCode key={'tsIsCall'} open={open} /> },
+  { vscType: 'ts', name: 'tsisenum', component: (open: boolean) => <TsIsEnumAnnotatedCode key={'tsIsEnum'} open={open} /> },
+  { vscType: 'ts', name: 'tsisenummember', component: (open: boolean) => <TsIsEnumMemberAnnotatedCode key={'tsIsEnumMember'} open={open} /> },
+  { vscType: 'ts', name: 'tsisfunction', component: (open: boolean) => <TsIsFunctionAnnotatedCode key={'tsIsFunction'} open={open} /> },
+  { vscType: 'ts', name: 'tsisidentifier', component: (open: boolean) => <TsIsIdentifierAnnotatedCode key={'tsIsIdentifier'} open={open} /> },
+  { vscType: 'ts', name: 'tsisimport', component: (open: boolean) => <TsIsImportAnnotatedCode key={'tsIsImport'} open={open} /> },
+  { vscType: 'ts', name: 'tsisinterface', component: (open: boolean) => <TsIsInterfaceAnnotatedCode key={'tsIsInterface'} open={open} /> },
+  { vscType: 'ts', name: 'tsisnode', component: (open: boolean) => <TsIsNodeAnnotatedCode key={'tsIsNode'} open={open} /> },
+  { vscType: 'ts', name: 'tsisobjectproperty', component: (open: boolean) => <TsIsObjectPropertyAnnotatedCode key={'tsIsObjectProperty'} open={open} /> },
+  { vscType: 'ts', name: 'tsistyperef', component: (open: boolean) => <TsIsTypeRefAnnotatedCode key={'tsIsTypeRef'} open={open} /> },
+  { vscType: 'ts', name: 'tsisvalue', component: (open: boolean) => <TsIsValueAnnotatedCode key={'tsIsValue'} open={open} /> },
+  { vscType: 'ts', name: 'tsisvariable', component: (open: boolean) => <TsIsVariableAnnotatedCode key={'tsIsVariable'} open={open} /> },
+  { vscType: 'system', name: 'tsloadmodule', component: (open: boolean) => <TsLoadModuleAnnotatedCode key={'tsLoadModule'} open={open} /> },
+  { vscType: 'system', name: 'tsloadmodulesourcecode', component: (open: boolean) => <TsLoadModuleSourceCodeAnnotatedCode key={'tsLoadModuleSourceCode'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchcall', component: (open: boolean) => <TsMatchCallAnnotatedCode key={'tsMatchCall'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchenum', component: (open: boolean) => <TsMatchEnumAnnotatedCode key={'tsMatchEnum'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchenummember', component: (open: boolean) => <TsMatchEnumMemberAnnotatedCode key={'tsMatchEnumMember'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchfunction', component: (open: boolean) => <TsMatchFunctionAnnotatedCode key={'tsMatchFunction'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchidentifier', component: (open: boolean) => <TsMatchIdentifierAnnotatedCode key={'tsMatchIdentifier'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchimport', component: (open: boolean) => <TsMatchImportAnnotatedCode key={'tsMatchImport'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchinterface', component: (open: boolean) => <TsMatchInterfaceAnnotatedCode key={'tsMatchInterface'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchnode', component: (open: boolean) => <TsMatchNodeAnnotatedCode key={'tsMatchNode'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchobjectproperty', component: (open: boolean) => <TsMatchObjectPropertyAnnotatedCode key={'tsMatchObjectProperty'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchtyperef', component: (open: boolean) => <TsMatchTypeRefAnnotatedCode key={'tsMatchTypeRef'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchvaluenode', component: (open: boolean) => <TsMatchValueNodeAnnotatedCode key={'tsMatchValueNode'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchvariable', component: (open: boolean) => <TsMatchVariableAnnotatedCode key={'tsMatchVariable'} open={open} /> },
+  { vscType: 'ts', name: 'tsreplace', component: (open: boolean) => <TsReplaceAnnotatedCode key={'tsReplace'} open={open} /> },
+  { vscType: 'ts', name: 'tsreplaceall', component: (open: boolean) => <TsReplaceAllAnnotatedCode key={'tsReplaceAll'} open={open} /> },
+  { vscType: 'system', name: 'tsrewritetranpiledcodewithvscbasemodules', component: (open: boolean) => <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode key={'tsRewriteTranpiledCodeWithVscBaseModules'} open={open} /> },
+  { vscType: 'ts', name: 'tstransform', component: (open: boolean) => <TsTransformAnnotatedCode key={'tsTransform'} open={open} /> },
+  { vscType: 'ts', name: 'tstransformnode', component: (open: boolean) => <TsTransformNodeAnnotatedCode key={'tsTransformNode'} open={open} /> },
+  { vscType: 'system', name: 'tstranspile', component: (open: boolean) => <TsTranspileAnnotatedCode key={'tsTranspile'} open={open} /> },
+  { vscType: 'ts', name: 'tsvisitwithtransformers', component: (open: boolean) => <TsVisitWithTransformersAnnotatedCode key={'tsVisitWithTransformers'} open={open} /> },
+  { vscType: 'system', name: 'verifymodulemethods', component: (open: boolean) => <VerifyModuleMethodsAnnotatedCode key={'verifyModuleMethods'} open={open} /> },
+  { vscType: 'vscode', name: 'writetoterminal', component: (open: boolean) => <WriteToTerminalAnnotatedCode key={'writeToTerminal'} open={open} /> }
+]
+
 interface AllAnnotationsProps {
    activeMethod: string
+   name?: string
+   vscType?: string[]
 }
 
-const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) => 
-  <>
-      <AddFileContentAnnotatedCode open={activeMethod === 'addFileContent'} />
-      <AddLeadingLocalDashAnnotatedCode open={activeMethod === 'addLeadingLocalDash'} />
-      <AddSelectionAnnotatedCode open={activeMethod === 'addSelection'} />
-      <AddSelectionFromRangeAnnotatedCode open={activeMethod === 'addSelectionFromRange'} />
-      <AppendLineToDocumentAnnotatedCode open={activeMethod === 'appendLineToDocument'} />
-      <AppendToDocumentAnnotatedCode open={activeMethod === 'appendToDocument'} />
-      <AskAnnotatedCode open={activeMethod === 'ask'} />
-      <AwaitResultAnnotatedCode open={activeMethod === 'awaitResult'} />
-      <CleanPathAnnotatedCode open={activeMethod === 'cleanPath'} />
-      <CopyAnnotatedCode open={activeMethod === 'copy'} />
-      <CreateSelectionAnnotatedCode open={activeMethod === 'createSelection'} />
-      <CreateVscodeRangeAndPositionAnnotatedCode open={activeMethod === 'createVscodeRangeAndPosition'} />
-      <DoesExistsAnnotatedCode open={activeMethod === 'doesExists'} />
-      <EmptyDirAnnotatedCode open={activeMethod === 'emptyDir'} />
-      <ExecFromPathAnnotatedCode open={activeMethod === 'execFromPath'} />
-      <FindFilePathsAnnotatedCode open={activeMethod === 'findFilePaths'} />
-      <FindFilePathsFromBaseAnnotatedCode open={activeMethod === 'findFilePathsFromBase'} />
-      <FindRelativeFilePathsAnnotatedCode open={activeMethod === 'findRelativeFilePaths'} />
-      <GetAbsolutePathFromRelativePathAnnotatedCode open={activeMethod === 'getAbsolutePathFromRelativePath'} />
-      <GetActiveDocumentAnnotatedCode open={activeMethod === 'getActiveDocument'} />
-      <GetActiveEditorAnnotatedCode open={activeMethod === 'getActiveEditor'} />
-      <GetActiveTerminalAnnotatedCode open={activeMethod === 'getActiveTerminal'} />
-      <GetConfigAnnotatedCode open={activeMethod === 'getConfig'} />
-      <GetDirAnnotatedCode open={activeMethod === 'getDir'} />
-      <GetDocumentContentAnnotatedCode open={activeMethod === 'getDocumentContent'} />
-      <GetDocumentPathAnnotatedCode open={activeMethod === 'getDocumentPath'} />
-      <GetErrorInfoAnnotatedCode open={activeMethod === 'getErrorInfo'} />
-      <GetFileContentAnnotatedCode open={activeMethod === 'getFileContent'} />
-      <GetFullDocumentRangeAnnotatedCode open={activeMethod === 'getFullDocumentRange'} />
-      <GetJSONCircularReplacerAnnotatedCode open={activeMethod === 'getJSONCircularReplacer'} />
-      <GetJsonContentAnnotatedCode open={activeMethod === 'getJsonContent'} />
-      <GetJsonPartsAnnotatedCode open={activeMethod === 'getJsonParts'} />
-      <GetLineStreamReaderAnnotatedCode open={activeMethod === 'getLineStreamReader'} />
-      <GetPackageDependenciesAnnotatedCode open={activeMethod === 'getPackageDependencies'} />
-      <GetPackageFilePathsAnnotatedCode open={activeMethod === 'getPackageFilePaths'} />
-      <GetReadStreamAnnotatedCode open={activeMethod === 'getReadStream'} />
-      <GetRelativePathAnnotatedCode open={activeMethod === 'getRelativePath'} />
-      <GetRootPackageJsonAnnotatedCode open={activeMethod === 'getRootPackageJson'} />
-      <GetRootPathAnnotatedCode open={activeMethod === 'getRootPath'} />
-      <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode open={activeMethod === 'getSubRelativePathFromAbsoluteRootPath'} />
-      <GetTimestampAnnotatedCode open={activeMethod === 'getTimestamp'} />
-      <GetVscDefaultModuleMapAnnotatedCode open={activeMethod === 'getVscDefaultModuleMap'} />
-      <InsertAtAnnotatedCode open={activeMethod === 'insertAt'} />
-      <InsertAtRangeAnnotatedCode open={activeMethod === 'insertAtRange'} />
-      <IsAbsolutePathAnnotatedCode open={activeMethod === 'isAbsolutePath'} />
-      <IsDirAnnotatedCode open={activeMethod === 'isDir'} />
-      <IsSubPathAnnotatedCode open={activeMethod === 'isSubPath'} />
-      <JoinPathsAnnotatedCode open={activeMethod === 'joinPaths'} />
-      <KeyValueReplacerAnnotatedCode open={activeMethod === 'keyValueReplacer'} />
-      <MakeDirAnnotatedCode open={activeMethod === 'makeDir'} />
-      <MaxDepthReplacerAnnotatedCode open={activeMethod === 'maxDepthReplacer'} />
-      <MoveAnnotatedCode open={activeMethod === 'move'} />
-      <NewDocumentAnnotatedCode open={activeMethod === 'newDocument'} />
-      <ObjectWalkerAnnotatedCode open={activeMethod === 'objectWalker'} />
-      <PathAsUnixAnnotatedCode open={activeMethod === 'pathAsUnix'} />
-      <PickAnnotatedCode open={activeMethod === 'pick'} />
-      <PrependLineToDocumentAnnotatedCode open={activeMethod === 'prependLineToDocument'} />
-      <PrependToDocumentAnnotatedCode open={activeMethod === 'prependToDocument'} />
-      <RemoveAnnotatedCode open={activeMethod === 'remove'} />
-      <RenameAnnotatedCode open={activeMethod === 'rename'} />
-      <SaveAllAnnotatedCode open={activeMethod === 'saveAll'} />
-      <SaveDocumentAnnotatedCode open={activeMethod === 'saveDocument'} />
-      <SaveFileContentAnnotatedCode open={activeMethod === 'saveFileContent'} />
-      <ScaffoldTemplateAnnotatedCode open={activeMethod === 'scaffoldTemplate'} />
-      <SetDocumentContentAnnotatedCode open={activeMethod === 'setDocumentContent'} />
-      <SetSelectionAnnotatedCode open={activeMethod === 'setSelection'} />
-      <SetSelectionFromRangeAnnotatedCode open={activeMethod === 'setSelectionFromRange'} />
-      <SetSelectionsAnnotatedCode open={activeMethod === 'setSelections'} />
-      <SetSelectionsFromRangesAnnotatedCode open={activeMethod === 'setSelectionsFromRanges'} />
-      <SharedPathAnnotatedCode open={activeMethod === 'sharedPath'} />
-      <ShowErrorMessageAnnotatedCode open={activeMethod === 'showErrorMessage'} />
-      <ShowMessageAnnotatedCode open={activeMethod === 'showMessage'} />
-      <SleepAnnotatedCode open={activeMethod === 'sleep'} />
-      <SplitPathAnnotatedCode open={activeMethod === 'splitPath'} />
-      <SubtractPathAnnotatedCode open={activeMethod === 'subtractPath'} />
-      <ToCamelCaseAnnotatedCode open={activeMethod === 'toCamelCase'} />
-      <ToJSONStringAnnotatedCode open={activeMethod === 'toJSONString'} />
-      <ToKebabCaseAnnotatedCode open={activeMethod === 'toKebabCase'} />
-      <ToPascalCaseAnnotatedCode open={activeMethod === 'toPascalCase'} />
-      <ToSnakeCaseAnnotatedCode open={activeMethod === 'toSnakeCase'} />
-      <ToTitleCaseAnnotatedCode open={activeMethod === 'toTitleCase'} />
-      <TrimDashesAnnotatedCode open={activeMethod === 'trimDashes'} />
-      <TrimLeadingDashAnnotatedCode open={activeMethod === 'trimLeadingDash'} />
-      <TsCreateNodeVisitorAnnotatedCode open={activeMethod === 'tsCreateNodeVisitor'} />
-      <TsCreateRemoveNodesTransformerAnnotatedCode open={activeMethod === 'tsCreateRemoveNodesTransformer'} />
-      <TsCreateSourceFileAnnotatedCode open={activeMethod === 'tsCreateSourceFile'} />
-      <TsCreateTransformerAnnotatedCode open={activeMethod === 'tsCreateTransformer'} />
-      <TsDefaultCompilerOptionsAnnotatedCode open={activeMethod === 'TsDefaultCompilerOptions'} />
-      <TsFindAllNodePositionsFromContentAnnotatedCode open={activeMethod === 'tsFindAllNodePositionsFromContent'} />
-      <TsFindAncestorAnnotatedCode open={activeMethod === 'tsFindAncestor'} />
-      <TsFindChildAnnotatedCode open={activeMethod === 'tsFindChild'} />
-      <TsFindGrandChildAnnotatedCode open={activeMethod === 'tsFindGrandChild'} />
-      <TsFindNodePositionFromContentAnnotatedCode open={activeMethod === 'tsFindNodePositionFromContent'} />
-      <TsGetParsedChildrenAnnotatedCode open={activeMethod === 'tsGetParsedChildren'} />
-      <TsHasAncestorAnnotatedCode open={activeMethod === 'tsHasAncestor'} />
-      <TsHasAncestorsAnnotatedCode open={activeMethod === 'tsHasAncestors'} />
-      <TsHasChildAnnotatedCode open={activeMethod === 'tsHasChild'} />
-      <TsHasChildrenAnnotatedCode open={activeMethod === 'tsHasChildren'} />
-      <TsHasGrandChildAnnotatedCode open={activeMethod === 'tsHasGrandChild'} />
-      <TsHasGrandChildrenAnnotatedCode open={activeMethod === 'tsHasGrandChildren'} />
-      <TsIsCallAnnotatedCode open={activeMethod === 'tsIsCall'} />
-      <TsIsEnumAnnotatedCode open={activeMethod === 'tsIsEnum'} />
-      <TsIsEnumMemberAnnotatedCode open={activeMethod === 'tsIsEnumMember'} />
-      <TsIsFunctionAnnotatedCode open={activeMethod === 'tsIsFunction'} />
-      <TsIsIdentifierAnnotatedCode open={activeMethod === 'tsIsIdentifier'} />
-      <TsIsImportAnnotatedCode open={activeMethod === 'tsIsImport'} />
-      <TsIsInterfaceAnnotatedCode open={activeMethod === 'tsIsInterface'} />
-      <TsIsNodeAnnotatedCode open={activeMethod === 'tsIsNode'} />
-      <TsIsObjectPropertyAnnotatedCode open={activeMethod === 'tsIsObjectProperty'} />
-      <TsIsTypeRefAnnotatedCode open={activeMethod === 'tsIsTypeRef'} />
-      <TsIsValueAnnotatedCode open={activeMethod === 'tsIsValue'} />
-      <TsIsVariableAnnotatedCode open={activeMethod === 'tsIsVariable'} />
-      <TsLoadModuleAnnotatedCode open={activeMethod === 'tsLoadModule'} />
-      <TsLoadModuleSourceCodeAnnotatedCode open={activeMethod === 'tsLoadModuleSourceCode'} />
-      <TsMatchCallAnnotatedCode open={activeMethod === 'tsMatchCall'} />
-      <TsMatchEnumAnnotatedCode open={activeMethod === 'tsMatchEnum'} />
-      <TsMatchEnumMemberAnnotatedCode open={activeMethod === 'tsMatchEnumMember'} />
-      <TsMatchFunctionAnnotatedCode open={activeMethod === 'tsMatchFunction'} />
-      <TsMatchIdentifierAnnotatedCode open={activeMethod === 'tsMatchIdentifier'} />
-      <TsMatchImportAnnotatedCode open={activeMethod === 'tsMatchImport'} />
-      <TsMatchInterfaceAnnotatedCode open={activeMethod === 'tsMatchInterface'} />
-      <TsMatchNodeAnnotatedCode open={activeMethod === 'tsMatchNode'} />
-      <TsMatchObjectPropertyAnnotatedCode open={activeMethod === 'tsMatchObjectProperty'} />
-      <TsMatchTypeRefAnnotatedCode open={activeMethod === 'tsMatchTypeRef'} />
-      <TsMatchValueNodeAnnotatedCode open={activeMethod === 'tsMatchValueNode'} />
-      <TsMatchVariableAnnotatedCode open={activeMethod === 'tsMatchVariable'} />
-      <TsReplaceAnnotatedCode open={activeMethod === 'tsReplace'} />
-      <TsReplaceAllAnnotatedCode open={activeMethod === 'tsReplaceAll'} />
-      <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode open={activeMethod === 'tsRewriteTranpiledCodeWithVscBaseModules'} />
-      <TsTransformAnnotatedCode open={activeMethod === 'tsTransform'} />
-      <TsTransformNodeAnnotatedCode open={activeMethod === 'tsTransformNode'} />
-      <TsTranspileAnnotatedCode open={activeMethod === 'tsTranspile'} />
-      <TsVisitWithTransformersAnnotatedCode open={activeMethod === 'tsVisitWithTransformers'} />
-      <VerifyModuleMethodsAnnotatedCode open={activeMethod === 'verifyModuleMethods'} />
-      <WriteToTerminalAnnotatedCode open={activeMethod === 'writeToTerminal'} />
-  </>
+const AllAnnotations = ({ activeMethod, name, vscType }: AllAnnotationsProps) => {
+   let anns = annotations
+   if(name)anns = anns.filter(a=>a.name.match(name))
+   if(vscType && vscType.length>0)anns = anns.filter(a=>vscType.some(t=>a.vscType.match(t)))
+   return (
+      <>
+         {anns.map(a=>
+            a.component(activeMethod === a.name)
+         )}
+      </>
+   )
+}
 
 export default AllAnnotations

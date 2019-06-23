@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
+import useRouter from 'use-react-router';
 
 import AllAnnotations from '../../allAnnotations/AllAnnotations'
 import HighlightedCode from '../../components/HighlightedCode/HighlightedCode';
 import styles from './Home.module.scss'
 
 const Home = () => {
-   const { history, location, match } = useReactRouter();
+   const { history, location, match } = useRouter();
    const [activeMethod, setActiveMethod] = useState('')
+   const [typesArray, setTypesArray] = useState([] as string[])
+   const [types, setTypes] = useState({
+      raw: false,
+      system: false,
+      vscode: false,
+      ts: false
+   })
+   const [name, setName] = useState('')
+   useEffect(()=> {
+      const newArray = [] as string[]
+      for (const [key, value] of Object.entries(types)){
+         if(value){
+            newArray.push(key)
+         }
+      }
+      setTypesArray(newArray)
+   },[types])
    useEffect(()=> {
       const id = location.hash.replace('#', '')
       const element = document.getElementById(id)
       if (element) element.scrollIntoView()
-      setActiveMethod(id);
+      setActiveMethod(id.toLowerCase());
       console.log(id)
    },[location])
    return (
-      <div>
+      <div className={styles.root}>
       <div className={styles.description}>
          <h2 className={styles.logo}>
             <span className={styles.logoImg}></span>
@@ -49,19 +66,7 @@ const Home = () => {
             The vsc-script must contains a single export that is an async function named run. <br/>
             The parameters for the run is a string, that is the file-path for the file that was clicked when runnning the vsc-script.
          </p>
-            <HighlightedCode code={`// replaceTest.vsc-script.ts
-import * as vsc from 'vsc-base'
-
-export async function run(path: string) {
-   if (vsc.isDir(path)) {
-      vsc.showErrorMessage('Only works on files!')
-   }
-   let source = await vsc.getFileContent(path)
-   source = source.replace('test', 'Test')
-   await vsc.saveFileContent(path, source)
-   vsc.showMessage('Update file!')
-}
-`} />
+         <Example1 />
          <p>
             vsc-script is great for project-scripts and smaller personal scripts. <br/>
             It can be used to create regexp's replace for a file, where you need a little more logic then vscode own replace provide, 
@@ -92,22 +97,7 @@ export async function run(path: string) {
             The parameters for the run is a string, that is the file-path for the open document being saved.<br/>
             The script run at 'onWillSaveTextDocument' time, which means that any changes done to the document by the script will be saved.
          </p>
-            <HighlightedCode code={`// orderImports.vsc-script-onsave.ts
-import * as vsc from 'vsc-base';
-
-const lastSaveTime = '2019-05-10T04:55:17.360Z'; // <-- updae on save
-export async function runOnSave() {
-	const content = vsc.getDocumentContent()
-	const [, pos] = vsc.tsFindNodePositionFromContent(content,
-		node => vsc.tsIsValue(node, /.*/, {
-			hasAncestor: ancestor => vsc.tsIsVariable(ancestor, { name: 'lastSaveTime' })
-		})
-	)
-	vsc.insertAtRange(\`'\${(new Date()).toISOString()}'\`, pos.range)
-}
-
-`} />
-
+         <Example2 />
          <h3>vsc-scaffolding</h3>
          <p>
             vsc-scaffolding is a scaffolding extension, that is based on vsc-base. (vsc.Template)<br/>
@@ -125,24 +115,9 @@ export async function runOnSave() {
             It uses <a href='http://vsc-base.org/#scaffoldTemplate'>vsc.scaffoldTemplate </a>
          </p>
          <b>async template</b>
-            <HighlightedCode code={`// replaceTest.vsc-script.ts
-import * as vsc from 'vsc-base'
-
-export async function Template(path: string): Promise<vsc.vscTemplate> {
-   // (...)
-   return {} // <-- Template
-}
-`} />
-            <b>not template</b>
-            <HighlightedCode code={`// replaceTest.vsc-script.ts
-import * as vsc from 'vsc-base'
-
-export function Template(path: string): vsc.vscTemplate {
-   // (...)
-   return {} // <-- Template
-}
-`} />
-
+         <Example3 />
+         <b>not template</b>
+         <Example4 />
          <h4>Open-source GPL-3</h4>
          <p>
          vsc-base, vsc-script ( and related extension project: vsc-scaffolding and vsc-move) are all open-source project
@@ -228,11 +203,81 @@ export function Template(path: string): vsc.vscTemplate {
       </div>
       <div className={styles.annotatedCode}>
          <h3>Methods<span className={styles.titleNote}> + tests that you can experiment with</span></h3>
+         Search: <input type='text' value={name} placeholder='search name' onChange={(e)=>setName(e.target.value)} />
+         <label>
+            <input type='checkbox' checked={types.raw} onChange={(e)=>setTypes({...types, raw: !types.raw})} />
+            Raw 
+         </label>
+         <label>
+            <input type='checkbox' checked={types.system} onChange={(e)=>setTypes({...types, system: !types.system})} />
+            System 
+         </label>
+         <label>
+            <input type='checkbox' checked={types.vscode} onChange={(e)=>setTypes({...types, vscode: !types.vscode})} />
+            Vscode 
+         </label>
+         <label>
+            <input type='checkbox' checked={types.ts} onChange={(e)=>setTypes({...types, ts: !types.ts})} />
+            Typescript 
+         </label>
       </div>
-      <div>
-         <AllAnnotations activeMethod={activeMethod} />
+      <div className={styles.annotationArea}>
+         <AllAnnotations activeMethod={activeMethod} name={name} vscType={typesArray} />
       </div>
    </div>
 )
 }
 export default Home
+
+
+const Example4 = () => (
+<HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export function Template(path: string): vsc.vscTemplate {
+   // (...)
+   return {} // <-- Template
+}
+`} />
+)
+const Example3 = () => (
+<HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export async function Template(path: string): Promise<vsc.vscTemplate> {
+   // (...)
+   return {} // <-- Template
+}
+`} />
+)
+const Example2 = () => (
+<HighlightedCode code={`// orderImports.vsc-script-onsave.ts
+import * as vsc from 'vsc-base';
+
+const lastSaveTime = '2019-05-10T04:55:17.360Z'; // <-- updae on save
+export async function runOnSave() {
+   const content = vsc.getDocumentContent()
+   const [, pos] = vsc.tsFindNodePositionFromContent(content,
+   node => vsc.tsIsValue(node, /.*/, {
+        hasAncestor: ancestor => vsc.tsIsVariable(ancestor, { name: 'lastSaveTime' })
+     })
+   )
+   vsc.insertAtRange(\`'\${(new Date()).toISOString()}'\`, pos.range)
+}
+`} />
+)
+const Example1 = () => (
+<HighlightedCode code={`// replaceTest.vsc-script.ts
+import * as vsc from 'vsc-base'
+
+export async function run(path: string) {
+   if (vsc.isDir(path)) {
+      vsc.showErrorMessage('Only works on files!')
+   }
+   let source = await vsc.getFileContent(path)
+   source = source.replace('test', 'Test')
+   await vsc.saveFileContent(path, source)
+   vsc.showMessage('Update file!')
+}
+`} />
+)

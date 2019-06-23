@@ -22,6 +22,7 @@ const GetRootPackageJsonAnnotatedCode = ({ open = false }: {open?: boolean}) => 
          codeEx={``}
          code={`/**
  * @dependencyInternal findFilePaths
+ * @vscType System
  * @returns Promise<T = any>
  */
 export const getRootPackageJson = async <T = any>(

@@ -373,7 +373,7 @@ export declare const tsIsCall: (node: ts.Node | undefined, options?: {
  * hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').\
  * or nameSpace import name: ( import * as namespace from '' ) \
  * or path for matching the source path. \
- * or direct import which has no import names ( import form '' )
+ * or direct import which has no import names ( import form '' ) \
  * Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
  * @see [tsMatchImport](http://vsc-base.org/#tsMatchImport)
  * @vscType ts
@@ -397,8 +397,8 @@ export declare const tsMatchImport: (node: ts.Node | undefined, options?: {
  * hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').\
  * or nameSpace import name: ( import * as namespace from '' ) \
  * or path for matching the source path. \
- * or direct import which has no import names ( import form '' )
- * Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
+ * or direct import which has no import names ( import form '' ) \
+ * Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ). \
  * See also [tsMatchImport](http://vsc-base.org/#tsMatchImport)
  * @see [tsIsImport](http://vsc-base.org/#tsIsImport)
  * @vscType ts

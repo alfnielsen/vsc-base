@@ -26,8 +26,10 @@ const TsMatchImportAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 or path for matching the source path. 
                </p>
                <p>
-                or direct import which has no import names ( import form '' )
- Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
+                or direct import which has no import names ( import form '' ) 
+               </p>
+               <p>
+                Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
                </p>
             </>
          }

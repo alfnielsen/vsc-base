@@ -1,4 +1,5 @@
 import * as vsc from 'vsc-base'
+
 /**
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
  */
@@ -141,14 +142,29 @@ const writeMainAnnotationComponent = async (dir: string, parts: CodePart[]) => {
    const allAnnotationsContent = `import React from 'react'
 
 ${parts.map(part => `import ${part.annotationName} from './annotations/${part.annotationName}'`).join('\n')}
+
+const annotations = [
+${parts.map(part => `  { vscType: '${(part.metaMap['vscType'] || '').toLowerCase()}', name: '${part.name.toLowerCase()}', component: (open: boolean) => <${part.annotationName} key={'${part.name}'} open={open} /> }`).join(',\n')}
+]
+
 interface AllAnnotationsProps {
    activeMethod: string
+   name?: string
+   vscType?: string[]
 }
 
-const AllAnnotations = ({ activeMethod }: AllAnnotationsProps) => 
-  <>
-${parts.map(part => `      <${part.annotationName} open={activeMethod === '${part.name}'} />`).join('\n')}
-  </>
+const AllAnnotations = ({ activeMethod, name, vscType }: AllAnnotationsProps) => {
+   let anns = annotations
+   if(name)anns = anns.filter(a=>a.name.match(name))
+   if(vscType && vscType.length>0)anns = anns.filter(a=>vscType.some(t=>a.vscType.match(t)))
+   return (
+      <>
+         {anns.map(a=>
+            a.component(activeMethod === a.name)
+         )}
+      </>
+   )
+}
 
 export default AllAnnotations
 `

@@ -93,6 +93,7 @@ import TsFindAncestorAnnotatedCode from './annotations/TsFindAncestorAnnotatedCo
 import TsFindChildAnnotatedCode from './annotations/TsFindChildAnnotatedCode'
 import TsFindGrandChildAnnotatedCode from './annotations/TsFindGrandChildAnnotatedCode'
 import TsFindNodePositionFromContentAnnotatedCode from './annotations/TsFindNodePositionFromContentAnnotatedCode'
+import TsGetLocalModulesAnnotatedCode from './annotations/TsGetLocalModulesAnnotatedCode'
 import TsGetParsedChildrenAnnotatedCode from './annotations/TsGetParsedChildrenAnnotatedCode'
 import TsHasAncestorAnnotatedCode from './annotations/TsHasAncestorAnnotatedCode'
 import TsHasAncestorsAnnotatedCode from './annotations/TsHasAncestorsAnnotatedCode'
@@ -128,7 +129,7 @@ import TsMatchValueNodeAnnotatedCode from './annotations/TsMatchValueNodeAnnotat
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
 import TsReplaceAnnotatedCode from './annotations/TsReplaceAnnotatedCode'
 import TsReplaceAllAnnotatedCode from './annotations/TsReplaceAllAnnotatedCode'
-import TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode'
+import TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode'
 import TsTransformAnnotatedCode from './annotations/TsTransformAnnotatedCode'
 import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotatedCode'
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
@@ -230,6 +231,7 @@ const annotations = [
   { vscType: 'ts', name: 'tsfindchild', component: (open: boolean) => <TsFindChildAnnotatedCode key={'tsFindChild'} open={open} /> },
   { vscType: 'ts', name: 'tsfindgrandchild', component: (open: boolean) => <TsFindGrandChildAnnotatedCode key={'tsFindGrandChild'} open={open} /> },
   { vscType: 'ts', name: 'tsfindnodepositionfromcontent', component: (open: boolean) => <TsFindNodePositionFromContentAnnotatedCode key={'tsFindNodePositionFromContent'} open={open} /> },
+  { vscType: 'system', name: 'tsgetlocalmodules', component: (open: boolean) => <TsGetLocalModulesAnnotatedCode key={'tsGetLocalModules'} open={open} /> },
   { vscType: 'ts', name: 'tsgetparsedchildren', component: (open: boolean) => <TsGetParsedChildrenAnnotatedCode key={'tsGetParsedChildren'} open={open} /> },
   { vscType: 'ts', name: 'tshasancestor', component: (open: boolean) => <TsHasAncestorAnnotatedCode key={'tsHasAncestor'} open={open} /> },
   { vscType: 'ts', name: 'tshasancestors', component: (open: boolean) => <TsHasAncestorsAnnotatedCode key={'tsHasAncestors'} open={open} /> },
@@ -265,7 +267,7 @@ const annotations = [
   { vscType: 'ts', name: 'tsmatchvariable', component: (open: boolean) => <TsMatchVariableAnnotatedCode key={'tsMatchVariable'} open={open} /> },
   { vscType: 'ts', name: 'tsreplace', component: (open: boolean) => <TsReplaceAnnotatedCode key={'tsReplace'} open={open} /> },
   { vscType: 'ts', name: 'tsreplaceall', component: (open: boolean) => <TsReplaceAllAnnotatedCode key={'tsReplaceAll'} open={open} /> },
-  { vscType: 'system', name: 'tsrewritetranpiledcodewithvscbasemodules', component: (open: boolean) => <TsRewriteTranpiledCodeWithVscBaseModulesAnnotatedCode key={'tsRewriteTranpiledCodeWithVscBaseModules'} open={open} /> },
+  { vscType: 'system', name: 'tsrewritetranspiledcodewithvscbasemodules', component: (open: boolean) => <TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode key={'tsRewriteTranspiledCodeWithVscBaseModules'} open={open} /> },
   { vscType: 'ts', name: 'tstransform', component: (open: boolean) => <TsTransformAnnotatedCode key={'tsTransform'} open={open} /> },
   { vscType: 'ts', name: 'tstransformnode', component: (open: boolean) => <TsTransformNodeAnnotatedCode key={'tsTransformNode'} open={open} /> },
   { vscType: 'system', name: 'tstranspile', component: (open: boolean) => <TsTranspileAnnotatedCode key={'tsTranspile'} open={open} /> },

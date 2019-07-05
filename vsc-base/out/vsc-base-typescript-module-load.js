@@ -28,7 +28,7 @@ const vsc = require("./vsc-base");
 exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
     const scriptFileTs = yield vsc.getFileContent(path);
     let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions);
-    sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs);
+    sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs);
     return sourceJs;
 });
 /** vsc-base method
@@ -53,7 +53,7 @@ exports.getVscDefaultModuleMap = () => {
 /** vsc-base method
  * @description
  * Replace ts transpiled code's require for vsc, ts, fs and vscode.
- * @see [tsRewriteTranpiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules)
+ * @see [tsRewriteTranspiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranspiledCodeWithVscBaseModules)
  * @internal this method is primary used by vsc.tsLoadModule
  * @notes
  * ts.transpile as follows:
@@ -62,18 +62,55 @@ exports.getVscDefaultModuleMap = () => {
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
+ * @oneLineEx const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs
  * @returns string
  */
-exports.tsRewriteTranpiledCodeWithVscBaseModules = (sourceJs) => {
+exports.tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
     const modulesMap = vsc.getVscDefaultModuleMap();
     modulesMap.forEach(obj => {
         const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`, 'g');
-        sourceJs = sourceJs.replace(reg, (str) => `/* ${str} // vsc-base has change the ts transpiled code here. */`);
+        sourceJs = sourceJs.replace(reg, (str) => `/* // vsc-base has change the ts transpiled code here. */`);
     });
     return sourceJs;
 };
+/** vsc-base method
+ * @description
+ * Replace ts transpiled code's require by loading each import with another tsLoadModule execution. \
+ * This enables tsLoadModule to load files with imports. \
+ * IMPORTANT: It does not check for circular imports, which will create infinity loops!
+ * @see [tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules)
+ * @internal this method is primary used by vsc.tsLoadModule
+ * @notes
+ * const XX = require("XXX");
+ * @vscType System
+ * @oneLineEx const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
+ * @param sourceJs
+ * @returns string
+ */
+exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awaiter(this, void 0, void 0, function* () {
+    const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"([^\\"]+)\\"\\)`, 'g');
+    let match;
+    const internalModules = [];
+    while ((match = reg.exec(sourceJs)) !== null) {
+        sourceJs = sourceJs.substring(0, match.index) + `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` + sourceJs.substring(match.index + match[0].length);
+        internalModules.push({
+            name: match[1],
+            path: match[2],
+            exported: null
+        });
+    }
+    const internalModuleExports = {};
+    for (const m of internalModules) {
+        let path = vsc.joinPaths(baseDir, m.path);
+        if (!path.match(/\.tsx?/)) {
+            path += ".ts";
+        }
+        m.exported = yield vsc.tsLoadModule(path);
+        internalModuleExports[m.name] = m.exported;
+    }
+    return [sourceJs, internalModuleExports];
+});
 /** vsc-base method
  * @description
  * Load a ts file. \
@@ -82,7 +119,9 @@ exports.tsRewriteTranpiledCodeWithVscBaseModules = (sourceJs) => {
  * export default xxx transpile to export.default \
  * IMPORTANT Don't just run code you don't now, this can cause injection! \
  * IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! \
- * (If you start a recursive change that don't stop..)
+ * (If you start a recursive change that don't stop..) \
+ * IMPORTANT: It does not check for circular imports, which will create infinity loops! \
+ * (Its recommended to only use imports from your local project that don't have other imports)
  * @see [tsLoadModule](http://vsc-base.org/#tsLoadModule)
  * @param path
  * @dependencyExternal ts
@@ -113,16 +152,19 @@ try {
  */
 exports.tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
     const sourceJs = yield vsc.tsLoadModuleSourceCode(path, compilerOptions);
+    const renamedRequire = "__vsc__import__exports";
+    const [baseDir] = vsc.splitPath(path);
+    const [sourceJsRenamed, importExports] = yield exports.tsGetLocalModules(baseDir, sourceJs, renamedRequire);
     let _exports = {};
     try {
-        _exports = loadTsModule_Eval(sourceJs);
+        _exports = loadTsModule_Eval(sourceJsRenamed, importExports, renamedRequire);
     }
     catch (e) {
         if (e instanceof TSLoadModuleError) {
             throw e;
         }
         else {
-            throw new TSLoadModuleError(e, sourceJs);
+            throw new TSLoadModuleError(e, sourceJsRenamed);
         }
     }
     return _exports;
@@ -134,9 +176,9 @@ class TSLoadModuleError extends Error {
     }
 }
 exports.TSLoadModuleError = TSLoadModuleError;
-const loadTsModule_Eval = (sourceJs) => {
+const loadTsModule_Eval = (sourceJs, importExports, renamedRequire) => {
     //Wrap code in enclosed function. Add vsc as only dependency.
-    const wrapExports = `_exports = (function(){var exports = {};\n${sourceJs}\nreturn exports})()`;
+    const wrapExports = `let ${renamedRequire} = importExports;\n_exports = (function(){var exports = {};\n${sourceJs}\nreturn exports})()`;
     let _exports = {};
     try {
         eval(wrapExports);

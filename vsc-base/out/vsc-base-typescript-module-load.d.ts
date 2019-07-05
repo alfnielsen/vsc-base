@@ -30,7 +30,7 @@ export declare const getVscDefaultModuleMap: () => {
 /** vsc-base method
  * @description
  * Replace ts transpiled code's require for vsc, ts, fs and vscode.
- * @see [tsRewriteTranpiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranpiledCodeWithVscBaseModules)
+ * @see [tsRewriteTranspiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranspiledCodeWithVscBaseModules)
  * @internal this method is primary used by vsc.tsLoadModule
  * @notes
  * ts.transpile as follows:
@@ -39,11 +39,28 @@ export declare const getVscDefaultModuleMap: () => {
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsRewriteTranpiledCodeWithVscBaseModules(sourceJs)
+ * @oneLineEx const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs
  * @returns string
  */
-export declare const tsRewriteTranpiledCodeWithVscBaseModules: (sourceJs: string) => string;
+export declare const tsRewriteTranspiledCodeWithVscBaseModules: (sourceJs: string) => string;
+/** vsc-base method
+ * @description
+ * Replace ts transpiled code's require by loading each import with another tsLoadModule execution. \
+ * This enables tsLoadModule to load files with imports. \
+ * IMPORTANT: It does not check for circular imports, which will create infinity loops!
+ * @see [tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules)
+ * @internal this method is primary used by vsc.tsLoadModule
+ * @notes
+ * const XX = require("XXX");
+ * @vscType System
+ * @oneLineEx const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
+ * @param sourceJs
+ * @returns string
+ */
+export declare const tsGetLocalModules: (baseDir: string, sourceJs: string, renameRequireToObject: string) => Promise<[string, {
+    [key: string]: any;
+}]>;
 /** vsc-base method
  * @description
  * Load a ts file. \
@@ -52,7 +69,9 @@ export declare const tsRewriteTranpiledCodeWithVscBaseModules: (sourceJs: string
  * export default xxx transpile to export.default \
  * IMPORTANT Don't just run code you don't now, this can cause injection! \
  * IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! \
- * (If you start a recursive change that don't stop..)
+ * (If you start a recursive change that don't stop..) \
+ * IMPORTANT: It does not check for circular imports, which will create infinity loops! \
+ * (Its recommended to only use imports from your local project that don't have other imports)
  * @see [tsLoadModule](http://vsc-base.org/#tsLoadModule)
  * @param path
  * @dependencyExternal ts

@@ -2,6 +2,23 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.27
+
+### Add
+
+Add [tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules)
+
+[tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules) has been added to [tsLoadModule](http://vsc-base.org/#tsLoadModule), and enables it to load imports with in the loaded modules.
+
+In this implementation it don't checks for circular imports, which will create infinity loops,
+(So its recommended to only use local imports that you know don't have other imports)
+
+This is the first version of handling imports, and the check for circular imports will most likely,
+be implemented in a future version.
+
+[tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules) has been added primarily to make vsc-script's better.
+
+
 ## 0.8.26
 
 ### Fix

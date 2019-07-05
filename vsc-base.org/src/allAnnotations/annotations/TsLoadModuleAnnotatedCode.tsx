@@ -31,7 +31,13 @@ const TsLoadModuleAnnotatedCode = ({ open = false }: {open?: boolean}) => {
                 IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! 
                </p>
                <p>
-                (If you start a recursive change that don't stop..)
+                (If you start a recursive change that don't stop..) 
+               </p>
+               <p>
+                IMPORTANT: It does not check for circular imports, which will create infinity loops! 
+               </p>
+               <p>
+                (Its recommended to only use imports from your local project that don't have other imports)
                </p>
             </>
          }
@@ -68,14 +74,18 @@ export const tsLoadModule = async (
    compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ): Promise<\{ [key: string]: unknown }> => \{
    const sourceJs = await vsc.tsLoadModuleSourceCode(path, compilerOptions)
+   const renamedRequire = "__vsc__import__exports"
+   const [baseDir] = vsc.splitPath(path)
+   const [sourceJsRenamed, importExports] = await tsGetLocalModules(baseDir, sourceJs, renamedRequire)
+
    let _exports: \{ [key: string]: unknown } = \{}
    try \{
-      _exports = loadTsModule_Eval(sourceJs)
+      _exports = loadTsModule_Eval(sourceJsRenamed, importExports, renamedRequire)
    } catch (e) \{
       if (e instanceof TSLoadModuleError) \{
          throw e
       } else \{
-         throw new TSLoadModuleError(e, sourceJs)
+         throw new TSLoadModuleError(e, sourceJsRenamed)
       }
    }
    return _exports
@@ -91,10 +101,12 @@ export class TSLoadModuleError extends Error \{
 }
 
 const loadTsModule_Eval = (
-   sourceJs: string
+   sourceJs: string,
+   importExports: \{ [key: string]: any },
+   renamedRequire: string
 ): \{ [key: string]: unknown } => \{
    //Wrap code in enclosed function. Add vsc as only dependency.
-   const wrapExports = \`_exports = (function()\{var exports = \{};\\n\$\{sourceJs}\\nreturn exports})()\`
+   const wrapExports = \`let \$\{renamedRequire} = importExports;\\n_exports = (function()\{var exports = \{};\\n\$\{sourceJs}\\nreturn exports})()\`
    let _exports: \{ [key: string]: unknown } = \{}
    try \{
       eval(wrapExports)

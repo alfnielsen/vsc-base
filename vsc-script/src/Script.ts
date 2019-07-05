@@ -81,17 +81,19 @@ export default class Script {
       const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')
       // Create lowercase map of scripts
       const scripts: { name: string; name_lower: string; path: string }[] = []
-      scriptFiles.forEach(filePath => {
+      for (let filePath of scriptFiles) {
          const match = filePath.match(/([\w\-]+)\.vsc\-script\.ts$/)
          if (match) {
-            const name = match[1]
+            const content = await vsc.getFileContent(filePath)
+            const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-script\-name\:([^\n]*)/)
+            const name = nameLabelMatch ? nameLabelMatch[1] : match[1]
             scripts.push({
                name,
                name_lower: name.toLocaleLowerCase(),
                path: filePath
             })
          }
-      })
+      }
       if (scripts.length === 0) {
          vsc.showErrorMessage(
             `ERROR (102): vsc-script didn't find any script files. A script file name can be place anywhere in the project, but it must end with '.vsc-script.js'`

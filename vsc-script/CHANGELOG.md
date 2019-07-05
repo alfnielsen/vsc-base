@@ -1,5 +1,22 @@
 # Change Log
 
+## 0.5.0
+
+### Imports in scripts
+
+Update vsc-base to version 0.8.27
+
+With vsc-base version 0.8.27 its now possible to have scripts with imports.
+
+IMPORTANT: It don't check for circular imports, which will create infinity loop!
+
+### Naming of scripts
+
+You can now add a script name inside a script will for better naming.
+Use //vsc-script-name:<NAME>
+EX:
+//vsc-script-name:MY BETTER NAME WITH SPACES
+
 ## 0.4.6
 
 Update vsc-base to version 0.8.26

@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.1
+
+Update vsc-base to version 0.8.29
+
+Now scripts will be sorted.
+
 ## 0.5.0
 
 ### Imports in scripts

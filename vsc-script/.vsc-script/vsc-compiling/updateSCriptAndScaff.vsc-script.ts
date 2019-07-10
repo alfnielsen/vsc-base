@@ -1,4 +1,4 @@
-//vsc-script-name: VSC-Project    -    Script with import statements
+//vsc-script-name: VSC-Project    -    Update vsc-bse in SCript and Scaffolding
 import * as vsc from 'vsc-base'
 
 /**
@@ -16,11 +16,8 @@ export async function run(path: string) {
 
    vsc.showMessage(`Update vsc-base in Script: ${scriptDir}`)
    await vsc.execFromPath("ncu -u vsc-base", scriptDir)
-   vsc.showMessage(`Install update in Script`)
    await vsc.execFromPath("npm i", scriptDir)
-   vsc.showMessage(`Update vsc-base in Scaff`)
    await vsc.execFromPath("ncu -u vsc-base", scaffDir)
-   vsc.showMessage(`Install update in Scaff`)
    await vsc.execFromPath("npm i", scaffDir)
 
    vsc.showMessage(`Update Done`)

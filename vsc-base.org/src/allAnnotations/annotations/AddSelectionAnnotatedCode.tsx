@@ -13,10 +13,10 @@ const AddSelectionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Add a Selection for an TextEditor (Current document) 
+Add a Selection for an TextEditor (Current document) 
                </p>
                <p>
-                returns true on success
+               returns true on success
                </p>
             </>
          }
@@ -43,10 +43,7 @@ export const addSelection = (
    editor.selections = [selection, ...editor.selections]
    //editor.selections.push(selection)
    return true
-}
-
-
-`}
+}`}
       />
    )
 }

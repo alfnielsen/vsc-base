@@ -1,3 +1,4 @@
+//vsc-script-name: TEST               -     rangeTest (Run with this file open!)
 import * as ts from 'typescript'
 import { tsMatchCall } from 'vsc-base'
 import * as vsc from 'vsc-base'
@@ -158,4 +159,3 @@ export function method1(doit: boolean) {
 enum foo {
    foo1 = 1 //<-- FIND this
 }
-

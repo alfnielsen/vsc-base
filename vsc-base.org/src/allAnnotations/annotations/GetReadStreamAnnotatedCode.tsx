@@ -13,10 +13,10 @@ const GetReadStreamAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get a file ReadStream 
+Get a file ReadStream 
                </p>
                <p>
-                See <a href='https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options'>fs docs for createReadStream</a>
+               See <a href='https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options'>fs docs for createReadStream</a>
                </p>
             </>
          }
@@ -45,8 +45,7 @@ export const getReadStream = (
 ) => \{
    const stream = fs.createReadStream(path, options)
    return stream
-}
-`}
+}`}
       />
    )
 }

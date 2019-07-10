@@ -13,10 +13,10 @@ const RemoveAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Remove file/folder 
+Remove file/folder 
                </p>
                <p>
-                See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md'>fs-extra docs for remove</a>
+               See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md'>fs-extra docs for remove</a>
                </p>
             </>
          }
@@ -30,8 +30,7 @@ const RemoveAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const remove = async (path: string): Promise<void> => \{
    await fs.remove(path)
-}
-`}
+}`}
       />
    )
 }

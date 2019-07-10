@@ -17,10 +17,10 @@ const MaxDepthReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Clone an JSON Object (any type) with max depth. 
+Clone an JSON Object (any type) with max depth. 
                </p>
                <p>
-                This method goes through the object structure and replace children that goes deeper then the max Depth
+               This method goes through the object structure and replace children that goes deeper then the max Depth
                </p>
             </>
          }
@@ -48,7 +48,7 @@ const MaxDepthReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const newObj = vsc.maxDepthReplacer(obj, 3);`}
          codeEx={``}
          code={`/**
- * @param obj, maxDepth, currentLevel
+ * @param obj,maxDepth,currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
  * @returns string
@@ -64,8 +64,7 @@ export const maxDepthReplacer = (obj: unknown, maxDepth: number): any => \{
       }
    })
    return walkedObj
-}
-`}
+}`}
       />
    )
 }

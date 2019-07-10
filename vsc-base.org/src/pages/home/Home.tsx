@@ -63,26 +63,31 @@ const Home = () => {
             <i>(The vsc-script extension most be installed!)</i>
          </p>
          <p>
-            The vsc-script must contains a single export that is an async function named run. <br/>
-            The parameters for the run is a string, that is the file-path for the file that was clicked when runnning the vsc-script.
+            The vsc-script must contains an export that is an async function named run. <br/>
+            The parameters for the run is a string, that is the file-path for the file that was clicked when running the vsc-script.
          </p>
          <Example1 />
          <p>
             vsc-script is great for project-scripts and smaller personal scripts. <br/>
-            It can be used to create regexp's replace for a file, where you need a little more logic then vscode own replace provide, 
+            It can be used to create regexp's replace for a file, where you need a more logic then vscode own replace provide, 
             and all kinds of file cleaning and automation.
          </p>
+         <h3>vsc-script and import</h3>
          <p>
-            vsc-script's only limit is vsc-base.
+            The internal code of vsc-script extension compiles your script using typescript and run it in its own scope. (Inside the extension sandbox)<br/>
+            All imports are compiled by the vsc-script extension (using the vsc-base method <a href='http://vsc-bsc.org/#tsLoadModule'>tsLoadModule</a>)<br/>
+            In the current version it only accepts ts modules imports and it no no checks for circular important (which create infinity loops),<br/>
+            so its only recommended to import your own local ts modules.
          </p>
+         <h3>vsc-script name your scripts</h3>
          <p>
-            The internal code of vsc-script extension compiles your script using typescript and run it in its own scope.<br/>
-            This means that the only import you can use in a vsc-script is vsc-base.
+            A script will have the name of the files, or you can name it by adding //vsc-script-name:{'<NAME>'}
          </p>
+         <ExampleName />
          <h3>vsc-script vs vscode extension</h3>
          <p>
             Script's are easy to customize, copy and share and provide an easy way of doing custom automation.<br/>
-            Extension are for generel common automation/easening/linting ect. for vscode that is specified to a point where it can be used for any project.
+            Extension are for general common automation/easening/linting ect. for vscode that is specified to a point where it can be used for any project.
          </p>
          <h3>vsc-script - onSave (Preview)</h3>
          <p>
@@ -90,10 +95,10 @@ const Home = () => {
             which is executed when an open document is saved. (Use with caution!)<br/>
             <i>(The vsc-script extension most be installed!)</i><br/>
             All onsave script will be executed iIn alphabetical order.<br/>
-            (Dont have to many onsave script - it will slow down your vscode on save!)
+            (Don't have to many onsave script - it will slow down your vscode on save!)
          </p>
          <p>
-            The vsc-script must contains a single export that is an async function named runOnSave. <br/>
+            The vsc-script must contains an export that is an async function named runOnSave. <br/>
             The parameters for the run is a string, that is the file-path for the open document being saved.<br/>
             The script run at 'onWillSaveTextDocument' time, which means that any changes done to the document by the script will be saved.
          </p>
@@ -125,7 +130,7 @@ const Home = () => {
          </p>
          <p>
             It is encouraged to use any code you find to make your project easier in any way that fits you. (commercial, community or private).<br/>
-            The GPL-3 license is only there to project the source from (bad) people that will try to make copyright protection on this open free and shared community code. 
+            The GPL-3 license is only there to project the source-code for copyright theft.
          </p>
          <p>
             <i>At some point in the future sharing vsc-script will most likely be enabled directly here on vsc-base.org)</i>
@@ -267,7 +272,7 @@ export async function runOnSave() {
 `} />
 )
 const Example1 = () => (
-<HighlightedCode code={`// replaceTest.vsc-script.ts
+<HighlightedCode code={`//vsc-script-name: Automation  -  Replace 'test' with 'Test'
 import * as vsc from 'vsc-base'
 
 export async function run(path: string) {
@@ -279,5 +284,12 @@ export async function run(path: string) {
    await vsc.saveFileContent(path, source)
    vsc.showMessage('Update file!')
 }
+`} />
+)
+const ExampleName = () => (
+<HighlightedCode code={`//vsc-script-name: My cool script
+import * as vsc from 'vsc-base'
+
+export async function run(path: string) {
 `} />
 )

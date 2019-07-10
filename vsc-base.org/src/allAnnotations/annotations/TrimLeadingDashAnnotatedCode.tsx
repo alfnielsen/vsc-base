@@ -17,7 +17,7 @@ const TrimLeadingDashAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Remove '/' from start of path
+Remove '/' from start of path
                </p>
             </>
          }

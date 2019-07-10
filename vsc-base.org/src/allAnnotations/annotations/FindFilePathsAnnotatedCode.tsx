@@ -13,7 +13,7 @@ const FindFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get a list off all filePaths in project the matches a glob pattern
+Get a list off all filePaths in project the matches a glob pattern
                </p>
             </>
          }
@@ -26,7 +26,7 @@ for (const filePath of allTestFiles)\{
    // do something with the files...
 }`}
          code={`/**
- * @param include glob, exclude glob, maxResults
+ * @param include glob,exclude glob,maxResults
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
@@ -44,8 +44,7 @@ export const findFilePaths = async (
    )
    const files = uriFiles.map((uri: vscode.Uri) => vsc.pathAsUnix(uri.fsPath))
    return files
-}
-`}
+}`}
       />
    )
 }

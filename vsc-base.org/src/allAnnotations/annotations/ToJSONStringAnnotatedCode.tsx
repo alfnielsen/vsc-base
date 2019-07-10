@@ -13,10 +13,10 @@ const ToJSONStringAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Stringify an object. 
+Stringify an object. 
                </p>
                <p>
-                Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
+               Uses JSON.stringify and the circular ref safe replacer (see vsc.getJSONCircularReplacer)
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const ToJSONStringAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const objString = vsc.toJSONString(someObject);`}
          codeEx={``}
          code={`/**
- * @param obj, replacer, space
+ * @param obj,replacer,space
  * @vscType Raw
  * @debugTool Primary a debugging method.
  * @returns string
@@ -35,9 +35,7 @@ export const toJSONString = (obj: any, replacer = vsc.getJSONCircularReplacer(),
       return JSON.stringify(maxDepthObj, replacer, space)
    }
    return JSON.stringify(obj, replacer, space)
-}
-
-`}
+}`}
       />
    )
 }

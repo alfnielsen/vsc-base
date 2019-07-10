@@ -13,10 +13,10 @@ const GetJsonContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get file source as json 
+Get file source as json 
                </p>
                <p>
-                (return null on invalid json)
+               (return null on invalid json)
                </p>
             </>
          }
@@ -32,8 +32,7 @@ const GetJsonContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 export const getJsonContent = async <TStructure = unknown>(
    path: string,
    throws = false
-): Promise<TStructure> => await fs.readJson(path, \{ throws })
-`}
+): Promise<TStructure> => await fs.readJson(path, \{ throws })`}
       />
    )
 }

@@ -13,7 +13,7 @@ const GetDocumentPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get current open file path or undefined if nothing is open.
+Get current open file path or undefined if nothing is open.
                </p>
             </>
          }
@@ -32,8 +32,7 @@ export const getDocumentPath = (
       document = vsc.getActiveDocument()
    }
    return (document && document.fileName) || undefined
-}
-`}
+}`}
       />
    )
 }

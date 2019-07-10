@@ -13,13 +13,13 @@ const TsIsFunctionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if a node is a function 
+Test if a node is a function 
                </p>
                <p>
-                (node: ts.isArrowFunction, ts.isFunctionExpression or ts.isFunctionDeclaration) 
+               (node: ts.isArrowFunction, ts.isFunctionExpression or ts.isFunctionDeclaration) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchFunction'>tsMatchFunction</a>
+               Uses <a href='http://vsc-base.org/#tsMatchFunction'>tsMatchFunction</a>
                </p>
             </>
          }
@@ -40,9 +40,7 @@ export const tsIsFunction: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!tsMatchFunction(node, options)
-}
-
-`}
+}`}
       />
    )
 }

@@ -13,10 +13,10 @@ const TsIsIdentifierAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a variable declaration (node: ts.VariableDeclaration) 
+Test is a node is a variable declaration (node: ts.VariableDeclaration) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchIdentifier'>tsMatchIdentifier</a>
+               Uses <a href='http://vsc-base.org/#tsMatchIdentifier'>tsMatchIdentifier</a>
                </p>
             </>
          }
@@ -35,8 +35,7 @@ export const tsIsIdentifier: (node: ts.Node | undefined, options?: \{
    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchIdentifier(node, options)
-}
-`}
+}`}
       />
    )
 }

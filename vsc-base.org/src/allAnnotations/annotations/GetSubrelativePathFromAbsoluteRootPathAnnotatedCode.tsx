@@ -17,7 +17,7 @@ const GetSubRelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {
             <>
                <p>
                   
- Transform an absolute path from root, to a sub-relative path.
+Transform an absolute path from root, to a sub-relative path.
                </p>
             </>
          }
@@ -39,7 +39,7 @@ const GetSubRelativePathFromAbsoluteRootPathAnnotatedCode = ({ open = false }: {
          codeOneLineEx={`const subRelativePath = vsc.getSubRelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)`}
          codeEx={``}
          code={`/**
- * @param path, rootPath, absolutePathFromRoot
+ * @param path,rootPath,absolutePathFromRoot
  * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
  * @returns string
@@ -60,8 +60,7 @@ export const getSubRelativePathFromAbsoluteRootPath = (
       absolutePathFromSourceDir = vsc.addLeadingLocalDash(absolutePathFromSourceDir)
    }
    return absolutePathFromSourceDir
-}
-`}
+}`}
       />
    )
 }

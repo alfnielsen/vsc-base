@@ -13,16 +13,16 @@ const TsCreateRemoveNodesTransformerAnnotatedCode = ({ open = false }: {open?: b
             <>
                <p>
                   
- Create a Ts Transformer for removing nodes 
+Create a Ts Transformer for removing nodes 
                </p>
                <p>
-                Normally used in vsc.tsTransform 
+               Normally used in vsc.tsTransform 
                </p>
                <p>
-                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
+               You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
-                to generate the new ts nodes or node type.
+               to generate the new ts nodes or node type.
                </p>
             </>
          }
@@ -57,8 +57,7 @@ export const tsCreateRemoveNodesTransformer = <T extends ts.Node = ts.SourceFile
       }
       return (node) => ts.visitNode(node, visit);
    };
-}
-`}
+}`}
       />
    )
 }

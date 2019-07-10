@@ -13,10 +13,10 @@ const GetJSONCircularReplacerAnnotatedCode = ({ open = false }: {open?: boolean}
             <>
                <p>
                   
- Provide a circular safe JSON.stringify replacer. 
+Provide a circular safe JSON.stringify replacer. 
                </p>
                <p>
-                See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
+               See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#Examples
                </p>
             </>
          }
@@ -39,8 +39,7 @@ export const getJSONCircularReplacer = (): (_key: string, value: unknown) => unk
       }
       return value;
    }
-}
-`}
+}`}
       />
    )
 }

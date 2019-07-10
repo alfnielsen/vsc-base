@@ -13,23 +13,23 @@ const TsMatchImportAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an import declaration (node: ts.ImportDeclaration) 
+Test is a node is an import declaration (node: ts.ImportDeclaration) 
                </p>
                <p>
-                and optional test for its default ímport name ( import x from '' )
- hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').
+               and optional test for its default ímport name ( import x from '' )
+hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').
                </p>
                <p>
-                or nameSpace import name: ( import * as namespace from '' ) 
+               or nameSpace import name: ( import * as namespace from '' ) 
                </p>
                <p>
-                or path for matching the source path. 
+               or path for matching the source path. 
                </p>
                <p>
-                or direct import which has no import names ( import form '' ) 
+               or direct import which has no import names ( import form '' ) 
                </p>
                <p>
-                Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
+               Note: An alias in a specifier is its name: ( import &#123; some as x &#125; from '' ).
                </p>
             </>
          }
@@ -64,7 +64,7 @@ export const tsMatchImport: (node: ts.Node | undefined, options?: \{
 
    if (path !== undefined) \{
       if (!node.moduleSpecifier) \{ return }
-      const text = node.moduleSpecifier.getText()
+      const text = node.moduleSpecifier.getText().replace(/^['"']|['"']\$/g, '');
       if (path instanceof RegExp && !path.test(text)) \{ return }
       if (typeof path === 'string' && path !== text) \{ return }
    }
@@ -114,8 +114,7 @@ export const tsMatchImport: (node: ts.Node | undefined, options?: \{
    }
 
    return node
-}
-`}
+}`}
       />
    )
 }

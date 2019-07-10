@@ -1,3 +1,4 @@
+//vsc-script-name: findRel.vsc-script
 import vscNext from '../src/vsc-base/vsc-next'
 import * as vscode from 'vscode'
 

@@ -13,7 +13,7 @@ const GetActiveEditorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get vscode.window.activeTextEditor
+Get vscode.window.activeTextEditor
                </p>
             </>
          }
@@ -27,9 +27,7 @@ const GetActiveEditorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const getActiveEditor = (): vscode.TextEditor | undefined => \{
    return vscode.window.activeTextEditor
-}
-
-`}
+}`}
       />
    )
 }

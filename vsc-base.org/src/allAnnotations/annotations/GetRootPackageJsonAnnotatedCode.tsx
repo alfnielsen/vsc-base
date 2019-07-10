@@ -13,7 +13,7 @@ const GetRootPackageJsonAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
- Get json from package.json in the project root.
+Get json from package.json in the project root.
                </p>
             </>
          }
@@ -31,9 +31,7 @@ export const getRootPackageJson = async <T = any>(
    const packageJsonPath = vsc.joinPaths(rootPath, 'package.json')
    const packageJson = await vsc.getJsonContent<T>(packageJsonPath)
    return packageJson
-}
-
-`}
+}`}
       />
    )
 }

@@ -13,7 +13,7 @@ const GetLineStreamReaderAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Create a LineReader (generator method) for a ReadStream
+Create a LineReader (generator method) for a ReadStream
                </p>
             </>
          }
@@ -45,8 +45,7 @@ export const getLineStreamReader = (readStream: fs.ReadStream) =>
       if (read.length > 0) \{
          yield read
       }
-   }
-`}
+   }`}
       />
    )
 }

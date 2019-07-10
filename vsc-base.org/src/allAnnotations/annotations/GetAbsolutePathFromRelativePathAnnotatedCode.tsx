@@ -17,7 +17,7 @@ const GetAbsolutePathFromRelativePathAnnotatedCode = ({ open = false }: {open?: 
             <>
                <p>
                   
- Transform a relative path to an absolute path.
+Transform a relative path to an absolute path.
                </p>
             </>
          }
@@ -39,7 +39,7 @@ const GetAbsolutePathFromRelativePathAnnotatedCode = ({ open = false }: {open?: 
          codeOneLineEx={`const absolutePath = vsc.getAbsolutePathFromRelativePath(path, pathRelativeToPath, rootPath)`}
          codeEx={``}
          code={`/**
- * @param path File from where the relative path begins, pathRelativeToPath The relative path, rootPath The root path, realPathTest Test if the real  The root path
+ * @param path File from where the relative path begins,pathRelativeToPath The relative path,rootPath The root path,realPathTest Test if the real  The root path
  * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
  * @returns string
@@ -59,8 +59,7 @@ export const getAbsolutePathFromRelativePath = (
    let absolutePathToRelative = vsc.subtractPath(cleanRelativePath, rootPath)
    absolutePathToRelative = vsc.trimLeadingDash(absolutePathToRelative)
    return absolutePathToRelative
-}
-`}
+}`}
       />
    )
 }

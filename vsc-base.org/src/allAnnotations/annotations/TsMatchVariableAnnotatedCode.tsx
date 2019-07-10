@@ -13,25 +13,25 @@ const TsMatchVariableAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a variable declaration (node: ts.VariableDeclaration) 
+Test is a node is a variable declaration (node: ts.VariableDeclaration) 
                </p>
                <p>
-                Optional test for its name with a string or regexp, 
+               Optional test for its name with a string or regexp, 
                </p>
                <p>
-                Optional test if its a const, let or var. 
+               Optional test if its a const, let or var. 
                </p>
                <p>
-                Optional test for tsHasAncestor and hasGrandChild 
+               Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
                </p>
                <p>
-                Optional value can be tested against a string, a number (with a string, number or regexp). 
+               Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a>
+               See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a>
                </p>
             </>
          }
@@ -71,9 +71,7 @@ export const tsMatchVariable: (node: ts.Node | undefined, options?: \{
    if (isLet !== undefined && (!node.parent || isLet !== (node.parent.flags === 1))) \{ return }
    if (isVar !== undefined && (!node.parent || isVar !== (node.parent.flags === 0))) \{ return }
    return node
-}
-
-`}
+}`}
       />
    )
 }

@@ -13,13 +13,13 @@ const TsHasChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if direct parsedChild that matches conditions in a callback 
+Test if direct parsedChild that matches conditions in a callback 
                </p>
                <p>
-                Using <a href='http://vsc-base.org/#tsFind'>tsFind</a> 
+               Using <a href='http://vsc-base.org/#tsFind'>tsFind</a> 
                </p>
                <p>
-                See also <a href='http://vsc-base.org/#tsHasGrandChild'>tsHasGrandChild</a>
+               See also <a href='http://vsc-base.org/#tsHasGrandChild'>tsHasGrandChild</a>
                </p>
             </>
          }
@@ -36,8 +36,7 @@ const hasChild = vsc.tsHasChild(node, (childNode) => vsc.tsIsVariable(childNode,
  */
 export const tsHasChild = (node: ts.Node, callback: (child: ts.Node) => boolean): boolean => \{
    return !!vsc.tsFindChild(node, callback);
-}
-`}
+}`}
       />
    )
 }

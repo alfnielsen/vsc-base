@@ -13,16 +13,16 @@ const TsMatchTypeRefAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an type reference (node: ts.TypeReferenceNode) 
+Test is a node is an type reference (node: ts.TypeReferenceNode) 
                </p>
                <p>
-                and optional test for its name with a string or regexp. 
+               and optional test for its name with a string or regexp. 
                </p>
                <p>
-                Optional test for hasAncestor and hasGrandchild. 
+               Optional test for hasAncestor and hasGrandchild. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }
@@ -54,8 +54,7 @@ export const tsMatchTypeRef: (node: ts.Node | undefined, options?: \{
       return
    }
    return node
-}
-`}
+}`}
       />
    )
 }

@@ -13,7 +13,7 @@ const GetFullDocumentRangeAnnotatedCode = ({ open = false }: {open?: boolean}) =
             <>
                <p>
                   
- Get a vscode.Range for the entire document
+Get a vscode.Range for the entire document
                </p>
             </>
          }
@@ -33,8 +33,7 @@ export const getFullDocumentRange = (
    const endPosition = new vscode.Position(document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)
    return fullRange
-}
-`}
+}`}
       />
    )
 }

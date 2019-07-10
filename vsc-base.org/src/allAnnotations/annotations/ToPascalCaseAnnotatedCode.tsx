@@ -17,13 +17,13 @@ const ToPascalCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Format a string to camel-case. Commonly used to define js/ts variable names. 
+Format a string to camel-case. Commonly used to define js/ts variable names. 
                </p>
                <p>
-                Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' 
+               Ex: 'Some-Name' => 'SomeName', 'some_name' => 'SomeName', 'some.name' => 'SomeName' 
                </p>
                <p>
-                All non word separators will be removed and the word character after will be transforms to upper case
+               All non word separators will be removed and the word character after will be transforms to upper case
                </p>
             </>
          }
@@ -50,9 +50,7 @@ const ToPascalCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const toPascalCase = (str: string): string =>
    str[0].toUpperCase() +
-   str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase())
-
-`}
+   str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase())`}
       />
    )
 }

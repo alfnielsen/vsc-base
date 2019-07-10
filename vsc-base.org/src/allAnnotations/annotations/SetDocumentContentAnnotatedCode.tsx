@@ -13,10 +13,10 @@ const SetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
- Set current open file's content. 
+Set current open file's content. 
                </p>
                <p>
-                Return true if success, and false if there was no active TextEditor or open Document.
+               Return true if success, and false if there was no active TextEditor or open Document.
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const SetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
          codeOneLineEx={`const success = vsc.setDocumentContent(content)`}
          codeEx={``}
          code={`/**
- * @param content, editor
+ * @param content,editor
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
@@ -42,8 +42,7 @@ export const setDocumentContent = (
    }
    const fullRange = vsc.getFullDocumentRange(editor.document)
    return insertAtRange(content, fullRange, editor);
-}
-`}
+}`}
       />
    )
 }

@@ -13,7 +13,7 @@ const FindFilePathsFromBaseAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Get a list off all filePaths from a basePath, in project the matches a glob pattern
+Get a list off all filePaths from a basePath, in project the matches a glob pattern
                </p>
             </>
          }
@@ -26,7 +26,7 @@ for (const filePath of storyFilesInModule1)\{
    // Do something with filePath..
 }`}
          code={`/**
- * @param include glob, exclude glob, maxResults
+ * @param include glob,exclude glob,maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, findFilePaths
  * @vscType Vscode
@@ -42,8 +42,7 @@ export const findFilePathsFromBase = async (
    const include = new vscode.RelativePattern(baseDir, includePattern)
    const filePaths = await vsc.findFilePaths(include, exclude, maxResults)
    return filePaths
-}
-`}
+}`}
       />
    )
 }

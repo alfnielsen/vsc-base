@@ -13,7 +13,7 @@ const TsFindNodePositionFromContentAnnotatedCode = ({ open = false }: {open?: bo
             <>
                <p>
                   
- Create a Ts Visitor Transformer for finding a node and it position.
+Create a Ts Visitor Transformer for finding a node and it position.
                </p>
             </>
          }
@@ -80,8 +80,7 @@ export const tsFindNodePositionFromContent = <TNode extends ts.Node = ts.Node>(s
    };
    vsc.tsVisitWithTransformers(source, [visitor]);
    return [foundNode, position];
-}
-`}
+}`}
       />
    )
 }

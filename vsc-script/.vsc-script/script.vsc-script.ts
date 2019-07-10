@@ -1,3 +1,4 @@
+//vsc-script-name: script.vsc-script
 import vsc from 'vsc-base'
 
 export async function run(path: string) {

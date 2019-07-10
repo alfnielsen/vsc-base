@@ -13,7 +13,7 @@ const GetActiveDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get open vscode.TextDocument
+Get open vscode.TextDocument
                </p>
             </>
          }
@@ -33,10 +33,7 @@ export const getActiveDocument = (
    }
    const document = editor && editor.document
    return document
-}
-
-
-`}
+}`}
       />
    )
 }

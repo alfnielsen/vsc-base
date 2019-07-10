@@ -17,7 +17,7 @@ const AddLeadingLocalDashAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Add './' to start of path
+Add './' to start of path
                </p>
             </>
          }
@@ -43,9 +43,7 @@ const AddLeadingLocalDashAnnotatedCode = ({ open = false }: {open?: boolean}) =>
  */
 export const addLeadingLocalDash = (path: string): string => \{
    return './' + path
-}
-
-`}
+}`}
       />
    )
 }

@@ -13,22 +13,22 @@ const TsMatchObjectPropertyAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Test is a node is a object property (node: ts.PropertyAssignment) 
+Test is a node is a object property (node: ts.PropertyAssignment) 
                </p>
                <p>
-                Optional test for its name with a string or regexp. 
+               Optional test for its name with a string or regexp. 
                </p>
                <p>
-                Optional test for tsHasAncestor and hasGrandChild 
+               Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
                </p>
                <p>
-                Optional value can be tested against a string, a number (with a string, number or regexp). 
+               Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a>
+               See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a>
                </p>
             </>
          }
@@ -75,8 +75,7 @@ export const tsMatchObjectProperty: (node: ts.Node | undefined, options?: \{
       }
    }
    return node
-}
-`}
+}`}
       />
    )
 }

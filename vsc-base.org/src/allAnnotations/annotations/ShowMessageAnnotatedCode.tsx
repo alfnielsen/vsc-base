@@ -13,7 +13,7 @@ const ShowMessageAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Show message to user
+Show message to user
                </p>
             </>
          }
@@ -28,8 +28,7 @@ const ShowMessageAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const showMessage = async (message: string): Promise<void> => \{
    await vscode.window.showInformationMessage(message)
-}
-`}
+}`}
       />
    )
 }

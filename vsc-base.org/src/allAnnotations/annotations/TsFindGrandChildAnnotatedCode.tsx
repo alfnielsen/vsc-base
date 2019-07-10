@@ -13,7 +13,7 @@ const TsFindGrandChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Find a child or grandChild (child's child) that matches conditions in a callback\
+Find a child or grandChild (child's child) that matches conditions in a callback\
                </p>
             </>
          }
@@ -48,8 +48,7 @@ export const tsFindGrandChild = (node: ts.Node, callback: (child: ts.Node, depth
    }
    mathChild(node, 0)
    return found
-}
-`}
+}`}
       />
    )
 }

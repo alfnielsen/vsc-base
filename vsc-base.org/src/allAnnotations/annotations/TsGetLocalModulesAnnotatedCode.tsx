@@ -13,13 +13,13 @@ const TsGetLocalModulesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Replace ts transpiled code's require by loading each import with another tsLoadModule execution. 
+Replace ts transpiled code's require by loading each import with another tsLoadModule execution. 
                </p>
                <p>
-                This enables tsLoadModule to load files with imports. 
+               This enables tsLoadModule to load files with imports. 
                </p>
                <p>
-                IMPORTANT: It does not check for circular imports, which will create infinity loops!
+               IMPORTANT: It does not check for circular imports, which will create infinity loops!
                </p>
             </>
          }
@@ -52,6 +52,8 @@ export const tsGetLocalModules = async (
    const internalModuleExports: \{ [key: string]: any } = \{}
    for (const m of internalModules) \{
       let path = vsc.joinPaths(baseDir, m.path);
+      path = vsc.trimLeadingDash(path);
+      path = '/' + path
       if (!path.match(/\\.tsx?/)) \{
          path += ".ts"
       }
@@ -59,12 +61,7 @@ export const tsGetLocalModules = async (
       internalModuleExports[m.name] = m.exported;
    }
    return [sourceJs, internalModuleExports]
-}
-
-
-
-
-`}
+}`}
       />
    )
 }

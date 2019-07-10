@@ -13,20 +13,20 @@ const ExecFromPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Execute a bash command. 
+Execute a bash command. 
                </p>
                <p>
-                (Execute a command using child-process-promise) 
+               (Execute a command using child-process-promise) 
                </p>
                <p>
-                <b>NOTE:</b> If you use this method in an extension the end user need to be able to actually 
- execute the command! 
+               <b>NOTE:</b> If you use this method in an extension the end user need to be able to actually 
+execute the command! 
                </p>
                <p>
-                This method is mostly design for vsc-script's, where you have control of the environment. 
+               This method is mostly design for vsc-script's, where you have control of the environment. 
                </p>
                <p>
-                See also <a href='http://vsc-base.org/#writeToTerminal'>vsc.writeToTerminal</a>
+               See also <a href='http://vsc-base.org/#writeToTerminal'>vsc.writeToTerminal</a>
                </p>
             </>
          }
@@ -36,15 +36,14 @@ const ExecFromPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  const result = await vsc.execFromPath('yarn start', rootPath)
  const stringResult = result.stdout.toString()`}
          code={`/**
- * @param path, content
+ * @param path,content
  * @vscType System
  * @dependencyExternal fs
  * @returns Promise<cp.PromiseResult<string>>
  */
 export const execFromPath = async (command: string, path: string): Promise<cp.PromiseResult<string>> => \{
    return await cp.exec(\`cd \$\{path} && \$\{command}\`);
-}
-`}
+}`}
       />
    )
 }

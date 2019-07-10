@@ -13,13 +13,13 @@ const CreateVscodeRangeAndPositionAnnotatedCode = ({ open = false }: {open?: boo
             <>
                <p>
                   
- Takes a start and end and return vscode positions and range objects. 
+Takes a start and end and return vscode positions and range objects. 
                </p>
                <p>
-                Also returns the content and fullContent properties and orgStart and Org End. 
+               Also returns the content and fullContent properties and orgStart and Org End. 
                </p>
                <p>
-                (The normal ts ast compiler has spaces and comment included in the node pos and node end)
+               (The normal ts ast compiler has spaces and comment included in the node pos and node end)
                </p>
             </>
          }
@@ -80,10 +80,7 @@ export type VscodePosition = \{
    fullContent: string,
    orgStart: number,
    orgEnd: number
-}
-
-
-`}
+}`}
       />
    )
 }

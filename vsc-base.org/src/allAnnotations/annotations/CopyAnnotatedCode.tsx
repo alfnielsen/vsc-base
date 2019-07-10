@@ -13,10 +13,10 @@ const CopyAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Copy file/folder 
+Copy file/folder 
                </p>
                <p>
-                See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md'>fs-extra docs for copy</a>
+               See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md'>fs-extra docs for copy</a>
                </p>
             </>
          }
@@ -34,8 +34,7 @@ export const copy = async (
    options?: fs.CopyOptions
 ): Promise<void> => \{
    await fs.copy(path, newPath, options)
-}
-`}
+}`}
       />
    )
 }

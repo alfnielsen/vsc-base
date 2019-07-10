@@ -32,6 +32,14 @@ suite('Vsc base Raw Tests', function () {
          assert.equal(r1, './file2.js')
       })
    })
+   suite('addLeadingLocalDash', () => {
+      test(' 1', () => {
+         const r1 = vsc.addLeadingLocalDash(
+            'file1.js',
+         )
+         assert.equal(r1, './file1.js')
+      })
+   })
    suite('relativePathToAbsolutePath', () => {
       test(' 1', () => {
          const r1 = vsc.getAbsolutePathFromRelativePath(

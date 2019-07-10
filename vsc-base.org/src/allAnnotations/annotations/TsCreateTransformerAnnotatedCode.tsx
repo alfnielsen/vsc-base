@@ -13,16 +13,16 @@ const TsCreateTransformerAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Create a Ts Transformer factory 
+Create a Ts Transformer factory 
                </p>
                <p>
-                Normally used in vsc.tsTransform 
+               Normally used in vsc.tsTransform 
                </p>
                <p>
-                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
+               You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
-                to generate the new ts nodes or node type.
+               to generate the new ts nodes or node type.
                </p>
             </>
          }
@@ -53,7 +53,7 @@ const transformer = vsc.tsCreateTransformer((node) => \{
 //Run transformer:
 const updatedCode = vsc.tsTransform(code, [transformer]);`}
          code={`/**
- * @param callback, program
+ * @param callback,program
  * @vscType ts
  * @experimental This method can easily change, because ts api is in experimental state.
  * @returns ts.TransformerFactory<T>
@@ -73,9 +73,7 @@ export const tsCreateTransformer = <T extends ts.Node = ts.SourceFile>(callback:
       }
       return (node) => ts.visitNode(node, visit);
    };
-}
-
-`}
+}`}
       />
    )
 }

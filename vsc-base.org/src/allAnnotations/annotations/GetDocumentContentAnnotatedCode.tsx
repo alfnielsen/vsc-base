@@ -13,7 +13,7 @@ const GetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
- Get current open file's content.
+Get current open file's content.
                </p>
             </>
          }
@@ -32,8 +32,7 @@ export const getDocumentContent = (
       document = vsc.getActiveDocument()
    }
    return (document && document.getText()) || undefined
-}
-`}
+}`}
       />
    )
 }

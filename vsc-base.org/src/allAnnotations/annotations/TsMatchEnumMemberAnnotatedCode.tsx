@@ -13,16 +13,16 @@ const TsMatchEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a enum member (node: ts.EnumMember) 
+Test is a node is a enum member (node: ts.EnumMember) 
                </p>
                <p>
-                and optional test for its name, the enum' name (its parent) 
+               and optional test for its name, the enum' name (its parent) 
                </p>
                <p>
-                it value, hasAncestor and hasGrandchild 
+               it value, hasAncestor and hasGrandchild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }
@@ -60,8 +60,7 @@ export const tsMatchEnumMember: (node: ts.Node | undefined, options?: \{
       if (typeof enumName === 'string' && enumName !== parentEnumName.getText()) \{ return }
    }
    return node
-}
-`}
+}`}
       />
    )
 }

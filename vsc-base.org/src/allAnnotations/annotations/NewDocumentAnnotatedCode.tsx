@@ -13,7 +13,7 @@ const NewDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Open a new document (untitled and not saved).
+Open a new document (untitled and not saved).
                </p>
             </>
          }
@@ -32,9 +32,7 @@ export const newDocument = async (
    const document = await vscode.workspace.openTextDocument(\{ language, content })
    await vscode.window.showTextDocument(document)
    return document
-}
-
-`}
+}`}
       />
    )
 }

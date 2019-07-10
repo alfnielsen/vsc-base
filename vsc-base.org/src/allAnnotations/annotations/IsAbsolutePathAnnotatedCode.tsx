@@ -17,10 +17,10 @@ const IsAbsolutePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Does path start with character [a-zA-Z@] 
+Does path start with character [a-zA-Z@] 
                </p>
                <p>
-                (not '/' or './' or '../')
+               (not '/' or './' or '../')
                </p>
             </>
          }
@@ -40,7 +40,7 @@ const IsAbsolutePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const isAbsolutePath = vsc.isAbsolutePath(path)`}
          codeEx={``}
          code={`/**
- * @param path, startWithRegExp? If your project defines another definition of absolute path then overwrite this.
+ * @param path,startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @vscType Raw
  * @returns boolean
  */
@@ -49,8 +49,7 @@ export const isAbsolutePath = (
    startWithRegExp = /^[a-zA-Z@]/
 ): boolean => \{
    return startWithRegExp.test(path)
-}
-`}
+}`}
       />
    )
 }

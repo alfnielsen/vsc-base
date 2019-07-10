@@ -13,10 +13,10 @@ const RenameAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Rename a file or folder 
+Rename a file or folder 
                </p>
                <p>
-                See <a href='https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback'>fs docs for rename</a>
+               See <a href='https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback'>fs docs for rename</a>
                </p>
             </>
          }
@@ -33,9 +33,7 @@ export const rename = async (
    newPath: string,
 ): Promise<void> => \{
    await fs.rename(path, newPath)
-}
-
-`}
+}`}
       />
    )
 }

@@ -17,7 +17,7 @@ const TrimDashesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Remove '/' from start and end of path
+Remove '/' from start and end of path
                </p>
             </>
          }
@@ -43,8 +43,7 @@ const TrimDashesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const trimDashes = (path: string): string => \{
    return path.replace(/(^\\/|\\/\$)/g, '')
-}
-`}
+}`}
       />
    )
 }

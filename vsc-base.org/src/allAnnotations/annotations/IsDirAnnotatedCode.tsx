@@ -13,7 +13,7 @@ const IsDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a path is directory
+Test is a path is directory
                </p>
             </>
          }
@@ -28,8 +28,7 @@ const IsDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const isDir = (path: string): boolean => \{
    return fs.statSync(path).isDirectory()
-}
-`}
+}`}
       />
    )
 }

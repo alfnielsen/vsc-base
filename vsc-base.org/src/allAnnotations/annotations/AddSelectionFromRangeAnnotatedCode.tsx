@@ -13,10 +13,10 @@ const AddSelectionFromRangeAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Add a Selection for an TextEditor (Current document) 
+Add a Selection for an TextEditor (Current document) 
                </p>
                <p>
-                returns true on success
+               returns true on success
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const AddSelectionFromRangeAnnotatedCode = ({ open = false }: {open?: boolean}) 
          codeOneLineEx={`const success = vsc.addSelectionFromRange(range)`}
          codeEx={``}
          code={`/**
- * @param range, editor
+ * @param range,editor
  * @vscType Vscode
  * @returns boolean
  */
@@ -40,9 +40,7 @@ export const addSelectionFromRange = (
    }
    editor.selections = [new vscode.Selection(range.start, range.end), ...editor.selections]
    return true
-}
-
-`}
+}`}
       />
    )
 }

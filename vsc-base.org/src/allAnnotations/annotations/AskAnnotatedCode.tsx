@@ -13,7 +13,7 @@ const AskAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Prompt user for a question
+Prompt user for a question
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const AskAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const answer = await vsc.ask(question, defaultValue)`}
          codeEx={`const answer = await ask('Where to move file?', currentFilePath)`}
          code={`/**
- * @param question string, defaultValue string
+ * @param question string,defaultValue string
  * @dependencyExternal vscode
  * @vscType Vscode
  * @returns Promise<string | undefined>
@@ -33,8 +33,7 @@ export const ask = async (
    await vscode.window.showInputBox(\{
       prompt: question,
       value: defaultValue
-   })
-`}
+   })`}
       />
    )
 }

@@ -13,7 +13,7 @@ const TsCreateSourceFileAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
- Create a ts.SourceFile
+Create a ts.SourceFile
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const TsCreateSourceFileAnnotatedCode = ({ open = false }: {open?: boolean}) => 
          codeOneLineEx={`const sourceFile = vsc.tsCreateSourceFile(code)`}
          codeEx={``}
          code={`/**
- * @param content, sourceFileName
+ * @param content,sourceFileName
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
  */
@@ -36,8 +36,7 @@ export const tsCreateSourceFile = (
 		/*setParentNodes */ true
    );
    return sourceFile;
-}
-`}
+}`}
       />
    )
 }

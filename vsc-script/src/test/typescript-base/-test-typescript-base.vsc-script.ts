@@ -1,3 +1,4 @@
+//vsc-script-name: -test-typescript-base.vsc-script
 import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
 

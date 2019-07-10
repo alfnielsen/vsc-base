@@ -17,7 +17,7 @@ const GetRelativePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Generate relative path between two paths.
+Generate relative path between two paths.
                </p>
             </>
          }
@@ -38,7 +38,7 @@ const GetRelativePathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const relativePath = vsc.getRelativePath(fromPath, toPath)`}
          codeEx={``}
          code={`/**
- * @param fromPath, toPath
+ * @param fromPath,toPath
  * @vscType Raw
  * @dependencyInternal sharedPath, splitPath, subtractPath
  * @returns string
@@ -55,9 +55,7 @@ export const getRelativePath = (fromPath: string, toPath: string): string => \{
       .join('')
    const relativePath = backPath + toPathDownToShared
    return relativePath
-}
-
-`}
+}`}
       />
    )
 }

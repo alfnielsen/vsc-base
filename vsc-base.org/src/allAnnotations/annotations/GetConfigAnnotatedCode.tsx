@@ -13,7 +13,7 @@ const GetConfigAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get vscode project config
+Get vscode project config
                </p>
             </>
          }
@@ -33,8 +33,7 @@ export const getConfig = <T>(
    return vscode.workspace
       .getConfiguration(projectName)
       .get<T>(property, defaultValue)
-}
-`}
+}`}
       />
    )
 }

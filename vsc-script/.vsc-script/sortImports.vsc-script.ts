@@ -1,3 +1,4 @@
+//vsc-script-name: sortImports.vsc-script
 import * as ts from 'typescript'
 import * as vsc from 'vsc-base'
 

@@ -13,12 +13,12 @@ const TsTransformAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Transform source code using custom transformers 
+Transform source code using custom transformers 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsCreateTransformer'>tsCreateTransformer</a> 
- and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a> 
- for creating transformer
+               See <a href='http://vsc-base.org/#tsCreateTransformer'>tsCreateTransformer</a> 
+and <a href='http://vsc-base.org/#tsCreateRemoveNodesTransformer'>tsCreateRemoveNodesTransformer</a> 
+for creating transformer
                </p>
             </>
          }
@@ -26,7 +26,7 @@ const TsTransformAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const updatedCode = vsc.tsTransform(code, [transformer1, transformer2])`}
          codeEx={``}
          code={`/**
- * @param source, transformers, compilerOptions, printer
+ * @param source,transformers,compilerOptions,printer
  * @internal internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
@@ -46,9 +46,7 @@ export const tsTransform = (
    const print = printer.printFile(transformedSourceFile)
    result.dispose()
    return print
-}
-
-`}
+}`}
       />
    )
 }

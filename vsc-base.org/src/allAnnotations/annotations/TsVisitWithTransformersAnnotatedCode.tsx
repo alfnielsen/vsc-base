@@ -13,13 +13,13 @@ const TsVisitWithTransformersAnnotatedCode = ({ open = false }: {open?: boolean}
             <>
                <p>
                   
- This is like a <a href='http://vsc-base.org/#tsTransform'>tsTransform</a>, but it doesn't transform or print content. 
+This is like a <a href='http://vsc-base.org/#tsTransform'>tsTransform</a>, but it doesn't transform or print content. 
                </p>
                <p>
-                Used for walking a ts-ast tree. 
+               Used for walking a ts-ast tree. 
                </p>
                <p>
-                Used by <a href='http://vsc-base.org/#tsFindNodePositionFromContent'>tsFindNodePositionFromContent</a>
+               Used by <a href='http://vsc-base.org/#tsFindNodePositionFromContent'>tsFindNodePositionFromContent</a>
                </p>
             </>
          }
@@ -27,7 +27,7 @@ const TsVisitWithTransformersAnnotatedCode = ({ open = false }: {open?: boolean}
          codeOneLineEx={`vsc.tsVisitWithTransformers(code, [visitor, transformer])`}
          codeEx={``}
          code={`/**
- * @param source, transformers, compilerOptions, printer
+ * @param source,transformers,compilerOptions,printer
  * @internal internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
@@ -39,8 +39,7 @@ export const tsVisitWithTransformers = (
 ): void => \{
    const sourceFile = vsc.tsCreateSourceFile(source)
    vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
-}
-`}
+}`}
       />
    )
 }

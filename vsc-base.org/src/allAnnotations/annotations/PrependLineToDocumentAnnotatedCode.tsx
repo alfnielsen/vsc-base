@@ -13,7 +13,7 @@ const PrependLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Prepend new line content in the start of the (open) document
+Prepend new line content in the start of the (open) document
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const PrependLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) 
          codeOneLineEx={`const success = vsc.prependLineToDocument(content)`}
          codeEx={``}
          code={`/**
- * @param content, document, editor
+ * @param content,document,editor
  * @vscType Vscode
  * @returns boolean
  */
@@ -30,8 +30,7 @@ export const prependLineToDocument = (
    editor?: vscode.TextEditor
 ): boolean => \{
    return vsc.prependToDocument(content + '\\n', editor)
-}
-`}
+}`}
       />
    )
 }

@@ -13,10 +13,10 @@ const AwaitResultAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Ensure that a method result that optional can be a promise is awaited. 
+Ensure that a method result that optional can be a promise is awaited. 
                </p>
                <p>
-                (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
+               (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
                </p>
             </>
          }
@@ -36,9 +36,7 @@ export const awaitResult = async <T = any>(result: any): Promise<T> => \{
    } else \{
       return Promise.resolve(result)
    }
-}
-
-`}
+}`}
       />
    )
 }

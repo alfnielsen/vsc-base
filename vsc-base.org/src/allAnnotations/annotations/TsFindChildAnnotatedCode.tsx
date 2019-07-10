@@ -13,13 +13,13 @@ const TsFindChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Find is a direct parsedChild that matches conditions in a callback
+Find is a direct parsedChild that matches conditions in a callback
                </p>
                <p>
-                See also <a href='http://vsc-base.org/#tsHasChild'>tsHasChild</a> 
+               See also <a href='http://vsc-base.org/#tsHasChild'>tsHasChild</a> 
                </p>
                <p>
-                See also <a href='http://vsc-base.org/#tsFindGrandChildNode'>tsFindGrandChild</a>
+               See also <a href='http://vsc-base.org/#tsFindGrandChildNode'>tsFindGrandChild</a>
                </p>
             </>
          }
@@ -44,8 +44,7 @@ export const tsFindChild = (node: ts.Node, callback: (child: ts.Node) => boolean
       }
    }
    return undefined;
-}
-`}
+}`}
       />
    )
 }

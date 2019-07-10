@@ -13,19 +13,19 @@ const TsIsValueAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if node is an value: string expression, number expression or boolean (true or false) 
+Test if node is an value: string expression, number expression or boolean (true or false) 
                </p>
                <p>
-                and match the value: true, false, a number, a string, 
+               and match the value: true, false, a number, a string, 
                </p>
                <p>
-                A RegExp can be applied for string/number search. 
+               A RegExp can be applied for string/number search. 
                </p>
                <p>
-                Optional test hasAncestor. 
+               Optional test hasAncestor. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a> and <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>
+               See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a> and <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>
                </p>
             </>
          }
@@ -106,9 +106,7 @@ export const tsIsValue: (
       return false
    }
    return true
-}
-
-`}
+}`}
       />
    )
 }

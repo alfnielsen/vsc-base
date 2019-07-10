@@ -13,16 +13,16 @@ const TsMatchInterfaceAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an interface (node: ts.InterfaceDeclaration) 
+Test is a node is an interface (node: ts.InterfaceDeclaration) 
                </p>
                <p>
-                and optional test for its name with a string or regexp. 
+               and optional test for its name with a string or regexp. 
                </p>
                <p>
-                Optional test for hasAncestor and hasGrandchild. 
+               Optional test for hasAncestor and hasGrandchild. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }
@@ -50,8 +50,7 @@ export const tsMatchInterface: (node: ts.Node | undefined, options?: \{
       return
    }
    return node
-}
-`}
+}`}
       />
    )
 }

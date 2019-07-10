@@ -17,10 +17,10 @@ const SleepAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- await wrap for setTimeout. 
+await wrap for setTimeout. 
                </p>
                <p>
-                Mostly used for debug async.
+               Mostly used for debug async.
                </p>
             </>
          }
@@ -50,8 +50,7 @@ const SleepAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const sleep = async (ms: number): Promise<void> => \{
    return new Promise(resolve => setTimeout(resolve, ms))
-}
-`}
+}`}
       />
    )
 }

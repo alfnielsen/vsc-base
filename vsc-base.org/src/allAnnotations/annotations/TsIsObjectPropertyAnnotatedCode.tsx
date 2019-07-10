@@ -13,10 +13,10 @@ const TsIsObjectPropertyAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
- Test is a node is a object property (node: ts.PropertyAssignment) 
+Test is a node is a object property (node: ts.PropertyAssignment) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchObjectProperty'>tsMatchObjectProperty</a>
+               Uses <a href='http://vsc-base.org/#tsMatchObjectProperty'>tsMatchObjectProperty</a>
                </p>
             </>
          }
@@ -40,8 +40,7 @@ export const tsIsObjectProperty: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchObjectProperty(node, options)
-}
-`}
+}`}
       />
    )
 }

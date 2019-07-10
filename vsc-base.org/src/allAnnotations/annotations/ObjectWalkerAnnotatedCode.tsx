@@ -17,19 +17,19 @@ const ObjectWalkerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Clone an JSON Object (any type) going through its entire tree structure. 
+Clone an JSON Object (any type) going through its entire tree structure. 
                </p>
                <p>
-                This method goes through the object structure, and call the given callback on esh child (and grandchild). 
+               This method goes through the object structure, and call the given callback on esh child (and grandchild). 
                </p>
                <p>
-                The call back can replace each child or stop the iteration. 
+               The call back can replace each child or stop the iteration. 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#maxDepthReplacer'>maxDepthReplacer</a> and <a href='http://vsc-base.org/#keyValueReplacer'>keyValueReplacer</a> 
+               See <a href='http://vsc-base.org/#maxDepthReplacer'>maxDepthReplacer</a> and <a href='http://vsc-base.org/#keyValueReplacer'>keyValueReplacer</a> 
                </p>
                <p>
-                they both use the objectWalker.
+               they both use the objectWalker.
                </p>
             </>
          }
@@ -72,7 +72,7 @@ vsc.objectWalker(json,(state)=>\{
 
 // log: ancestorKeysList.join('.') + '\\nreverse:\\n' + ancestorKeysString.reverse().join('.');`}
          code={`/**
- * @param obj, maxDepth, currentLevel
+ * @param obj,maxDepth,currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
  * @returns string

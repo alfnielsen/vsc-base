@@ -13,10 +13,10 @@ const GetErrorInfoAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if it an error. 
+Test if it an error. 
                </p>
                <p>
-                Return type (if one of es6 basic error type) return stack
+               Return type (if one of es6 basic error type) return stack
                </p>
             </>
          }
@@ -61,8 +61,7 @@ export const getErrorInfo = (e: any): \{
       info.type = "URIError"
    }
    return info
-}
-`}
+}`}
       />
    )
 }

@@ -17,10 +17,10 @@ const CleanPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get clean path. 
+Get clean path. 
                </p>
                <p>
-                Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
+               Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
                </p>
             </>
          }
@@ -52,8 +52,7 @@ export const cleanPath = (path: string): string => \{
       path = path.replace(reg, '')
    }
    return path
-}
-`}
+}`}
       />
    )
 }

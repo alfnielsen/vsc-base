@@ -17,10 +17,10 @@ const KeyValueReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Clone an JSON Object (any type) and replace all properties with the given name with a new value. 
+Clone an JSON Object (any type) and replace all properties with the given name with a new value. 
                </p>
                <p>
-                This method goes through the object structure and replace children that has the given name/key
+               This method goes through the object structure and replace children that has the given name/key
                </p>
             </>
          }
@@ -48,7 +48,7 @@ const KeyValueReplacerAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const newObj = vsc.keyValueReplacer(obj, key, newValue);`}
          codeEx={``}
          code={`/**
- * @param obj, maxDepth, currentLevel
+ * @param obj,maxDepth,currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
  * @returns string
@@ -60,9 +60,7 @@ export const keyValueReplacer = (obj: unknown, key: string, newValue: any): any 
       }
    })
    return walkedObj
-}
-
-`}
+}`}
       />
    )
 }

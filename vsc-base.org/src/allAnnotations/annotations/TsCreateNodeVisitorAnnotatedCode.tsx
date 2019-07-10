@@ -13,16 +13,16 @@ const TsCreateNodeVisitorAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Create a Ts Visitor Transformer for collecting data (Will not remove or replace any nodes) 
+Create a Ts Visitor Transformer for collecting data (Will not remove or replace any nodes) 
                </p>
                <p>
-                Normally used in vsc.tsTransform 
+               Normally used in vsc.tsTransform 
                </p>
                <p>
-                You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
+               You can use https://ts-ast-viewer.com/ or https://astexplorer.net/ 
                </p>
                <p>
-                to generate the new ts nodes or node type.
+               to generate the new ts nodes or node type.
                </p>
             </>
          }
@@ -97,9 +97,7 @@ export const tsCreateNodeVisitor = <T extends ts.Node = ts.SourceFile>(callback:
       }
       return (node) => ts.visitNode(node, visit);
    };
-}
-
-`}
+}`}
       />
    )
 }

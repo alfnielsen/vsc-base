@@ -17,7 +17,7 @@ const SplitPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Split filePath into dir and file
+Split filePath into dir and file
                </p>
             </>
          }
@@ -48,8 +48,7 @@ export const splitPath = (path: string): [string, string] => \{
    const name = splits.pop() || ''
    const dir = splits.join('/')
    return [dir, name]
-}
-`}
+}`}
       />
    )
 }

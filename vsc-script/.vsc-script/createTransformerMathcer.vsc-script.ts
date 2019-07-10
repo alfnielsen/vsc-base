@@ -1,5 +1,6 @@
-import * as vsc from 'vsc-base'
+//vsc-script-name: createTransformerMathcer.vsc-script
 import * as ts from 'typescript'
+import * as vsc from 'vsc-base'
 
 /**
  * This test script try to use tranformers to strongly type collect dependencies and other part of vsc methods.
@@ -120,7 +121,7 @@ ${log}
 */
 `
    // Add log to end of open document
-   vsc.appendLineToActiveDocument(log);
+   vsc.appendLineToDocument(log);
    // tranforms arrowFunction with one return statement to lambda function
 }
 

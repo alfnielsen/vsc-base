@@ -13,10 +13,10 @@ const AppendToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Append new content in the end of the (open) document. 
+Append new content in the end of the (open) document. 
                </p>
                <p>
-                Return true on success
+               Return true on success
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const AppendToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.appendToDocument(editor, document, content)`}
          codeEx={``}
          code={`/**
- * @param content, document, editor
+ * @param content,document,editor
  * @dependencyExternal vscode
  * @vscType Vscode
  * @returns boolean
@@ -43,9 +43,7 @@ export const appendToDocument = (
    const endPosition = new vscode.Position(editor.document.lineCount, 0)
    const fullRange = new vscode.Range(startPosition, endPosition)
    return insertAtRange(content, fullRange, editor);
-}
-
-`}
+}`}
       />
    )
 }

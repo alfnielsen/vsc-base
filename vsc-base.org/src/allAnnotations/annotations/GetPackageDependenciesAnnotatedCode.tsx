@@ -13,11 +13,11 @@ const GetPackageDependenciesAnnotatedCode = ({ open = false }: {open?: boolean})
             <>
                <p>
                   
- Find package.json files and collect the dependencies and devDependencies.
- Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> / <a href='http://vsc-base.org/#getPackageFilePaths'>getPackageFilePaths</a> 
+Find package.json files and collect the dependencies and devDependencies.
+Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> / <a href='http://vsc-base.org/#getPackageFilePaths'>getPackageFilePaths</a> 
                </p>
                <p>
-                It can be used to control which package.json files should be included.
+               It can be used to control which package.json files should be included.
                </p>
             </>
          }
@@ -57,8 +57,7 @@ export const getPackageDependencies = async (
       }
    }
    return [dependencies, devDependencies]
-}
-`}
+}`}
       />
    )
 }

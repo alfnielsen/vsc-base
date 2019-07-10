@@ -13,31 +13,31 @@ const TsLoadModuleAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Load a ts file. 
+Load a ts file. 
                </p>
                <p>
-                Transpile it to js (run time) add wrap code and execute it (using eval)! 
+               Transpile it to js (run time) add wrap code and execute it (using eval)! 
                </p>
                <p>
-                Returning an plainObject with the scripts exports. 
+               Returning an plainObject with the scripts exports. 
                </p>
                <p>
-                export default xxx transpile to export.default 
+               export default xxx transpile to export.default 
                </p>
                <p>
-                IMPORTANT Don't just run code you don't now, this can cause injection! 
+               IMPORTANT Don't just run code you don't now, this can cause injection! 
                </p>
                <p>
-                IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! 
+               IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! 
                </p>
                <p>
-                (If you start a recursive change that don't stop..) 
+               (If you start a recursive change that don't stop..) 
                </p>
                <p>
-                IMPORTANT: It does not check for circular imports, which will create infinity loops! 
+               IMPORTANT: It does not check for circular imports, which will create infinity loops! 
                </p>
                <p>
-                (Its recommended to only use imports from your local project that don't have other imports)
+               (Its recommended to only use imports from your local project that don't have other imports)
                </p>
             </>
          }
@@ -114,9 +114,7 @@ const loadTsModule_Eval = (
       throw new TSLoadModuleError(e, wrapExports)
    }
    return _exports
-}
-
-`}
+}`}
       />
    )
 }

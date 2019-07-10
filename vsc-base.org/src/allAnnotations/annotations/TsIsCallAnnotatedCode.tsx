@@ -13,16 +13,16 @@ const TsIsCallAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a call expression (node: ts.CallExpression) 
+Test is a node is a call expression (node: ts.CallExpression) 
                </p>
                <p>
-                and optional test for its name, and arguments.
+               and optional test for its name, and arguments.
                </p>
                <p>
-                it's value, hasAncestor and hasGrandchild 
+               it's value, hasAncestor and hasGrandchild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }
@@ -45,9 +45,7 @@ export const tsIsCall: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchCall(node, options)
-}
-
-`}
+}`}
       />
    )
 }

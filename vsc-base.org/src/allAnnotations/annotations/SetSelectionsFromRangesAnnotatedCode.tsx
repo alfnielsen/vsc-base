@@ -13,13 +13,13 @@ const SetSelectionsFromRangesAnnotatedCode = ({ open = false }: {open?: boolean}
             <>
                <p>
                   
- Set Selections for an TextEditor (Current document) 
+Set Selections for an TextEditor (Current document) 
                </p>
                <p>
-                Clear other selections 
+               Clear other selections 
                </p>
                <p>
-                returns true on success
+               returns true on success
                </p>
             </>
          }
@@ -27,7 +27,7 @@ const SetSelectionsFromRangesAnnotatedCode = ({ open = false }: {open?: boolean}
          codeOneLineEx={`const success = vsc.setSelectionsFromRanges(ranges)`}
          codeEx={``}
          code={`/**
- * @param range, editor
+ * @param range,editor
  * @vscType Vscode
  * @returns boolean
  */
@@ -43,8 +43,7 @@ export const setSelectionsFromRanges = (
    }
    editor.selections = range.map(range => new vscode.Selection(range.start, range.end))
    return true
-}
-`}
+}`}
       />
    )
 }

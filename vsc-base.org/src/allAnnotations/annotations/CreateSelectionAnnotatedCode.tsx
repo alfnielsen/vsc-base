@@ -13,7 +13,7 @@ const CreateSelectionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Create a vscode.Selection \
+Create a vscode.Selection \
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const CreateSelectionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const selection = vsc.createSelection(start, end)`}
          codeEx={``}
          code={`/**
- * @param range, editor
+ * @param range,editor
  * @vscType Vscode
  * @returns vscode.Selection
  */
@@ -34,9 +34,7 @@ export const createSelection = (
    const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
    const selection = new vscode.Selection(complexRangeObject.startPosition, complexRangeObject.endPosition)
    return selection
-}
-
-`}
+}`}
       />
    )
 }

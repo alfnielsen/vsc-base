@@ -1,4 +1,7 @@
+//vsc-script-name: VSC-Project    -    Full Compiler
 import * as vsc from 'vsc-base'
+
+import { CodePart, createPartMap } from './vcs-base-util/mapping';
 
 /**
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
@@ -11,88 +14,35 @@ export async function run(path: string) {
    )
    // create a part of combined from all files
    const parts = await createPartMap(vscFiles)
+   vsc.showMessage(`found ${parts.length} methods in ${vscFiles.length} files`)
+
    // get the dir (vsc-script/src/vsc-base-development), the script don't care where you click to start it!
    let [dir] = vsc.splitPath(vscFiles[0])
-   dir = vsc.trimDashes(dir)
+   dir = '/' + vsc.trimDashes(dir)
    // Now create all element/files used by the the vsc-base.org project
    await CompileToVscBaseOrg(dir, parts)
 
 
-
-
    vsc.showMessage('Cloning to vsc-base..')
+   const basePath = dir + '/vsc-base.ts';
+   const vscBaseDir = dir.replace('vsc-script/src/vsc-base-development', 'vsc-base');
+   const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
+   // delete ori files:
+   await vsc.remove(vscBaseDir + '/src')
+   await vsc.remove(vscBaseDir + '/out')
    // Now Copy the source files the vsc-base project
    for (const filePath of vscFiles) {
       const newPath = filePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
       await vsc.copy(filePath, newPath)
    }
-   const basePath = dir + '/vsc-base.ts';
-   const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
-   //copy files to base
    await vsc.copy(basePath, newPath)
-   //delete old out
-   const vscBaseDir = dir.replace('vsc-script/src/vsc-base-development', 'vsc-base');
-   await vsc.remove(vscBaseDir + '/out')
-   //run build:
    vsc.showMessage("Building vsc-base ..")
-
+   //run build:
    await vsc.execFromPath("yarn build", vscBaseDir)
 
    vsc.showMessage(`Compiling Done`)
 }
-type CodePart = {
-   meta: string
-   body: string
-   name: string
-   annotationName: string
-   metaMapRaw: { [key: string]: string }
-   metaMap: { [key: string]: string }
-}
-const createPartMap = async (vscFiles: string[]) => {
-   const parts: CodePart[] = []
-   for (const filePath of vscFiles) {
-      const rawSource = await vsc.getFileContent(filePath)
-      const rawParts = rawSource.split(/\n\/\*\*\s+vsc\-base\s+method\s*\n/) // split using: \n/** vsc-base method
-      rawParts.shift() // <-- This is leading imports (er empty area)
-      rawParts.forEach(part => {
-         const metaIndex = part.search(/\n\s*\*\/\n\s*export\s+const\s+/);
-         //const metaBody = part.split(/\n\s*\*\/\s*\n/)
-         const meta = part.substr(0, metaIndex)
-         const body = part.substr(metaIndex).replace(/^[\n\s]*\*\/[\n\s]*/, '');
-         //name
-         const nameMatch = body.match(/^[\s\n]*export\s+const\s+(\w+)/)
-         if (!nameMatch) {
-            vsc.showErrorMessage('Did not find method name!!: ' + body)
-            throw new Error('STOP');
-         }
-         const name = nameMatch[1]
-         //meta map:
-         const metaMap: { [key: string]: string } = {}
-         const metaMapRaw: { [key: string]: string } = {} // keep '*' instart of lines
-         const mapArgs = meta.split(/\n?\s+\*\s+@/)
-         mapArgs.shift() // remove leading empty area
-         mapArgs.forEach(arg => {
-            const argNameMatch = arg.match(/^\w+/)
-            const argName = argNameMatch[0]
-            const argContentRaw = arg.replace(/^\w+\s/, '')
-            const argContent = argContentRaw.replace(/(^|\n)\s+\*/g, '\n')
-            if (metaMap[argName]) {
-               metaMap[argName] += ', ' + argContent
-               metaMapRaw[argName] += ', ' + argContentRaw
-            } else {
-               metaMap[argName] = argContent
-               metaMapRaw[argName] = argContentRaw
-            }
-         })
-         let annotationName = vsc.toPascalCase(name + 'AnnotatedCode')
-         if (!body.match(/^\s*$/)) {
-            parts.push({ meta, body, name, metaMap, metaMapRaw, annotationName })
-         }
-      })
-   }
-   parts.sort((a, b) => a.body.localeCompare(b.body))
-   return parts
-}
+
 
 const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    // For vsc-base.org we change the path to point into that project (in this mono-respo)
@@ -101,8 +51,10 @@ const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    const anoDir = orgDir + '/annotations'
    // Create all code Annotation Components
    await writeAllAnnotationComponent(anoDir, parts)
+
    // Create main Component for the annotations:
    await writeMainAnnotationComponent(orgDir, parts);
+
    // To enable live testing on vsc-base we copy the 'vsc-base-raw.ts' vsc-base.org as well.
    const rawPath = dir + '/vsc-base-raw.ts';
    const newRawPath = rawPath.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
@@ -139,12 +91,14 @@ const writeAllAnnotationComponent = async (anoDir: string, parts: CodePart[]) =>
 const writeMainAnnotationComponent = async (dir: string, parts: CodePart[]) => {
    // Create main React component with all the annotations. (Called: AllAnnotations)
    // The parts.map creates a list of imports, and a list of written components.
+   const ggg = parts.map(part => `import ${part.annotationName} from './annotations/${part.annotationName}'`).join('\n')
+
    const allAnnotationsContent = `import React from 'react'
 
 ${parts.map(part => `import ${part.annotationName} from './annotations/${part.annotationName}'`).join('\n')}
 
 const annotations = [
-${parts.map(part => `  { vscType: '${(part.metaMap['vscType'] || '').toLowerCase()}', name: '${part.name.toLowerCase()}', component: (open: boolean) => <${part.annotationName} key={'${part.name}'} open={open} /> }`).join(',\n')}
+${parts.map(part => `  { vscType: '${((part.metaMap['vscType'] || ['']).join(',')).toLowerCase()}', name: '${part.name.toLowerCase()}', component: (open: boolean) => <${part.annotationName} key={'${part.name}'} open={open} /> }`).join(',\n')}
 ]
 
 interface AllAnnotationsProps {
@@ -168,6 +122,7 @@ const AllAnnotations = ({ activeMethod, name, vscType }: AllAnnotationsProps) =>
 
 export default AllAnnotations
 `
+
    // Save the AllAnnotations component in the vsc-base.org project (/vsc-base.org/src/allAnnotations)
    await vsc.saveFileContent(`${dir}/AllAnnotations.tsx`, allAnnotationsContent)
 }
@@ -176,22 +131,22 @@ const writeAnnotationComponent = (
    componentName: string,
    name: string,
    code: string,
-   metaMap: { [key: string]: string },
-   metaMapRaw: { [key: string]: string }
+   metaMap: { [key: string]: string[] },
+   metaMapRaw: { [key: string]: string[] }
 ) => {
    // meta
-   const writeMetaMap = []
+   const writeMetaMap: string[] = []
    const excludeList = ['description', 'see', 'oneLineEx', 'ex', 'testPrinterArgument', 'testPrinter']
    for (const [key, content] of Object.entries(metaMapRaw)) {
       if (!excludeList.includes(key)) {
-         const escapedContent = content.replace(/([\\`\$\{])/g, '\\$1')
+         const escapedContent = content.join(',').replace(/([\\`\$\{])/g, '\\$1')
          let m = ` * @${key} ${escapedContent}`
          writeMetaMap.push(m)
       }
    }
    const meta = writeMetaMap.join('\n');
-   //desription
-   let descr = metaMap.description;
+   //description
+   let descr = metaMap.description.join(',');
    const newLineReg = /\\\n/g
    //markdown:
    descr = descr.replace(/\[([^\n\]]+)\]\((https?:\/\/[^\s]+)\)/g, `<a href='$2'>$1</a>`)
@@ -200,15 +155,15 @@ const writeAnnotationComponent = (
                   ${descr.replace(newLineReg, '\n               </p>\n               <p>\n               ')}
                </p>`
    // online ex
-   const oneLineEx = metaMap.oneLineEx.replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const oneLineEx = metaMap.oneLineEx.join(',').replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
    // ex
-   const codeEx = (metaMap.ex || '').replace(/([\\`\$\{])/g, '\\$1')
+   const codeEx = (metaMap.ex || ['']).join(',').replace(/([\\`\$\{])/g, '\\$1')
    code = code.replace(/([\\`\$\{])/g, '\\$1')
    let test = ''
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {
-      const testPrinterArgument = metaMap.testPrinterArgument.replace(/([\\])/g, '\\$1')
-      const testPrinter = metaMap.testPrinter.replace(/([\\])/g, '\\$1')
+      const testPrinterArgument = metaMap.testPrinterArgument.join(',').replace(/([\\])/g, '\\$1')
+      const testPrinter = metaMap.testPrinter.join(',').replace(/([\\])/g, '\\$1')
       test = `
       test={
          <MethodTest

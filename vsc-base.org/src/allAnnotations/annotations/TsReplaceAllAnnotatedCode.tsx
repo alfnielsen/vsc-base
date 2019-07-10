@@ -13,10 +13,10 @@ const TsReplaceAllAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. 
+tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. 
                </p>
                <p>
-                It uses <a href='http://vsc-base.org/#tsFindNodePositionFromContent'>tsFindNodePositionFromContent</a> to find the node.
+               It uses <a href='http://vsc-base.org/#tsFindNodePositionFromContent'>tsFindNodePositionFromContent</a> to find the node.
                </p>
             </>
          }
@@ -33,7 +33,7 @@ let source = \`
 source = vsc.tsReplaceAll(source, 'moduleNumber2', node => vsc.tsMatchIdentifier(node, \{
    name: 'moduleNumber1Path'
 }))
-`}
+ *`}
          code={`/**
  * @vscType ts
  * @returns string
@@ -50,11 +50,7 @@ export const tsReplaceAll = (source: string, replaceString: string, callback: (n
       source = source.substring(0, start) + replaceString + source.substring(end);
    })
    return source
-}
-
-
-
-`}
+}`}
       />
    )
 }

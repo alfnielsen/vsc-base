@@ -17,13 +17,13 @@ const ToKebabCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Format a string from camel-case to kebab-case 
+Format a string from camel-case to kebab-case 
                </p>
                <p>
-                Commonly used to define css class names. 
+               Commonly used to define css class names. 
                </p>
                <p>
-                Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+               Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
                </p>
             </>
          }
@@ -52,8 +52,7 @@ export const toKebabCase = (str: string): string =>
    str[0].toLowerCase() +
    str.substr(1)
       .replace(/([A-Z])/g, (_match, chr) => \`-\$\{chr.toLowerCase()}\`)
-      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => \`-\$\{chr.toLowerCase()}\`)
-`}
+      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => \`-\$\{chr.toLowerCase()}\`)`}
       />
    )
 }

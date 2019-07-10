@@ -1,3 +1,4 @@
+//vsc-script-name: tsReplaceTest.vsc-script
 //import * as vsc from '../src/vsc-base-development/vsc-base'
 
 import * as ts from 'typescript'

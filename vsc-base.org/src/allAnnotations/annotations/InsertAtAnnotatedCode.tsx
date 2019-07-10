@@ -13,8 +13,8 @@ const InsertAtAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Insert content at position (start and optional end position)
- Return true on success, false if the document or textEditor was not open/correct
+Insert content at position (start and optional end position)
+Return true on success, false if the document or textEditor was not open/correct
                </p>
             </>
          }
@@ -22,7 +22,7 @@ const InsertAtAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const success = vsc.insertAt(content, start, end)`}
          codeEx={``}
          code={`/**
- * @param content, range, editor
+ * @param content,range,editor
  * @dependencyExternal vscode
  * @vscType Vscode
  * @returns boolean
@@ -44,8 +44,7 @@ export const insertAt = (
    const pos = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces)
    vsc.insertAtRange(content, pos.range, editor)
    return true
-}
-`}
+}`}
       />
    )
 }

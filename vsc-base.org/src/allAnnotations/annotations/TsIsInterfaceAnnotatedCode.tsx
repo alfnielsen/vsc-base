@@ -13,10 +13,10 @@ const TsIsInterfaceAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an interface (node: ts.InterfaceDeclaration) 
+Test is a node is an interface (node: ts.InterfaceDeclaration) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchInterface'>tsMatchInterface</a>
+               Uses <a href='http://vsc-base.org/#tsMatchInterface'>tsMatchInterface</a>
                </p>
             </>
          }
@@ -37,8 +37,7 @@ export const tsIsInterface: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchInterface(node, options)
-}
-`}
+}`}
       />
    )
 }

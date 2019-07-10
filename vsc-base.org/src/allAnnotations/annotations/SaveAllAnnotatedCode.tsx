@@ -13,7 +13,7 @@ const SaveAllAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Save All files
+Save All files
                </p>
             </>
          }
@@ -27,8 +27,7 @@ const SaveAllAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const saveAll = async (): Promise<void> => \{
    await vscode.workspace.saveAll(false)
-}
-`}
+}`}
       />
    )
 }

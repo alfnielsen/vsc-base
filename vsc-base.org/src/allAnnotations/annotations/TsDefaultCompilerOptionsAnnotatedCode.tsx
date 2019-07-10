@@ -13,7 +13,7 @@ const TsDefaultCompilerOptionsAnnotatedCode = ({ open = false }: {open?: boolean
             <>
                <p>
                   
- vsc-base's internal default ts compiler options
+vsc-base's internal default ts compiler options
                </p>
             </>
          }
@@ -29,8 +29,7 @@ export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = (\{
    module: ts.ModuleKind.CommonJS,
    target: ts.ScriptTarget.ES2015,
    libs: ['es6']
-})
-`}
+})`}
       />
    )
 }

@@ -13,7 +13,7 @@ const TsFindAncestorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Find a parent or ancestor (parent's parent) that matches conditions in a callback
+Find a parent or ancestor (parent's parent) that matches conditions in a callback
                </p>
             </>
          }
@@ -39,8 +39,7 @@ export const tsFindAncestor = (node: ts.Node, callback: (ancestor: ts.Node, dept
       ancestor = ancestor.parent
    }
    return undefined
-}
-`}
+}`}
       />
    )
 }

@@ -586,7 +586,7 @@ exports.tsMatchImport = (node, options) => {
         if (!node.moduleSpecifier) {
             return;
         }
-        const text = node.moduleSpecifier.getText();
+        const text = node.moduleSpecifier.getText().replace(/^['"']|['"']$/g, '');
         if (path instanceof RegExp && !path.test(text)) {
             return;
         }

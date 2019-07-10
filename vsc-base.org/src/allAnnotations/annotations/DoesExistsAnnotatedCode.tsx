@@ -13,7 +13,7 @@ const DoesExistsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Does the folder/file exist
+Does the folder/file exist
                </p>
             </>
          }
@@ -28,8 +28,7 @@ const DoesExistsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const doesExists = (path: string): boolean => \{
    return fs.existsSync(path)
-}
-`}
+}`}
       />
    )
 }

@@ -13,10 +13,10 @@ const AddFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Append content to a file 
+Append content to a file 
                </p>
                <p>
-                See <a href='https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback'>fs docs for appendFile</a>
+               See <a href='https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback'>fs docs for appendFile</a>
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const AddFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.saveFileContent(path, source)`}
          codeEx={``}
          code={`/**
- * @param path, content
+ * @param path,content
  * @vscType System
  * @dependencyExternal fs
  * @returns Promise<void>
@@ -35,9 +35,7 @@ export const addFileContent = async (
    options?: fs.WriteFileOptions
 ): Promise<void> => \{
    await fs.appendFile(path, content, options)
-}
-
-`}
+}`}
       />
    )
 }

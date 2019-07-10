@@ -13,7 +13,7 @@ const GetFileContentAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get file source
+Get file source
                </p>
             </>
          }
@@ -30,8 +30,7 @@ export const getFileContent = async (
    path: string,
    encoding = 'utf8'
 ): Promise<string> =>
-   await fs.readFile(path, encoding)
-`}
+   await fs.readFile(path, encoding)`}
       />
    )
 }

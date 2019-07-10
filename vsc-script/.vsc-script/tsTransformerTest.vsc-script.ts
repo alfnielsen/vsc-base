@@ -1,3 +1,4 @@
+//vsc-script-name: tsTransformerTest.vsc-script
 import * as vsc from 'vsc-base'
 import * as ts from 'typescript'
 

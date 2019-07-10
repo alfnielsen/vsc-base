@@ -13,7 +13,7 @@ const TsTranspileAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Transpile ts source to js
+Transpile ts source to js
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const TsTranspileAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const sourceJs = vsc.tsTranspile(sourceTs)`}
          codeEx={``}
          code={`/**
- * @param sourceTs, compilerOptions
+ * @param sourceTs,compilerOptions
  * @vscType System
  * @returns string
  */
@@ -31,9 +31,7 @@ export const tsTranspile = (sourceTs: string,
    const transpiledOutput = ts.transpileModule(sourceTs, \{ compilerOptions })
    let sourceJs = transpiledOutput.outputText
    return sourceJs;
-}
-
-`}
+}`}
       />
    )
 }

@@ -13,10 +13,10 @@ const MoveAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Move a file or folder 
+Move a file or folder 
                </p>
                <p>
-                See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md'>fs-extra docs for move</a>
+               See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md'>fs-extra docs for move</a>
                </p>
             </>
          }
@@ -34,8 +34,7 @@ export const move = async (
    options?: fs.MoveOptions
 ): Promise<void> => \{
    await fs.move(path, newPath, options)
-}
-`}
+}`}
       />
    )
 }

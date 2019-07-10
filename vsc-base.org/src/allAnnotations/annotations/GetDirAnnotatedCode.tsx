@@ -13,10 +13,10 @@ const GetDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get dir from path 
+Get dir from path 
                </p>
                <p>
-                (If path is a dir return it)
+               (If path is a dir return it)
                </p>
             </>
          }
@@ -36,8 +36,7 @@ export const getDir = (path: string) => \{
    }
    const [dir] = vsc.splitPath(path)
    return dir
-}
-`}
+}`}
       />
    )
 }

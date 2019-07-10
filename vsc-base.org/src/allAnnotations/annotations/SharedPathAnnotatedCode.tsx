@@ -17,10 +17,10 @@ const SharedPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Return the path that are shared. 
+Return the path that are shared. 
                </p>
                <p>
-                (Return '' if no path are shared).
+               (Return '' if no path are shared).
                </p>
             </>
          }
@@ -41,7 +41,7 @@ const SharedPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const sharedPath = vsc.sharedPath(path1, path2)`}
          codeEx={``}
          code={`/**
- * @param path1, path2
+ * @param path1,path2
  * @vscType Raw
  * @returns string
  */
@@ -57,8 +57,7 @@ export const sharedPath = (path1: string, path2: string): string => \{
    }
    const sharedPath = shared.join('/')
    return sharedPath
-}
-`}
+}`}
       />
    )
 }

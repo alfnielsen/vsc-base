@@ -13,16 +13,16 @@ const TsMatchIdentifierAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a identifier (node: ts.Identifier) 
+Test is a node is a identifier (node: ts.Identifier) 
                </p>
                <p>
-                Optional test for its name with a string or regexp, 
+               Optional test for its name with a string or regexp, 
                </p>
                <p>
-                Optional test for tsHasAncestor and hasGrandChild 
+               Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
+               See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \
                </p>
             </>
          }
@@ -55,8 +55,7 @@ export const tsMatchIdentifier: (node: ts.Node | undefined, options?: \{
       return
    }
    return node
-}
-`}
+}`}
       />
    )
 }

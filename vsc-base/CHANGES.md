@@ -2,6 +2,26 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.8.28
+
+### Add
+
+Add [tsInsertImport](http://vsc-base.org/#tsInsertImport)
+
+### Fix (Small breaking change)
+
+Fix path match in [tsMatchImport](http://vsc-base.org/#tsMatchImport).
+Typescripts 'moduleSpecifier' (the path), returns the path including th e Quotation marks (' or "),
+which meant that the match path needed to include them.
+
+Now they are remove before the match.
+(If you script included them, you need to remove them from your match)
+
+### Internal changes
+
+The compiler script for vsc-base is updated,
+and it ready to be the base for creating more consisting test for all
+
 ## 0.8.27
 
 ### Add
@@ -17,7 +37,6 @@ This is the first version of handling imports, and the check for circular import
 be implemented in a future version.
 
 [tsGetLocalModules](http://vsc-base.org/#tsGetLocalModules) has been added primarily to make vsc-script's better.
-
 
 ## 0.8.26
 

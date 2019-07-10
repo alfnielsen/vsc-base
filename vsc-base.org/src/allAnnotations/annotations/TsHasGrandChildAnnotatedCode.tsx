@@ -13,10 +13,10 @@ const TsHasGrandChildAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if it has  a child or grandChild (child's child) that matches conditions in a callback 
+Test if it has  a child or grandChild (child's child) that matches conditions in a callback 
                </p>
                <p>
-                Using <a href='http://vsc-base.org/#tsFindGrandchild'>tsFindGrandchild</a>
+               Using <a href='http://vsc-base.org/#tsFindGrandchild'>tsFindGrandchild</a>
                </p>
             </>
          }
@@ -34,8 +34,7 @@ const found = vsc.tsHasGrandChild(node, (childNode) => vsc.tsIsVariable(childNod
  */
 export const tsHasGrandChild = (node: ts.Node, callback: (child: ts.Node, depth: number) => boolean): boolean => \{
    return !!vsc.tsFindGrandChild(node, callback);
-}
-`}
+}`}
       />
    )
 }

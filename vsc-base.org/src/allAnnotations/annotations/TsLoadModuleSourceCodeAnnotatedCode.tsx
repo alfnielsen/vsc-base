@@ -13,10 +13,10 @@ const TsLoadModuleSourceCodeAnnotatedCode = ({ open = false }: {open?: boolean})
             <>
                <p>
                   
- Pre method for tsLoadModule. 
+Pre method for tsLoadModule. 
                </p>
                <p>
-                (This methods load the ts source, transpile it to js and replace all 'require' instance)
+               (This methods load the ts source, transpile it to js and replace all 'require' instance)
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const TsLoadModuleSourceCodeAnnotatedCode = ({ open = false }: {open?: boolean})
          codeOneLineEx={`const sourceJs = await vsc.tsLoadModuleSourceCode(path)`}
          codeEx={``}
          code={`/**
- * @param path, compilerOptions, moduleMap default = vsc.getVscDefaultModuleMap()
+ * @param path,compilerOptions,moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
  * @returns Promise<string>
  */
@@ -36,8 +36,7 @@ export const tsLoadModuleSourceCode = async (
    let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions)
    sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
    return sourceJs;
-}
-`}
+}`}
       />
    )
 }

@@ -17,7 +17,7 @@ const JoinPathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Joins to paths.
+Joins to paths.
                </p>
             </>
          }
@@ -38,7 +38,7 @@ const JoinPathsAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const newPath = vsc.joinPaths(path1, path2)`}
          codeEx={``}
          code={`/**
- * @param path1, path2
+ * @param path1,path2
  * @dependencyInternal trimDashes
  * @vscType Raw
  * @returns string
@@ -48,8 +48,7 @@ export const joinPaths = (path1: string, path2: string): string => \{
    path2 = vsc.trimDashes(path2)
    const result = path1 + '/' + path2
    return result
-}
-`}
+}`}
       />
    )
 }

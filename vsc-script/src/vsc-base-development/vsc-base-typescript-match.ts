@@ -665,7 +665,7 @@ export const tsMatchImport: (node: ts.Node | undefined, options?: {
 
    if (path !== undefined) {
       if (!node.moduleSpecifier) { return }
-      const text = node.moduleSpecifier.getText()
+      const text = node.moduleSpecifier.getText().replace(/^['"']|['"']$/g, '');
       if (path instanceof RegExp && !path.test(text)) { return }
       if (typeof path === 'string' && path !== text) { return }
    }

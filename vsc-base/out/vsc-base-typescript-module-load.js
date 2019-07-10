@@ -103,6 +103,8 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     const internalModuleExports = {};
     for (const m of internalModules) {
         let path = vsc.joinPaths(baseDir, m.path);
+        path = vsc.trimLeadingDash(path);
+        path = '/' + path;
         if (!path.match(/\.tsx?/)) {
             path += ".ts";
         }

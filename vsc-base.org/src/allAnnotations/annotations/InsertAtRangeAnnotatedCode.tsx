@@ -13,8 +13,8 @@ const InsertAtRangeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Insert content at vscode.Range
- Return true on success, false if the document or textEditor was not open/correct
+Insert content at vscode.Range
+Return true on success, false if the document or textEditor was not open/correct
                </p>
             </>
          }
@@ -22,7 +22,7 @@ const InsertAtRangeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const success = vsc.insertAtRange(content, range)`}
          codeEx={``}
          code={`/**
- * @param content, range, editor
+ * @param content,range,editor
  * @dependencyExternal vscode
  * @vscType Vscode
  * @returns boolean
@@ -45,8 +45,7 @@ export const insertAtRange = (
    workspaceEdit.set(editor.document.uri, edits);
    vscode.workspace.applyEdit(workspaceEdit);
    return true
-}
-`}
+}`}
       />
    )
 }

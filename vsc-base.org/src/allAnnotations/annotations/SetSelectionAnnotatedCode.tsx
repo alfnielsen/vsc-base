@@ -13,13 +13,13 @@ const SetSelectionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Set Selection for an TextEditor (Current document) 
+Set Selection for an TextEditor (Current document) 
                </p>
                <p>
-                Clear other selections. 
+               Clear other selections. 
                </p>
                <p>
-                returns true on success
+               returns true on success
                </p>
             </>
          }
@@ -27,7 +27,7 @@ const SetSelectionAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const success = vsc.setSelection(start, end)`}
          codeEx={``}
          code={`/**
- * @param range, editor
+ * @param range,editor
  * @vscType Vscode
  * @returns boolean
  */
@@ -47,8 +47,7 @@ export const setSelection = (
    editor.selections = [] // clear selections
    editor.selection = selection
    return true
-}
-`}
+}`}
       />
    )
 }

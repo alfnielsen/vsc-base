@@ -13,7 +13,7 @@ const AppendLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) =
             <>
                <p>
                   
- Append new line content in the end of the (open) document
+Append new line content in the end of the (open) document
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const AppendLineToDocumentAnnotatedCode = ({ open = false }: {open?: boolean}) =
          codeOneLineEx={`const success = vsc.appendLineToDocument(content)`}
          codeEx={``}
          code={`/**
- * @param content, editor
+ * @param content,editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
  * @returns boolean
@@ -31,10 +31,7 @@ export const appendLineToDocument = (
    editor?: vscode.TextEditor
 ): boolean => \{
    return vsc.appendToDocument('\\n' + content, editor)
-}
-
-
-`}
+}`}
       />
    )
 }

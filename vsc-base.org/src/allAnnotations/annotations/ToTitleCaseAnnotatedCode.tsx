@@ -17,16 +17,16 @@ const ToTitleCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Format a string to a title string  
+Format a string to a title string  
                </p>
                <p>
-                Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' 
+               Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' 
                </p>
                <p>
-                All non word separators will be removed and the word character after will be transforms to upper case, 
+               All non word separators will be removed and the word character after will be transforms to upper case, 
                </p>
                <p>
-                if allWordUppercase is true only the first word will have uppercase.
+               if allWordUppercase is true only the first word will have uppercase.
                </p>
             </>
          }
@@ -55,9 +55,7 @@ export const toTitleCase = (str: string, allWordUpperCase = true): string =>
    str[0].toUpperCase() +
    str.substr(1)
       .replace(/([A-Z])/g, (_match, chr) => \` \$\{allWordUpperCase ? chr.toUpperCase() : chr.toLowerCase()}\`)
-      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => \` \$\{allWordUpperCase ? chr.toUpperCase() : chr.toLowerCase()}\`)
-
-`}
+      .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => \` \$\{allWordUpperCase ? chr.toUpperCase() : chr.toLowerCase()}\`)`}
       />
    )
 }

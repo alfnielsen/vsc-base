@@ -13,10 +13,10 @@ const GetVscDefaultModuleMapAnnotatedCode = ({ open = false }: {open?: boolean})
             <>
                <p>
                   
- Return the default module map of vsc-base 
+Return the default module map of vsc-base 
                </p>
                <p>
-                (Used for ts compiling, module load ect)
+               (Used for ts compiling, module load ect)
                </p>
             </>
          }
@@ -36,8 +36,7 @@ export const getVscDefaultModuleMap = (): \{ key: string, name: string, module: 
       \{ key: 'vscode', name: 'vscode', module: vscode },
       \{ key: 'cp', name: 'child-process-promise', module: cp }
    ]
-}
-`}
+}`}
       />
    )
 }

@@ -13,10 +13,10 @@ const TsHasChildrenAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if it has all children or grandChildren (child's child) that matches conditions in a callback 
+Test if it has all children or grandChildren (child's child) that matches conditions in a callback 
                </p>
                <p>
-                Using <a href='http://vsc-base.org/#tsHasChild'>tsHasChild</a>
+               Using <a href='http://vsc-base.org/#tsHasChild'>tsHasChild</a>
                </p>
             </>
          }
@@ -40,10 +40,7 @@ export const tsHasChildren = (node: ts.Node, callbacks: ((child: ts.Node, depth:
       }
    }
    return true
-}
-
-
-`}
+}`}
       />
    )
 }

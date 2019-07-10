@@ -13,7 +13,7 @@ const GetActiveTerminalAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get vscode.window.activeTerminal
+Get vscode.window.activeTerminal
                </p>
             </>
          }
@@ -27,8 +27,7 @@ const GetActiveTerminalAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const getActiveTerminal = (): vscode.Terminal | undefined => \{
    return vscode.window.activeTerminal
-}
-`}
+}`}
       />
    )
 }

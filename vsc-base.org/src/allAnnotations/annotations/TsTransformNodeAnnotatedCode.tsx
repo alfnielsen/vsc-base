@@ -13,10 +13,10 @@ const TsTransformNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Transform a ts.Node 
+Transform a ts.Node 
                </p>
                <p>
-                (default node-type is ts.Sourcefile)
+               (default node-type is ts.Sourcefile)
                </p>
             </>
          }
@@ -24,7 +24,7 @@ const TsTransformNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)`}
          codeEx={``}
          code={`/**
- * @param sourceFile, transformers, compilerOptions
+ * @param sourceFile,transformers,compilerOptions
  * @internal internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
@@ -35,8 +35,7 @@ export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
    compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ) => \{
    return ts.transform<T>(sourceFile, transformers, compilerOptions)
-}
-`}
+}`}
       />
    )
 }

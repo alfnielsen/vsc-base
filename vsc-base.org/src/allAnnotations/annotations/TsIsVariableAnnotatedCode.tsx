@@ -13,10 +13,10 @@ const TsIsVariableAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is a variable declaration (node: ts.VariableDeclaration) 
+Test is a node is a variable declaration (node: ts.VariableDeclaration) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchVariable'>tsMatchVariable</a>
+               Uses <a href='http://vsc-base.org/#tsMatchVariable'>tsMatchVariable</a>
                </p>
             </>
          }
@@ -41,9 +41,7 @@ export const tsIsVariable: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchVariable(node, options)
-}
-
-`}
+}`}
       />
    )
 }

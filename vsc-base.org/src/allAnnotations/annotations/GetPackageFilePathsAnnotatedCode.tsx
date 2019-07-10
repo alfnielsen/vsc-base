@@ -13,11 +13,11 @@ const GetPackageFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
- Find package.json file paths in project. /
- Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> 
+Find package.json file paths in project. /
+Take an optional 'exclude' which is an exclude pattern for the underlying <a href='http://vsc-base.org/#findFilePaths'>findFilePaths</a> 
                </p>
                <p>
-                It can be used to control which package.json files should be included.
+               It can be used to control which package.json files should be included.
                </p>
             </>
          }
@@ -34,9 +34,7 @@ export const getPackageFilePaths = async (
 ): Promise<string[]> => \{
    const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
    return packageFiles
-}
-
-`}
+}`}
       />
    )
 }

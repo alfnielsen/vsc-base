@@ -13,28 +13,28 @@ const TsMatchNodeAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Base test for node properties. 
+Base test for node properties. 
                </p>
                <p>
-                Optional test for its name with a string or regexp. 
+               Optional test for its name with a string or regexp. 
                </p>
                <p>
-                (return false for node that don't have name property)
+               (return false for node that don't have name property)
                </p>
                <p>
-                Optional test for tsHasAncestor and hasGrandChild 
+               Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
+               See <a href='http://vsc-base.org/#tsHasAncestor'>tsHasAncestor</a>, <a href='http://vsc-base.org/#tsHasAncestors'>tsHasAncestors</a>, <a href='http://vsc-base.org/#hasGrandChild'>hasGrandChild</a> and <a href='http://vsc-base.org/#hasGrandChildren'>hasGrandChildren</a> 
                </p>
                <p>
-                Optional value can be tested against a string, a number (with a string, number or regexp). 
+               Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-                (return false for node that don't have initializer)
+               (return false for node that don't have initializer)
                </p>
                <p>
-                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a> \
+               See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a> \
                </p>
             </>
          }
@@ -59,8 +59,7 @@ export const tsMatchNode: (node: ts.Node | undefined, options?: \{
       return node
    }
    return undefined
-}
-`}
+}`}
       />
    )
 }

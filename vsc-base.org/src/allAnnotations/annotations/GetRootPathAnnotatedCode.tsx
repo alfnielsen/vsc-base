@@ -13,7 +13,7 @@ const GetRootPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Get project root for a path or undefined if no project was found.
+Get project root for a path or undefined if no project was found.
                </p>
             </>
          }
@@ -36,8 +36,7 @@ export const getRootPath = (path: string): string | undefined => \{
    let rootPath = workspaceFolder.uri.fsPath
    rootPath = vsc.pathAsUnix(rootPath)
    return rootPath
-}
-`}
+}`}
       />
    )
 }

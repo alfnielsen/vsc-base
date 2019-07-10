@@ -13,7 +13,7 @@ const PickAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Prompt user for a question with a list of answers
+Prompt user for a question with a list of answers
                </p>
             </>
          }
@@ -29,8 +29,7 @@ const PickAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  * @returns Promise<string | undefined>
  */
 export const pick = async (answerList: string[]): Promise<string | undefined> =>
-   await vscode.window.showQuickPick(answerList)
-`}
+   await vscode.window.showQuickPick(answerList)`}
       />
    )
 }

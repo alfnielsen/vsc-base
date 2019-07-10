@@ -13,7 +13,7 @@ const FindRelativeFilePathsAnnotatedCode = ({ open = false }: {open?: boolean}) 
             <>
                <p>
                   
- Find files based from a relative to a path
+Find files based from a relative to a path
                </p>
             </>
          }
@@ -32,7 +32,7 @@ if(moduleFileInParentFolder.length>1)\{
 const modulePath = moduleFileInParentFolder[0];
 // Do something with modulePath..`}
          code={`/**
- * @param path, relativePath, includePattern, exclude, maxResults
+ * @param path,relativePath,includePattern,exclude,maxResults
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDashes, findFilePathsFromBase
  * @vscType Vscode
@@ -56,8 +56,7 @@ export const findRelativeFilePaths = async (
       maxResults
    )
    return filePaths
-}
-`}
+}`}
       />
    )
 }

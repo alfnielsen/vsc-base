@@ -13,10 +13,10 @@ const TsIsEnumAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an enum  declaration (node: ts.EnumDeclaration) 
+Test is a node is an enum  declaration (node: ts.EnumDeclaration) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchEnum'>tsMatchEnum</a>
+               Uses <a href='http://vsc-base.org/#tsMatchEnum'>tsMatchEnum</a>
                </p>
             </>
          }
@@ -37,8 +37,7 @@ export const tsIsEnum: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchEnum(node, options)
-}
-`}
+}`}
       />
    )
 }

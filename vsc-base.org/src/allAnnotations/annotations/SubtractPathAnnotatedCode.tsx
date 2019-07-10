@@ -17,7 +17,7 @@ const SubtractPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Remove parent-path from a path
+Remove parent-path from a path
                </p>
             </>
          }
@@ -39,7 +39,7 @@ const SubtractPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`const newPath = vsc.subtractPath(path, parentPath)`}
          codeEx={``}
          code={`/**
- * @param path, parentPath, trimDashes default true
+ * @param path,parentPath,trimDashes default true
  * @dependencyInternal trimDashes
  * @vscType Raw
  * @returns string
@@ -55,8 +55,7 @@ export const subtractPath = (
       newPath = vsc.trimDashes(newPath)
    }
    return newPath
-}
-`}
+}`}
       />
    )
 }

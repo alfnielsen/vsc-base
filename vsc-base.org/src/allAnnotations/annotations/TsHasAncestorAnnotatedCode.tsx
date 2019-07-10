@@ -13,10 +13,10 @@ const TsHasAncestorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test if it has a parent or ancestor (parent's parent) that matches conditions in a callback 
+Test if it has a parent or ancestor (parent's parent) that matches conditions in a callback 
                </p>
                <p>
-                Using <a href='http://vsc-base.org/#tsFindAncestor'>tsFindAncestor</a>
+               Using <a href='http://vsc-base.org/#tsFindAncestor'>tsFindAncestor</a>
                </p>
             </>
          }
@@ -33,8 +33,7 @@ const hasAncestor = vsc.tsHasAncestor(node, (childNode) => vsc.tsIsFunction(chil
  */
 export const tsHasAncestor = (node: ts.Node, callback: (ancestor: ts.Node, depth: number) => boolean): boolean => \{
    return !!vsc.tsFindAncestor(node, callback)
-}
-`}
+}`}
       />
    )
 }

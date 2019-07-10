@@ -13,7 +13,7 @@ const TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode = ({ open = false }
             <>
                <p>
                   
- Replace ts transpiled code's require for vsc, ts, fs and vscode.
+Replace ts transpiled code's require for vsc, ts, fs and vscode.
                </p>
             </>
          }
@@ -42,9 +42,7 @@ export const tsRewriteTranspiledCodeWithVscBaseModules = (
       )
    })
    return sourceJs
-}
-
-`}
+}`}
       />
    )
 }

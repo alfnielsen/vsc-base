@@ -13,10 +13,10 @@ const TsIsTypeRefAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Test is a node is an type reference (node: ts.TypeReferenceNode) 
+Test is a node is an type reference (node: ts.TypeReferenceNode) 
                </p>
                <p>
-                Uses <a href='http://vsc-base.org/#tsMatchTypeRef'>tsMatchTypeRef</a>
+               Uses <a href='http://vsc-base.org/#tsMatchTypeRef'>tsMatchTypeRef</a>
                </p>
             </>
          }
@@ -37,8 +37,7 @@ export const tsIsTypeRef: (node: ts.Node | undefined, options?: \{
    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
 }) => boolean = (node, options) => \{
    return !!vsc.tsMatchTypeRef(node, options)
-}
-`}
+}`}
       />
    )
 }

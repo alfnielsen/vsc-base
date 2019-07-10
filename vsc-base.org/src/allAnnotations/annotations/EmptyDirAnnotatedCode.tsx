@@ -13,10 +13,10 @@ const EmptyDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- emptyDir folder 
+emptyDir folder 
                </p>
                <p>
-                See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md'>fs-extra docs for emptyDir</a>
+               See <a href='https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md'>fs-extra docs for emptyDir</a>
                </p>
             </>
          }
@@ -30,8 +30,7 @@ const EmptyDirAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const emptyDir = async (path: string): Promise<void> => \{
    await fs.emptyDir(path)
-}
-`}
+}`}
       />
    )
 }

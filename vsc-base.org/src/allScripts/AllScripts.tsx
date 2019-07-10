@@ -1,4 +1,6 @@
 import React from 'react'
+
+import NameAllScripts from './scripts/NameAllScripts'
 import OrganizeImports from './scripts/OrganizeImports'
 
 interface AllScriptsProps {
@@ -8,6 +10,7 @@ interface AllScriptsProps {
 const AllScripts = ({ activeScript }: AllScriptsProps) => (
    <>
       <OrganizeImports open={activeScript === 'OrganizeImports'} />
+      <NameAllScripts open={activeScript === 'NameAllScripts'} />
    </>
 )
 

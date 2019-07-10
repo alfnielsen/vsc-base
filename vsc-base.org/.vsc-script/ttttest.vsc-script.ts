@@ -1,3 +1,4 @@
+//vsc-script-name: ttttest.vsc-script
 
 import * as ts from 'typescript'
 import * as vscode from 'vscode'

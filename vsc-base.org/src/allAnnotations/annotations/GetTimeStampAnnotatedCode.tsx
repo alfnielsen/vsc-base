@@ -17,7 +17,7 @@ const GetTimestampAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- return ISO timestamp
+return ISO timestamp
                </p>
             </>
          }
@@ -42,8 +42,7 @@ const GetTimestampAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const getTimestamp = (): string => \{
    return new Date().toISOString()
-}
-`}
+}`}
       />
    )
 }

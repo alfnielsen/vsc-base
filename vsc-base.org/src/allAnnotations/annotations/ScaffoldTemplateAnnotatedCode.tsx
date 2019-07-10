@@ -13,7 +13,7 @@ const ScaffoldTemplateAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Recursive function that goes through a template tree
+Recursive function that goes through a template tree
                </p>
             </>
          }
@@ -21,7 +21,7 @@ const ScaffoldTemplateAnnotatedCode = ({ open = false }: {open?: boolean}) => {
          codeOneLineEx={`await vsc.scaffoldTemplate(path, template)`}
          codeEx={``}
          code={`/**
- * @param path Full path to where the TemplateItem (file/folder) should be created, userInputs An object with user inputs \{[key: string]: string}, templateItem An TemplateItem (folde/file)
+ * @param path Full path to where the TemplateItem (file/folder) should be created,userInputs An object with user inputs \{[key: string]: string},templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
  * @vscType System
  * @returns Promise<void>
@@ -86,8 +86,7 @@ export type vscUserInput = \{
    defaultValue: string
 }
 export type vscUserInputs = \{ [key: string]: string }
-export type vscStringDelegate = string | ((inputs: vscUserInputs) => string)
-`}
+export type vscStringDelegate = string | ((inputs: vscUserInputs) => string)`}
       />
    )
 }

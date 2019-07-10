@@ -416,4 +416,48 @@ exports.tsReplaceAll = (source, replaceString, callback, program, fromPosition =
     });
     return source;
 };
+/** vsc-base method
+ * @description
+ * Insert an import if its not already imported. \
+ * It will add it to an existing import that has the same path or add a new import after the last import.
+ * @see [tsInsetImport](http://vsc-base.org/#tsInsetImport)
+ * @vscType ts
+ * @oneLineEx source = vsc.tsInsetImport(source, 'useCallback', 'react')
+ * @returns string
+ */
+exports.tsInsetImport = (source, importName, importPath, isDefault = false) => {
+    const [matchImport] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchImport(node, {
+        nameSpace: importName
+    })
+        ||
+            vsc.tsMatchImport(node, {
+                defaultName: importName
+            }));
+    if (matchImport) {
+        return source;
+    }
+    const [matchImportPath] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchImport(node, {
+        path: importPath
+    }));
+    if (matchImportPath) {
+        let importContent = matchImportPath.getText();
+        importContent = isDefault
+            ? importContent.replace('import ', `import ${importName}, `)
+            : importContent.replace('import {', `import { ${importName},`);
+        source = source.substring(0, matchImportPath.pos) + importContent + source.substring(matchImportPath.end);
+        return source;
+    }
+    const allImports = vsc.tsFindAllNodePositionsFromContent(source, node => vsc.tsMatchImport(node)).map(([imp, pos]) => imp);
+    let importPos = 0;
+    if (allImports.length > 0) {
+        allImports.sort((a, b) => a.end - b.end);
+        const lastImport = allImports[allImports.length - 1];
+        importPos = lastImport.end + 1;
+    }
+    const importContent = isDefault
+        ? `import ${importName} from '${importPath}'\n`
+        : `import { ${importName} } from '${importPath}'\n`;
+    source = source.substring(0, importPos) + importContent + source.substring(importPos);
+    return source;
+};
 //# sourceMappingURL=vsc-base-typescript-transform.js.map

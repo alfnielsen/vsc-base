@@ -17,10 +17,10 @@ const PathAsUnixAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
- Replace all '\\'  with '/' 
+Replace all '\\'  with '/' 
                </p>
                <p>
-                (Convert all path this way to make them system safe - work both on unix/linux/mac and windows)
+               (Convert all path this way to make them system safe - work both on unix/linux/mac and windows)
                </p>
             </>
          }
@@ -46,8 +46,7 @@ const PathAsUnixAnnotatedCode = ({ open = false }: {open?: boolean}) => {
  */
 export const pathAsUnix = (path: string): string => \{
    return path.replace(/\\\\/g, '/')
-}
-`}
+}`}
       />
    )
 }

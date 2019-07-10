@@ -1,4 +1,6 @@
+//vsc-script-name: AddVscDef.vsc-script
 import * as vsc from 'vsc-base'
+
 /**
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
  */
@@ -13,7 +15,7 @@ export async function run(path: string) {
       name: string
       metaMap: { [key: string]: string | string[] }
    }[] = []
-   const rawSource = await vsc.getActiveDocumentContent()
+   const rawSource = await vsc.getDocumentContent()
 
    const rawParts = rawSource.split(/\n\/\*\*\s*\n/)
    rawParts.shift() // <-- This is imports
@@ -53,5 +55,5 @@ export async function run(path: string) {
       '\n\nconst vsc = {\n  ' +
       names.join(',\n  ') +
       '\n}\nexport default vsc\n'
-   vsc.appendLineToActiveDocument(added);
+   vsc.appendLineToDocument(added);
 }

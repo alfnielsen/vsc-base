@@ -296,4 +296,4 @@ export declare const tsReplaceAll: (source: string, replaceString: string, callb
  * @oneLineEx source = vsc.tsInsetImport(source, 'useCallback', 'react')
  * @returns string
  */
-export declare const tsInsetImport: (source: string, importName: string, importPath: string, isDefault?: boolean) => string;
+export declare const tsInsetImport: (source: string, importName: string, importPath: string, isDefault?: boolean, useDoubleQuotation?: boolean, addSemicolon?: boolean) => string;

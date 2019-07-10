@@ -452,7 +452,7 @@ export const tsReplaceAll = (source: string, replaceString: string, callback: (n
  * @oneLineEx source = vsc.tsInsetImport(source, 'useCallback', 'react')
  * @returns string
  */
-export const tsInsetImport = (source: string, importName: string, importPath: string, isDefault = false): string => {
+export const tsInsetImport = (source: string, importName: string, importPath: string, isDefault = false, useDoubleQuotation = false, addSemicolon = false): string => {
    const [matchImport] = vsc.tsFindNodePositionFromContent(source, node =>
       vsc.tsMatchImport(node, {
          nameSpace: importName
@@ -488,9 +488,11 @@ export const tsInsetImport = (source: string, importName: string, importPath: st
       const lastImport = allImports[allImports.length - 1]
       importPos = lastImport.end + 1;
    }
+   const quotation = useDoubleQuotation ? '"' : "'";
+   const semiColon = addSemicolon ? ';' : '';
    const importContent = isDefault
-      ? `import ${importName} from '${importPath}'\n`
-      : `import { ${importName} } from '${importPath}'\n`
+      ? `import ${importName} from ${quotation}${importPath}${quotation}${semiColon}\n`
+      : `import { ${importName} } from ${quotation}${importPath}${quotation}${semiColon}\n`
    source = source.substring(0, importPos) + importContent + source.substring(importPos);
 
    return source

@@ -2,7 +2,7 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
-## 0.8.28
+## 0.8.28 + 0.8.29
 
 ### Add
 

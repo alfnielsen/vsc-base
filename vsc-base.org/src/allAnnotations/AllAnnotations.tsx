@@ -101,7 +101,7 @@ import TsHasChildAnnotatedCode from './annotations/TsHasChildAnnotatedCode'
 import TsHasChildrenAnnotatedCode from './annotations/TsHasChildrenAnnotatedCode'
 import TsHasGrandChildAnnotatedCode from './annotations/TsHasGrandChildAnnotatedCode'
 import TsHasGrandChildrenAnnotatedCode from './annotations/TsHasGrandChildrenAnnotatedCode'
-import TsInsetImportAnnotatedCode from './annotations/TsInsetImportAnnotatedCode'
+import TsInsertImportAnnotatedCode from './annotations/TsInsertImportAnnotatedCode'
 import TsIsCallAnnotatedCode from './annotations/TsIsCallAnnotatedCode'
 import TsIsEnumAnnotatedCode from './annotations/TsIsEnumAnnotatedCode'
 import TsIsEnumMemberAnnotatedCode from './annotations/TsIsEnumMemberAnnotatedCode'
@@ -240,7 +240,7 @@ const annotations = [
   { vscType: 'ts', name: 'tshaschildren', component: (open: boolean) => <TsHasChildrenAnnotatedCode key={'tsHasChildren'} open={open} /> },
   { vscType: 'ts', name: 'tshasgrandchild', component: (open: boolean) => <TsHasGrandChildAnnotatedCode key={'tsHasGrandChild'} open={open} /> },
   { vscType: 'ts', name: 'tshasgrandchildren', component: (open: boolean) => <TsHasGrandChildrenAnnotatedCode key={'tsHasGrandChildren'} open={open} /> },
-  { vscType: 'ts', name: 'tsinsetimport', component: (open: boolean) => <TsInsetImportAnnotatedCode key={'tsInsetImport'} open={open} /> },
+  { vscType: 'ts', name: 'tsinsertimport', component: (open: boolean) => <TsInsertImportAnnotatedCode key={'tsInsertImport'} open={open} /> },
   { vscType: 'ts', name: 'tsiscall', component: (open: boolean) => <TsIsCallAnnotatedCode key={'tsIsCall'} open={open} /> },
   { vscType: 'ts', name: 'tsisenum', component: (open: boolean) => <TsIsEnumAnnotatedCode key={'tsIsEnum'} open={open} /> },
   { vscType: 'ts', name: 'tsisenummember', component: (open: boolean) => <TsIsEnumMemberAnnotatedCode key={'tsIsEnumMember'} open={open} /> },

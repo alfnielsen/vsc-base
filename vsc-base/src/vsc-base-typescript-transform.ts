@@ -447,12 +447,12 @@ export const tsReplaceAll = (source: string, replaceString: string, callback: (n
  * @description
  * Insert an import if its not already imported. \
  * It will add it to an existing import that has the same path or add a new import after the last import.
- * @see [tsInsetImport](http://vsc-base.org/#tsInsetImport)
+ * @see [tsInsertImport](http://vsc-base.org/#tsInsertImport)
  * @vscType ts
- * @oneLineEx source = vsc.tsInsetImport(source, 'useCallback', 'react')
+ * @oneLineEx source = vsc.tsInsertImport(source, 'useCallback', 'react')
  * @returns string
  */
-export const tsInsetImport = (source: string, importName: string, importPath: string, isDefault = false, useDoubleQuotation = false, addSemicolon = false): string => {
+export const tsInsertImport = (source: string, importName: string, importPath: string, isDefault = false, useDoubleQuotation = false, addSemicolon = false): string => {
    const [matchImport] = vsc.tsFindNodePositionFromContent(source, node =>
       vsc.tsMatchImport(node, {
          nameSpace: importName

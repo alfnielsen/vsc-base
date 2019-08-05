@@ -32,13 +32,18 @@ Replace ts transpiled code's require for vsc, ts, fs and vscode.
  * @returns string
  */
 export const tsRewriteTranspiledCodeWithVscBaseModules = (
-   sourceJs: string,
+   sourceJs: string
 ): string => \{
    const modulesMap = vsc.getVscDefaultModuleMap()
    modulesMap.forEach(obj => \{
-      const reg = new RegExp(\`\\\\bconst (\\\\w+) = require\\\\(\\\\"\$\{obj.name}\\\\"\\\\)\`, 'g')
-      sourceJs = sourceJs.replace(reg, (str: string) =>
-         \`/* // vsc-base has change the ts transpiled code here. */\`
+      const reg = new RegExp(
+         \`\\\\bconst (\\\\w+) = require\\\\(\\\\"\$\{obj.name}\\\\"\\\\)\`,
+         'g'
+      )
+      sourceJs = sourceJs.replace(
+         reg,
+         (str: string) =>
+            \`/* // vsc-base has change the ts transpiled code here. */\`
       )
    })
    return sourceJs

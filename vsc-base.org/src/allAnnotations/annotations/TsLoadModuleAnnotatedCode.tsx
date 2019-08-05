@@ -78,9 +78,13 @@ export const tsLoadModule = async (
    compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ): Promise<\{ [key: string]: unknown }> => \{
    const sourceJs = await vsc.tsLoadModuleSourceCode(path, compilerOptions)
-   const renamedRequire = "__vsc__import__exports"
+   const renamedRequire = '__vsc__import__exports'
    const [baseDir] = vsc.splitPath(path)
-   const [sourceJsRenamed, importExports] = await tsGetLocalModules(baseDir, sourceJs, renamedRequire)
+   const [sourceJsRenamed, importExports] = await tsGetLocalModules(
+      baseDir,
+      sourceJs,
+      renamedRequire
+   )
 
    let _exports: \{ [key: string]: unknown } = \{}
    try \{
@@ -96,10 +100,7 @@ export const tsLoadModule = async (
 }
 
 export class TSLoadModuleError extends Error \{
-   constructor(
-      message: string,
-      public transpiledCode: string
-   ) \{
+   constructor(message: string, public transpiledCode: string) \{
       super(message)
    }
 }

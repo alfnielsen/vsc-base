@@ -26,9 +26,13 @@ Return the default module map of vsc-base
          code={`/**
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
- * @returns \\\{ [key: string]: \\\{ name: string, module: any \\} \\}
+ * @returns \\\{ [key: string]: \\\{ key: string, name: string, module: any \\} \\}
  */
-export const getVscDefaultModuleMap = (): \{ key: string, name: string, module: any }[] => \{
+export const getVscDefaultModuleMap = (): \{
+   key: string
+   name: string
+   module: any
+}[] => \{
    return [
       \{ key: 'vsc', name: 'vsc-base', module: vsc },
       \{ key: 'ts', name: 'typescript', module: ts },

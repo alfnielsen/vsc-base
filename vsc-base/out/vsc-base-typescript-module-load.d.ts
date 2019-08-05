@@ -22,7 +22,7 @@ export declare const tsLoadModuleSourceCode: (path: string, compilerOptions?: ts
  * @vscType System
  * @example
  * const moduleMap = vsc.getVscDefaultModuleMap()
- * @returns \{ [key: string]: \{ name: string, module: any \} \}
+ * @returns \{ [key: string]: \{ key: string, name: string, module: any \} \}
  */
 export declare const getVscDefaultModuleMap: () => {
     key: string;

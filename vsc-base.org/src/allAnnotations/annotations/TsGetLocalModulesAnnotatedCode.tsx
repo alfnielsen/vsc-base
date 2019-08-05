@@ -39,10 +39,13 @@ export const tsGetLocalModules = async (
    renameRequireToObject: string
 ): Promise<[string, \{ [key: string]: any }]> => \{
    const reg = new RegExp(\`\\\\bconst (\\\\w+) = require\\\\(\\\\"([^\\\\"]+)\\\\"\\\\)\`, 'g')
-   let match: RegExpExecArray | null;
-   const internalModules: \{ name: string, path: string, exported: any }[] = []
+   let match: RegExpExecArray | null
+   const internalModules: \{ name: string; path: string; exported: any }[] = []
    while ((match = reg.exec(sourceJs)) !== null) \{
-      sourceJs = sourceJs.substring(0, match.index) + \`const \$\{match[1]} = \$\{renameRequireToObject}["\$\{match[1]}"]\` + sourceJs.substring(match.index + match[0].length)
+      sourceJs =
+         sourceJs.substring(0, match.index) +
+         \`const \$\{match[1]} = \$\{renameRequireToObject}["\$\{match[1]}"]\` +
+         sourceJs.substring(match.index + match[0].length)
       internalModules.push(\{
          name: match[1],
          path: match[2],
@@ -51,14 +54,12 @@ export const tsGetLocalModules = async (
    }
    const internalModuleExports: \{ [key: string]: any } = \{}
    for (const m of internalModules) \{
-      let path = vsc.joinPaths(baseDir, m.path);
-      path = vsc.trimLeadingDash(path);
-      path = '/' + path
+      let path = vsc.joinPaths(baseDir, m.path)
       if (!path.match(/\\.tsx?/)) \{
-         path += ".ts"
+         path += '.ts'
       }
       m.exported = await vsc.tsLoadModule(path)
-      internalModuleExports[m.name] = m.exported;
+      internalModuleExports[m.name] = m.exported
    }
    return [sourceJs, internalModuleExports]
 }`}

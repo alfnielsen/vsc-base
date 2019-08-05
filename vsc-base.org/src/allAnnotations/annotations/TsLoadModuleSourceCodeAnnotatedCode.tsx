@@ -35,7 +35,7 @@ export const tsLoadModuleSourceCode = async (
    const scriptFileTs = await vsc.getFileContent(path)
    let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions)
    sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
-   return sourceJs;
+   return sourceJs
 }`}
       />
    )

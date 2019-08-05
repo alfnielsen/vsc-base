@@ -41,7 +41,7 @@ exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerO
  * @vscType System
  * @example
  * const moduleMap = vsc.getVscDefaultModuleMap()
- * @returns \{ [key: string]: \{ name: string, module: any \} \}
+ * @returns \{ [key: string]: \{ key: string, name: string, module: any \} \}
  */
 exports.getVscDefaultModuleMap = () => {
     return [
@@ -97,7 +97,10 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     let match;
     const internalModules = [];
     while ((match = reg.exec(sourceJs)) !== null) {
-        sourceJs = sourceJs.substring(0, match.index) + `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` + sourceJs.substring(match.index + match[0].length);
+        sourceJs =
+            sourceJs.substring(0, match.index) +
+                `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` +
+                sourceJs.substring(match.index + match[0].length);
         internalModules.push({
             name: match[1],
             path: match[2],
@@ -108,7 +111,7 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     for (const m of internalModules) {
         let path = vsc.joinPaths(baseDir, m.path);
         if (!path.match(/\.tsx?/)) {
-            path += ".ts";
+            path += '.ts';
         }
         m.exported = yield vsc.tsLoadModule(path);
         internalModuleExports[m.name] = m.exported;
@@ -160,7 +163,7 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
  */
 exports.tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
     const sourceJs = yield vsc.tsLoadModuleSourceCode(path, compilerOptions);
-    const renamedRequire = "__vsc__import__exports";
+    const renamedRequire = '__vsc__import__exports';
     const [baseDir] = vsc.splitPath(path);
     const [sourceJsRenamed, importExports] = yield exports.tsGetLocalModules(baseDir, sourceJs, renamedRequire);
     let _exports = {};

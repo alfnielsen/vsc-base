@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.5.2
+
+Update vsc-base to version 0.8.30
+
+### Fix
+
+The update for vsc-base fix a critical error in loading scripts on window for vsc-script
+
 ## 0.5.1
 
 Update vsc-base to version 0.8.29
@@ -160,4 +168,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
--  Initial release
+- Initial release

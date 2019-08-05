@@ -6,12 +6,12 @@ import * as vscode from 'vscode'
 import * as vsc from './vsc-base'
 
 /** vsc-base method
- * @description 
+ * @description
  * Pre method for tsLoadModule. \
  * (This methods load the ts source, transpile it to js and replace all 'require' instance)
  * @see [tsLoadModuleSourceCode](http://vsc-base.org/#tsLoadModuleSourceCode)
  * @param path
- * @param compilerOptions 
+ * @param compilerOptions
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
  * @example
@@ -25,11 +25,11 @@ export const tsLoadModuleSourceCode = async (
    const scriptFileTs = await vsc.getFileContent(path)
    let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions)
    sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
-   return sourceJs;
+   return sourceJs
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Return the default module map of vsc-base \
  * (Used for ts compiling, module load ect)
  * @see [getVscDefaultModuleMap](http://vsc-base.org/#getVscDefaultModuleMap)
@@ -37,9 +37,13 @@ export const tsLoadModuleSourceCode = async (
  * @vscType System
  * @example
  * const moduleMap = vsc.getVscDefaultModuleMap()
- * @returns \{ [key: string]: \{ name: string, module: any \} \}
+ * @returns \{ [key: string]: \{ key: string, name: string, module: any \} \}
  */
-export const getVscDefaultModuleMap = (): { key: string, name: string, module: any }[] => {
+export const getVscDefaultModuleMap = (): {
+   key: string
+   name: string
+   module: any
+}[] => {
    return [
       { key: 'vsc', name: 'vsc-base', module: vsc },
       { key: 'ts', name: 'typescript', module: ts },
@@ -50,7 +54,7 @@ export const getVscDefaultModuleMap = (): { key: string, name: string, module: a
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Replace ts transpiled code's require for vsc, ts, fs and vscode.
  * @see [tsRewriteTranspiledCodeWithVscBaseModules](http://vsc-base.org/#tsRewriteTranspiledCodeWithVscBaseModules)
  * @internal this method is primary used by vsc.tsLoadModule
@@ -63,25 +67,29 @@ export const getVscDefaultModuleMap = (): { key: string, name: string, module: a
  * @vscType System
  * @example
  * const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
- * @param sourceJs 
+ * @param sourceJs
  * @returns string
  */
 export const tsRewriteTranspiledCodeWithVscBaseModules = (
-   sourceJs: string,
+   sourceJs: string
 ): string => {
    const modulesMap = vsc.getVscDefaultModuleMap()
    modulesMap.forEach(obj => {
-      const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`, 'g')
-      sourceJs = sourceJs.replace(reg, (str: string) =>
-         `/* // vsc-base has change the ts transpiled code here. */`
+      const reg = new RegExp(
+         `\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`,
+         'g'
+      )
+      sourceJs = sourceJs.replace(
+         reg,
+         (str: string) =>
+            `/* // vsc-base has change the ts transpiled code here. */`
       )
    })
    return sourceJs
 }
 
-
 /** vsc-base method
- * @description 
+ * @description
  * Replace ts transpiled code's require by loading each import with another tsLoadModule execution. \
  * This enables tsLoadModule to load files with imports. \
  * IMPORTANT: It does not check for circular imports, which will create infinity loops!
@@ -92,7 +100,7 @@ export const tsRewriteTranspiledCodeWithVscBaseModules = (
  * @vscType System
  * @example
  * const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
- * @param sourceJs 
+ * @param sourceJs
  * @returns string
  */
 export const tsGetLocalModules = async (
@@ -101,10 +109,13 @@ export const tsGetLocalModules = async (
    renameRequireToObject: string
 ): Promise<[string, { [key: string]: any }]> => {
    const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"([^\\"]+)\\"\\)`, 'g')
-   let match: RegExpExecArray | null;
-   const internalModules: { name: string, path: string, exported: any }[] = []
+   let match: RegExpExecArray | null
+   const internalModules: { name: string; path: string; exported: any }[] = []
    while ((match = reg.exec(sourceJs)) !== null) {
-      sourceJs = sourceJs.substring(0, match.index) + `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` + sourceJs.substring(match.index + match[0].length)
+      sourceJs =
+         sourceJs.substring(0, match.index) +
+         `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` +
+         sourceJs.substring(match.index + match[0].length)
       internalModules.push({
          name: match[1],
          path: match[2],
@@ -113,21 +124,15 @@ export const tsGetLocalModules = async (
    }
    const internalModuleExports: { [key: string]: any } = {}
    for (const m of internalModules) {
-      let path = vsc.joinPaths(baseDir, m.path);
-      path = vsc.trimLeadingDash(path);
-      path = '/' + path
+      let path = vsc.joinPaths(baseDir, m.path)
       if (!path.match(/\.tsx?/)) {
-         path += ".ts"
+         path += '.ts'
       }
       m.exported = await vsc.tsLoadModule(path)
-      internalModuleExports[m.name] = m.exported;
+      internalModuleExports[m.name] = m.exported
    }
    return [sourceJs, internalModuleExports]
 }
-
-
-
-
 
 /** vsc-base method
  * @description 
@@ -177,9 +182,13 @@ export const tsLoadModule = async (
    compilerOptions: ts.CompilerOptions = vsc.TsDefaultCompilerOptions
 ): Promise<{ [key: string]: unknown }> => {
    const sourceJs = await vsc.tsLoadModuleSourceCode(path, compilerOptions)
-   const renamedRequire = "__vsc__import__exports"
+   const renamedRequire = '__vsc__import__exports'
    const [baseDir] = vsc.splitPath(path)
-   const [sourceJsRenamed, importExports] = await tsGetLocalModules(baseDir, sourceJs, renamedRequire)
+   const [sourceJsRenamed, importExports] = await tsGetLocalModules(
+      baseDir,
+      sourceJs,
+      renamedRequire
+   )
 
    let _exports: { [key: string]: unknown } = {}
    try {
@@ -195,10 +204,7 @@ export const tsLoadModule = async (
 }
 
 export class TSLoadModuleError extends Error {
-   constructor(
-      message: string,
-      public transpiledCode: string
-   ) {
+   constructor(message: string, public transpiledCode: string) {
       super(message)
    }
 }
@@ -218,7 +224,6 @@ const loadTsModule_Eval = (
    }
    return _exports
 }
-
 
 /** vsc-base method
  * @description 

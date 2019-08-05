@@ -1,4 +1,4 @@
-//vsc-script-name: Automation  -  Add Names To All Scripts
+//vsc-script-name: Automation >  Add Names To All Scripts
 import * as vsc from 'vsc-base'
 
 export async function run(_path: string) {

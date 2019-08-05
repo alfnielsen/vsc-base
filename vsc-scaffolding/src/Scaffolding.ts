@@ -2,6 +2,15 @@
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 
+interface ITemplateMap {
+   area: string[],
+   displayName: string;
+   name: string;
+   name_lower: string;
+   path: string
+   type: 'ts' | 'js'
+}
+
 export default class Scaffolding {
    /**
     * The main method that runs the create template output
@@ -21,35 +30,50 @@ export default class Scaffolding {
        * @todo Maybe move this code, so it do not scan all file every times it run
        */
       const templateFiles = await vsc.findFilePaths('**/*.vsc-template.{js,ts}')
-      const templates: { name: string; name_lower: string; type: string, path: string }[] = []
-      templateFiles.forEach(filePath => {
-         const match = filePath.match(/([\w\-]+)\.vsc\-template\.([jt]s)$/)
+      const templates: ITemplateMap[] = []
+      for (let filePath of templateFiles) {
+         const match = filePath.match(/([\w\-]+)\.vsc\-template\.(ts|js)$/)
          if (match) {
-            const name = match[1]
-            const type = match[2]
+            const content = await vsc.getFileContent(filePath)
+            const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-template\-name\:([^\n]*)/)
+            const name = nameLabelMatch ? nameLabelMatch[1] : match[1]
+            const type = match[2] === 'ts' ? 'ts' : 'js'
             templates.push({
-               name,
+               area: ['Other'],
                type,
+               name,
+               displayName: name,
                name_lower: name.toLocaleLowerCase(),
                path: filePath
             })
          }
-      })
+      }
+
       if (templates.length === 0) {
          vsc.showErrorMessage(
             `NOTE: vsc-scaffolding didn't find any template files. A template file name can be place anywhere in the project, but it must end with '.vsc-template.js'`
          )
          return
       }
+      this.setArea(templates)
+      templates.sort((a, b) => a.displayName.localeCompare(b.displayName))
 
-      const templateName = await vsc.pick(templates.map(t => t.name))
-
+      const hasAreas = templates.find(a => a.area[0] !== 'Other')
+      let templateName: string | undefined
+      if (hasAreas) {
+         const areas = [...new Set(templates.map(s => s.area[0]))]
+         const areaSelected = await vsc.pick(areas)
+         const sel = templates.filter(s => s.area[0] === areaSelected)
+         templateName = await vsc.pick(sel.map(s => s.displayName))
+      } else {
+         templateName = await vsc.pick(templates.map(t => t.name))
+      }
       if (!templateName) {
          return
       }
-      const templateName_lower = templateName.toLocaleLowerCase()
+      // select script from user input
       const selectedTemplate = templates.find(
-         t => t.name_lower === templateName_lower
+         t => t.displayName === templateName
       )
       if (!selectedTemplate) {
          vsc.showErrorMessage(
@@ -91,6 +115,18 @@ export default class Scaffolding {
       })
 
       vscode.window.showInformationMessage('Template output was created.')
+   }
+   setArea(scripts: ITemplateMap[]) {
+      scripts.forEach(s => {
+         s.name = s.name.trim()
+         s.displayName = s.name.trim()
+         if (s.displayName.match('>')) {
+            s.area = s.displayName.split('>').map(a => {
+               return a.trim()
+            })
+            s.displayName = s.area.join(' > ')
+         }
+      });
    }
 }
 

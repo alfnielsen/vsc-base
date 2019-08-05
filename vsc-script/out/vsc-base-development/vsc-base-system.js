@@ -44,7 +44,8 @@ const vsc = require("./vsc-base");
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx const result = await vsc.execFromPath(command, path)
+ * @example
+ * const result = await vsc.execFromPath(command, path)
  * @ex
  const rootPath = vsc.getRootPath(path)
  const result = await vsc.execFromPath('yarn start', rootPath)
@@ -65,13 +66,14 @@ exports.execFromPath = (command, path) => __awaiter(this, void 0, void 0, functi
  * @param readStream
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
- * @ex
- const readStream = vsc.getReadStream(path)
- const lineReader = vsc.getLineStreamReader(readStream)
- for await (const line of lineReader()) {
-    //do something with the line
- }
+ * @example
+ * const lineReader = vsc.getLineStreamReader(readStream)
+ * @example
+ * const readStream = vsc.getReadStream(path)
+ * const lineReader = vsc.getLineStreamReader(readStream)
+ * for await (const line of lineReader()) {
+ *    //do something with the line
+ * }
  * @returns () => AsyncIterableIterator<string>
  */
 exports.getLineStreamReader = (readStream, excludeNewLine = false) => function () {
@@ -116,12 +118,13 @@ exports.getLineStreamReader = (readStream, excludeNewLine = false) => function (
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const readStream = vsc.getReadStream(path)
- * @ex
- const readStream = vsc.getReadStream(path) \
- for await (const chunk of readStream) { \
-   //do something with chunk \
- }
+ * @example
+ * const readStream = vsc.getReadStream(path)
+ * @example
+ * const readStream = vsc.getReadStream(path) \
+ * for await (const chunk of readStream) { \
+ *   //do something with chunk \
+ * }
  * @returns fs.ReadStream
  */
 exports.getReadStream = (path, options = {
@@ -142,7 +145,8 @@ exports.getReadStream = (path, options = {
  * @param path string
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const exist = vsc.doesExists(path)
+ * @example
+ * const exist = vsc.doesExists(path)
  * @returns boolean
  */
 exports.doesExists = (path) => {
@@ -156,7 +160,8 @@ exports.doesExists = (path) => {
  * @param path
  * @dependencyInternal isDir, splitPath
  * @vscType System
- * @oneLineEx const dir = vsc.getDir(path)
+ * @example
+ * const dir = vsc.getDir(path)
  * @returns string
  */
 exports.getDir = (path) => {
@@ -174,7 +179,8 @@ exports.getDir = (path) => {
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const source = vsc.getFileContent(path)
+ * @example
+ * const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
 exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, encoding); });
@@ -186,7 +192,8 @@ exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, vo
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const json = await vsc.getJsonContent(path)
+ * @example
+ * const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
 exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 0, function* () { return yield fs.readJson(path, { throws }); });
@@ -196,8 +203,10 @@ exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 
  * @see [getConfig](http://vsc-base.org/#getConfig)
  * @dependencyExternal vscode
  * @vscType System
- * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
- * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
+ * @example
+ * const myOption = vsc.getConfig(projectName, optionName, defaultValue)
+ * @example
+ * const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
  */
 exports.getConfig = (projectName, property, defaultValue) => {
@@ -213,7 +222,8 @@ exports.getConfig = (projectName, property, defaultValue) => {
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @vscType System
- * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
+ * @example
+ * const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
 exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
@@ -226,7 +236,8 @@ exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') =>
  * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
  * @dependencyInternal findFilePaths
  * @vscType System
- * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @example
+ * const packageJson = await vsc.getRootPackageJson(rootPath)
  * @returns Promise<T = any>
  */
 exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, function* () {
@@ -242,7 +253,8 @@ exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, funct
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
- * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
+ * @example
+ * const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknown guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
@@ -273,7 +285,8 @@ exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**')
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const isDir = vsc.isDir(path)
+ * @example
+ * const isDir = vsc.isDir(path)
  * @see [isDir](http://vsc-base.org/#isDir)
  * @returns boolean
  */
@@ -288,7 +301,8 @@ exports.isDir = (path) => {
  * @param folderPath
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.makeDir(path)
+ * @example
+ * await vsc.makeDir(path)
  * @returns Promise<void>
  */
 exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
@@ -305,7 +319,8 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
  * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
  * @vscType System
- * @oneLineEx await vsc.move(oldPath, newPath)
+ * @example
+ * await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -323,7 +338,8 @@ exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, funct
  * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
  * @see [move](http://vsc-base.org/#move)
  * @vscType System
- * @oneLineEx await vsc.move(oldPath, newPath)
+ * @example
+ * await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -336,7 +352,8 @@ exports.rename = (path, newPath) => __awaiter(this, void 0, void 0, function* ()
  * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
  * @vscType System
- * @oneLineEx await vsc.copy(oldPath, newPath)
+ * @example
+ * await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -349,7 +366,8 @@ exports.copy = (path, newPath, options) => __awaiter(this, void 0, void 0, funct
  * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
  * @see [remove](http://vsc-base.org/#remove)
  * @vscType System
- * @oneLineEx await vsc.remove(path)
+ * @example
+ * await vsc.remove(path)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -362,7 +380,8 @@ exports.remove = (path) => __awaiter(this, void 0, void 0, function* () {
  * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
  * @see [emptyDir](http://vsc-base.org/#emptyDir)
  * @vscType System
- * @oneLineEx await vsc.remove(path)
+ * @example
+ * await vsc.remove(path)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -378,7 +397,8 @@ exports.emptyDir = (path) => __awaiter(this, void 0, void 0, function* () {
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.saveFileContent(path, source)
+ * @example
+ * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
 exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
@@ -393,7 +413,8 @@ exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, vo
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.saveFileContent(path, source)
+ * @example
+ * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
 exports.addFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {

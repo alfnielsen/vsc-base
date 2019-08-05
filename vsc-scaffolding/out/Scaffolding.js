@@ -29,29 +29,45 @@ class Scaffolding {
              */
             const templateFiles = yield vsc.findFilePaths('**/*.vsc-template.{js,ts}');
             const templates = [];
-            templateFiles.forEach(filePath => {
-                const match = filePath.match(/([\w\-]+)\.vsc\-template\.([jt]s)$/);
+            for (let filePath of templateFiles) {
+                const match = filePath.match(/([\w\-]+)\.vsc\-template\.(ts|js)$/);
                 if (match) {
-                    const name = match[1];
-                    const type = match[2];
+                    const content = yield vsc.getFileContent(filePath);
+                    const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-template\-name\:([^\n]*)/);
+                    const name = nameLabelMatch ? nameLabelMatch[1] : match[1];
+                    const type = match[2] === 'ts' ? 'ts' : 'js';
                     templates.push({
-                        name,
+                        area: ['Other'],
                         type,
+                        name,
+                        displayName: name,
                         name_lower: name.toLocaleLowerCase(),
                         path: filePath
                     });
                 }
-            });
+            }
             if (templates.length === 0) {
                 vsc.showErrorMessage(`NOTE: vsc-scaffolding didn't find any template files. A template file name can be place anywhere in the project, but it must end with '.vsc-template.js'`);
                 return;
             }
-            const templateName = yield vsc.pick(templates.map(t => t.name));
+            this.setArea(templates);
+            templates.sort((a, b) => a.displayName.localeCompare(b.displayName));
+            const hasAreas = templates.find(a => a.area[0] !== 'Other');
+            let templateName;
+            if (hasAreas) {
+                const areas = [...new Set(templates.map(s => s.area[0]))];
+                const areaSelected = yield vsc.pick(areas);
+                const sel = templates.filter(s => s.area[0] === areaSelected);
+                templateName = yield vsc.pick(sel.map(s => s.displayName));
+            }
+            else {
+                templateName = yield vsc.pick(templates.map(t => t.name));
+            }
             if (!templateName) {
                 return;
             }
-            const templateName_lower = templateName.toLocaleLowerCase();
-            const selectedTemplate = templates.find(t => t.name_lower === templateName_lower);
+            // select script from user input
+            const selectedTemplate = templates.find(t => t.displayName === templateName);
             if (!selectedTemplate) {
                 vsc.showErrorMessage(`NOTE: vsc-scaffolding didn't find your template '${templateName}'. The template must be in a file called '${templateName}.vsc-template.js'`);
                 return;
@@ -88,6 +104,18 @@ class Scaffolding {
                 yield vsc.scaffoldTemplate(dir, item, userInputs);
             }));
             vscode.window.showInformationMessage('Template output was created.');
+        });
+    }
+    setArea(scripts) {
+        scripts.forEach(s => {
+            s.name = s.name.trim();
+            s.displayName = s.name.trim();
+            if (s.displayName.match('>')) {
+                s.area = s.displayName.split('>').map(a => {
+                    return a.trim();
+                });
+                s.displayName = s.area.join(' > ');
+            }
         });
     }
 }

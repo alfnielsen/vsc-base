@@ -9,7 +9,8 @@ const vsc = require("./vsc-base");
  * @param sourceTs
  * @param compilerOptions
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsTranspile(sourceTs)
+ * @example
+ * const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
 exports.tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions) => {
@@ -28,7 +29,8 @@ exports.tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions)
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
+ * @example
+ * const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
  */
 exports.tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     return ts.transform(sourceFile, transformers, compilerOptions);
@@ -40,7 +42,8 @@ exports.tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDef
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const compilerOptions = vsc.TsDefaultCompilerOptions
+ * @example
+ * const compilerOptions = vsc.TsDefaultCompilerOptions
  */
 exports.TsDefaultCompilerOptions = ({
     module: ts.ModuleKind.CommonJS,
@@ -55,7 +58,8 @@ exports.TsDefaultCompilerOptions = ({
  * @param sourceFileName
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const sourceFile = vsc.tsCreateSourceFile(code)
+ * @example
+ * const sourceFile = vsc.tsCreateSourceFile(code)
  */
 exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date().getTime())}`) => {
     let sourceFile = ts.createSourceFile(sourceFileName, content, ts.ScriptTarget.ES2015, 
@@ -71,7 +75,8 @@ exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date(
  * @params node
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const children = vsc.tsGetParsedChildren(node)
+ * @example
+ * const children = vsc.tsGetParsedChildren(node)
  */
 exports.tsGetParsedChildren = (node) => {
     let children = [];

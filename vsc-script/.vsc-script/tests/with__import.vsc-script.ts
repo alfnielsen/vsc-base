@@ -1,4 +1,4 @@
-//vsc-script-name: TEST               -     Script with import statements
+//vsc-script-name: TEST   >   Script with import statements
 import * as vsc from "vsc-base"
 
 import { test, test2, test3 } from "./test-util/with__import"

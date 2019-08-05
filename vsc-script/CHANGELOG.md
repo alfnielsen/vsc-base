@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.3
+
+Grouping of names has been added: Use '>' for making a group
+
+Update vsc-base to version 0.8.31
+
 ## 0.5.2
 
 Update vsc-base to version 0.8.30
@@ -168,4 +174,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+-  Initial release

@@ -2,10 +2,18 @@ import * as cp from 'child-process-promise'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as ts from 'typescript'
-import * as vsc from 'vsc-base'
+//import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 
-// import * as vsc from './vsc-base-development/vsc-base'
+import * as vsc from './vsc-base-development/vsc-base'
+
+interface IScriptMap {
+   area: string[],
+   displayName: string;
+   name: string;
+   name_lower: string;
+   path: string
+}
 
 export default class Script {
    /**
@@ -80,7 +88,7 @@ export default class Script {
       // Collect all project scripts:
       const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')
       // Create lowercase map of scripts
-      const scripts: { name: string; name_lower: string; path: string }[] = []
+      const scripts: IScriptMap[] = []
       for (let filePath of scriptFiles) {
          const match = filePath.match(/([\w\-]+)\.vsc\-script\.ts$/)
          if (match) {
@@ -88,29 +96,41 @@ export default class Script {
             const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-script\-name\:([^\n]*)/)
             const name = nameLabelMatch ? nameLabelMatch[1] : match[1]
             scripts.push({
+               area: ['Other'],
                name,
+               displayName: name,
                name_lower: name.toLocaleLowerCase(),
                path: filePath
             })
          }
       }
+      //
       if (scripts.length === 0) {
          vsc.showErrorMessage(
             `ERROR (102): vsc-script didn't find any script files. A script file name can be place anywhere in the project, but it must end with '.vsc-script.js'`
          )
          return
       }
+      this.setArea(scripts)
       //Sort scripts
-      scripts.sort((a, b) => a.name.localeCompare(b.name))
+      scripts.sort((a, b) => a.displayName.localeCompare(b.displayName))
+      const hasAreas = scripts.find(a => a.area[0] !== 'Other')
+      let scriptName: string | undefined
+      if (hasAreas) {
+         const areas = [...new Set(scripts.map(s => s.area[0]))]
+         const areaSelected = await vsc.pick(areas)
+         const sel = scripts.filter(s => s.area[0] === areaSelected)
+         scriptName = await vsc.pick(sel.map(s => s.displayName))
+      } else {
+         scriptName = await vsc.pick(scripts.map(s => s.name))
+      }
       // Ask user for script to run.
-      const scriptName = await vsc.pick(scripts.map(s => s.name))
       if (!scriptName) {
          return
       }
       // select script from user input
-      const scriptName_lower = scriptName.toLocaleLowerCase()
       const selectedScript = scripts.find(
-         t => t.name_lower === scriptName_lower
+         t => t.displayName === scriptName
       )
       if (!selectedScript) {
          vsc.showErrorMessage(
@@ -161,6 +181,19 @@ ${method}
       return 'Error handler find first error in extension.js: ' + errorContent
    }
 
+
+   setArea(scripts: IScriptMap[]) {
+      scripts.forEach(s => {
+         s.name = s.name.trim()
+         s.displayName = s.name.trim()
+         if (s.displayName.match('>')) {
+            s.area = s.displayName.split('>').map(a => {
+               return a.trim()
+            })
+            s.displayName = s.area.join(' > ')
+         }
+      });
+   }
 }
 
 

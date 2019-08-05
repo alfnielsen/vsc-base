@@ -18,7 +18,8 @@ const vsc = require("./vsc-base");
  * @param absolutePathFromRoot
  * @vscType Raw
  * @dependencyInternal splitPath, subtractPath, addLeadingLocalDash
- * @oneLineEx const subRelativePath = vsc.getSubRelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
+ * @example
+ * const subRelativePath = vsc.getSubRelativePathFromAbsoluteRootPath(path, absolutePathFromRoot, rootPath)
  * @testPrinterArgument
 {
    path: 'c:/root/module/file.ts',
@@ -47,7 +48,8 @@ exports.getSubRelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
  * @see [addLeadingLocalDash](http://vsc-base.org/#addLeadingLocalDash)
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.addLeadingLocalDash(path)
+ * @example
+ * const path = vsc.addLeadingLocalDash(path)
  * @testPrinterArgument
 {
    path: 'file.ts',
@@ -69,6 +71,8 @@ exports.addLeadingLocalDash = (path) => {
  * @see [toKebabCase](http://vsc-base.org/#toKebabCase)
  * @param str
  * @vscType Raw
+ * @example
+ * const cssName = vsc.toKebabCase(inputName)
  * @testPrinterArgument
 {
    str: 'SomeName'
@@ -77,7 +81,6 @@ exports.addLeadingLocalDash = (path) => {
    const result = vsc.toKebabCase(args.str)
    printResult(result)
  }
- * @oneLineEx const cssName = vsc.toKebabCase(inputName)
  * @returns string
  */
 exports.toKebabCase = (str) => str[0].toLowerCase() +
@@ -92,6 +95,8 @@ exports.toKebabCase = (str) => str[0].toLowerCase() +
  * @param str
  * @param uppercase
  * @vscType Raw
+ * @example
+ * const cssName = vsc.toSnakeCase(inputName)
  * @testPrinterArgument
 {
    str: 'SomeName',
@@ -101,7 +106,6 @@ exports.toKebabCase = (str) => str[0].toLowerCase() +
    const result = vsc.toSnakeCase(args.str, args.upperCase!=='false')
    printResult(result)
  }
- * @oneLineEx const cssName = vsc.toSnakeCase(inputName)
  * @returns string
  */
 exports.toSnakeCase = (str, upperCase = false) => {
@@ -123,6 +127,8 @@ exports.toSnakeCase = (str, upperCase = false) => {
  * @see [toCamelCase](http://vsc-base.org/#toCamelCase)
  * @param str
  * @vscType Raw
+ * @example
+ * const name = vsc.toCamelCase(inputName)
  * @testPrinterArgument
 {
    str: 'Some-name'
@@ -131,7 +137,6 @@ exports.toSnakeCase = (str, upperCase = false) => {
    const result = vsc.toCamelCase(args.str)
    printResult(result)
 }
- * @oneLineEx const name = vsc.toCamelCase(inputName)
  * @returns string
  */
 exports.toCamelCase = (str) => str[0].toLowerCase() +
@@ -145,6 +150,8 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
  * @see [toPascalCase](http://vsc-base.org/#toPascalCase)
  * @param str
  * @vscType Raw
+ * @example
+ * const name = vsc.toPascalCase(inputName)
  * @testPrinterArgument
 {
    str: 'some-name'
@@ -153,7 +160,6 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
    const result = vsc.toPascalCase(args.str)
    printResult(result)
 }
- * @oneLineEx const name = vsc.toPascalCase(inputName)
  * @returns string
  */
 exports.toPascalCase = (str) => str[0].toUpperCase() +
@@ -167,6 +173,8 @@ exports.toPascalCase = (str) => str[0].toUpperCase() +
  * @see [toTitleCase](http://vsc-base.org/#toTitleCase)
  * @param str
  * @vscType Raw
+ * @example
+ * const name = vsc.toTitleCase(inputName)
  * @testPrinterArgument
 {
    str: 'some-name'
@@ -175,7 +183,6 @@ exports.toPascalCase = (str) => str[0].toUpperCase() +
    const result = vsc.toTitleCase(args.str)
    printResult(result)
 }
- * @oneLineEx const name = vsc.toTitleCase(inputName)
  * @returns string
  */
 exports.toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
@@ -189,6 +196,8 @@ exports.toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
  * @see [cleanPath](http://vsc-base.org/#cleanPath)
  * @param path
  * @vscType Raw
+ * @example
+ * const newPath = vsc.cleanPath(concatenatedPath)
  * @testPrinterArgument
 {
    path: 'folder/../folder/file'
@@ -197,7 +206,6 @@ exports.toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
    const result = vsc.cleanPath(args.path)
    printResult(result)
 }
- * @oneLineEx const newPath = vsc.cleanPath(concatenatedPath)
  * @returns string
  */
 exports.cleanPath = (path) => {
@@ -215,7 +223,8 @@ exports.cleanPath = (path) => {
  * @param json
  * @param keyPath Ex sub.sub.name >> {sub:{sub:{name:'Foo'}}} >> Foo
  * @vscType Raw
- * @oneLineEx const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
+ * @example
+ * const startScript = vsc.getJsonParts(packageJson, 'scripts.start')
  * @testPrinterArgument
 {
    json: '{ "a": { "t": true, "o": { "n": 12 }, "b": "b"  }}',
@@ -253,7 +262,8 @@ exports.getJsonParts = (json, keyPath) => {
  * @param path
  * @param startWithRegExp? If your project defines another definition of absolute path then overwrite this.
  * @vscType Raw
- * @oneLineEx const isAbsolutePath = vsc.isAbsolutePath(path)
+ * @example
+ * const isAbsolutePath = vsc.isAbsolutePath(path)
  * @testPrinterArgument
 {
    path: 'some/path/to/file.ts'
@@ -275,7 +285,8 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
  * @param parentPath
  * @dependencyInternal trimDashes
  * @vscType Raw
- * @oneLineEx const isSubPath = vsc.isSubPath(path)
+ * @example
+ * const isSubPath = vsc.isSubPath(path)
  * @testPrinterArgument
 {
    subPath: 'c:/root/area/module1/file.ts',
@@ -300,7 +311,8 @@ exports.isSubPath = (subPath, parentPath) => {
  * @param path2
  * @dependencyInternal trimDashes
  * @vscType Raw
- * @oneLineEx const newPath = vsc.joinPaths(path1, path2)
+ * @example
+ * const newPath = vsc.joinPaths(path1, path2)
  * @testPrinterArgument
 {
    path1: 'root/area/',
@@ -325,7 +337,8 @@ exports.joinPaths = (path1, path2) => {
  * @see [pathAsUnix](http://vsc-base.org/#pathAsUnix)
  * @param path
  * @vscType Raw
- * @oneLineEx const safePath = vsc.pathAsUnix(path)
+ * @example
+ * const safePath = vsc.pathAsUnix(path)
  * @testPrinterArgument
 {
    path: 'root\area\module1\file.ts'
@@ -346,7 +359,8 @@ exports.pathAsUnix = (path) => {
  * @param fromPath
  * @param toPath
  * @vscType Raw
- * @oneLineEx const relativePath = vsc.getRelativePath(fromPath, toPath)
+ * @example
+ * const relativePath = vsc.getRelativePath(fromPath, toPath)
  * @testPrinterArgument
  {
     fromPath: 'c:/folder/sub1/sub2/someFile.js',
@@ -382,7 +396,8 @@ exports.getRelativePath = (fromPath, toPath) => {
  * @param realPathTest Test if the real  The root path
  * @vscType Raw
  * @dependencyInternal isAbsolutePath, splitPath, cleanPath, subtractPath, trimLeadingDash
- * @oneLineEx const absolutePath = vsc.getAbsolutePathFromRelativePath(path, pathRelativeToPath, rootPath)
+ * @example
+ * const absolutePath = vsc.getAbsolutePathFromRelativePath(path, pathRelativeToPath, rootPath)
  * @testPrinterArgument
 {
    path: 'c:/root/area/module1/file.ts',
@@ -415,7 +430,8 @@ exports.getAbsolutePathFromRelativePath = (path, pathRelativeToPath, rootPath) =
  * @param path1
  * @param path2
  * @vscType Raw
- * @oneLineEx const sharedPath = vsc.sharedPath(path1, path2)
+ * @example
+ * const sharedPath = vsc.sharedPath(path1, path2)
  * @testPrinterArgument
 {
    path1: 'root/area/module1/file1.ts',
@@ -446,7 +462,8 @@ exports.sharedPath = (path1, path2) => {
  * Mostly used for debug async.
  * @see [sleep](http://vsc-base.org/#sleep)
  * @param ms
- * @oneLineEx await vsc.sleep(2000)
+ * @example
+ * await vsc.sleep(2000)
  * @vscType Raw
  * @async
  * @testPrinterArgument
@@ -472,7 +489,8 @@ exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
  * @param path
  * @dependencyInternal pathAsUnix
  * @vscType Raw
- * @oneLineEx const [dir, file] = vsc.splitPath(filePath)
+ * @example
+ * const [dir, file] = vsc.splitPath(filePath)
  * @testPrinterArgument
 {
    path: 'root/area/module/file1.ts'
@@ -499,7 +517,8 @@ exports.splitPath = (path) => {
  * @param trimDashes default true
  * @dependencyInternal trimDashes
  * @vscType Raw
- * @oneLineEx const newPath = vsc.subtractPath(path, parentPath)
+ * @example
+ * const newPath = vsc.subtractPath(path, parentPath)
  * @testPrinterArgument
 {
    path: 'root/area/module/file1.ts',
@@ -526,7 +545,8 @@ exports.subtractPath = (path, parentPath, trimDashes = true) => {
  * @see [trimDashes](http://vsc-base.org/#trimDashes)
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.trimDashes(foundPath)
+ * @example
+ * const path = vsc.trimDashes(foundPath)
  * @testPrinterArgument
 {
    path: '/root/area/module/'
@@ -546,7 +566,8 @@ exports.trimDashes = (path) => {
  * @see [trimLeadingDash](http://vsc-base.org/#trimLeadingDash)
  * @param path
  * @vscType Raw
- * @oneLineEx const path = vsc.trimLeadingDash(foundPath)
+ * @example
+ * const path = vsc.trimLeadingDash(foundPath)
  * @testPrinterArgument
 {
    path: '/root/area/module1/file1.ts'
@@ -567,7 +588,8 @@ exports.trimLeadingDash = (path) => {
  * @see [getErrorInfo](http://vsc-base.org/#getErrorInfo)
  * @param e error
  * @vscType Raw
- * @oneLineEx const info = vsc.getErrorInfo(e)
+ * @example
+ * const info = vsc.getErrorInfo(e)
  * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
  */
 exports.getErrorInfo = (e) => {
@@ -605,7 +627,8 @@ exports.getErrorInfo = (e) => {
  * return ISO timestamp
  * @see [getTimestamp](http://vsc-base.org/#getTimestamp)
  * @vscType Raw
- * @oneLineEx const timestamp = vsc.getTimestamp()
+ * @example
+ * const timestamp = vsc.getTimestamp()
  * @testPrinterArgument
 {
    trigger: 'write any!'
@@ -626,7 +649,8 @@ exports.getTimestamp = () => {
  * @see [getJSONCircularReplacer](http://vsc-base.org/#getJSONCircularReplacer)
  * @vscType Raw
  * @debugTool Primary a debugging method.
- * @oneLineEx const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
+ * @example
+ * const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
  * @returns (_key: string, value: unknown) => unknown
  */
 exports.getJSONCircularReplacer = () => {
@@ -651,7 +675,8 @@ exports.getJSONCircularReplacer = () => {
  * @param space
  * @vscType Raw
  * @debugTool Primary a debugging method.
- * @oneLineEx const objString = vsc.toJSONString(someObject);
+ * @example
+ * const objString = vsc.toJSONString(someObject);
  * @returns string
  */
 exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
@@ -671,7 +696,8 @@ exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2
  * @param currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
- * @oneLineEx const newObj = vsc.maxDepthReplacer(obj, 3);
+ * @example
+ * const newObj = vsc.maxDepthReplacer(obj, 3);
  * @testPrinterArgument
 {
    obj: '{"a":{"b":{"c":{"d":12}}}}',
@@ -710,7 +736,8 @@ exports.maxDepthReplacer = (obj, maxDepth) => {
  * @param currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
- * @oneLineEx const newObj = vsc.keyValueReplacer(obj, key, newValue);
+ * @example
+ * const newObj = vsc.keyValueReplacer(obj, key, newValue);
  * @testPrinterArgument
 {
    obj: '{"a":{"b":{"c":{"d":12}}}}',
@@ -750,7 +777,20 @@ exports.keyValueReplacer = (obj, key, newValue) => {
  * @param currentLevel
  * @debugTool Primary a debugging method.
  * @vscType Raw
- * @oneLineEx const newObj = vsc.objectWalker(obj, walkerCallback);
+ * @example
+ * const newObj = vsc.objectWalker(obj, walkerCallback);
+ * @example
+ * // try this walker out in the tester
+ * const json = {"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}
+ * let longestAncestorList = 0;
+ * let ancestorKeysString: (string|number)[] = [];
+ * vsc.objectWalker(json,(state)=>{
+ *    if(longestAncestorList<state.depth){
+ *       longestAncestorList = state.depth
+ *       ancestorKeysString = [state.key, ...state.ancestorKeys]
+ *    }
+ * })
+ * // log: ancestorKeysList.join('.') + '\nreverse:\n' + ancestorKeysString.reverse().join('.');
  * @testPrinterArgument
 {
    obj: '{"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}'
@@ -771,19 +811,6 @@ exports.keyValueReplacer = (obj, key, newValue) => {
        setResult(''+e)
     }
 }
- * @ex
-// try this walker out in the tester
-const json = {"a":{"b1":{"c1":12},"b2":{ "c2":{"c3":9}}}}
-let longestAncestorList = 0;
-let ancestorKeysString: (string|number)[] = [];
-vsc.objectWalker(json,(state)=>{
-   if(longestAncestorList<state.depth){
-      longestAncestorList = state.depth
-      ancestorKeysString = [state.key, ...state.ancestorKeys]
-   }
-})
-
-// log: ancestorKeysList.join('.') + '\nreverse:\n' + ancestorKeysString.reverse().join('.');
  * @returns string
  */
 exports.objectWalker = (obj, callback) => {

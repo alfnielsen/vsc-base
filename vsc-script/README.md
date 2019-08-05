@@ -20,12 +20,12 @@ The extensions can be [installed from vscode marketplace](https://marketplace.vi
 
 ## Why vsc Script?
 
-You couldt always just run js/ts runs in your system with nodejs,
+You could always just run js/ts runs in your system with nodejs,
 but this extension gives you the context of vscode.
 
 > All script are run by clicking a file or folder and your script is given the uri that was clicked.
 
-Commen methods that make custom scripting easy can be found in the examples in .vsc-script folder in this source code.
+Common methods that make custom scripting easy can be found in the examples in .vsc-script folder in this source code.
 
 ## Dev (Create vsc-script)
 
@@ -44,7 +44,8 @@ A script file is written in typescript.
 **Ex:** replace.vsc-script.ts
 
 ```ts
-// documentation on http://vsc-base.org
+//documentation on http://vsc-base.org
+//vcc-script-name: Example > Replace 'something'
 import * as vsc from 'vsc-base'
 
 export async function run(path: string) {
@@ -60,6 +61,7 @@ You can use these modules in your script: vsc-base, fs-extra, vscode and typescr
 
 ```ts
 // documentation on http://vsc-base.org
+//vcc-script-name: Example > modules you can use
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 import * as ts from 'typescript'
@@ -70,11 +72,33 @@ export async function run(path: string) {}
 
 > You cannot use any other libs (modules)!
 
+> You can import other local ts files (They can't you any other modules either)
+
 > When this extension runs your scripts it actually doing it in its own context's which is the reason it only has these 4 libs.
 
 The script must export one async function named 'run' that takes an Uri (vscode.Uri).
 
 The uri is the path to the file/folder right-clicked in vscode when the user runs the script.
+
+### Script names and grouping
+
+A script can be named by adding a comment in it with //vcc-script-name: {NAME}
+
+```ts
+// documentation on http://vsc-base.org
+//vcc-script-name: My Script
+import * as vsc from 'vsc-base'
+export async function run(path: string) {}
+```
+
+Script's can be grouped by adding '>' in the name
+
+```ts
+// documentation on http://vsc-base.org
+//vcc-script-name: Components > Rename
+import * as vsc from 'vsc-base'
+export async function run(path: string) {}
+```
 
 ### onSave script's (Preview)
 

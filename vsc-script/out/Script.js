@@ -12,9 +12,9 @@ const cp = require("child-process-promise");
 const fs = require("fs-extra");
 const path = require("path");
 const ts = require("typescript");
-const vsc = require("vsc-base");
+//import * as vsc from 'vsc-base'
 const vscode = require("vscode");
-//import * as vsc from './vsc-base-development/vsc-base'
+const vsc = require("./vsc-base-development/vsc-base");
 class Script {
     /**
      * Meta function that ensures the libs are not optimized away!

@@ -22,7 +22,8 @@ const vsc = require("./vsc-base");
  * @param compilerOptions
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
- * @oneLineEx const sourceJs = await vsc.tsLoadModuleSourceCode(path)
+ * @example
+ * const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
 exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
@@ -38,8 +39,9 @@ exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerO
  * @see [getVscDefaultModuleMap](http://vsc-base.org/#getVscDefaultModuleMap)
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
- * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap()
- * @returns \{ [key: string]: \{ name: string, module: any \} \}
+ * @example
+ * const moduleMap = vsc.getVscDefaultModuleMap()
+ * @returns \{ [key: string]: \{ key: string, name: string, module: any \} \}
  */
 exports.getVscDefaultModuleMap = () => {
     return [
@@ -62,7 +64,8 @@ exports.getVscDefaultModuleMap = () => {
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
+ * @example
+ * const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs
  * @returns string
  */
@@ -84,7 +87,8 @@ exports.tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
  * @notes
  * const XX = require("XXX");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
+ * @example
+ * const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
  * @param sourceJs
  * @returns string
  */
@@ -93,7 +97,10 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     let match;
     const internalModules = [];
     while ((match = reg.exec(sourceJs)) !== null) {
-        sourceJs = sourceJs.substring(0, match.index) + `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` + sourceJs.substring(match.index + match[0].length);
+        sourceJs =
+            sourceJs.substring(0, match.index) +
+                `const ${match[1]} = ${renameRequireToObject}["${match[1]}"]` +
+                sourceJs.substring(match.index + match[0].length);
         internalModules.push({
             name: match[1],
             path: match[2],
@@ -103,10 +110,8 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     const internalModuleExports = {};
     for (const m of internalModules) {
         let path = vsc.joinPaths(baseDir, m.path);
-        path = vsc.trimLeadingDash(path);
-        path = '/' + path;
         if (!path.match(/\.tsx?/)) {
-            path += ".ts";
+            path += '.ts';
         }
         m.exported = yield vsc.tsLoadModule(path);
         internalModuleExports[m.name] = m.exported;
@@ -129,32 +134,36 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
  * @vscType System
- * @oneLineEx const moduleObj = await vsc.tsLoadModule(path)
- * @ex
-let moduleObj
-try {
-   moduleObj = await vsc.tsLoadModule(path)
-} catch (e){
-   vsc.showErrorMessage(`Loading module coursed an error: ${e}`)
-   return
-}
-const verifiedModule = vsc.verifyModuleMethods(moduleObj, ['run'])
-if (!verifiedModule) {
-   vsc.showErrorMessage(`Module didn't have 'run' :: ${JSON.stringify(moduleObj)}`)
-   return
-}
-try {
-   const result = verifiedModule.run()
-   await vsc.awaitResult(result)
-   vsc.showMessage(`Loaded Run resulted with value: ${result}`)
-} catch (e) {
-   vsc.showErrorMessage('Error: ' + e)
-}
+ * @example
+ * const moduleObj = await vsc.tsLoadModule(path)
+ * @example
+ * let moduleObj
+ * try {
+ *   moduleObj = await vsc.tsLoadModule(path)
+ * } catch (e){
+ *   vsc.showErrorMessage(`Loading module coursed an error: ${e}`)
+ *   return
+ * }
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   moduleObj,
+ *   ['run']
+ * )
+ * if (!verifiedModule) {
+ *   vsc.showErrorMessage(`Module didn't have 'run' :: ${JSON.stringify(moduleObj)}`)
+ *   return
+ * }
+ * try {
+ *   const result = verifiedModule.run()
+ *   await vsc.awaitResult(result)
+ *   vsc.showMessage(`Loaded Run resulted with value: ${result}`)
+ * } catch (e) {
+ *   vsc.showErrorMessage('Error: ' + e)
+ * }
  * @returns Promise<{ [key: string]: unknown; }>
  */
 exports.tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
     const sourceJs = yield vsc.tsLoadModuleSourceCode(path, compilerOptions);
-    const renamedRequire = "__vsc__import__exports";
+    const renamedRequire = '__vsc__import__exports';
     const [baseDir] = vsc.splitPath(path);
     const [sourceJsRenamed, importExports] = yield exports.tsGetLocalModules(baseDir, sourceJs, renamedRequire);
     let _exports = {};
@@ -196,10 +205,14 @@ const loadTsModule_Eval = (sourceJs, importExports, renamedRequire) => {
  * return undefined if a method didn't exist.
  * @see [verifyModuleMethods](http://vsc-base.org/#verifyModuleMethods)
  * @vscType System
- * @oneLineEx const verifyModuleMethods = vsc.verifyModuleMethods(_module, methodName)
- * @ex
-const verifiedModule = vsc.verifyModuleMethods(_module, ['run', 'getId'])
-const result = verifiedModule.run()
+ * @example
+ * const verifyModuleMethods = vsc.verifyModuleMethods(_module, methodName)
+ * @example
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   _module,
+ *   ['run','getId']
+ * )
+ * const result = verifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
 exports.verifyModuleMethods = (_module, methods) => {
@@ -220,11 +233,15 @@ exports.verifyModuleMethods = (_module, methods) => {
  * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
  * @see [awaitResult](http://vsc-base.org/#awaitResult)
  * @vscType ts
- * @oneLineEx await vsc.awaitResult(result)
- * @ex
- const verifiedModule = vsc.verifyModuleMethods(_module, ['run'])
- let result = verifiedModule.run()
- result = await vsc.awaitResult(result)
+ * @example
+ * await vsc.awaitResult(result)
+ * @example
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   _module,
+ *   ['run']
+ * )
+ * let result = verifiedModule.run()
+ * result = await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {

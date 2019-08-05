@@ -1,5 +1,18 @@
 # Change Log
 
+## 0.1.11
+
+You can now add a template name inside a template will for better naming.
+Use //vsc-template-name:<NAME>
+EX:
+//vsc-template-name:MY BETTER NAME WITH SPACES
+
+Grouping of names has been added: Use '>' for making a group
+EX:
+//vsc-template-name: Component > MY BETTER NAME WITH SPACES
+
+Upgrade to use vsc-base 0.8.31
+
 ## 0.1.10
 
 Upgrade to use vsc-base 0.8.26

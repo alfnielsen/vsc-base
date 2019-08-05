@@ -31,21 +31,21 @@ Create a file that ends with .vsc-template.js or .vsc-template.ts
 
 > {NAME}.vsc-template.ts (typescript)
 
-A js template file must contain a single parentheses wraped method,
-and it cannot use any extarnel js ref like import and require.
+A js template file must contain a single parentheses wrapped method,
+and it cannot use any external js ref like import and require.
 
-A ts templte file must contain a export function named Template.
+A ts template file must contain a export function named Template.
 You can use [vsc-base](http://vsc-base.org) in your ts template file.
 (And no other library! )
 
-You dont need to use vsc-base (and if you use it you need to install it as dev dependency)
+You don't need to use vsc-base (and if you use it you need to install it as dev dependency)
 
 > I personally think is a good idea to create a .vsc-template folder in the root of your project and place all templates there.
 
 **EX: Component.vsc-template.js**
 
 ```js
-(function Template() {
+;(function Template() {
    const camelize = str =>
       str.replace(/\W+(.)/g, (_match, chr) => chr.toUpperCase())
    return {
@@ -160,17 +160,61 @@ export type UserInputs = { [key: string]: string }
 export type StringDelegate = string | ((inputs: UserInputs) => void)
 ```
 
-## Requirements
+## vsc-base and vsc-script
 
 This extension is build with [vsc-base](http://vsc-base.org)
 
-## Extension Settings
+This means that it will run the same way as a vsc-script, and you can use all vsc-base methods in your ts version of a template.
 
-There are no setting in this version.
+```ts
+import * as vsc from 'vsc-base'‚
 
-## Known Issues
+export function Template(path: string, templatePath: string): vsc.vscTemplate {
+   const name = vsc.ask("Name component")
+   if(!name)return
+   const subName = vsc.ask(`Name sub-component for ${name}`,`Sub-${name}`)
+   if(!subName)return
+   const list = ['area1', 'area2','area3']
+   const area = vsc.pick(list)
+   if(!area)return
+   return {
+      userInputs: [],
+      template: [
+         {
+            type: 'folder',
+            name: inputs => `${area}`,
+            children: [
+               {
+                  type: 'file',
+                  name: inputs => `${vsc.toPascalCase(subName)}.ts`,
+                  content: inputs => `// Im ${subName} in ${name}`
+               }
+            ]
+         }
+      ]
+   }
+}
+```
 
-No know issues
+### Template names and grouping
+
+A template can be named by adding a comment in it with //vcc-template-name: {NAME}
+
+> You can name both ts and js files
+
+```ts
+import * as vsc from 'vsc-base'‚
+//vcc-template-name: My template
+export function Template(path: string, templatePath: string): vsc.vscTemplate {
+```
+
+Template's can be grouped by adding '>' in the name
+
+```ts
+import * as vsc from 'vsc-base'
+//vcc-template-name: Components > Folder with markup and style
+export function Template(path: string, templatePath: string): vsc.vscTemplate {
+```
 
 ## Links and related projects
 

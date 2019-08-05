@@ -50,6 +50,12 @@ export const createPartMap = async (vscFiles: string[]) => {
          let annotationName = vsc.toPascalCase(name + 'AnnotatedCode')
          // Overwrite meta:
          metaMap['see'] = [`[${name}](http://vsc-base.org/#${name})`]
+         if (!metaMap['example']) {
+            vsc.showMessage('mapArgs:' + mapArgs.join('\n'))
+            vsc.showErrorMessage('missing example!')
+         }
+         metaMap['oneLineEx'] = [metaMap['example'][0]]
+         metaMap['ex'] = [metaMap['example'][1]]
          const part: CodePart = {
             name,
             meta,

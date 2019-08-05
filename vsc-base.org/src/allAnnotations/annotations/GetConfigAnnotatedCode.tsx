@@ -19,7 +19,8 @@ Get vscode project config
          }
          
          codeOneLineEx={`const myOption = vsc.getConfig(projectName, optionName, defaultValue)`}
-         codeEx={`const myOption = vsc.getConfig('myExtension', 'doThisThing', false)`}
+         codeEx={`
+const myOption = vsc.getConfig('myExtension', 'doThisThing', false)`}
          code={`/**
  * @dependencyExternal vscode
  * @vscType System

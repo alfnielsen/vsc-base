@@ -41,7 +41,12 @@ Base test for node properties.
          
          codeOneLineEx={`const foundNode = vsc.tsMatchNode(node, options)`}
          codeEx={`
-const foundNode = vsc.tsMatchNode(node, \{ name: /^keyName\$/ })`}
+const foundNode = vsc.tsMatchNode(
+  node,
+  \{
+    name: /^keyName\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns s.Node | undefined

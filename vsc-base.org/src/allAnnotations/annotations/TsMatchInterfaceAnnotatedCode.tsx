@@ -29,7 +29,12 @@ Test is a node is an interface (node: ts.InterfaceDeclaration)
          
          codeOneLineEx={`const interfaceNode = vsc.tsMatchInterface(node, options)`}
          codeEx={`
-const interfaceNode = vsc.tsMatchInterface(node, \{ name: /^myCaller\$/ })`}
+const interfaceNode = vsc.tsMatchInterface(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.EnumDeclaration | undefined

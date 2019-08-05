@@ -23,7 +23,12 @@ Test is a node is a enum member (node: ts.EnumMember)
          
          codeOneLineEx={`const isEnumMember = vsc.tsIsEnumMember(node, options)`}
          codeEx={`
-const isEnumMember = vsc.tsIsEnumMember(node, \{ name: /^myCaller\$/ })`}
+const isEnumMember = vsc.tsIsEnumMember(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

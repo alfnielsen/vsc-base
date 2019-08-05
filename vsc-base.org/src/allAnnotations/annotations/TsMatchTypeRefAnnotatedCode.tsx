@@ -29,7 +29,12 @@ Test is a node is an type reference (node: ts.TypeReferenceNode)
          
          codeOneLineEx={`const typeRefNode = vsc.tsMatchTypeRef(node, options)`}
          codeEx={`
-const typeRefNode = vsc.tsMatchTypeRef(node, \{ name: /^myCaller\$/ })`}
+const typeRefNode = vsc.tsMatchTypeRef(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.TypeReferenceNode | undefined

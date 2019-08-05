@@ -26,10 +26,16 @@ Find is a direct parsedChild that matches conditions in a callback
          
          codeOneLineEx={`const childNode = vsc.tsFindChild(node, childNodeTestCallback })`}
          codeEx={`
-const childNode = vsc.tsFindChild(node, (childNode)=> vsc.tsIdVariable(childNode, \{
-   name:/^varName\$/, 
-   isConst: true 
-}))`}
+const childNode = vsc.tsFindChild(
+  node,
+  (childNode)=> vsc.tsIdVariable(
+    childNode,
+    \{
+      name: /^varName\$/,
+      isConst: true
+    }
+  )
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.Node | undefined

@@ -22,8 +22,8 @@ Get a list off all filePaths in project the matches a glob pattern
          codeEx={`
 const allTestFiles = await vsc.findFilePaths('**\\/*.test.\{ts,jsx,ts,tsx}')
 for (const filePath of allTestFiles)\{
-   const source = await vsc.getFileContent()
-   // do something with the files...
+  const source = await vsc.getFileContent()
+  // do something with the files...
 }`}
          code={`/**
  * @param include glob,exclude glob,maxResults

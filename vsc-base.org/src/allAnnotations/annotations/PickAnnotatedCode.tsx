@@ -20,8 +20,8 @@ Prompt user for a question with a list of answers
          
          codeOneLineEx={`const answer = await vsc.pick(answers)`}
          codeEx={`
- const list = ['yes', 'no']
- const answer = await vsc.pick(list)`}
+const list = ['yes', 'no']
+const answer = await vsc.pick(list)`}
          code={`/**
  * @param path string[]
  * @dependencyExternal vscode

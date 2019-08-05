@@ -32,9 +32,7 @@ execute the command!
          }
          
          codeOneLineEx={`const result = await vsc.execFromPath(command, path)`}
-         codeEx={` const rootPath = vsc.getRootPath(path)
- const result = await vsc.execFromPath('yarn start', rootPath)
- const stringResult = result.stdout.toString()`}
+         codeEx={``}
          code={`/**
  * @param path,content
  * @vscType System

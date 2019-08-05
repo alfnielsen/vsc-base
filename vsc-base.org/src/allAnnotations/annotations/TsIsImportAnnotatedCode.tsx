@@ -39,7 +39,12 @@ hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').
          
          codeOneLineEx={`const isImport = vsc.tsIsImport(node, options)`}
          codeEx={`
-const isImport = vsc.tsIsImport(node, \{ path: /react/ })`}
+const isImport = vsc.tsIsImport(
+  node,
+  \{
+    path: /react/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

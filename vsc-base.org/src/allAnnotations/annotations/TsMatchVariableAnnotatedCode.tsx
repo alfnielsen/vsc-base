@@ -38,7 +38,12 @@ Test is a node is a variable declaration (node: ts.VariableDeclaration)
          
          codeOneLineEx={`const varNode = vsc.tsMatchVariable(node, options)`}
          codeEx={`
-const varNode = vsc.tsMatchVariable(node, \{ name: /^myCaller\$/ })`}
+const varNode = vsc.tsMatchVariable(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.VariableDeclaration | undefined

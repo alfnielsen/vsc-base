@@ -35,7 +35,12 @@ Test is a node is a object property (node: ts.PropertyAssignment)
          
          codeOneLineEx={`const objNode = vsc.tsMatchObjectProperty(node, options)`}
          codeEx={`
-const objNode = vsc.tsMatchObjectProperty(node, \{ name: /^keyName\$/ })`}
+const objNode = vsc.tsMatchObjectProperty(
+  node,
+  \{
+    name: /^keyName\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.PropertyAssignment | undefined

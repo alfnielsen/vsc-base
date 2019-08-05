@@ -23,9 +23,12 @@ Ensure that a method result that optional can be a promise is awaited.
          
          codeOneLineEx={`await vsc.awaitResult(result)`}
          codeEx={`
- const verifiedModule = vsc.verifyModuleMethods(_module, ['run'])
- let result = verifiedModule.run()
- result = await vsc.awaitResult(result)`}
+const verifiedModule = vsc.verifyModuleMethods(
+  _module,
+  ['run']
+)
+let result = verifiedModule.run()
+result = await vsc.awaitResult(result)`}
          code={`/**
  * @vscType ts
  * @returns Promise<any>

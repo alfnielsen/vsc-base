@@ -28,30 +28,32 @@ Create a Ts Transformer factory
          }
          
          codeOneLineEx={`const transformer = vsc.tsCreateTransformer(transformerCallback)`}
-         codeEx={`// transforms arrowFunction with one return statement to lambda function
+         codeEx={`
+// transforms arrowFunction with one return statement to lambda function
 const transformer = vsc.tsCreateTransformer((node) => \{
-   if (!ts.isArrowFunction(node)) \{ // is not an arrow function
-      return
-   }
-   const children = vsc.tsGetParsedChildren(node.body)
-   if (children.length !== 1) \{ // don't have one statement
-      return
-   }
-   const child = children[0]
-   if (!ts.isReturnStatement(child)) \{ // statement is not a return statement
-      return
-   }
-   const returnNode = child
-   const returnExpression = returnNode.expression
-   if (returnExpression === undefined) \{ // return statement is undefined
-      return
-   }
-   //Replace body-node with return-node
-   node.body = returnExpression
-   return node
+  if (!ts.isArrowFunction(node)) \{ // is not an arrow function
+    return
+  }
+  const children = vsc.tsGetParsedChildren(node.body)
+  if (children.length !== 1) \{ // don't have one statement
+    return
+  }
+  const child = children[0]
+  if (!ts.isReturnStatement(child)) \{ // statement is not a return statement
+    return
+  }
+  const returnNode = child
+  const returnExpression = returnNode.expression
+  if (returnExpression === undefined) \{ // return statement is undefined
+    return
+  }
+  //Replace body-node with return-node
+  node.body = returnExpression
+  return node
 });
 //Run transformer:
-const updatedCode = vsc.tsTransform(code, [transformer]);`}
+const updatedCode = vsc.tsTransform(code, [transformer]);
+ *`}
          code={`/**
  * @param callback,program
  * @vscType ts

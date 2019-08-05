@@ -29,7 +29,12 @@ Test is a node is a call expression (node: ts.CallExpression)
          
          codeOneLineEx={`const callNode = vsc.tsMatchCall(node, options)`}
          codeEx={`
-const callNode = vsc.tsMatchCall(node, \{ name: /^myCaller\$/ })`}
+const callNode = vsc.tsMatchCall(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.CallExpression | undefined

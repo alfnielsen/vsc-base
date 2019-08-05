@@ -26,10 +26,16 @@ Test if direct parsedChild that matches conditions in a callback
          
          codeOneLineEx={`const child = vsc.tsHasChild(node, childNodeTestCallback })`}
          codeEx={`
-const hasChild = vsc.tsHasChild(node, (childNode) => vsc.tsIsVariable(childNode, \{
-   name:/^varName\$/, 
-   isConst: true 
-}))`}
+const hasChild = vsc.tsHasChild(
+  node,
+  (childNode) => vsc.tsIsVariable(
+    childNode,
+    \{
+      name:/^varName\$/,
+      isConst: true
+    }
+  )
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

@@ -14,7 +14,8 @@ import * as vsc from './vsc-base'
  * @param compilerOptions 
  * @param moduleMap default = vsc.getVscDefaultModuleMap()
  * @vscType System
- * @oneLineEx const sourceJs = await vsc.tsLoadModuleSourceCode(path)
+ * @example
+ * const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
 export const tsLoadModuleSourceCode = async (
@@ -34,7 +35,8 @@ export const tsLoadModuleSourceCode = async (
  * @see [getVscDefaultModuleMap](http://vsc-base.org/#getVscDefaultModuleMap)
  * @internal this method is primary used by vsc.loadTsModule
  * @vscType System
- * @oneLineEx const moduleMap = vsc.getVscDefaultModuleMap()
+ * @example
+ * const moduleMap = vsc.getVscDefaultModuleMap()
  * @returns \{ [key: string]: \{ name: string, module: any \} \}
  */
 export const getVscDefaultModuleMap = (): { key: string, name: string, module: any }[] => {
@@ -59,7 +61,8 @@ export const getVscDefaultModuleMap = (): { key: string, name: string, module: a
  * const typescript_1 = require("typescript");
  * const vscode = require("vscode");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
+ * @example
+ * const sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs)
  * @param sourceJs 
  * @returns string
  */
@@ -87,7 +90,8 @@ export const tsRewriteTranspiledCodeWithVscBaseModules = (
  * @notes
  * const XX = require("XXX");
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
+ * @example
+ * const sourceJs = vsc.tsGetLocalModules(baseDir, sourceJs, renameRequireToObject)
  * @param sourceJs 
  * @returns string
  */
@@ -141,27 +145,31 @@ export const tsGetLocalModules = async (
  * @dependencyExternal ts
  * @dependencyInternal getFileContent, showErrorMessage
  * @vscType System
- * @oneLineEx const moduleObj = await vsc.tsLoadModule(path)
- * @ex
-let moduleObj
-try {
-   moduleObj = await vsc.tsLoadModule(path)
-} catch (e){
-   vsc.showErrorMessage(`Loading module coursed an error: ${e}`)
-   return
-}
-const verifiedModule = vsc.verifyModuleMethods(moduleObj, ['run'])
-if (!verifiedModule) {
-   vsc.showErrorMessage(`Module didn't have 'run' :: ${JSON.stringify(moduleObj)}`)
-   return
-}
-try {
-   const result = verifiedModule.run()
-   await vsc.awaitResult(result)
-   vsc.showMessage(`Loaded Run resulted with value: ${result}`)
-} catch (e) {
-   vsc.showErrorMessage('Error: ' + e)
-}
+ * @example
+ * const moduleObj = await vsc.tsLoadModule(path)
+ * @example
+ * let moduleObj
+ * try {
+ *   moduleObj = await vsc.tsLoadModule(path)
+ * } catch (e){
+ *   vsc.showErrorMessage(`Loading module coursed an error: ${e}`)
+ *   return
+ * }
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   moduleObj,
+ *   ['run']
+ * )
+ * if (!verifiedModule) {
+ *   vsc.showErrorMessage(`Module didn't have 'run' :: ${JSON.stringify(moduleObj)}`)
+ *   return
+ * }
+ * try {
+ *   const result = verifiedModule.run()
+ *   await vsc.awaitResult(result)
+ *   vsc.showMessage(`Loaded Run resulted with value: ${result}`)
+ * } catch (e) {
+ *   vsc.showErrorMessage('Error: ' + e)
+ * }
  * @returns Promise<{ [key: string]: unknown; }>
  */
 export const tsLoadModule = async (
@@ -218,10 +226,14 @@ const loadTsModule_Eval = (
  * return undefined if a method didn't exist.
  * @see [verifyModuleMethods](http://vsc-base.org/#verifyModuleMethods)
  * @vscType System
- * @oneLineEx const verifyModuleMethods = vsc.verifyModuleMethods(_module, methodName)
- * @ex 
-const verifiedModule = vsc.verifyModuleMethods(_module, ['run', 'getId'])
-const result = verifiedModule.run()
+ * @example
+ * const verifyModuleMethods = vsc.verifyModuleMethods(_module, methodName)
+ * @example
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   _module, 
+ *   ['run','getId']
+ * )
+ * const result = verifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
 export const verifyModuleMethods = (
@@ -245,11 +257,15 @@ export const verifyModuleMethods = (
  * (Responses from methods loaded with vsc.tsLoadModule can be optional async!)
  * @see [awaitResult](http://vsc-base.org/#awaitResult)
  * @vscType ts
- * @oneLineEx await vsc.awaitResult(result)
- * @ex 
- const verifiedModule = vsc.verifyModuleMethods(_module, ['run'])
- let result = verifiedModule.run()
- result = await vsc.awaitResult(result)
+ * @example
+ * await vsc.awaitResult(result)
+ * @example
+ * const verifiedModule = vsc.verifyModuleMethods(
+ *   _module,
+ *   ['run']
+ * )
+ * let result = verifiedModule.run()
+ * result = await vsc.awaitResult(result)
  * @returns Promise<any>
  */
 export const awaitResult = async <T = any>(result: any): Promise<T> => {
@@ -259,4 +275,3 @@ export const awaitResult = async <T = any>(result: any): Promise<T> => {
       return Promise.resolve(result)
    }
 }
-

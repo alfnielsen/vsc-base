@@ -8,8 +8,10 @@ import * as vsc from './vsc-base';
  * @param defaultValue string
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const answer = await vsc.ask(question, defaultValue)
- * @ex const answer = await ask('Where to move file?', currentFilePath)
+ * @example
+ * const answer = await vsc.ask(question, defaultValue)
+ * @example
+ * const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
  */
 export declare const ask: (question: string, defaultValue: string) => Promise<string | undefined>;
@@ -20,10 +22,11 @@ export declare const ask: (question: string, defaultValue: string) => Promise<st
  * @param path string[]
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const answer = await vsc.pick(answers)
- * @ex
- const list = ['yes', 'no']
- const answer = await vsc.pick(list)
+ * @example
+ * const answer = await vsc.pick(answers)
+ * @example
+ * const list = ['yes', 'no']
+ * const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */
 export declare const pick: (answerList: string[]) => Promise<string | undefined>;
@@ -37,13 +40,14 @@ export declare const pick: (answerList: string[]) => Promise<string | undefined>
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePaths(includePattern)
- * @ex
-const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles){
-   const source = await vsc.getFileContent()
-   // do something with the files...
-}
+ * @example
+ * const files = await vsc.findFilePaths(includePattern)
+ * @example
+ * const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
+ * for (const filePath of allTestFiles){
+ *   const source = await vsc.getFileContent()
+ *   // do something with the files...
+ * }
  * @returns Promise<string[]>
  */
 export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
@@ -57,13 +61,14 @@ export declare const findFilePaths: (include?: vscode.GlobPattern, exclude?: vsc
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
- * @ex
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
-for (const filePath of storyFilesInModule1){
-   const source = await vsc.getFileContent()
-   // Do something with filePath..
-}
+ * @example
+ * const files = await vsc.findFilePathsFromBase(dir, includePattern)
+ * @example
+ * const filePaths = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
+ * for (const filePath of filePaths){
+ *    const source = await vsc.getFileContent()
+ *    // Do something with filePath..
+ * }
  * @returns Promise<string[]>
  */
 export declare const findFilePathsFromBase: (basePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
@@ -79,19 +84,20 @@ export declare const findFilePathsFromBase: (basePath: string, includePattern?: 
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDashes, findFilePathsFromBase
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
- * @ex
-const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.length===0){
-   vsc.showErrorMessage('Module file was not found in parent folder')
-   return
-}
-if(moduleFileInParentFolder.length>1){
-   vsc.showErrorMessage('More than one Module file was found in parent folder')
-   return
-}
-const modulePath = moduleFileInParentFolder[0];
-// Do something with modulePath..
+ * @example
+ * const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
+ * @example
+ * const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
+ * if(moduleFileInParentFolder.length===0){
+ *   vsc.showErrorMessage('Module file was not found in parent folder')
+ *   return
+ * }
+ * if(moduleFileInParentFolder.length>1){
+ *   vsc.showErrorMessage('More than one Module file was found in parent folder')
+ *   return
+ * }
+ * const modulePath = moduleFileInParentFolder[0];
+ * // Do something with modulePath..
  * @returns Promise<string[]>
  */
 export declare const findRelativeFilePaths: (path: string, relativePath: string, includePattern?: string, exclude?: vscode.GlobPattern, maxResults?: number) => Promise<string[]>;
@@ -101,7 +107,8 @@ export declare const findRelativeFilePaths: (path: string, relativePath: string,
  * @see [getActiveTerminal](http://vsc-base.org/#getActiveTerminal)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.getActiveTerminal()
+ * @example
+ * const editor = vsc.getActiveTerminal()
  * @returns vscode.TextEditor | undefined
  */
 export declare const getActiveTerminal: () => vscode.Terminal | undefined;
@@ -118,7 +125,8 @@ export declare const getActiveTerminal: () => vscode.Terminal | undefined;
  * @see [writeToTerminal](http://vsc-base.org/#writeToTerminal)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.writeToTerminal()
+ * @example
+ * const editor = vsc.writeToTerminal()
  * @returns vscode.TextEditor | undefined
  */
 export declare const writeToTerminal: (content: string, showTerminal?: boolean, addNewLine?: boolean, terminal?: vscode.Terminal | undefined) => boolean;
@@ -128,7 +136,8 @@ export declare const writeToTerminal: (content: string, showTerminal?: boolean, 
  * @see [getActiveEditor](http://vsc-base.org/#getActiveEditor)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.getActiveEditor()
+ * @example
+ * const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
 export declare const getActiveEditor: () => vscode.TextEditor | undefined;
@@ -138,7 +147,8 @@ export declare const getActiveEditor: () => vscode.TextEditor | undefined;
  * @see [getActiveDocument](http://vsc-base.org/#getActiveDocument)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const document = vsc.getActiveDocument()
+ * @example
+ * const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
 export declare const getActiveDocument: (editor?: vscode.TextEditor | undefined) => vscode.TextDocument | undefined;
@@ -147,7 +157,8 @@ export declare const getActiveDocument: (editor?: vscode.TextEditor | undefined)
  * Open a new document (untitled and not saved).
  * @see [newDocument](http://vsc-base.org/#newDocument)
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.newDocument(content)
+ * @example
+ * const path = vsc.newDocument(content)
  * @vscType Vscode
  * @returns Promise<vscode.TextDocument>
  */
@@ -157,7 +168,8 @@ export declare const newDocument: (content?: string | undefined, language?: stri
  * Get current open file path or undefined if nothing is open.
  * @see [getDocumentPath](http://vsc-base.org/#getDocumentPath)
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.getDocumentPath()
+ * @example
+ * const path = vsc.getDocumentPath()
  * @vscType Vscode
  * @returns string | undefined
  */
@@ -168,7 +180,8 @@ export declare const getDocumentPath: (document?: vscode.TextDocument | undefine
  * @see [getDocumentContent](http://vsc-base.org/#getDocumentContent)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const content = vsc.getDocumentContent()
+ * @example
+ * const content = vsc.getDocumentContent()
  * @returns string | undefined
  */
 export declare const getDocumentContent: (document?: vscode.TextDocument | undefined) => string | undefined;
@@ -182,7 +195,8 @@ export declare const getDocumentContent: (document?: vscode.TextDocument | undef
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.setDocumentContent(content)
+ * @example
+ * const success = vsc.setDocumentContent(content)
  * @returns boolean
  */
 export declare const setDocumentContent: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
@@ -193,7 +207,8 @@ export declare const setDocumentContent: (content: string, editor?: vscode.TextE
  * @param document
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
+ * @example
+ * const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
 export declare const getFullDocumentRange: (document: vscode.TextDocument) => vscode.Range;
@@ -207,7 +222,8 @@ export declare const getFullDocumentRange: (document: vscode.TextDocument) => vs
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.appendToDocument(editor, document, content)
+ * @example
+ * await vsc.appendToDocument(editor, document, content)
  * @returns boolean
  */
 export declare const appendToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
@@ -220,7 +236,8 @@ export declare const appendToDocument: (content: string, editor?: vscode.TextEdi
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.prependToDocument(editor, document, content)
+ * @example
+ * vsc.prependToDocument(editor, document, content)
  * @returns boolean
  */
 export declare const prependToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
@@ -234,7 +251,8 @@ export declare const prependToDocument: (content: string, editor?: vscode.TextEd
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.insertAtRange(content, range)
+ * @example
+ * const success = vsc.insertAtRange(content, range)
  * @returns boolean
  */
 export declare const insertAtRange: (content: string, range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
@@ -248,7 +266,8 @@ export declare const insertAtRange: (content: string, range: vscode.Range, edito
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.insertAt(content, start, end)
+ * @example
+ * const success = vsc.insertAt(content, start, end)
  * @returns boolean
  */
 export declare const insertAt: (content: string, start: number, end?: number, editor?: vscode.TextEditor | undefined, trimSpaces?: boolean) => boolean;
@@ -260,7 +279,8 @@ export declare const insertAt: (content: string, start: number, end?: number, ed
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = vsc.appendLineToDocument(content)
+ * @example
+ * const success = vsc.appendLineToDocument(content)
  * @returns boolean
  */
 export declare const appendLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
@@ -272,7 +292,8 @@ export declare const appendLineToDocument: (content: string, editor?: vscode.Tex
  * @param document
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.prependLineToDocument(content)
+ * @example
+ * const success = vsc.prependLineToDocument(content)
  * @returns boolean
  */
 export declare const prependLineToDocument: (content: string, editor?: vscode.TextEditor | undefined) => boolean;
@@ -283,7 +304,8 @@ export declare const prependLineToDocument: (content: string, editor?: vscode.Te
  * @see [saveDocument](http://vsc-base.org/#saveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.saveDocument(content)
+ * @example
+ * const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
 export declare const saveDocument: (document?: vscode.TextDocument | undefined) => Promise<boolean>;
@@ -294,7 +316,8 @@ export declare const saveDocument: (document?: vscode.TextDocument | undefined) 
  * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
  * @vscType Vscode
- * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
+ * @example
+ * const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
 export declare const createVscodeRangeAndPosition: (source: string, start: number, end?: number, trimSpacesAndComments?: boolean) => vsc.VscodePosition;
@@ -318,7 +341,8 @@ export declare type VscodePosition = {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const selection = vsc.createSelection(start, end)
+ * @example
+ * const selection = vsc.createSelection(start, end)
  * @returns vscode.Selection
  */
 export declare const createSelection: (source: string, start: number, end?: number, trimSpaces?: boolean) => vscode.Selection;
@@ -331,7 +355,8 @@ export declare const createSelection: (source: string, start: number, end?: numb
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelection(start, end)
+ * @example
+ * const success = vsc.setSelection(start, end)
  * @returns boolean
  */
 export declare const setSelection: (start: number, end?: number, editor?: vscode.TextEditor | undefined) => boolean;
@@ -345,7 +370,8 @@ export declare const setSelection: (start: number, end?: number, editor?: vscode
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelections(ranges)
+ * @example
+ * const success = vsc.setSelections(ranges)
  * @returns boolean
  */
 export declare const setSelections: (ranges: {
@@ -358,7 +384,8 @@ export declare const setSelections: (ranges: {
  * returns true on success
  * @see [addSelection](http://vsc-base.org/#addSelection)
  * @vscType Vscode
- * @oneLineEx const success = vsc.addSelection(range)
+ * @example
+ * const success = vsc.addSelection(range)
  * @returns boolean
  */
 export declare const addSelection: (start: number, end?: number, editor?: vscode.TextEditor | undefined) => boolean;
@@ -371,7 +398,8 @@ export declare const addSelection: (start: number, end?: number, editor?: vscode
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelectionFromRange(range)
+ * @example
+ * const success = vsc.setSelectionFromRange(range)
  * @returns boolean
  */
 export declare const setSelectionFromRange: (range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
@@ -384,7 +412,8 @@ export declare const setSelectionFromRange: (range: vscode.Range, editor?: vscod
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelectionsFromRanges(ranges)
+ * @example
+ * const success = vsc.setSelectionsFromRanges(ranges)
  * @returns boolean
  */
 export declare const setSelectionsFromRanges: (range: vscode.Range[], editor?: vscode.TextEditor | undefined) => boolean;
@@ -396,7 +425,8 @@ export declare const setSelectionsFromRanges: (range: vscode.Range[], editor?: v
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.addSelectionFromRange(range)
+ * @example
+ * const success = vsc.addSelectionFromRange(range)
  * @returns boolean
  */
 export declare const addSelectionFromRange: (range: vscode.Range, editor?: vscode.TextEditor | undefined) => boolean;
@@ -408,7 +438,8 @@ export declare const addSelectionFromRange: (range: vscode.Range, editor?: vscod
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const rootPath = vsc.getRootPath()
+ * @example
+ * const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
 export declare const getRootPath: (path: string) => string | undefined;
@@ -418,7 +449,8 @@ export declare const getRootPath: (path: string) => string | undefined;
  * @see [saveAll](http://vsc-base.org/#saveAll)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.saveAll()
+ * @example
+ * await vsc.saveAll()
  * @returns Promise<void>
  */
 export declare const saveAll: () => Promise<void>;
@@ -429,7 +461,8 @@ export declare const saveAll: () => Promise<void>;
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showErrorMessage(message)
+ * @example
+ * vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
 export declare const showErrorMessage: (message: string) => Promise<void>;
@@ -440,7 +473,8 @@ export declare const showErrorMessage: (message: string) => Promise<void>;
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showMessage(message)
+ * @example
+ * vsc.showMessage(message)
  * @returns Promise<void>
  */
 export declare const showMessage: (message: string) => Promise<void>;

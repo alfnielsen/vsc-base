@@ -20,10 +20,47 @@ export async function run(path: string) {
    let [dir] = vsc.splitPath(vscFiles[0])
    dir = '/' + vsc.trimDashes(dir)
    // Now create all element/files used by the the vsc-base.org project
+   await CreateTests(parts)
    await CompileToVscBaseOrg(dir, parts)
-
-
    vsc.showMessage('Cloning to vsc-base..')
+   await CloneAndBuildVscBase(dir, vscFiles)
+   vsc.showMessage(`Compiling Done`)
+}
+
+
+
+const CreateTests = async (parts: CodePart[]) => {
+   for (const part of parts) {
+      let testFile = part.file.replace('vsc-script/src/vsc-base-development/vsc-base-', 'vsc-script/src/test/compiled-tests/vsc-base-');
+      testFile = testFile.replace('.ts', '.test.ts');
+      let content = '';
+      if (vsc.doesExists(testFile)) {
+         content = await vsc.getFileContent(testFile);
+      } else {
+         content = `
+import * as assert from 'assert'
+import * as vsc from '../vsc-base-development/vsc-base'
+
+`
+      }
+      if (content.indexOf(`suite('${part.metaMap['vscType']}_${part.name}'`) < 0) {
+         content += CreateTest(part)
+      }
+      await vsc.saveFileContent(testFile, content);
+   }
+}
+const CreateTest = (part: CodePart) => {
+   return `
+suite('${part.metaMap['vscType']}_${part.name}', () => {
+   test(' 1', () => {
+      const r1 = vsc.${part.name}()
+      assert.equal(r1, '')
+   })
+})
+`
+}
+
+const CloneAndBuildVscBase = async (dir: string, vscFiles: string[]) => {
    const basePath = dir + '/vsc-base.ts';
    const vscBaseDir = dir.replace('vsc-script/src/vsc-base-development', 'vsc-base');
    const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
@@ -39,10 +76,7 @@ export async function run(path: string) {
    vsc.showMessage("Building vsc-base ..")
    //run build:
    await vsc.execFromPath("yarn build", vscBaseDir)
-
-   vsc.showMessage(`Compiling Done`)
 }
-
 
 const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    // For vsc-base.org we change the path to point into that project (in this mono-respo)
@@ -136,7 +170,7 @@ const writeAnnotationComponent = (
 ) => {
    // meta
    const writeMetaMap: string[] = []
-   const excludeList = ['description', 'see', 'oneLineEx', 'ex', 'testPrinterArgument', 'testPrinter']
+   const excludeList = ['description', 'see', 'example', 'oneLineEx', 'ex', 'testPrinterArgument', 'testPrinter']
    for (const [key, content] of Object.entries(metaMapRaw)) {
       if (!excludeList.includes(key)) {
          const escapedContent = content.join(',').replace(/([\\`\$\{])/g, '\\$1')
@@ -155,7 +189,7 @@ const writeAnnotationComponent = (
                   ${descr.replace(newLineReg, '\n               </p>\n               <p>\n               ')}
                </p>`
    // online ex
-   const oneLineEx = metaMap.oneLineEx.join(',').replace(/([\\`\$\{])/g, '\\$1');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+   const oneLineEx = metaMap.oneLineEx.join(',').replace(/([\\`\$\{])/g, '\\$1').replace('\n', '');//.replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
    // ex
    const codeEx = (metaMap.ex || ['']).join(',').replace(/([\\`\$\{])/g, '\\$1')
    code = code.replace(/([\\`\$\{])/g, '\\$1')

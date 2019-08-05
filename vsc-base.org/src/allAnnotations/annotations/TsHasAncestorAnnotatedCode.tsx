@@ -24,9 +24,15 @@ Test if it has a parent or ancestor (parent's parent) that matches conditions in
          codeOneLineEx={`const hasAncestor = vsc.tsHasAncestor(node, ancestorNodeTestCallback)`}
          codeEx={`
 // find a function with name 'someCaller'
-const hasAncestor = vsc.tsHasAncestor(node, (childNode) => vsc.tsIsFunction(childNode, \{
-   name:/^someCaller\$/
-}))`}
+const hasAncestor = vsc.tsHasAncestor(
+  node, 
+  (childNode) => vsc.tsIsFunction(
+    childNode, 
+    \{
+      name:/^someCaller\$/
+    }
+  )
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

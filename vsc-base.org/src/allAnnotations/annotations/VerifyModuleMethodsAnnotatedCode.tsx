@@ -23,7 +23,10 @@ Test if a loaded module has methods (Loaded with vsc.loadTsModule)
          
          codeOneLineEx={`const verifyModuleMethods = vsc.verifyModuleMethods(_module, methodName)`}
          codeEx={`
-const verifiedModule = vsc.verifyModuleMethods(_module, ['run', 'getId'])
+const verifiedModule = vsc.verifyModuleMethods(
+  _module, 
+  ['run','getId']
+)
 const result = verifiedModule.run()`}
          code={`/**
  * @vscType System

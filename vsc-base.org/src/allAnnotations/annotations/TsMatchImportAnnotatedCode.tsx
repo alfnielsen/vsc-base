@@ -36,7 +36,12 @@ hasSpecifiers ( import names in brakes: import &#123; x &#125; from '').
          
          codeOneLineEx={`const _import = vsc.tsMatchCall(node, options)`}
          codeEx={`
-const aReactImport = vsc.tsMatchImport(node, \{ path: /react/ })`}
+const aReactImport = vsc.tsMatchImport(
+  node,
+  \{
+    path: /react/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.ImportDeclaration | undefined

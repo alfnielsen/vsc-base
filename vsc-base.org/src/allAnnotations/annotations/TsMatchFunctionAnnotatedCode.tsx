@@ -35,7 +35,12 @@ Test if a node is a function
          
          codeOneLineEx={`const funcNone = vsc.tsMatchFunction(node, options)`}
          codeEx={`
-const funcNone = vsc.tsMatchFunction(node, \{ name: /^myCaller\$/ })`}
+const funcNone = vsc.tsMatchFunction(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.ArrowFunction | ts.FunctionExpression | ts.FunctionDeclaration | undefined

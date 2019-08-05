@@ -23,7 +23,12 @@ Test is a node is an interface (node: ts.InterfaceDeclaration)
          
          codeOneLineEx={`const isInterfaceNode = vsc.tsIsInterface(node, options)`}
          codeEx={`
-const isInterfaceNode = vsc.tsIsInterface(node, \{ name: /^myCaller\$/ })`}
+const isInterfaceNode = vsc.tsIsInterface(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

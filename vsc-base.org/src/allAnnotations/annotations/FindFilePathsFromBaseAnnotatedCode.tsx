@@ -20,8 +20,8 @@ Get a list off all filePaths from a basePath, in project the matches a glob patt
          
          codeOneLineEx={`const files = await vsc.findFilePathsFromBase(dir, includePattern)`}
          codeEx={`
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.\{ts,tsx}')
-for (const filePath of storyFilesInModule1)\{
+const filePaths = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.\{ts,tsx}')
+for (const filePath of filePaths)\{
    const source = await vsc.getFileContent()
    // Do something with filePath..
 }`}

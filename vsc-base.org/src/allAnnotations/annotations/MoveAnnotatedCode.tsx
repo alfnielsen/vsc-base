@@ -33,7 +33,11 @@ export const move = async (
    newPath: string,
    options?: fs.MoveOptions
 ): Promise<void> => \{
-   await fs.move(path, newPath, options)
+   if (options) \{
+      await fs.move(path, newPath, options)
+   } else \{
+      await fs.move(path, newPath)
+   }
 }`}
       />
    )

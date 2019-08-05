@@ -18,8 +18,10 @@ const vsc = require("./vsc-base");
  * @param defaultValue string
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const answer = await vsc.ask(question, defaultValue)
- * @ex const answer = await ask('Where to move file?', currentFilePath)
+ * @example
+ * const answer = await vsc.ask(question, defaultValue)
+ * @example
+ * const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
  */
 exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, function* () {
@@ -35,10 +37,11 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
  * @param path string[]
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const answer = await vsc.pick(answers)
- * @ex
- const list = ['yes', 'no']
- const answer = await vsc.pick(list)
+ * @example
+ * const answer = await vsc.pick(answers)
+ * @example
+ * const list = ['yes', 'no']
+ * const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */
 exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
@@ -52,13 +55,14 @@ exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { re
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePaths(includePattern)
- * @ex
-const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
-for (const filePath of allTestFiles){
-   const source = await vsc.getFileContent()
-   // do something with the files...
-}
+ * @example
+ * const files = await vsc.findFilePaths(includePattern)
+ * @example
+ * const allTestFiles = await vsc.findFilePaths('**\/*.test.{ts,jsx,ts,tsx}')
+ * for (const filePath of allTestFiles){
+ *   const source = await vsc.getFileContent()
+ *   // do something with the files...
+ * }
  * @returns Promise<string[]>
  */
 exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
@@ -76,13 +80,14 @@ exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_mo
  * @dependencyInternal getDir, findFilePaths
  * @param maxResults
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findFilePathsFromBase(dir, includePattern)
- * @ex
-const storyFilesInModule1 = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
-for (const filePath of storyFilesInModule1){
-   const source = await vsc.getFileContent()
-   // Do something with filePath..
-}
+ * @example
+ * const files = await vsc.findFilePathsFromBase(dir, includePattern)
+ * @example
+ * const filePaths = await vsc.findFilePathsFromBase('c:/root/src/module1', '*.story.{ts,tsx}')
+ * for (const filePath of filePaths){
+ *    const source = await vsc.getFileContent()
+ *    // Do something with filePath..
+ * }
  * @returns Promise<string[]>
  */
 exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
@@ -103,19 +108,20 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
  * @dependencyExternal vscode
  * @dependencyInternal getDir, joinPath, cleanPath, trimDashes, findFilePathsFromBase
  * @vscType Vscode
- * @oneLineEx const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
- * @ex
-const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
-if(moduleFileInParentFolder.length===0){
-   vsc.showErrorMessage('Module file was not found in parent folder')
-   return
-}
-if(moduleFileInParentFolder.length>1){
-   vsc.showErrorMessage('More than one Module file was found in parent folder')
-   return
-}
-const modulePath = moduleFileInParentFolder[0];
-// Do something with modulePath..
+ * @example
+ * const files = await vsc.findRelativeFilePaths(path, relativePath, includePattern)
+ * @example
+ * const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
+ * if(moduleFileInParentFolder.length===0){
+ *   vsc.showErrorMessage('Module file was not found in parent folder')
+ *   return
+ * }
+ * if(moduleFileInParentFolder.length>1){
+ *   vsc.showErrorMessage('More than one Module file was found in parent folder')
+ *   return
+ * }
+ * const modulePath = moduleFileInParentFolder[0];
+ * // Do something with modulePath..
  * @returns Promise<string[]>
  */
 exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
@@ -132,7 +138,8 @@ exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,
  * @see [getActiveTerminal](http://vsc-base.org/#getActiveTerminal)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.getActiveTerminal()
+ * @example
+ * const editor = vsc.getActiveTerminal()
  * @returns vscode.TextEditor | undefined
  */
 exports.getActiveTerminal = () => {
@@ -151,7 +158,8 @@ exports.getActiveTerminal = () => {
  * @see [writeToTerminal](http://vsc-base.org/#writeToTerminal)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.writeToTerminal()
+ * @example
+ * const editor = vsc.writeToTerminal()
  * @returns vscode.TextEditor | undefined
  */
 exports.writeToTerminal = (content, showTerminal = true, addNewLine = true, terminal) => {
@@ -173,7 +181,8 @@ exports.writeToTerminal = (content, showTerminal = true, addNewLine = true, term
  * @see [getActiveEditor](http://vsc-base.org/#getActiveEditor)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const editor = vsc.getActiveEditor()
+ * @example
+ * const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
 exports.getActiveEditor = () => {
@@ -185,7 +194,8 @@ exports.getActiveEditor = () => {
  * @see [getActiveDocument](http://vsc-base.org/#getActiveDocument)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const document = vsc.getActiveDocument()
+ * @example
+ * const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
 exports.getActiveDocument = (editor) => {
@@ -200,7 +210,8 @@ exports.getActiveDocument = (editor) => {
  * Open a new document (untitled and not saved).
  * @see [newDocument](http://vsc-base.org/#newDocument)
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.newDocument(content)
+ * @example
+ * const path = vsc.newDocument(content)
  * @vscType Vscode
  * @returns Promise<vscode.TextDocument>
  */
@@ -214,7 +225,8 @@ exports.newDocument = (content, language = 'typescript') => __awaiter(this, void
  * Get current open file path or undefined if nothing is open.
  * @see [getDocumentPath](http://vsc-base.org/#getDocumentPath)
  * @dependencyInternal getActiveDocument
- * @oneLineEx const path = vsc.getDocumentPath()
+ * @example
+ * const path = vsc.getDocumentPath()
  * @vscType Vscode
  * @returns string | undefined
  */
@@ -230,7 +242,8 @@ exports.getDocumentPath = (document) => {
  * @see [getDocumentContent](http://vsc-base.org/#getDocumentContent)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const content = vsc.getDocumentContent()
+ * @example
+ * const content = vsc.getDocumentContent()
  * @returns string | undefined
  */
 exports.getDocumentContent = (document) => {
@@ -249,7 +262,8 @@ exports.getDocumentContent = (document) => {
  * @dependencyInternal insertAtRange
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.setDocumentContent(content)
+ * @example
+ * const success = vsc.setDocumentContent(content)
  * @returns boolean
  */
 exports.setDocumentContent = (content, editor) => {
@@ -269,7 +283,8 @@ exports.setDocumentContent = (content, editor) => {
  * @param document
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const fullRange = vsc.getFullDocumentRange(document)
+ * @example
+ * const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
 exports.getFullDocumentRange = (document) => {
@@ -288,7 +303,8 @@ exports.getFullDocumentRange = (document) => {
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.appendToDocument(editor, document, content)
+ * @example
+ * await vsc.appendToDocument(editor, document, content)
  * @returns boolean
  */
 exports.appendToDocument = (content, editor) => {
@@ -312,7 +328,8 @@ exports.appendToDocument = (content, editor) => {
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.prependToDocument(editor, document, content)
+ * @example
+ * vsc.prependToDocument(editor, document, content)
  * @returns boolean
  */
 exports.prependToDocument = (content, editor) => {
@@ -331,7 +348,8 @@ exports.prependToDocument = (content, editor) => {
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.insertAtRange(content, range)
+ * @example
+ * const success = vsc.insertAtRange(content, range)
  * @returns boolean
  */
 exports.insertAtRange = (content, range, editor) => {
@@ -359,7 +377,8 @@ exports.insertAtRange = (content, range, editor) => {
  * @param editor
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx const success = vsc.insertAt(content, start, end)
+ * @example
+ * const success = vsc.insertAt(content, start, end)
  * @returns boolean
  */
 exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => {
@@ -382,7 +401,8 @@ exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => 
  * @param editor
  * @dependencyInternal appendToActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = vsc.appendLineToDocument(content)
+ * @example
+ * const success = vsc.appendLineToDocument(content)
  * @returns boolean
  */
 exports.appendLineToDocument = (content, editor) => {
@@ -396,7 +416,8 @@ exports.appendLineToDocument = (content, editor) => {
  * @param document
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.prependLineToDocument(content)
+ * @example
+ * const success = vsc.prependLineToDocument(content)
  * @returns boolean
  */
 exports.prependLineToDocument = (content, editor) => {
@@ -409,7 +430,8 @@ exports.prependLineToDocument = (content, editor) => {
  * @see [saveDocument](http://vsc-base.org/#saveDocument)
  * @dependencyInternal getActiveDocument
  * @vscType Vscode
- * @oneLineEx const success = await vsc.saveDocument(content)
+ * @example
+ * const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
 exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* () {
@@ -429,7 +451,8 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
  * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
  * @vscType Vscode
- * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
+ * @example
+ * const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
 exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAndComments = true) => {
@@ -477,7 +500,8 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAn
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const selection = vsc.createSelection(start, end)
+ * @example
+ * const selection = vsc.createSelection(start, end)
  * @returns vscode.Selection
  */
 exports.createSelection = (source, start, end = start, trimSpaces = true) => {
@@ -494,7 +518,8 @@ exports.createSelection = (source, start, end = start, trimSpaces = true) => {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelection(start, end)
+ * @example
+ * const success = vsc.setSelection(start, end)
  * @returns boolean
  */
 exports.setSelection = (start, end = start, editor) => {
@@ -520,7 +545,8 @@ exports.setSelection = (start, end = start, editor) => {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelections(ranges)
+ * @example
+ * const success = vsc.setSelections(ranges)
  * @returns boolean
  */
 exports.setSelections = (ranges, editor) => {
@@ -540,7 +566,8 @@ exports.setSelections = (ranges, editor) => {
  * returns true on success
  * @see [addSelection](http://vsc-base.org/#addSelection)
  * @vscType Vscode
- * @oneLineEx const success = vsc.addSelection(range)
+ * @example
+ * const success = vsc.addSelection(range)
  * @returns boolean
  */
 exports.addSelection = (start, end = start, editor) => {
@@ -565,7 +592,8 @@ exports.addSelection = (start, end = start, editor) => {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelectionFromRange(range)
+ * @example
+ * const success = vsc.setSelectionFromRange(range)
  * @returns boolean
  */
 exports.setSelectionFromRange = (range, editor) => {
@@ -588,7 +616,8 @@ exports.setSelectionFromRange = (range, editor) => {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.setSelectionsFromRanges(ranges)
+ * @example
+ * const success = vsc.setSelectionsFromRanges(ranges)
  * @returns boolean
  */
 exports.setSelectionsFromRanges = (range, editor) => {
@@ -609,7 +638,8 @@ exports.setSelectionsFromRanges = (range, editor) => {
  * @param range
  * @param editor
  * @vscType Vscode
- * @oneLineEx const success = vsc.addSelectionFromRange(range)
+ * @example
+ * const success = vsc.addSelectionFromRange(range)
  * @returns boolean
  */
 exports.addSelectionFromRange = (range, editor) => {
@@ -630,7 +660,8 @@ exports.addSelectionFromRange = (range, editor) => {
  * @dependencyExternal vscode
  * @dependencyInternal pathAsUnix
  * @vscType Vscode
- * @oneLineEx const rootPath = vsc.getRootPath()
+ * @example
+ * const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
 exports.getRootPath = (path) => {
@@ -649,7 +680,8 @@ exports.getRootPath = (path) => {
  * @see [saveAll](http://vsc-base.org/#saveAll)
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx await vsc.saveAll()
+ * @example
+ * await vsc.saveAll()
  * @returns Promise<void>
  */
 exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
@@ -662,7 +694,8 @@ exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showErrorMessage(message)
+ * @example
+ * vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
 exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function* () {
@@ -675,7 +708,8 @@ exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function
  * @param message
  * @dependencyExternal vscode
  * @vscType Vscode
- * @oneLineEx vsc.showMessage(message)
+ * @example
+ * vsc.showMessage(message)
  * @returns Promise<void>
  */
 exports.showMessage = (message) => __awaiter(this, void 0, void 0, function* () {

@@ -30,14 +30,17 @@ Create a Ts Transformer for removing nodes
          codeOneLineEx={`const transformer = vsc.tsCreateRemoveNodesTransformer(transformerCallback)`}
          codeEx={`
 // Remove all 'debugger' statements
-const removeDebuggerTransformer = vsc.tsCreateRemoveNodesTransformer((node) => \{
-   if (ts.isDebuggerStatement(node)) \{
+const removeDebuggerTransformer = vsc.tsCreateRemoveNodesTransformer(
+  (node) => \{
+    if (ts.isDebuggerStatement(node)) \{
       return true
-   }
-   return false
-});   
+    }
+    return false
+  }
+);
 //Run transformer:
-const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformer]);`}
+const updatedCode = vsc.tsTransform(code, [removeDebuggerTransformer]);
+ *`}
          code={`/**
  * @vscType ts
  * @returns ts.TransformerFactory<T>

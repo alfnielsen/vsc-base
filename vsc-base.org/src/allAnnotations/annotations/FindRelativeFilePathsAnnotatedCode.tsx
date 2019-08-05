@@ -22,12 +22,12 @@ Find files based from a relative to a path
          codeEx={`
 const moduleFileInParentFolder = await vsc.findRelativeFilePaths(path, '../', '*Module.ts')
 if(moduleFileInParentFolder.length===0)\{
-   vsc.showErrorMessage('Module file was not found in parent folder')
-   return
+  vsc.showErrorMessage('Module file was not found in parent folder')
+  return
 }
 if(moduleFileInParentFolder.length>1)\{
-   vsc.showErrorMessage('More than one Module file was found in parent folder')
-   return
+  vsc.showErrorMessage('More than one Module file was found in parent folder')
+  return
 }
 const modulePath = moduleFileInParentFolder[0];
 // Do something with modulePath..`}

@@ -25,8 +25,18 @@ Test if it has all Children or grandChildren (child's child) that matches condit
          codeEx={`
 // find a variable any where within the parent node, that is a const and has a staring name of: varName
 const found = vsc.tsHasGrandChildren(node, [
-   childNode => return vsc.tsIsVariable(childNode, \{ name:/^varName1/ }),
-   childNode => return vsc.tsIsVariable(childNode, \{ name:/^varName2/ }) 
+  childNode => return vsc.tsIsVariable(
+     childNode, 
+     \{
+       name: /^varName1/ 
+     }
+   ),
+   childNode => return vsc.tsIsVariable(
+     childNode, 
+     \{ 
+       name: /^varName2/ 
+     }
+   )
 })`}
          code={`/**
  * @vscType ts

@@ -23,7 +23,12 @@ Test is a node is an type reference (node: ts.TypeReferenceNode)
          
          codeOneLineEx={`const isTypeRefNode = vsc.tsIsTypeRef(node, options)`}
          codeEx={`
-const isTypeRefNode = vsc.tsIsTypeRef(node, \{ name: /^myCaller\$/ })`}
+const isTypeRefNode = vsc.tsIsTypeRef(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

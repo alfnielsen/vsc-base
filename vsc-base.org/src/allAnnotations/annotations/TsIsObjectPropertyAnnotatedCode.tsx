@@ -23,7 +23,12 @@ Test is a node is a object property (node: ts.PropertyAssignment)
          
          codeOneLineEx={`const isObjNode = vsc.tsIsObjectProperty(node, options)`}
          codeEx={`
-const isObjNode = vsc.tsIsObjectProperty(node, \{ name: /^keyName\$/ })`}
+const isObjNode = vsc.tsIsObjectProperty(
+  node,
+  \{
+    name: /^keyName\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

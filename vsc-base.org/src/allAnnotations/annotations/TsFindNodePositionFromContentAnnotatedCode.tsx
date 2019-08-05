@@ -20,7 +20,7 @@ Create a Ts Visitor Transformer for finding a node and it position.
          
          codeOneLineEx={`const [node, position] = vsc.tsFindNodePositionFromContent(source, findNodePositionCallback)`}
          codeEx={`
- const source = \`
+const source = \`
    const method2 = () => \{
       const moduleNumber1Path = '/module/area/file1'
       return moduleNumber1Path

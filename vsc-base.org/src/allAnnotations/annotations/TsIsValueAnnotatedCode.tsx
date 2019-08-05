@@ -33,11 +33,20 @@ Test if node is an value: string expression, number expression or boolean (true 
          codeOneLineEx={`const found = vsc.tsIsValue(node, value)`}
          codeEx={`
 // Found a NumberExpression with value 12
-const foundNumberExpression = vsc.tsIsValue(node, 12)
+const foundNumberExpression = vsc.tsIsValue(
+  node,
+  12
+)
 // Found a NumberExpression with value 12, with a parent EnumValue
-const foundNumberExpression = vsc.tsIsValue(node, 12, \{
-   hasParent: parent => vsc.matchEnum(parent)
-})`}
+const foundNumberExpression = vsc.tsIsValue(
+  node,
+  12,
+  \{
+    hasParent: parent => vsc.matchEnum(
+      parent
+    )
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

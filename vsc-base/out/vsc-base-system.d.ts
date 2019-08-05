@@ -14,7 +14,8 @@ import * as fs from 'fs-extra';
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx const result = await vsc.execFromPath(command, path)
+ * @example
+ * const result = await vsc.execFromPath(command, path)
  * @ex
  const rootPath = vsc.getRootPath(path)
  const result = await vsc.execFromPath('yarn start', rootPath)
@@ -24,21 +25,26 @@ import * as fs from 'fs-extra';
 export declare const execFromPath: (command: string, path: string) => Promise<cp.PromiseResult<string>>;
 /** vsc-base method
  * @description
- * Create a LineReader (generator method) for a ReadStream
+ * Create a LineReader (generator method) for a ReadStream /
+ * Optional params 'excludeNewLine' (default value false). /
+ * If set to true it will omit the newline feed from the returned lines. /
+ * EXPERIMENTAL NodeJs feature. NodeJs community writes: \
+ * ExperimentalWarning: Readable[Symbol.asyncIterator] is an experimental feature. This feature could change at any time.
  * @see [getLineStreamReader](http://vsc-base.org/#getLineStreamReader)
  * @param readStream
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const lineReader = vsc.getLineStreamReader(readStream)
- * @ex
- const readStream = vsc.getReadStream(path)
- const lineReader = vsc.getLineStreamReader(readStream)
- for await (const line of lineReader) {
-    //do something with the line
- }
+ * @example
+ * const lineReader = vsc.getLineStreamReader(readStream)
+ * @example
+ * const readStream = vsc.getReadStream(path)
+ * const lineReader = vsc.getLineStreamReader(readStream)
+ * for await (const line of lineReader()) {
+ *    //do something with the line
+ * }
  * @returns () => AsyncIterableIterator<string>
  */
-export declare const getLineStreamReader: (readStream: fs.ReadStream) => () => AsyncIterableIterator<string>;
+export declare const getLineStreamReader: (readStream: fs.ReadStream, excludeNewLine?: boolean) => () => AsyncIterableIterator<string>;
 /** vsc-base method
  * @description
  * Get a file ReadStream \
@@ -47,12 +53,13 @@ export declare const getLineStreamReader: (readStream: fs.ReadStream) => () => A
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const readStream = vsc.getReadStream(path)
- * @ex
- const readStream = vsc.getReadStream(path)
- for await (const chunk of readStream) {
-   //do something with chunk
- }
+ * @example
+ * const readStream = vsc.getReadStream(path)
+ * @example
+ * const readStream = vsc.getReadStream(path) \
+ * for await (const chunk of readStream) { \
+ *   //do something with chunk \
+ * }
  * @returns fs.ReadStream
  */
 export declare const getReadStream: (path: string, options?: {
@@ -70,7 +77,8 @@ export declare const getReadStream: (path: string, options?: {
  * @param path string
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const exist = vsc.doesExists(path)
+ * @example
+ * const exist = vsc.doesExists(path)
  * @returns boolean
  */
 export declare const doesExists: (path: string) => boolean;
@@ -82,7 +90,8 @@ export declare const doesExists: (path: string) => boolean;
  * @param path
  * @dependencyInternal isDir, splitPath
  * @vscType System
- * @oneLineEx const dir = vsc.getDir(path)
+ * @example
+ * const dir = vsc.getDir(path)
  * @returns string
  */
 export declare const getDir: (path: string) => string;
@@ -93,7 +102,8 @@ export declare const getDir: (path: string) => string;
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const source = vsc.getFileContent(path)
+ * @example
+ * const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
 export declare const getFileContent: (path: string, encoding?: string) => Promise<string>;
@@ -105,7 +115,8 @@ export declare const getFileContent: (path: string, encoding?: string) => Promis
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const json = await vsc.getJsonContent(path)
+ * @example
+ * const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
 export declare const getJsonContent: <TStructure = unknown>(path: string, throws?: boolean) => Promise<TStructure>;
@@ -115,8 +126,10 @@ export declare const getJsonContent: <TStructure = unknown>(path: string, throws
  * @see [getConfig](http://vsc-base.org/#getConfig)
  * @dependencyExternal vscode
  * @vscType System
- * @oneLineEx const myOption = vsc.getConfig(projectName, optionName, defaultValue)
- * @ex const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
+ * @example
+ * const myOption = vsc.getConfig(projectName, optionName, defaultValue)
+ * @example
+ * const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
  */
 export declare const getConfig: <T>(projectName: string, property: string, defaultValue: T) => T;
@@ -128,7 +141,8 @@ export declare const getConfig: <T>(projectName: string, property: string, defau
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
  * @vscType System
- * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
+ * @example
+ * const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
 export declare const getPackageFilePaths: (exclude?: string) => Promise<string[]>;
@@ -138,7 +152,8 @@ export declare const getPackageFilePaths: (exclude?: string) => Promise<string[]
  * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
  * @dependencyInternal findFilePaths
  * @vscType System
- * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @example
+ * const packageJson = await vsc.getRootPackageJson(rootPath)
  * @returns Promise<T = any>
  */
 export declare const getRootPackageJson: <T = any>(rootPath: string) => Promise<T>;
@@ -150,7 +165,8 @@ export declare const getRootPackageJson: <T = any>(rootPath: string) => Promise<
  * @see [getPackageDependencies](http://vsc-base.org/#getPackageDependencies)
  * @dependencyInternal getPackageFilePaths, getJsonContent, getJsonParts
  * @vscType System
- * @oneLineEx const [dependencies, devDependencies] = await vsc.getPackageDependencies()
+ * @example
+ * const [dependencies, devDependencies] = await vsc.getPackageDependencies()
  * @todo Use unknown guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
@@ -163,7 +179,8 @@ export declare const getPackageDependencies: (exclude?: string) => Promise<{
  * @param path
  * @dependencyExternal fs
  * @vscType System
- * @oneLineEx const isDir = vsc.isDir(path)
+ * @example
+ * const isDir = vsc.isDir(path)
  * @see [isDir](http://vsc-base.org/#isDir)
  * @returns boolean
  */
@@ -176,7 +193,8 @@ export declare const isDir: (path: string) => boolean;
  * @param folderPath
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.makeDir(path)
+ * @example
+ * await vsc.makeDir(path)
  * @returns Promise<void>
  */
 export declare const makeDir: (folderPath: string) => Promise<void>;
@@ -186,7 +204,8 @@ export declare const makeDir: (folderPath: string) => Promise<void>;
  * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
  * @vscType System
- * @oneLineEx await vsc.move(oldPath, newPath)
+ * @example
+ * await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -197,7 +216,8 @@ export declare const move: (path: string, newPath: string, options?: fs.MoveOpti
  * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
  * @see [move](http://vsc-base.org/#move)
  * @vscType System
- * @oneLineEx await vsc.move(oldPath, newPath)
+ * @example
+ * await vsc.move(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -208,7 +228,8 @@ export declare const rename: (path: string, newPath: string) => Promise<void>;
  * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
  * @vscType System
- * @oneLineEx await vsc.copy(oldPath, newPath)
+ * @example
+ * await vsc.copy(oldPath, newPath)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -219,7 +240,8 @@ export declare const copy: (path: string, newPath: string, options?: fs.CopyOpti
  * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
  * @see [remove](http://vsc-base.org/#remove)
  * @vscType System
- * @oneLineEx await vsc.remove(path)
+ * @example
+ * await vsc.remove(path)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -230,7 +252,8 @@ export declare const remove: (path: string) => Promise<void>;
  * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
  * @see [emptyDir](http://vsc-base.org/#emptyDir)
  * @vscType System
- * @oneLineEx await vsc.remove(path)
+ * @example
+ * await vsc.remove(path)
  * @dependencyExternal fs
  * @returns Promise<void>
  */
@@ -244,7 +267,8 @@ export declare const emptyDir: (path: string) => Promise<void>;
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.saveFileContent(path, source)
+ * @example
+ * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
 export declare const saveFileContent: (path: string, content: string, options?: fs.WriteFileOptions | undefined) => Promise<void>;
@@ -257,7 +281,8 @@ export declare const saveFileContent: (path: string, content: string, options?: 
  * @param content
  * @vscType System
  * @dependencyExternal fs
- * @oneLineEx await vsc.saveFileContent(path, source)
+ * @example
+ * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
 export declare const addFileContent: (path: string, content: string, options?: fs.WriteFileOptions | undefined) => Promise<void>;

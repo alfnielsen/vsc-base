@@ -43,24 +43,28 @@ Load a ts file.
          }
          
          codeOneLineEx={`const moduleObj = await vsc.tsLoadModule(path)`}
-         codeEx={`let moduleObj
+         codeEx={`
+let moduleObj
 try \{
-   moduleObj = await vsc.tsLoadModule(path)
+  moduleObj = await vsc.tsLoadModule(path)
 } catch (e)\{
-   vsc.showErrorMessage(\`Loading module coursed an error: \$\{e}\`)
-   return
+  vsc.showErrorMessage(\`Loading module coursed an error: \$\{e}\`)
+  return
 }
-const verifiedModule = vsc.verifyModuleMethods(moduleObj, ['run'])
+const verifiedModule = vsc.verifyModuleMethods(
+  moduleObj,
+  ['run']
+)
 if (!verifiedModule) \{
-   vsc.showErrorMessage(\`Module didn't have 'run' :: \$\{JSON.stringify(moduleObj)}\`)
-   return
+  vsc.showErrorMessage(\`Module didn't have 'run' :: \$\{JSON.stringify(moduleObj)}\`)
+  return
 }
 try \{
-   const result = verifiedModule.run()
-   await vsc.awaitResult(result)
-   vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
+  const result = verifiedModule.run()
+  await vsc.awaitResult(result)
+  vsc.showMessage(\`Loaded Run resulted with value: \$\{result}\`)
 } catch (e) \{
-   vsc.showErrorMessage('Error: ' + e)
+  vsc.showErrorMessage('Error: ' + e)
 }`}
          code={`/**
  * @param path

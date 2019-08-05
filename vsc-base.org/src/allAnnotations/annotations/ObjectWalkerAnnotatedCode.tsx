@@ -59,7 +59,8 @@ Clone an JSON Object (any type) going through its entire tree structure.
       }
       
          codeOneLineEx={`const newObj = vsc.objectWalker(obj, walkerCallback);`}
-         codeEx={`// try this walker out in the tester
+         codeEx={`
+// try this walker out in the tester
 const json = \{"a":\{"b1":\{"c1":12},"b2":\{ "c2":\{"c3":9}}}}
 let longestAncestorList = 0;
 let ancestorKeysString: (string|number)[] = [];
@@ -69,7 +70,6 @@ vsc.objectWalker(json,(state)=>\{
       ancestorKeysString = [state.key, ...state.ancestorKeys]
    }
 })
-
 // log: ancestorKeysList.join('.') + '\\nreverse:\\n' + ancestorKeysString.reverse().join('.');`}
          code={`/**
  * @param obj,maxDepth,currentLevel

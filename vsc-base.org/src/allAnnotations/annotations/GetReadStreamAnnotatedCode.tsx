@@ -22,10 +22,11 @@ Get a file ReadStream
          }
          
          codeOneLineEx={`const readStream = vsc.getReadStream(path)`}
-         codeEx={` const readStream = vsc.getReadStream(path)
- for await (const chunk of readStream) \{
-   //do something with chunk
- }`}
+         codeEx={`
+const readStream = vsc.getReadStream(path) \\
+for await (const chunk of readStream) \{ \\
+  //do something with chunk \\
+}`}
          code={`/**
  * @param path
  * @dependencyExternal fs

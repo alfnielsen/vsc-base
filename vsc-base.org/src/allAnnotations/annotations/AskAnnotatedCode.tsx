@@ -19,7 +19,8 @@ Prompt user for a question
          }
          
          codeOneLineEx={`const answer = await vsc.ask(question, defaultValue)`}
-         codeEx={`const answer = await ask('Where to move file?', currentFilePath)`}
+         codeEx={`
+const answer = await ask('Where to move file?', currentFilePath)`}
          code={`/**
  * @param question string,defaultValue string
  * @dependencyExternal vscode

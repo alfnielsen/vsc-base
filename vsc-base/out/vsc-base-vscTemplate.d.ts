@@ -8,7 +8,8 @@ import * as vsc from './vsc-base';
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
  * @vscType System
- * @oneLineEx await vsc.scaffoldTemplate(path, template)
+ * @example
+ * await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
 export declare const scaffoldTemplate: (path: string, templateItem: vsc.vscTemplateItem, userInputs?: vsc.vscUserInputs) => Promise<void>;

@@ -29,7 +29,12 @@ Test is a node is a identifier (node: ts.Identifier)
          
          codeOneLineEx={`const identifierNode = vsc.tsMatchIdentifier(node, options)`}
          codeEx={`
-const identifierNode = vsc.tsMatchIdentifier(node, \{ name: /^myCaller\$/ })`}
+const identifierNode = vsc.tsMatchIdentifier(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.Identifier | undefined

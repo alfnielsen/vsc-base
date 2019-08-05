@@ -21,12 +21,18 @@ Find a parent or ancestor (parent's parent) that matches conditions in a callbac
          codeOneLineEx={`const ancestor = vsc.tsFindAncestor(node, ancestorNodeTestCallback)`}
          codeEx={`
 // find a function with name 'someCaller'
-const ancestor = vsc.tsFindAncestor(node, (childNode) => vsc.tsIsFunction(childNode, \{
-   name:/^someCaller\$/
-}))`}
+const ancestor = vsc.tsFindAncestor(
+  node, 
+  (childNode) => vsc.tsIsFunction(
+    childNode, 
+    \{
+      name:/^someCaller\$/
+    }
+  )
+)`}
          code={`/**
  * @vscType ts
- * @returns ts.Node | undefined
+ * @returns ts.Node | undefined 
  */
 export const tsFindAncestor = (node: ts.Node, callback: (ancestor: ts.Node, depth: number) => boolean): ts.Node | undefined => \{
    let ancestor = node.parent, depth = 0

@@ -23,7 +23,12 @@ Test is a node is an enum  declaration (node: ts.EnumDeclaration)
          
          codeOneLineEx={`const isEnumNode = vsc.tsIsEnum(node, options)`}
          codeEx={`
-const isEnumNode = vsc.tsIsEnum(node, \{ name: /^myCaller\$/ })`}
+const isEnumNode = vsc.tsIsEnum(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

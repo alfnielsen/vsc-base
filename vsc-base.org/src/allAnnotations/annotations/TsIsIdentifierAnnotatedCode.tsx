@@ -23,7 +23,12 @@ Test is a node is a variable declaration (node: ts.VariableDeclaration)
          
          codeOneLineEx={`const isIdentifierNode = vsc.tsIsIdentifier(node, options)`}
          codeEx={`
-const isIdentifierNode = vsc.tsIsIdentifier(node, \{ name: /^myCaller\$/ })`}
+const isIdentifierNode = vsc.tsIsIdentifier(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns boolean

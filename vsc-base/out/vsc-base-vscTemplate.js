@@ -18,7 +18,8 @@ const vsc = require("./vsc-base");
  * @param templateItem An TemplateItem (folde/file)
  * @dependencyInternal makeDir, saveFileContent
  * @vscType System
- * @oneLineEx await vsc.scaffoldTemplate(path, template)
+ * @example
+ * await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
 exports.scaffoldTemplate = (path, templateItem, userInputs = {}) => __awaiter(this, void 0, void 0, function* () {

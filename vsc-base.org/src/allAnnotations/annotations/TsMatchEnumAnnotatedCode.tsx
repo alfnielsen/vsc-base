@@ -29,7 +29,12 @@ Test is a node is an enum  declaration (node: ts.EnumDeclaration)
          
          codeOneLineEx={`const enumNode = vsc.tsMatchEnum(node, options)`}
          codeEx={`
-const enumNode = vsc.tsMatchEnum(node, \{ name: /^myCaller\$/ })`}
+const enumNode = vsc.tsMatchEnum(
+  node,
+  \{
+    name: /^myCaller\$/
+  }
+)`}
          code={`/**
  * @vscType ts
  * @returns ts.EnumDeclaration | undefined

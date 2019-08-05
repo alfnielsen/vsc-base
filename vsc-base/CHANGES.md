@@ -2,7 +2,28 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
-## 0.8.28 + 0.8.29
+## 0.8.31
+
+### Fixes
+
+Fix system method 'move'
+
+### Added
+
+getLineStreamReader has now optional params 'excludeNewLine' (default value false).
+If set to true it will omit the newline feed from the returned lines.
+
+### Examples
+
+All examples has been updated so they will be show with syntax highlight in vsc autocomplete dropdown.
+
+### Internal: Unit tests
+
+There are now added test for: raw, system and typescript-base
+Test for the rest of vcs method will be added in the following updates
+(Missing tests: typescript-match, typescript-module-load, typescript-transform, vscode and vscTemplate)
+
+## 0.8.28 + 0.8.29 + 0.8.30
 
 ### Add
 

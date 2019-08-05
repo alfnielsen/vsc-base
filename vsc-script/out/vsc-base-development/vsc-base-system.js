@@ -56,7 +56,11 @@ exports.execFromPath = (command, path) => __awaiter(this, void 0, void 0, functi
 });
 /** vsc-base method
  * @description
- * Create a LineReader (generator method) for a ReadStream
+ * Create a LineReader (generator method) for a ReadStream /
+ * Optional params 'excludeNewLine' (default value false). /
+ * If set to true it will omit the newline feed from the returned lines. /
+ * EXPERIMENTAL NodeJs feature. NodeJs community writes: \
+ * ExperimentalWarning: Readable[Symbol.asyncIterator] is an experimental feature. This feature could change at any time.
  * @see [getLineStreamReader](http://vsc-base.org/#getLineStreamReader)
  * @param readStream
  * @dependencyExternal fs
@@ -65,12 +69,12 @@ exports.execFromPath = (command, path) => __awaiter(this, void 0, void 0, functi
  * @ex
  const readStream = vsc.getReadStream(path)
  const lineReader = vsc.getLineStreamReader(readStream)
- for await (const line of lineReader) {
+ for await (const line of lineReader()) {
     //do something with the line
  }
  * @returns () => AsyncIterableIterator<string>
  */
-exports.getLineStreamReader = (readStream) => function () {
+exports.getLineStreamReader = (readStream, excludeNewLine = false) => function () {
     return __asyncGenerator(this, arguments, function* () {
         var e_1, _a;
         let read = '';
@@ -80,7 +84,13 @@ exports.getLineStreamReader = (readStream) => function () {
                 read += chunk;
                 let lineLength;
                 while ((lineLength = read.indexOf('\n')) >= 0) {
-                    const line = read.slice(0, lineLength + 1);
+                    let line;
+                    if (excludeNewLine) {
+                        line = read.slice(0, lineLength);
+                    }
+                    else {
+                        line = read.slice(0, lineLength + 1);
+                    }
                     yield yield __await(line);
                     read = read.slice(lineLength + 1);
                 }
@@ -108,9 +118,9 @@ exports.getLineStreamReader = (readStream) => function () {
  * @vscType System
  * @oneLineEx const readStream = vsc.getReadStream(path)
  * @ex
- const readStream = vsc.getReadStream(path)
- for await (const chunk of readStream) {
-   //do something with chunk
+ const readStream = vsc.getReadStream(path) \
+ for await (const chunk of readStream) { \
+   //do something with chunk \
  }
  * @returns fs.ReadStream
  */
@@ -197,17 +207,32 @@ exports.getConfig = (projectName, property, defaultValue) => {
 };
 /** vsc-base method
  * @description
- * Find packages file paths in project. /
+ * Find package.json file paths in project. /
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
  * It can be used to control which package.json files should be included.
  * @see [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths)
  * @dependencyInternal findFilePaths
+ * @vscType System
  * @oneLineEx const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
 exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
     const packageFiles = yield vsc.findFilePaths('**/package.json', exclude);
     return packageFiles;
+});
+/** vsc-base method
+ * @description
+ * Get json from package.json in the project root.
+ * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+ * @dependencyInternal findFilePaths
+ * @vscType System
+ * @oneLineEx const packageJson = await vsc.getRootPackageJson(rootPath)
+ * @returns Promise<T = any>
+ */
+exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, function* () {
+    const packageJsonPath = vsc.joinPaths(rootPath, 'package.json');
+    const packageJson = yield vsc.getJsonContent(packageJsonPath);
+    return packageJson;
 });
 /** vsc-base method
  * @description
@@ -285,7 +310,12 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
  * @returns Promise<void>
  */
 exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
-    yield fs.move(path, newPath, options);
+    if (options) {
+        yield fs.move(path, newPath, options);
+    }
+    else {
+        yield fs.move(path, newPath);
+    }
 });
 /** vsc-base method
  * @description

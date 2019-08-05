@@ -424,18 +424,22 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
 });
 /** vsc-base method
  * @description
- * Takes a start and end and return vscode positions and range objects.
+ * Takes a start and end and return vscode positions and range objects. \
+ * Also returns the content and fullContent properties and orgStart and Org End. \
+ * (The normal ts ast compiler has spaces and comment included in the node pos and node end)
  * @see [createVscodeRangeAndPosition](http://vsc-base.org/#createVscodeRangeAndPosition)
- * @param range
- * @param editor
  * @vscType Vscode
  * @oneLineEx const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
-exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces = true) => {
-    if (trimSpaces) {
+exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAndComments = true) => {
+    const fullContent = source.substring(start, end);
+    const orgStart = start;
+    const orgEnd = end;
+    if (trimSpacesAndComments) {
+        const matcher = /^((\/\*[\s\S]*?\*\/)|(\/\/[^\n]*\n)|([\s\n]+))*/;
         const found = source.substring(start, end);
-        const startSpaces = found.match(/^\s+/);
+        const startSpaces = found.match(matcher);
         if (startSpaces) {
             start += startSpaces[0].length;
         }
@@ -461,6 +465,9 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpaces =
         startPosition,
         endPosition,
         range,
+        fullContent,
+        orgStart,
+        orgEnd
     };
 };
 /** vsc-base method

@@ -2,7 +2,6 @@ import * as ts from 'typescript'
 
 import * as vsc from './vsc-base'
 
-
 /** vsc-base method
  * @description 
  * Transpile ts source to js
@@ -10,7 +9,8 @@ import * as vsc from './vsc-base'
  * @param sourceTs 
  * @param compilerOptions 
  * @vscType System
- * @oneLineEx const sourceJs = vsc.tsTranspile(sourceTs)
+ * @example
+ * const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
 export const tsTranspile = (sourceTs: string,
@@ -33,7 +33,8 @@ export const tsTranspile = (sourceTs: string,
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
+ * @example
+ * const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
  */
 export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
    sourceFile: T,
@@ -50,7 +51,8 @@ export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
  * @internal
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const compilerOptions = vsc.TsDefaultCompilerOptions
+ * @example
+ * const compilerOptions = vsc.TsDefaultCompilerOptions
  */
 export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = ({
    module: ts.ModuleKind.CommonJS,
@@ -66,7 +68,8 @@ export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = ({
  * @param sourceFileName 
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const sourceFile = vsc.tsCreateSourceFile(code)
+ * @example
+ * const sourceFile = vsc.tsCreateSourceFile(code)
  */
 export const tsCreateSourceFile = (
    content: string,
@@ -84,13 +87,14 @@ export const tsCreateSourceFile = (
 /** vsc-base method
  * @description 
  * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \
- * So to this method uses ts' forEachChild to collect the parsed nodes. \
+ * So this method uses ts' forEachChild to collect the parsed nodes. \
  * Normally used in custom transformer methods (vsc.tsCreateTransformer)
  * @see [tsGetParsedChildren](http://vsc-base.org/#tsGetParsedChildren)
  * @params node
  * @experimental This method can easily change, because ts api is in experimental state.
  * @vscType ts
- * @oneLineEx const children = vsc.tsGetParsedChildren(node)
+ * @example
+ * const children = vsc.tsGetParsedChildren(node)
  */
 export const tsGetParsedChildren = (node: ts.Node): ts.Node[] => {
    let children: ts.Node[] = []

@@ -240,9 +240,9 @@ import * as vsc from '../../vsc-base-development/vsc-base'
 //    })
 // })
 
-suite('ts_tsIsVariableList', () => {
-   test(' 1', () => {
-      const r1 = vsc.tsIsVariableList()
-      assert.equal(r1, '')
-   })
-})
+// suite('ts_tsIsVariableList', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.tsIsVariableList()
+//       assert.equal(r1, '')
+//    })
+// })

@@ -237,7 +237,7 @@ export const tsInsertInterfaceMember: (
       return source
    }
    // check that the property don't exist
-   const hasMember = _interface.members.find(m => m.name && m.name.getText() === memberName)
+   const hasMember = _interface.members.find(m => !!m.name && m.name.getText() === memberName)
    if (hasMember) {
       return source
    }
@@ -338,7 +338,7 @@ export const tsInsertVariableObjectProperty: (
       return source
    }
    // check that the property don't exist
-   const hasValue = obj.properties.find(p => p.name && p.name.getText() === key)
+   const hasValue = obj.properties.find(p => !!p.name && p.name.getText() === key)
    if (hasValue) {
       return source
    }

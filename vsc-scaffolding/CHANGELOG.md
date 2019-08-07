@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.12
+
+Upgrade to use vsc-base 0.9.0
+
 ## 0.1.11
 
 You can now add a template name inside a template will for better naming.

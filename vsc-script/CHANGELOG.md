@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.5.4
+
+Update vsc-base to version 0.9
+
 ## 0.5.3
 
 Grouping of names has been added: Use '>' for making a group

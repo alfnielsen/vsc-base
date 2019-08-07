@@ -5,5 +5,6 @@ export * from './vsc-base-system';
 export * from './vsc-base-typescript-base';
 export * from './vsc-base-typescript-match';
 export * from './vsc-base-typescript-transform';
+export * from './vsc-base-typescript-top-level-transform';
 export * from './vsc-base-typescript-module-load';
 export * from './vsc-base-vscTemplate';

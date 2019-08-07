@@ -1,4 +1,4 @@
-//vsc-script-name: VSC-Project    -    Full Compiler
+//vsc-script-name: VSC-Project > Full Compiler
 import * as vsc from 'vsc-base'
 
 import { CodePart, createPartMap } from './vcs-base-util/mapping';
@@ -39,7 +39,7 @@ const CreateTests = async (parts: CodePart[]) => {
       } else {
          content = `
 import * as assert from 'assert'
-import * as vsc from '../vsc-base-development/vsc-base'
+import * as vsc from '../../vsc-base-development/vsc-base'
 
 `
       }

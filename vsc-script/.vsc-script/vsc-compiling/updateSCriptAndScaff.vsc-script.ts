@@ -1,4 +1,4 @@
-//vsc-script-name: VSC-Project    -    Update vsc-bse in SCript and Scaffolding
+//vsc-script-name: VSC-Project > Update vsc-bse in SCript and Scaffolding
 import * as vsc from 'vsc-base'
 
 /**

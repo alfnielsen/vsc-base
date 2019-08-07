@@ -101,7 +101,10 @@ import TsHasChildAnnotatedCode from './annotations/TsHasChildAnnotatedCode'
 import TsHasChildrenAnnotatedCode from './annotations/TsHasChildrenAnnotatedCode'
 import TsHasGrandChildAnnotatedCode from './annotations/TsHasGrandChildAnnotatedCode'
 import TsHasGrandChildrenAnnotatedCode from './annotations/TsHasGrandChildrenAnnotatedCode'
+import TsInsertEnumMemberAnnotatedCode from './annotations/TsInsertEnumMemberAnnotatedCode'
 import TsInsertImportAnnotatedCode from './annotations/TsInsertImportAnnotatedCode'
+import TsInsertInterfaceMemberAnnotatedCode from './annotations/TsInsertInterfaceMemberAnnotatedCode'
+import TsInsertVariableObjectPropertyAnnotatedCode from './annotations/TsInsertVariableObjectPropertyAnnotatedCode'
 import TsIsCallAnnotatedCode from './annotations/TsIsCallAnnotatedCode'
 import TsIsEnumAnnotatedCode from './annotations/TsIsEnumAnnotatedCode'
 import TsIsEnumMemberAnnotatedCode from './annotations/TsIsEnumMemberAnnotatedCode'
@@ -114,6 +117,7 @@ import TsIsObjectPropertyAnnotatedCode from './annotations/TsIsObjectPropertyAnn
 import TsIsTypeRefAnnotatedCode from './annotations/TsIsTypeRefAnnotatedCode'
 import TsIsValueAnnotatedCode from './annotations/TsIsValueAnnotatedCode'
 import TsIsVariableAnnotatedCode from './annotations/TsIsVariableAnnotatedCode'
+import TsIsVariableListAnnotatedCode from './annotations/TsIsVariableListAnnotatedCode'
 import TsLoadModuleAnnotatedCode from './annotations/TsLoadModuleAnnotatedCode'
 import TsLoadModuleSourceCodeAnnotatedCode from './annotations/TsLoadModuleSourceCodeAnnotatedCode'
 import TsMatchCallAnnotatedCode from './annotations/TsMatchCallAnnotatedCode'
@@ -128,6 +132,7 @@ import TsMatchObjectPropertyAnnotatedCode from './annotations/TsMatchObjectPrope
 import TsMatchTypeRefAnnotatedCode from './annotations/TsMatchTypeRefAnnotatedCode'
 import TsMatchValueNodeAnnotatedCode from './annotations/TsMatchValueNodeAnnotatedCode'
 import TsMatchVariableAnnotatedCode from './annotations/TsMatchVariableAnnotatedCode'
+import TsMatchVariableListAnnotatedCode from './annotations/TsMatchVariableListAnnotatedCode'
 import TsReplaceAnnotatedCode from './annotations/TsReplaceAnnotatedCode'
 import TsReplaceAllAnnotatedCode from './annotations/TsReplaceAllAnnotatedCode'
 import TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode from './annotations/TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode'
@@ -240,7 +245,10 @@ const annotations = [
   { vscType: 'ts', name: 'tshaschildren', component: (open: boolean) => <TsHasChildrenAnnotatedCode key={'tsHasChildren'} open={open} /> },
   { vscType: 'ts', name: 'tshasgrandchild', component: (open: boolean) => <TsHasGrandChildAnnotatedCode key={'tsHasGrandChild'} open={open} /> },
   { vscType: 'ts', name: 'tshasgrandchildren', component: (open: boolean) => <TsHasGrandChildrenAnnotatedCode key={'tsHasGrandChildren'} open={open} /> },
+  { vscType: 'ts', name: 'tsinsertenummember', component: (open: boolean) => <TsInsertEnumMemberAnnotatedCode key={'tsInsertEnumMember'} open={open} /> },
   { vscType: 'ts', name: 'tsinsertimport', component: (open: boolean) => <TsInsertImportAnnotatedCode key={'tsInsertImport'} open={open} /> },
+  { vscType: 'ts', name: 'tsinsertinterfacemember', component: (open: boolean) => <TsInsertInterfaceMemberAnnotatedCode key={'tsInsertInterfaceMember'} open={open} /> },
+  { vscType: 'ts', name: 'tsinsertvariableobjectproperty', component: (open: boolean) => <TsInsertVariableObjectPropertyAnnotatedCode key={'tsInsertVariableObjectProperty'} open={open} /> },
   { vscType: 'ts', name: 'tsiscall', component: (open: boolean) => <TsIsCallAnnotatedCode key={'tsIsCall'} open={open} /> },
   { vscType: 'ts', name: 'tsisenum', component: (open: boolean) => <TsIsEnumAnnotatedCode key={'tsIsEnum'} open={open} /> },
   { vscType: 'ts', name: 'tsisenummember', component: (open: boolean) => <TsIsEnumMemberAnnotatedCode key={'tsIsEnumMember'} open={open} /> },
@@ -253,6 +261,7 @@ const annotations = [
   { vscType: 'ts', name: 'tsistyperef', component: (open: boolean) => <TsIsTypeRefAnnotatedCode key={'tsIsTypeRef'} open={open} /> },
   { vscType: 'ts', name: 'tsisvalue', component: (open: boolean) => <TsIsValueAnnotatedCode key={'tsIsValue'} open={open} /> },
   { vscType: 'ts', name: 'tsisvariable', component: (open: boolean) => <TsIsVariableAnnotatedCode key={'tsIsVariable'} open={open} /> },
+  { vscType: 'ts', name: 'tsisvariablelist', component: (open: boolean) => <TsIsVariableListAnnotatedCode key={'tsIsVariableList'} open={open} /> },
   { vscType: 'system', name: 'tsloadmodule', component: (open: boolean) => <TsLoadModuleAnnotatedCode key={'tsLoadModule'} open={open} /> },
   { vscType: 'system', name: 'tsloadmodulesourcecode', component: (open: boolean) => <TsLoadModuleSourceCodeAnnotatedCode key={'tsLoadModuleSourceCode'} open={open} /> },
   { vscType: 'ts', name: 'tsmatchcall', component: (open: boolean) => <TsMatchCallAnnotatedCode key={'tsMatchCall'} open={open} /> },
@@ -267,6 +276,7 @@ const annotations = [
   { vscType: 'ts', name: 'tsmatchtyperef', component: (open: boolean) => <TsMatchTypeRefAnnotatedCode key={'tsMatchTypeRef'} open={open} /> },
   { vscType: 'ts', name: 'tsmatchvaluenode', component: (open: boolean) => <TsMatchValueNodeAnnotatedCode key={'tsMatchValueNode'} open={open} /> },
   { vscType: 'ts', name: 'tsmatchvariable', component: (open: boolean) => <TsMatchVariableAnnotatedCode key={'tsMatchVariable'} open={open} /> },
+  { vscType: 'ts', name: 'tsmatchvariablelist', component: (open: boolean) => <TsMatchVariableListAnnotatedCode key={'tsMatchVariableList'} open={open} /> },
   { vscType: 'ts', name: 'tsreplace', component: (open: boolean) => <TsReplaceAnnotatedCode key={'tsReplace'} open={open} /> },
   { vscType: 'ts', name: 'tsreplaceall', component: (open: boolean) => <TsReplaceAllAnnotatedCode key={'tsReplaceAll'} open={open} /> },
   { vscType: 'system', name: 'tsrewritetranspiledcodewithvscbasemodules', component: (open: boolean) => <TsRewriteTranspiledCodeWithVscBaseModulesAnnotatedCode key={'tsRewriteTranspiledCodeWithVscBaseModules'} open={open} /> },

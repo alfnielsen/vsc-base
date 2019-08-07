@@ -298,14 +298,3 @@ export declare const tsReplace: (source: string, replaceString: string, callback
  * @returns string
  */
 export declare const tsReplaceAll: (source: string, replaceString: string, callback: (node: ts.Node, typeChecker?: ts.TypeChecker | undefined, program?: ts.Program | undefined) => ts.Node, program?: ts.Program | undefined, fromPosition?: number, trimSpaces?: boolean) => string;
-/** vsc-base method
- * @description
- * Insert an import if its not already imported. \
- * It will add it to an existing import that has the same path or add a new import after the last import.
- * @see [tsInsertImport](http://vsc-base.org/#tsInsertImport)
- * @vscType ts
- * @example
- * source = vsc.tsInsertImport(source, 'useCallback', 'react')
- * @returns string
- */
-export declare const tsInsertImport: (source: string, importName: string, importPath: string, isDefault?: boolean, useDoubleQuotation?: boolean, addSemicolon?: boolean) => string;

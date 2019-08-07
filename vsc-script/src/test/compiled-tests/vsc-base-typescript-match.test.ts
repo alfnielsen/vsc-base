@@ -232,3 +232,17 @@ import * as vsc from '../../vsc-base-development/vsc-base'
 //       assert.equal(r1, '')
 //    })
 // })
+
+// suite('ts_tsMatchVariableList', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.tsMatchVariableList()
+//       assert.equal(r1, '')
+//    })
+// })
+
+suite('ts_tsIsVariableList', () => {
+   test(' 1', () => {
+      const r1 = vsc.tsIsVariableList()
+      assert.equal(r1, '')
+   })
+})

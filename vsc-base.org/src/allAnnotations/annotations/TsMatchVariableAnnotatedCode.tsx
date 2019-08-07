@@ -25,6 +25,9 @@ Test is a node is a variable declaration (node: ts.VariableDeclaration)
                Optional test for tsHasAncestor and hasGrandChild 
                </p>
                <p>
+               See also <a href='http://vsc-base.org/#tsMatchVariableDeclaration'>tsMatchVariableDeclaration</a> 
+               </p>
+               <p>
                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> 
                </p>
                <p>

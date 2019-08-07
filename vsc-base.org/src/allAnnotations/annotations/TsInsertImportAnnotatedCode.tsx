@@ -27,7 +27,21 @@ Insert an import if its not already imported.
  * @vscType ts
  * @returns string
  */
-export const tsInsertImport = (source: string, importName: string, importPath: string, isDefault = false, useDoubleQuotation = false, addSemicolon = false): string => \{
+export const tsInsertImport: (
+   source: string,
+   importName: string,
+   importPath: string,
+   options?: \{
+      isDefault?: boolean,
+      useDoubleQuotation?: boolean,
+      addSemicolon?: boolean
+   }
+) => string = (source, importName, importPath, options) => \{
+   const \{
+      isDefault = false,
+      useDoubleQuotation = false,
+      addSemicolon = false
+   } = options || \{}
    const [matchImport] = vsc.tsFindNodePositionFromContent(source, node =>
       vsc.tsMatchImport(node, \{
          nameSpace: importName
@@ -35,6 +49,10 @@ export const tsInsertImport = (source: string, importName: string, importPath: s
       ||
       vsc.tsMatchImport(node, \{
          defaultName: importName
+      })
+      ||
+      vsc.tsMatchImport(node, \{
+         hasSpecifiersName: importName
       })
    )
    if (matchImport) \{
@@ -62,6 +80,12 @@ export const tsInsertImport = (source: string, importName: string, importPath: s
       allImports.sort((a, b) => a.end - b.end);
       const lastImport = allImports[allImports.length - 1]
       importPos = lastImport.end + 1;
+   }
+   if (importPos === 0) \{
+      const useStrictMatch = source.match(/^[\\n\\s]*['"']use strict['"'];?[^\\S\\r\\n]*\\n/)
+      if (useStrictMatch) \{
+         importPos = useStrictMatch[0].length
+      }
    }
    const quotation = useDoubleQuotation ? '"' : "'";
    const semiColon = addSemicolon ? ';' : '';

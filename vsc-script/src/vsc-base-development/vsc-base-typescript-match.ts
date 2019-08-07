@@ -1053,6 +1053,42 @@ export const tsIsVariable: (node: ts.Node | undefined, options?: {
 }
 
 
+
+
+/** vsc-base method
+ * @description
+ * Test is a node is a variable declaration (node: ts.VariableDeclarationList) \
+ * Uses [tsMatchVariableList](http://vsc-base.org/#tsMatchVariableList)
+ * @see [tsIsVariableList](http://vsc-base.org/#tsIsVariableList)
+ * @vscType ts
+ * @example
+ * const isVariableNode = vsc.tsIsVariableList(node, options)
+ * @example
+ * const isVariableNode = vsc.tsIsVariableList(
+ *   node, {
+ *     hasVariable: variable => 
+ *       variable.name.getText() === variableName
+ *       && ts.isObjectLiteralExpression(variable.initializer)
+ *   }
+ * )
+ * @returns boolean
+ */
+export const tsIsVariableList: (node: ts.Node | undefined, options?: {
+   isConst?: boolean
+   isLet?: boolean
+   isVar?: boolean,
+   hasVariable?: (parent: ts.VariableDeclaration) => boolean
+   hasVariables?: ((parent: ts.VariableDeclaration) => boolean)[]
+   hasParent?: (parent: ts.Node) => boolean
+   hasAncestor?: (parent: ts.Node, depth: number) => boolean
+   hasGrandChild?: (child: ts.Node, depth: number) => boolean
+   hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[]
+   hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[]
+}) => boolean = (node, options) => {
+   return !!vsc.tsMatchVariableList(node, options)
+}
+
+
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclaration) \

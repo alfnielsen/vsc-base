@@ -1,4 +1,4 @@
-//vsc-script-name: VSC-Project    -    Sorter (And generate tests)
+//vsc-script-name: VSC-Project >  Sorter (And generate tests)
 import * as vsc from 'vsc-base'
 
 import { CodePart, createPartMap } from './vcs-base-util/mapping';

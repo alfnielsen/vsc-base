@@ -279,6 +279,7 @@ export declare const tsMatchFunction: (node: ts.Node | undefined, options?: {
  * Optional test for its name with a string or regexp, \
  * Optional test if its a const, let or var. \
  * Optional test for tsHasAncestor and hasGrandChild \
+ * See also [tsMatchVariableDeclaration](http://vsc-base.org/#tsMatchVariableDeclaration) \
  * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
  * Optional value can be tested against a string, a number (with a string, number or regexp). \
  * See [tsIsValue](http://vsc-base.org/#tsIsValue)
@@ -307,6 +308,44 @@ export declare const tsMatchVariable: (node: ts.Node | undefined, options?: {
     hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[];
     hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[];
 }) => ts.VariableDeclaration | undefined;
+/** vsc-base method
+ * @description
+ * Test is a node is a variable declaration (node: ts.VariableDeclarationList) \
+ * This one includes the 'const','let','var' and a list of variables.
+ * See also [tsMatchVariable](http://vsc-base.org/#tsMatchVariable) \
+ * Optional test if its a const, let or var. \
+ * Optional test for tsHasAncestor and hasGrandChild \
+ * See [tsIsNode](http://vsc-base.org/#tsIsNode) \
+ * @see [tsMatchVariable](http://vsc-base.org/#tsMatchVariable)
+ * @vscType ts
+ * @example
+ * const varNode = vsc.tsMatchVariableList(node, options)
+ * @example
+ * // Find variable list with a variable declaration of an object
+ * const [variableList, variableListPos] = vsc.tsFindNodePositionFromContent(
+ *   source,
+ *   node =>
+ *     vsc.tsMatchVariableList(
+ *       node, {
+ *       hasVariable: variable =>
+ *         variable.name.getText() === variableName
+ *         && ts.isObjectLiteralExpression(variable.initializer)
+ *     })
+ * )
+ * @returns ts.VariableDeclarationList | undefined
+ */
+export declare const tsMatchVariableList: (node: ts.Node | undefined, options?: {
+    isConst?: boolean;
+    isLet?: boolean;
+    isVar?: boolean;
+    hasVariable?: (parent: ts.VariableDeclaration) => boolean;
+    hasVariables?: ((parent: ts.VariableDeclaration) => boolean)[];
+    hasParent?: (parent: ts.Node) => boolean;
+    hasAncestor?: (parent: ts.Node, depth: number) => boolean;
+    hasGrandChild?: (child: ts.Node, depth: number) => boolean;
+    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[];
+    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[];
+}) => ts.VariableDeclarationList | undefined;
 /** vsc-base method
  * @description
  * Test is a node is a identifier (node: ts.Identifier) \
@@ -637,6 +676,36 @@ export declare const tsIsVariable: (node: ts.Node | undefined, options?: {
     isConst?: boolean;
     isLet?: boolean;
     isVar?: boolean;
+    hasParent?: (parent: ts.Node) => boolean;
+    hasAncestor?: (parent: ts.Node, depth: number) => boolean;
+    hasGrandChild?: (child: ts.Node, depth: number) => boolean;
+    hasAncestors?: ((parent: ts.Node, depth: number) => boolean)[];
+    hasGrandChildren?: ((child: ts.Node, depth: number) => boolean)[];
+}) => boolean;
+/** vsc-base method
+ * @description
+ * Test is a node is a variable declaration (node: ts.VariableDeclarationList) \
+ * Uses [tsMatchVariableList](http://vsc-base.org/#tsMatchVariableList)
+ * @see [tsIsVariableList](http://vsc-base.org/#tsIsVariableList)
+ * @vscType ts
+ * @example
+ * const isVariableNode = vsc.tsIsVariableList(node, options)
+ * @example
+ * const isVariableNode = vsc.tsIsVariableList(
+ *   node, {
+ *     hasVariable: variable =>
+ *       variable.name.getText() === variableName
+ *       && ts.isObjectLiteralExpression(variable.initializer)
+ *   }
+ * )
+ * @returns boolean
+ */
+export declare const tsIsVariableList: (node: ts.Node | undefined, options?: {
+    isConst?: boolean;
+    isLet?: boolean;
+    isVar?: boolean;
+    hasVariable?: (parent: ts.VariableDeclaration) => boolean;
+    hasVariables?: ((parent: ts.VariableDeclaration) => boolean)[];
     hasParent?: (parent: ts.Node) => boolean;
     hasAncestor?: (parent: ts.Node, depth: number) => boolean;
     hasGrandChild?: (child: ts.Node, depth: number) => boolean;

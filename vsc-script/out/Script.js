@@ -94,26 +94,39 @@ class Script {
                     const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-script\-name\:([^\n]*)/);
                     const name = nameLabelMatch ? nameLabelMatch[1] : match[1];
                     scripts.push({
+                        area: ['Other'],
                         name,
+                        displayName: name,
                         name_lower: name.toLocaleLowerCase(),
                         path: filePath
                     });
                 }
             }
+            //
             if (scripts.length === 0) {
                 vsc.showErrorMessage(`ERROR (102): vsc-script didn't find any script files. A script file name can be place anywhere in the project, but it must end with '.vsc-script.js'`);
                 return;
             }
+            this.setArea(scripts);
             //Sort scripts
-            scripts.sort((a, b) => a.name.localeCompare(b.name));
+            scripts.sort((a, b) => a.displayName.localeCompare(b.displayName));
+            const hasAreas = scripts.find(a => a.area[0] !== 'Other');
+            let scriptName;
+            if (hasAreas) {
+                const areas = [...new Set(scripts.map(s => s.area[0]))];
+                const areaSelected = yield vsc.pick(areas);
+                const sel = scripts.filter(s => s.area[0] === areaSelected);
+                scriptName = yield vsc.pick(sel.map(s => s.displayName));
+            }
+            else {
+                scriptName = yield vsc.pick(scripts.map(s => s.name));
+            }
             // Ask user for script to run.
-            const scriptName = yield vsc.pick(scripts.map(s => s.name));
             if (!scriptName) {
                 return;
             }
             // select script from user input
-            const scriptName_lower = scriptName.toLocaleLowerCase();
-            const selectedScript = scripts.find(t => t.name_lower === scriptName_lower);
+            const selectedScript = scripts.find(t => t.displayName === scriptName);
             if (!selectedScript) {
                 vsc.showErrorMessage(`ERROR (103): NOTE: vsc-script didn't find your script '${scriptName}'. The script must be in a file called '${scriptName}.vsc-script.js'`);
                 return;
@@ -161,6 +174,18 @@ ${method}
             const lineContent = lines[line];
             const errorContent = lineContent.substr(char, 120);
             return 'Error handler find first error in extension.js: ' + errorContent;
+        });
+    }
+    setArea(scripts) {
+        scripts.forEach(s => {
+            s.name = s.name.trim();
+            s.displayName = s.name.trim();
+            if (s.displayName.match('>')) {
+                s.area = s.displayName.split('>').map(a => {
+                    return a.trim();
+                });
+                s.displayName = s.area.join(' > ');
+            }
         });
     }
 }

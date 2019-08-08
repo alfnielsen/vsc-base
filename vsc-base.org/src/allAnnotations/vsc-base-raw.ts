@@ -301,6 +301,92 @@ export const isAbsolutePath = (
 
 /** vsc-base method
  * @description 
+ * Insert after the match of a string or regExp.
+ * @see [insertAfter](http://vsc-base.org/#insertAfter)
+ * @vscType Raw
+ * @example
+ * source = vsc.insertAfter(source, regExp, content)
+ * @testPrinterArgument
+{
+   source: '1 2 3 4 5',
+   match: '/3/',
+   content: 'T'
+}
+ * @testPrinter (args, setResult) => {
+   const matchRegExp = args.match.match(/^\/(.*)\/(i?)/)
+   if(matchRegExp){
+      try{
+         const reg = new RegExp(matchRegExp[1], matchRegExp[2])
+         const res = vsc.insertAfter(args.source, reg, args.content)
+         setResult(res)
+      }catch(e){
+         setResult('error: '+e)
+      }
+   }else{
+      const res = vsc.insertAfter(args.source, args.match, args.content)
+      setResult(res)
+   }
+}
+ * @returns boolean
+ */
+export const insertAfter = (
+   source: string,
+   match: string | RegExp,
+   content: string
+): string => {
+   const stringMatch = source.match(match)
+   if (stringMatch && stringMatch.index && stringMatch.index >= 0) {
+      const index = stringMatch.index + stringMatch[0].length
+      source = source.substring(0, index) + content + source.substring(index)
+   }
+   return source
+}
+
+/** vsc-base method
+ * @description 
+ * Insert before the match of a string or regExp.
+ * @see [insertBefore](http://vsc-base.org/#insertBefore)
+ * @vscType Raw
+ * @example
+ * source = vsc.insertBefore(source, regExp, content)
+ * @testPrinterArgument
+{
+   source: '1 2 3 4 5',
+   match: '/3/',
+   content: 'T'
+}
+ * @testPrinter (args, setResult) => {
+   const matchRegExp = args.match.match(/^\/(.*)\/(i?)/)
+   if(matchRegExp){
+      try{
+         const reg = new RegExp(matchRegExp[1], matchRegExp[2])
+         const res = vsc.insertBefore(args.source, reg, args.content)
+         setResult(res)
+      }catch(e){
+         setResult('error: '+e)
+      }
+   }else{
+      const res = vsc.insertBefore(args.source, args.match, args.content)
+      setResult(res)
+   }
+}
+ * @returns boolean
+ */
+export const insertBefore = (
+   source: string,
+   match: string | RegExp,
+   content: string
+): string => {
+   const index = source.search(match)
+   if (index >= 0) {
+      source = source.substring(0, index) + content + source.substring(index)
+   }
+   return source
+}
+
+
+/** vsc-base method
+ * @description 
  * Does sub-path start with parentPath
  * @see [isSubPath](http://vsc-base.org/#isSubPath)
  * @param path

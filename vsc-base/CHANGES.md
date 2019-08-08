@@ -2,6 +2,15 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.2
+
+### Added
+
+Add two raw methods:
+
+-  [insertAfter](http://vsc-base.org/#insertAfter)
+-  [insertBefore](http://vsc-base.org/#insertBefore)
+
 ## 0.9.1
 
 ### Fix

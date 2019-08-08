@@ -269,4 +269,32 @@ suite('Raw_trimLeadingDash', () => {
         assert.equal(res, 'root/area/module/');
     });
 });
+suite('Raw_insertAfter', () => {
+    test(' 1', () => {
+        const source = '1 2 3 4 5';
+        const res = '1 2 3T 4 5';
+        const r1 = vsc.insertAfter(source, '3', 'T');
+        assert.equal(r1, res);
+    });
+    test(' 2', () => {
+        const source = '1 2 3 4 5';
+        const res = '1 2 3 4 T5';
+        const r1 = vsc.insertAfter(source, /\s+4\s+/, 'T');
+        assert.equal(r1, res);
+    });
+});
+suite('Raw_insertBefore', () => {
+    test(' 1', () => {
+        const source = '1 2 3 4 5';
+        const res = '1 2 3T 4 5';
+        const r1 = vsc.insertBefore(source, /\s+4\s+/, 'T');
+        assert.equal(r1, res);
+    });
+    test(' 1', () => {
+        const source = '1 2 3 4 5';
+        const res = '1 2 3 4 T5';
+        const r1 = vsc.insertBefore(source, '5', 'T');
+        assert.equal(r1, res);
+    });
+});
 //# sourceMappingURL=vsc-base-raw.test.js.map

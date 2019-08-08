@@ -42,8 +42,10 @@ import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
 import GetSubRelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubRelativePathFromAbsoluteRootPathAnnotatedCode'
 import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
 import GetVscDefaultModuleMapAnnotatedCode from './annotations/GetVscDefaultModuleMapAnnotatedCode'
+import InsertAfterAnnotatedCode from './annotations/InsertAfterAnnotatedCode'
 import InsertAtAnnotatedCode from './annotations/InsertAtAnnotatedCode'
 import InsertAtRangeAnnotatedCode from './annotations/InsertAtRangeAnnotatedCode'
+import InsertBeforeAnnotatedCode from './annotations/InsertBeforeAnnotatedCode'
 import IsAbsolutePathAnnotatedCode from './annotations/IsAbsolutePathAnnotatedCode'
 import IsDirAnnotatedCode from './annotations/IsDirAnnotatedCode'
 import IsSubPathAnnotatedCode from './annotations/IsSubPathAnnotatedCode'
@@ -186,8 +188,10 @@ const annotations = [
   { vscType: 'raw', name: 'getsubrelativepathfromabsoluterootpath', component: (open: boolean) => <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode key={'getSubRelativePathFromAbsoluteRootPath'} open={open} /> },
   { vscType: 'raw', name: 'gettimestamp', component: (open: boolean) => <GetTimestampAnnotatedCode key={'getTimestamp'} open={open} /> },
   { vscType: 'system', name: 'getvscdefaultmodulemap', component: (open: boolean) => <GetVscDefaultModuleMapAnnotatedCode key={'getVscDefaultModuleMap'} open={open} /> },
+  { vscType: 'raw', name: 'insertafter', component: (open: boolean) => <InsertAfterAnnotatedCode key={'insertAfter'} open={open} /> },
   { vscType: 'vscode', name: 'insertat', component: (open: boolean) => <InsertAtAnnotatedCode key={'insertAt'} open={open} /> },
   { vscType: 'vscode', name: 'insertatrange', component: (open: boolean) => <InsertAtRangeAnnotatedCode key={'insertAtRange'} open={open} /> },
+  { vscType: 'raw', name: 'insertbefore', component: (open: boolean) => <InsertBeforeAnnotatedCode key={'insertBefore'} open={open} /> },
   { vscType: 'raw', name: 'isabsolutepath', component: (open: boolean) => <IsAbsolutePathAnnotatedCode key={'isAbsolutePath'} open={open} /> },
   { vscType: 'system', name: 'isdir', component: (open: boolean) => <IsDirAnnotatedCode key={'isDir'} open={open} /> },
   { vscType: 'raw', name: 'issubpath', component: (open: boolean) => <IsSubPathAnnotatedCode key={'isSubPath'} open={open} /> },

@@ -197,7 +197,7 @@ const writeAnnotationComponent = (
 
    if (metaMap.testPrinterArgument && metaMap.testPrinter) {
       const testPrinterArgument = metaMap.testPrinterArgument.join(',').replace(/([\\])/g, '\\$1')
-      const testPrinter = metaMap.testPrinter.join(',').replace(/([\\])/g, '\\$1')
+      const testPrinter = metaMap.testPrinter.join(',')//.replace(/([\\])/g, '\\$1')
       test = `
       test={
          <MethodTest

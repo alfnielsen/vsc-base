@@ -299,6 +299,64 @@ export const O1 = {
       const r1 = vsc.tsInsertVariableObjectProperty(source1, 'O1', 'key', `1`, { addNewTrailingComma: true })
       assert.equal(r1, res1)
    })
+   test(' 9', () => {
+      const source1 = `
+const foo = () => {
+   export const O1 = {/**/}
+}
+`
+      const res1 = `
+const foo = () => {
+   export const O1 = {/**/
+      key: 1,
+   }
+}
+`
+      const r1 = vsc.tsInsertVariableObjectProperty(source1, 'O1', 'key', `1`, { addNewTrailingComma: true })
+      assert.equal(r1, res1)
+   })
+   test(' 10', () => {
+      const source1 = `
+export const O1 = {/**/}
+`
+      const res1 = `
+export const O1 = {/**/
+   key
+}
+`
+      const r1 = vsc.tsInsertVariableObjectProperty(source1, 'O1', 'key')
+      assert.equal(r1, res1)
+   })
+   test(' 11', () => {
+      const source1 = `
+export const O1 = {
+   keyO
+}
+`
+      const res1 = `
+export const O1 = {
+   keyO,
+   key
+}
+`
+      const r1 = vsc.tsInsertVariableObjectProperty(source1, 'O1', 'key')
+      assert.equal(r1, res1)
+   })
+   test(' 12', () => {
+      const source1 = `
+export const O1 = {
+   keyO: 'test'
+}
+`
+      const res1 = `
+export const O1 = {
+   keyO: 'test',
+   key
+}
+`
+      const r1 = vsc.tsInsertVariableObjectProperty(source1, 'O1', 'key')
+      assert.equal(r1, res1)
+   })
 })
 
 suite('ts_tsInsertImport', () => {
@@ -352,12 +410,12 @@ const ff = 1`
    })
    test(' 8', () => {
       const source1 = `
-import t2 from './t2.ts
+import t2 from './t2.ts'
 
 const ff = 1
 `
       const res1 = `
-import t2 from './t2.ts
+import t2 from './t2.ts'
 import t from './t.ts'
 
 const ff = 1
@@ -396,6 +454,24 @@ const ff = 1
       const res1 = `import { t } from "./t.ts"
 `
       const r1 = vsc.tsInsertImport(source1, 't', './t.ts', { useDoubleQuotation: true })
+      assert.equal(r1, res1)
+   })
+   test(' 12', () => {
+      const source1 = `
+import t2 from './t2.ts'
+import { t } from './t.ts'
+import t3 from './t3.ts'
+
+const ff = 1
+`
+      const res1 = `
+import t2 from './t2.ts'
+import { t4, t } from './t.ts'
+import t3 from './t3.ts'
+
+const ff = 1
+`
+      const r1 = vsc.tsInsertImport(source1, 't4', './t.ts')
       assert.equal(r1, res1)
    })
 })

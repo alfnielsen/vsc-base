@@ -61,7 +61,7 @@ export const tsInsertInterfaceMember: (
       return source
    }
    // check that the property don't exist
-   const hasMember = _interface.members.find(m => m.name && m.name.getText() === memberName)
+   const hasMember = _interface.members.find(m => !!m.name && m.name.getText() === memberName)
    if (hasMember) \{
       return source
    }

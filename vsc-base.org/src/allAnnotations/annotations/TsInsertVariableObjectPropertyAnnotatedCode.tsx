@@ -44,7 +44,7 @@ export const tsInsertVariableObjectProperty: (
    source: string,
    variableName: string,
    key: string,
-   value: string,
+   value?: string,
    options?: \{
       newIntention?: number,
       addNewTrailingComma?: boolean
@@ -74,7 +74,7 @@ export const tsInsertVariableObjectProperty: (
       return source
    }
    // check that the property don't exist
-   const hasValue = obj.properties.find(p => p.name && p.name.getText() === key)
+   const hasValue = obj.properties.find(p => !!p.name && p.name.getText() === key)
    if (hasValue) \{
       return source
    }
@@ -123,10 +123,17 @@ export const tsInsertVariableObjectProperty: (
       contentBeforeNewProp = contentBeforeNewProp + newIntentionString
    }
 
+   let newContent: string
+   if (value) \{
+      newContent = \`\$\{contentBeforeNewProp}\$\{key}: \$\{value}\$\{contentAfterNewProp}\`
+   } else \{
+      newContent = \`\$\{contentBeforeNewProp}\$\{key}\$\{contentAfterNewProp}\`
+   }
+
    // Add property
    source =
       source.substring(0, insertPoint) +
-      \`\$\{contentBeforeNewProp}\$\{key}: \$\{value}\$\{contentAfterNewProp}\` +
+      newContent +
       source.substring(insertPoint)
    // Add comma after prev property
    if (hasProps && !leadingComma) \{

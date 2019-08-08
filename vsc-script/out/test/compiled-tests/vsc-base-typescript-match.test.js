@@ -204,4 +204,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //       assert.equal(r1, '')
 //    })
 // })
+// suite('ts_tsIsVariableList', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.tsIsVariableList()
+//       assert.equal(r1, '')
+//    })
+// })
 //# sourceMappingURL=vsc-base-typescript-match.test.js.map

@@ -85,7 +85,7 @@ export declare const tsInsertInterfaceMember: (source: string, interfaceName: st
  * source = vsc.tsAddVariableObjectProperty(source, 'IFood', 'type', 'FooType')
  * @returns string
  */
-export declare const tsInsertVariableObjectProperty: (source: string, variableName: string, key: string, value: string, options?: {
+export declare const tsInsertVariableObjectProperty: (source: string, variableName: string, key: string, value?: string, options?: {
     newIntention?: number;
     addNewTrailingComma?: boolean;
 }) => string;

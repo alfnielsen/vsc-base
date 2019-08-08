@@ -2,6 +2,30 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.1
+
+### Fix
+
+Fix problem with removing new line feed when add importName to existing import in
+[tsInsertImport](http://vsc-base.org/#tsInsertImport)
+
+### Changes
+
+[tsInsertVariableObjectProperty](http://vsc-base.org/#tsInsertVariableObjectProperty)'s params are now optional, so that it can add a key without value:
+
+EX:
+
+```ts
+//from
+const f = {
+   f: f
+}
+//to
+const f = {
+   f
+}
+```
+
 ## 0.9.0
 
 ### Added

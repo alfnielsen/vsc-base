@@ -43,17 +43,17 @@ export const tsInsertImport: (
    if (matchImport) {
       return source
    }
-   const [matchImportPath] = vsc.tsFindNodePositionFromContent(source, node =>
+   const [matchImportPath, matchImportPathPos] = vsc.tsFindNodePositionFromContent(source, node =>
       vsc.tsMatchImport(node, {
          path: importPath
       })
    )
-   if (matchImportPath) {
+   if (matchImportPath && matchImportPathPos) {
       let importContent = matchImportPath.getText()
       importContent = isDefault
          ? importContent.replace('import ', `import ${importName}, `)
          : importContent.replace('import {', `import { ${importName},`)
-      source = source.substring(0, matchImportPath.pos) + importContent + source.substring(matchImportPath.end);
+      source = source.substring(0, matchImportPathPos.start) + importContent + source.substring(matchImportPathPos.end);
       return source
    }
 
@@ -308,7 +308,7 @@ export const tsInsertVariableObjectProperty: (
    source: string,
    variableName: string,
    key: string,
-   value: string,
+   value?: string,
    options?: {
       newIntention?: number,
       addNewTrailingComma?: boolean
@@ -387,10 +387,17 @@ export const tsInsertVariableObjectProperty: (
       contentBeforeNewProp = contentBeforeNewProp + newIntentionString
    }
 
+   let newContent: string
+   if (value) {
+      newContent = `${contentBeforeNewProp}${key}: ${value}${contentAfterNewProp}`
+   } else {
+      newContent = `${contentBeforeNewProp}${key}${contentAfterNewProp}`
+   }
+
    // Add property
    source =
       source.substring(0, insertPoint) +
-      `${contentBeforeNewProp}${key}: ${value}${contentAfterNewProp}` +
+      newContent +
       source.substring(insertPoint)
    // Add comma after prev property
    if (hasProps && !leadingComma) {

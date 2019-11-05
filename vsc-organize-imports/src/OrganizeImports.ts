@@ -5,32 +5,27 @@ import * as vscode from 'vscode'
 import { SortImports, SortImportsOptions } from './SortImports'
 
 export default class OrganizeImports {
-   getConfig<T>(property: string, defaultValue: T): T {
-      return vsc.getConfig('vscOrganizeImports', property, defaultValue)
-   }
-   async run(options: SortImportsOptions, uri?: vscode.Uri, ) {
-      if (!uri) {
-         return
-      }
+  getConfig<T>(property: string, defaultValue: T): T {
+    return vsc.getConfig('vscOrganizeImports', property, defaultValue)
+  }
+  async run(options: SortImportsOptions, uri?: vscode.Uri) {
+    if (!uri) {
+      return
+    }
 
-      const content = vsc.getDocumentContent();
-      if (!content) {
-         return
-      }
-      const path = vsc.pathAsUnix(uri.path)
+    const content = vsc.getDocumentContent()
+    if (!content) {
+      return
+    }
+    const path = vsc.pathAsUnix(uri.fsPath)
 
-      const rootPath = vsc.getRootPath(path)
-      if (!rootPath) {
-         return
-      }
+    const rootPath = vsc.getRootPath(path)
+    if (!rootPath) {
+      return
+    }
 
-      options.basePath = vsc.joinPaths(rootPath, options.baseUrl)
+    options.basePath = vsc.joinPaths(rootPath, options.baseUrl)
 
-      await SortImports(
-         path,
-         content,
-         options
-      )
-   }
+    await SortImports(path, content, options)
+  }
 }
-

@@ -1,5 +1,12 @@
 # Change Log
 
+
+## 0.1.5
+
+Fix incorrect file path on windows.
+(It was usin vscode.uri.path, and now it uses the correct vscode.uri.fsPath)
+
+
 ## 0.1.4
 
 Fix duplication of comment before first import.

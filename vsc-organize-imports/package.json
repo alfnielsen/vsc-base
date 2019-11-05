@@ -9,7 +9,7 @@
       "url": "https://github.com/alfnielsen/vsc-base"
    },
    "homepage": "https://github.com/alfnielsen/vsc-base",
-   "version": "0.1.4",
+   "version": "0.1.5",
    "engines": {
       "vscode": "^1.32.0"
    },
@@ -63,7 +63,7 @@
       "vscode": "^1.1.33"
    },
    "dependencies": {
-      "vsc-base": "^0.8.24"
+      "vsc-base": "^0.9.2"
    },
    "vsc-organize-imports": {
       "orderSpecifiers": true,

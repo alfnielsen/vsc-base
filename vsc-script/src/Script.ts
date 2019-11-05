@@ -16,6 +16,10 @@ interface IScriptMap {
 }
 
 export default class Script {
+   webViewPanel?: vscode.WebviewPanel
+   onMessageFromWebView?: (json: unknown) => void
+   senderMessageToWebView?: (json: unknown) => void
+   startWebView?: ({ body, onMessageCode }: { body: string, onMessageCode: string }) => void
    /**
     * Meta function that ensures the libs are not optimized away!
     */
@@ -66,7 +70,35 @@ export default class Script {
          return
       }
       try {
-         verifiedModule[method](path, this.getLibs())
+         vsc.showErrorMessage(`Running '${method}'`)
+         const options = {
+            libs: this.getLibs(),
+            webview: ({ body, onMessageCode }: { body: string, onMessageCode: string }) => {
+               if (!this.startWebView) { return }
+               vsc.showMessage(body)
+               this.startWebView({ body, onMessageCode })
+               //this.senderMessageToWebView({ command: 'setBody', content: body })
+               return (onMessage: (message: any, resolve: (value?: unknown) => void) => Promise<void>) => {
+                  let resolveRef: (value?: unknown) => void | undefined
+                  this.onMessageFromWebView = (message: any) => {
+                     onMessage(message, resolveRef);
+                  }
+                  return new Promise((resolve, reject) => {
+                     resolveRef = () => {
+                        if (this.webViewPanel) {
+                           this.webViewPanel.dispose();
+                        }
+                        resolve()
+                     }
+                  })
+
+               }
+            }
+         }
+         await verifiedModule[method](
+            path,
+            options
+         )
       } catch (e) {
          const sourceJs = await vsc.tsLoadModuleSourceCode(scriptPath)
          this.errorLog(`105: Running compiled 'run' method. The error is in the '${method}' method.`, scriptPath, e, `${sourceJs}`)

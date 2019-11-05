@@ -53,6 +53,8 @@ export const createPartMap = async (vscFiles: string[]) => {
          if (!metaMap['example']) {
             vsc.showMessage('mapArgs:' + mapArgs.join('\n'))
             vsc.showErrorMessage('missing example!')
+         } else if (!metaMap['example'].every(e => e.indexOf(name))) {
+            vsc.showErrorMessage('example missing name! ' + name)
          }
          metaMap['oneLineEx'] = [metaMap['example'][0]]
          metaMap['ex'] = [metaMap['example'][1]]

@@ -1,7 +1,14 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts = require("typescript");
-const vsc = require("./vsc-base");
+const ts = __importStar(require("typescript"));
+const vsc = __importStar(require("./vsc-base"));
 /** vsc-base method
  * @description
  * Find is a direct parsedChild that matches conditions in a callback\

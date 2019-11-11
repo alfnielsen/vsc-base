@@ -7,15 +7,65 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cp = require("child-process-promise");
-const fs = require("fs-extra");
-const path = require("path");
-const ts = require("typescript");
+const cp = __importStar(require("child-process-promise"));
+const fs = __importStar(require("fs-extra"));
+const path = __importStar(require("path"));
+const ts = __importStar(require("typescript"));
 //import * as vsc from 'vsc-base'
-const vscode = require("vscode");
-const vsc = require("./vsc-base-development/vsc-base");
+const vscode = __importStar(require("vscode"));
+const vsc = __importStar(require("./vsc-base-development/vsc-base"));
 class Script {
+    constructor(context) {
+        this.context = context;
+        this.webviewStartUp = options => {
+            this.startWebView(options);
+            if (!this.webViewPanel) {
+                throw new Error("Failed to initialize WebView!");
+            }
+            const sendMessage = this.webViewPanel.webview.postMessage;
+            // Handle messages from webview
+            let resolveRef;
+            this.webViewPanel.webview.onDidReceiveMessage(message => {
+                if (this.webViewOnMessageProxy) {
+                    this.webViewOnMessageProxy(message, resolveRef);
+                }
+            }, undefined, this.context.subscriptions);
+            //this.senderMessageToWebView({ command: 'setBody', content: body })
+            const createdOnMessage = (onMessage) => {
+                this.webViewOnMessageProxy = onMessage;
+                return new Promise((resolve, reject) => {
+                    resolveRef = () => {
+                        if (this.webViewPanel) {
+                            this.webViewPanel.dispose();
+                        }
+                        resolve();
+                    };
+                });
+            };
+            return [sendMessage, createdOnMessage];
+        };
+    }
+    startWebView(startOptions) {
+        const { html, body, reactApp, onMessageCode, showOptions = vscode.ViewColumn.One, options = { enableScripts: true } } = startOptions;
+        this.webViewPanel = vscode.window.createWebviewPanel('vscScript', 'Script', showOptions, options);
+        if (html) {
+            this.webViewPanel.webview.html = html;
+        }
+        else if (body) {
+            this.webViewPanel.webview.html = vsc.WebViewHTMLTemplate(body, onMessageCode);
+        }
+        else if (reactApp) {
+            this.webViewPanel.webview.html = vsc.WebViewReactTemplate(reactApp, onMessageCode);
+        }
+    }
     /**
      * Meta function that ensures the libs are not optimized away!
      */
@@ -65,7 +115,12 @@ class Script {
                 return;
             }
             try {
-                verifiedModule[method](path, this.getLibs());
+                vsc.showErrorMessage(`Running '${method}'`);
+                const options = {
+                    libs: this.getLibs(),
+                    webview: this.webviewStartUp
+                };
+                yield verifiedModule[method](path, options);
             }
             catch (e) {
                 const sourceJs = yield vsc.tsLoadModuleSourceCode(scriptPath);
@@ -83,13 +138,14 @@ class Script {
                 return;
             }
             const path = vsc.pathAsUnix(uri.fsPath);
+            const foo = 42;
             // Collect all project scripts:
-            const scriptFiles = yield vsc.findFilePaths('**/*.vsc-script.ts');
+            const scriptFiles = yield vsc.findFilePaths('**/*.vsc-script.tsx');
             // Create lowercase map of scripts
             const scripts = [];
             for (let filePath of scriptFiles) {
-                const match = filePath.match(/([\w\-]+)\.vsc\-script\.ts$/);
-                if (match) {
+                const match = filePath.match(/([\w\-]+)\.vsc\-script\.tsx?$/);
+                if (match && foo === 42) {
                     const content = yield vsc.getFileContent(filePath);
                     const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-script\-name\:([^\n]*)/);
                     const name = nameLabelMatch ? nameLabelMatch[1] : match[1];
@@ -136,7 +192,7 @@ class Script {
     }
     errorLog(errorDescription, selectedScriptPath, e, method) {
         return __awaiter(this, void 0, void 0, function* () {
-            const errorFilePath = selectedScriptPath.replace(/\.ts/, '.error-log.js');
+            const errorFilePath = selectedScriptPath.replace(/\.tsx?/, '.error-log.js');
             let errorLogContent = '';
             if (vsc.doesExists(errorFilePath)) {
                 errorLogContent = yield vsc.getFileContent(errorFilePath);

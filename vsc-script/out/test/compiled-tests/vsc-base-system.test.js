@@ -14,9 +14,16 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const assert = require("assert");
-const vsc = require("../../vsc-base-development/vsc-base");
+const assert = __importStar(require("assert"));
+const vsc = __importStar(require("../../vsc-base-development/vsc-base"));
 suite('System_addFileContent', () => {
     test(' 1', () => __awaiter(this, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE.ts';

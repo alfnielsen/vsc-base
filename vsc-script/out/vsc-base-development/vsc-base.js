@@ -5,6 +5,8 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./vsc-base-raw"));
 __export(require("./vsc-base-vscode"));
+__export(require("./vsc-base-vscode-webview"));
+__export(require("./vsc-base-vscode-webview-libs"));
 __export(require("./vsc-base-system"));
 __export(require("./vsc-base-typescript-base"));
 __export(require("./vsc-base-typescript-match"));

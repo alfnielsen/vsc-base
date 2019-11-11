@@ -7,8 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const vsc = require("./vsc-base");
+const vsc = __importStar(require("./vsc-base"));
 /** vsc-base method
  * @description
  * Transform an absolute path from root, to a sub-relative path.
@@ -287,15 +294,19 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
  * @testPrinterArgument
 {
    source: '1 2 3 4 5',
-   match: /3/,
+   match: '/3/',
    content: 'T'
 }
  * @testPrinter (args, setResult) => {
-   const matchRegExp = args.match[0].match(/^\/(.*)\/(i?)/)
+   const matchRegExp = args.match.match(/^\/(.*)\/(i?)/)
    if(matchRegExp){
-      const reg = new RegExp(matchRegExp[1], matchRegExp[2])
-      const res = vsc.insertAfter(args.source, reg, args.content)
-      setResult(res)
+      try{
+         const reg = new RegExp(matchRegExp[1], matchRegExp[2])
+         const res = vsc.insertAfter(args.source, reg, args.content)
+         setResult(res)
+      }catch(e){
+         setResult('error: '+e)
+      }
    }else{
       const res = vsc.insertAfter(args.source, args.match, args.content)
       setResult(res)
@@ -321,15 +332,19 @@ exports.insertAfter = (source, match, content) => {
  * @testPrinterArgument
 {
    source: '1 2 3 4 5',
-   match: /3/,
+   match: '/3/',
    content: 'T'
 }
  * @testPrinter (args, setResult) => {
-   const matchRegExp = args.match[0].match(/^\/(.*)\/(i?)/)
+   const matchRegExp = args.match.match(/^\/(.*)\/(i?)/)
    if(matchRegExp){
-      const reg = new RegExp(matchRegExp[1], matchRegExp[2])
-      const res = vsc.insertBefore(args.source, reg, args.content)
-      setResult(res)
+      try{
+         const reg = new RegExp(matchRegExp[1], matchRegExp[2])
+         const res = vsc.insertBefore(args.source, reg, args.content)
+         setResult(res)
+      }catch(e){
+         setResult('error: '+e)
+      }
    }else{
       const res = vsc.insertBefore(args.source, args.match, args.content)
       setResult(res)

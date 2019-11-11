@@ -13,12 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
    // Use the console to output diagnostic information (console.log) and errors (console.error)
    // This line of code will only be executed once when your extension is activated
    console.log('Congratulations, your extension "vsc-script" is now active!')
-
-   // The command has been defined in the package.json file
-   // Now provide the implementation of the command with registerCommand
-   // The commandId parameter must match the command field in package.json
-
-   const script = new Script()
+   const script = new Script(context)
 
    let disposableScriptCommand = vscode.commands.registerCommand('extension.vscScript', (uri?: vscode.Uri, uris?: vscode.Uri[]) => {
       if (uri === undefined || !vscode.window.activeTextEditor) {
@@ -26,30 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
          return;
       } else if (uri === undefined) {
          uri = vscode.window.activeTextEditor.document.uri
-      }
-      script.startWebView = ({ body, onMessageCode }: { body: string, onMessageCode: string }) => {
-         script.webViewPanel = vscode.window.createWebviewPanel(
-            'vscScript',
-            'Script',
-            vscode.ViewColumn.One,
-            {
-               enableScripts: true
-            }
-         );
-         script.webViewPanel.webview.html = vsc.WebViewHTMLTemplate(onMessageCode, body)
-         // Send a message to webview.
-         //vsc.showMessage("JSON:" + JSON.stringify(json))
-         script.senderMessageToWebView = script.webViewPanel.webview.postMessage;
-         // Handle messages from webview
-         script.webViewPanel.webview.onDidReceiveMessage(
-            message => {
-               if (script.onMessageFromWebView) {
-                  script.onMessageFromWebView(message)
-               }
-            },
-            undefined,
-            context.subscriptions
-         );
       }
       script.run(uri)
    })

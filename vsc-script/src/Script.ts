@@ -7,6 +7,9 @@ import * as vscode from 'vscode'
 
 import * as vsc from './vsc-base-development/vsc-base'
 
+export type TStartWebview = (options: vsc.IStartWebViewOptions) => [(message: any) => Promise<boolean>, (callback: (message: any, stopWebView: () => void) => void) => Promise<void>]
+export type SenderFunc = (content: any) => Promise<void>
+
 interface IScriptMap {
    area: string[],
    displayName: string;
@@ -16,10 +19,13 @@ interface IScriptMap {
 }
 
 export default class Script {
-   webViewPanel?: vscode.WebviewPanel
-   onMessageFromWebView?: (json: unknown) => void
-   senderMessageToWebView?: (json: unknown) => void
-   startWebView?: ({ body, onMessageCode }: { body: string, onMessageCode: string }) => void
+   constructor(
+      public context: vscode.ExtensionContext,
+   ) { }
+
+   webViewPanel?: vscode.WebviewPanel;
+   webViewOnMessageProxy?: (message: any, stopWebView: () => void) => void
+
    /**
     * Meta function that ensures the libs are not optimized away!
     */
@@ -73,27 +79,7 @@ export default class Script {
          vsc.showErrorMessage(`Running '${method}'`)
          const options = {
             libs: this.getLibs(),
-            webview: ({ body, onMessageCode }: { body: string, onMessageCode: string }) => {
-               if (!this.startWebView) { return }
-               vsc.showMessage(body)
-               this.startWebView({ body, onMessageCode })
-               //this.senderMessageToWebView({ command: 'setBody', content: body })
-               return (onMessage: (message: any, resolve: (value?: unknown) => void) => Promise<void>) => {
-                  let resolveRef: (value?: unknown) => void | undefined
-                  this.onMessageFromWebView = (message: any) => {
-                     onMessage(message, resolveRef);
-                  }
-                  return new Promise((resolve, reject) => {
-                     resolveRef = () => {
-                        if (this.webViewPanel) {
-                           this.webViewPanel.dispose();
-                        }
-                        resolve()
-                     }
-                  })
-
-               }
-            }
+            webview: this.webviewStartUp
          }
          await verifiedModule[method](
             path,
@@ -103,6 +89,45 @@ export default class Script {
          const sourceJs = await vsc.tsLoadModuleSourceCode(scriptPath)
          this.errorLog(`105: Running compiled 'run' method. The error is in the '${method}' method.`, scriptPath, e, `${sourceJs}`)
       }
+   }
+
+   webviewStartUp: TStartWebview = startOptions => {
+      this.webViewPanel = vsc.InitWebView(this.context, startOptions);
+      if (!this.webViewPanel) {
+         throw new Error("Failed to initialize WebView!")
+      }
+      const sendMessage = async (message: any) => {
+         //vsc.showMessage("Message is sending:" + JSON.stringify(message))
+         if (this.webViewPanel) {
+            return await this.webViewPanel.webview.postMessage(message);
+         }
+         return false
+      }
+
+      // Handle messages from webview
+      let resolveRef: (value?: unknown) => void | undefined
+      this.webViewPanel.webview.onDidReceiveMessage(
+         message => {
+            if (this.webViewOnMessageProxy) {
+               this.webViewOnMessageProxy(message, resolveRef)
+            }
+         },
+         undefined,
+         this.context.subscriptions
+      );
+      //this.senderMessageToWebView({ command: 'setBody', content: body })
+      const createdOnMessage = (onMessage: (message: any, stopWebView: () => void) => void): Promise<void> => {
+         this.webViewOnMessageProxy = onMessage;
+         return new Promise((resolve, reject) => {
+            resolveRef = () => {
+               if (this.webViewPanel) {
+                  this.webViewPanel.dispose();
+               }
+               resolve()
+            }
+         })
+      }
+      return [sendMessage, createdOnMessage]
    }
 
    /**
@@ -118,11 +143,11 @@ export default class Script {
       const path = vsc.pathAsUnix(uri.fsPath)
 
       // Collect all project scripts:
-      const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.ts')
+      const scriptFiles = await vsc.findFilePaths('**/*.vsc-script.{ts,tsx}')
       // Create lowercase map of scripts
       const scripts: IScriptMap[] = []
       for (let filePath of scriptFiles) {
-         const match = filePath.match(/([\w\-]+)\.vsc\-script\.ts$/)
+         const match = filePath.match(/([\w\-]+)\.vsc\-script\.tsx?$/)
          if (match) {
             const content = await vsc.getFileContent(filePath)
             const nameLabelMatch = content.match(/(?:^|\n)\s*\/\/vsc\-script\-name\:([^\n]*)/)
@@ -174,7 +199,7 @@ export default class Script {
    }
 
    async errorLog(errorDescription: string, selectedScriptPath: string, e: Error, method: string) {
-      const errorFilePath = selectedScriptPath.replace(/\.ts/, '.error-log.js')
+      const errorFilePath = selectedScriptPath.replace(/\.tsx?/, '.error-log.js')
       let errorLogContent = ''
       if (vsc.doesExists(errorFilePath)) {
          errorLogContent = await vsc.getFileContent(errorFilePath)

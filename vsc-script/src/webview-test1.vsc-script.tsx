@@ -1,65 +1,55 @@
-//vsc-script-name: Test > WebView test
-import React from 'react'
-import * as vsc from 'vsc-base'
+//vsc-script-name: WebView Test > WebView test (test 1)
+import React from "react";
+import * as vsc from "vsc-base";
+import * as vscode from "vscode";
 
-import { TStartWebview } from './Script'
+//import * as vsc from "./vsc-base-development/vsc-base";
 
-export async function run(path: string, script: { webview: TStartWebview }) {
-   const [sendMessage, onMessage] = script.webview({
-      //reactApp: WebViewApp.toString(),
-      body: `
-      <div class='container'>
-         <div class="row">
-            <button onClick="postMessage({command:'show',value:'1'})">Show '1'</button>
-            <button onClick="postMessage({command:'end'})">END</button><br/>
-         </div>
-         Search: <input type='text' id='s' onkeyup="postMessage({command:'search',value:this.value})" >
-         <div id='info'>info</div>
-      </div>
-   `,
-      onMessageCode: (event: any) => {
-         const message = event.data
-         if (message.command === 'info') {
-            document.getElementById('info')!.innerHTML = message.content
-         }
-         if (message.command === 'find') {
-            document.getElementById('info')!.innerHTML = message.content
-         }
-      }
-   })
-   await onMessage(async (message, stopWebView) => {
-      //sendMessage: (message: any) => void,
-      if (message.command === 'show') {
-         vsc.showMessage(message.value)
-      }
-      if (message.command === 'end') {
-         stopWebView()
-      }
-      if (message.command === 'search') {
-         const files = await vsc.findFilePaths(message.value)
-         sendMessage({ command: 'find', content: files.length })
-      }
-   })
-   vsc.showMessage('Script Done')
+export async function run(path: string, context: vscode.ExtensionContext) {
+  await startFindWebview(context);
+
+  vsc.showMessage("Script Done");
 }
 
-// export async function WebViewApp() {
-//    return (
-//       <div className='App'>
-//          <button
-//             onClick={() => {
-//                postMessage({ command: 'show', value: '1' })
-//             }}
-//          >
-//             Show '1'
-//          </button>
-//          <button
-//             onClick={() => {
-//                postMessage({ command: 'end', value: '1' })
-//             }}
-//          >
-//             END
-//          </button>
-//       </div>
-//    )
-// }
+const startFindWebview = async (context: vscode.ExtensionContext) => {
+  const [postMessage, onMessage] = vsc.webviewStartUp(context, {
+    title: "Rename",
+    showOptions: { viewColumn: 3 },
+    body: `
+        <div class='container'>
+            <h2>Test 1: Search for file path with glob</h2>
+           <div class="row">
+              <button onClick="postMessage({command:'show',value:'1'})">Show '1'</button>
+              <button onClick="postMessage({command:'end'})">END</button><br/>
+           </div>
+           <br><br>
+           Search: <input type='text' id='s' onkeyup="postMessage({command:'search',value:this.value})" >
+           <br><br>
+           <div id='info'>info</div>
+        </div>
+     `,
+    onWebViewMessage: (message: any) => {
+      switch (message.command) {
+        case "info":
+        case "find":
+          document.getElementById("info")!.innerHTML = message.content;
+          break;
+      }
+    }
+  });
+  await onMessage(async (message, dispose) => {
+    //sendMessage: (message: any) => void,
+    switch (message.command) {
+      case "show":
+        vsc.showMessage(message.value);
+        break;
+      case "end":
+        dispose();
+        break;
+      case "search":
+        const files = await vsc.findFilePaths(message.value);
+        postMessage({ command: "find", content: files.length });
+        break;
+    }
+  });
+};

@@ -2,9 +2,14 @@
 
 The is an vscode extension.
 
-The project's organize imports in ts/js files alphabetical.
-It don't change format for single/multi-line imports.
-It don't removes comments. (except inner comment, when order named are activated)
+* Organize imports in ts/js files alphabetical. (There are defferent option for how to order)
+
+* Don't change format for single/multi-line imports. (Options for forcing prefered style)
+
+* It don't removes comments. (Except inner comment, when option: order named, are activated)
+
+* Option for automatically removing of unused import
+
 
 ## Usage
 
@@ -45,6 +50,12 @@ Sort named imports:
 **emptyLinesAfterImports**: number (normally 1 or 2)
 
 **emptyLinesBetweenFilledGroups**: number (normally 1 or 2)
+
+
+**removeUnusedImports**?: boolean
+
+**removeUnusedImportsExcludeList**?: string[] (normally ['React'] for react projects)
+
 
 ### Group options:
 
@@ -120,6 +131,69 @@ import styles from './Home.module.scss'
       "baseUrl": "src",
       "emptyLinesAfterImports": 1,
       "emptyLinesBetweenFilledGroups": 1,
+      "groups": [
+         {
+            "groups": [
+               "global"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "absolute"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "relative"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         },
+         {
+            "groups": [
+               "globalDirect",
+               "absoluteDirect",
+               "relativeDirect"
+            ],
+            "sortBy": "path",
+            "emptyLines": true
+         }
+      ]
+   }
+```
+
+
+## Remove Unused Imports
+
+This extension can remove unused imports (From version 1.6)
+
+Set **removeUnusedImports** to true and optional add imports that you dont want to remove in **removeUnusedImportsExcludeList** 
+
+### React import
+
+You will need to add 'React' for react project.
+
+React keywords is not used directly when the file contains jsx but its reuired by the ts compiler to have the import.
+
+
+
+**package.json:**
+
+```json
+   "vsc-organize-imports": {
+      "orderSpecifiers": true,
+      "orderSpecifiersAsSingleLine": true,
+      "baseUrl": "src",
+      "emptyLinesAfterImports": 1,
+      "emptyLinesBetweenFilledGroups": 1,
+      "removeUnusedImports": true,
+      "removeUnusedImportsExcludeList": [
+         "React"
+      ],
       "groups": [
          {
             "groups": [

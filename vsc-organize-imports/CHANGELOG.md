@@ -4,9 +4,9 @@
 
 Add new option (Not set be fefault)
 
-`**removeUnusedImports**?: boolean`
+`removeUnusedImports?: boolean`
 
-`**removeUnusedImportsExcludeList**?: string[]`
+`removeUnusedImportsExcludeList?: string[]`
 
 EX:
 

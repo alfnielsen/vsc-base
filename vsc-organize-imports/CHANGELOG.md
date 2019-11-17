@@ -1,11 +1,24 @@
 # Change Log
 
+## 0.1.6
+
+Add new option (Not set be fefault)
+
+`**removeUnusedImports**?: boolean`
+
+`**removeUnusedImportsExcludeList**?: string[]`
+
+EX:
+
+```json
+"removeUnusedImports": true
+"removeUnusedImportsExcludeList": ["React"]
+```
 
 ## 0.1.5
 
 Fix incorrect file path on windows.
 (It was usin vscode.uri.path, and now it uses the correct vscode.uri.fsPath)
-
 
 ## 0.1.4
 

@@ -36,23 +36,17 @@ The option model is defined in the package.json file.
 
 ### Base options:
 
-**orderSpecifiers**: true | false
+|   name  | optional | type | note |
+|:------|:----:|:---:|:---|
+| orderSpecifiers |   required   |   boolean  |  Sort named imports: `import {a, b, c} from 'module'`   |
+| orderSpecifiersAsSingleLine |   required   |  boolean   |     |
+| baseUrl |   required   |  string   | (normally: "src") |
+| emptyLinesAfterImports |   required   |   number  |   (normally 1 or 2)    |
+| emptyLinesBetweenFilledGroups |   required   |   number  |   (normally 1 or 2)    |
+| removeUnusedImports |   optional   |   boolean  |     |
+| removeUnusedImportsExcludeList |   optional   |   string[]  |   (normally ['React'] for react projects)   |
+| groups |   required   |   group[]  |   (See group description below) |
 
-Sort named imports:
-
-> import {a, b, c} from 'module'
-
-**orderSpecifiersAsSingleLine**: true | false
-
-**baseUrl**: string (normally: "src")
-
-**emptyLinesAfterImports**: number (normally 1 or 2)
-
-**emptyLinesBetweenFilledGroups**: number (normally 1 or 2)
-
-**removeUnusedImports**?: boolean
-
-**removeUnusedImportsExcludeList**?: string[] (normally ['React'] for react projects)
 
 ### Group options:
 
@@ -60,11 +54,11 @@ Groups can be defined (from the base-groups)
 
 Groups has 3 options: (This extension finds base-groups, but they are joined into the groups the defined in package.json)
 
-**sortBy**: "path" | "name"
-
-**emptyLines**: true | false
-
-**groups**: list of base-group names
+|   name  | optional | type | note |
+|:------|:----:|:---:|:---|
+| sortBy |   required   |   "path" or "name"  |  |
+| emptyLines |   required   |  boolean |  |
+| groups |   required   |  string[]  |  list of base-group names |
 
 The base-group are: "globalDirect", "global", "absoluteDirect", "absolute", "relativeDirect" and "relative"
 

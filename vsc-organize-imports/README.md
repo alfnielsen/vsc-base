@@ -2,7 +2,7 @@
 
 The is an vscode extension.
 
-- Organize imports in ts/js files alphabetical. (There are different option for how to order)
+- Organize imports in ts/js files alphabetical. (There are different options for how to order)
 
 - Don't change format for single/multi-line imports. (Options for forcing preferred style)
 

@@ -2,14 +2,13 @@
 
 The is an vscode extension.
 
-* Organize imports in ts/js files alphabetical. (There are defferent option for how to order)
+- Organize imports in ts/js files alphabetical. (There are different option for how to order)
 
-* Don't change format for single/multi-line imports. (Options for forcing prefered style)
+- Don't change format for single/multi-line imports. (Options for forcing preferred style)
 
-* It don't removes comments. (Except inner comment, when option: order named, are activated)
+- It don't removes comments. (Except inner comment, when option: order named, are activated)
 
-* Option for automatically removing of unused import
-
+- Option for automatically removing of unused import
 
 ## Usage
 
@@ -51,11 +50,9 @@ Sort named imports:
 
 **emptyLinesBetweenFilledGroups**: number (normally 1 or 2)
 
-
 **removeUnusedImports**?: boolean
 
 **removeUnusedImportsExcludeList**?: string[] (normally ['React'] for react projects)
-
 
 ### Group options:
 
@@ -73,31 +70,31 @@ The base-group are: "globalDirect", "global", "absoluteDirect", "absolute", "rel
 
 ```ts
 //globalDirect:
-import '@storybook/theme'
+import "@storybook/theme";
 //globalWithNamed:
-import React from 'react'
-import { ReactNode } from 'react'
-import React, { ReactNode } from 'react'
-import * as ts from 'typescript'
+import React from "react";
+import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import * as ts from "typescript";
 
 //absoluteDirect
-import 'module/style.css'
+import "module/style.css";
 //absoluteWithNamed
-import module from 'module/myModule'
-import module from 'module/myModule.ts'
-import { module } from 'module/myModule'
-import module, { moduleProp } from 'module/myModule'
+import module from "module/myModule";
+import module from "module/myModule.ts";
+import { module } from "module/myModule";
+import module, { moduleProp } from "module/myModule";
 
 //relativeDirect
-import '../../module/style.css'
-import './module/style.css'
+import "../../module/style.css";
+import "./module/style.css";
 //relativeWithNamed
-import module from '../module/myModule'
-import module from './module/myModule.ts'
-import { module } from '../module/myModule'
-import { module } from './module/myModule'
-import module, { moduleProp } from './module/myModule'
-import module, { moduleProp } from '../module/myModule'
+import module from "../module/myModule";
+import module from "./module/myModule.ts";
+import { module } from "../module/myModule";
+import { module } from "./module/myModule";
+import module, { moduleProp } from "./module/myModule";
+import module, { moduleProp } from "../module/myModule";
 ```
 
 Sort by name:
@@ -106,20 +103,20 @@ Sort by name:
 
 ```ts
 // direct import comes first, and are sorted by path
-import './../Home/Home.module.scss'
-import './Home.module.scss'
+import "./../Home/Home.module.scss";
+import "./Home.module.scss";
 // sort by names/alias used in the file, meaning alias names are use here (in this case _A)
-import { Action as _A, Dispatch as I2 } from 'redux'
+import { Action as _A, Dispatch as I2 } from "redux";
 // Default name are used if the import has it (in this case a)
-import a from './../Home/Home.module.scss'
+import a from "./../Home/Home.module.scss";
 // namespace imports uses the alias name (In this case AAA)
-import * as Aaa from 'vsc-base'
+import * as Aaa from "vsc-base";
 // Default name are used, ignoring the named imports (In this case B)
-import B, { FC as A } from 'react'
+import B, { FC as A } from "react";
 // The first named import (or its alias) are used if no default name (in this case connect)
-import { connect, Action as DAction } from 'react-redux'
-import { HomeActionType } from 'modules/home/Home.redux'
-import styles from './Home.module.scss'
+import { connect, Action as DAction } from "react-redux";
+import { HomeActionType } from "modules/home/Home.redux";
+import styles from "./Home.module.scss";
 ```
 
 **package.json:**
@@ -166,20 +163,17 @@ import styles from './Home.module.scss'
    }
 ```
 
-
 ## Remove Unused Imports
 
 This extension can remove unused imports (From version 1.6)
 
-Set **removeUnusedImports** to true and optional add imports that you dont want to remove in **removeUnusedImportsExcludeList** 
+Set **removeUnusedImports** to true and optional add imports that you dont want to remove in **removeUnusedImportsExcludeList**
 
 ### React import
 
 You will need to add 'React' for react project.
 
 React keywords is not used directly when the file contains jsx but its reuired by the ts compiler to have the import.
-
-
 
 **package.json:**
 

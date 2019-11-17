@@ -71,16 +71,10 @@
     "baseUrl": "src",
     "emptyLinesAfterImports": 1,
     "emptyLinesBetweenFilledGroups": 1,
-    "removeUnusedImports": {
-      "specifiers": true,
-      "namedImports": true,
-      "namespaceImport": true,
-      "exclude": [
-        "React",
-        "Foo",
-        "foo"
-      ]
-    },
+    "removeUnusedImports": true,
+    "removeUnusedImportsExcludeList": [
+      "React"
+    ],
     "groups": [
       {
         "groups": [

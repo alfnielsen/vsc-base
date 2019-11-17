@@ -112,7 +112,7 @@ const sortNamedImports = (specifiers: ImportSpecifier[], fullString: string, ord
    return fullString;
 }
 const removeSortNamedImports = (fullString: string) => {
-   fullString = fullString.replace(/\{[^}]+\}/, '')
+   fullString = fullString.replace(/,?\s*\{[^}]+\}/, '')
    return fullString;
 }
 const removeName = (fullString: string) => {

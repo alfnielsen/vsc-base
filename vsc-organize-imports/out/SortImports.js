@@ -60,7 +60,7 @@ const sortNamedImports = (specifiers, fullString, orderSpecifiersAsSingleLine) =
     return fullString;
 };
 const removeSortNamedImports = (fullString) => {
-    fullString = fullString.replace(/\{[^}]+\}/, '');
+    fullString = fullString.replace(/,?\s*\{[^}]+\}/, '');
     return fullString;
 };
 const removeName = (fullString) => {

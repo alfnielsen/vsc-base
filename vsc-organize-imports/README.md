@@ -167,13 +167,13 @@ import styles from "./Home.module.scss";
 
 This extension can remove unused imports (From version 1.6)
 
-Set **removeUnusedImports** to true and optional add imports that you dont want to remove in **removeUnusedImportsExcludeList**
+Set **removeUnusedImports** to true and optional add imports that you don't want to remove in **removeUnusedImportsExcludeList**
 
 ### React import
 
 You will need to add 'React' for react project.
 
-React keywords is not used directly when the file contains jsx but its reuired by the ts compiler to have the import.
+React keywords is not used directly when the file contains jsx but its required by the ts compiler to have the import.
 
 **package.json:**
 

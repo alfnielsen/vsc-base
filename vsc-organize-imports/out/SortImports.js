@@ -1,9 +1,10 @@
 'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -58,7 +59,15 @@ const sortNamedImports = (specifiers, fullString, orderSpecifiersAsSingleLine) =
     }
     return fullString;
 };
-const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, void 0, function* () {
+const removeSortNamedImports = (fullString) => {
+    fullString = fullString.replace(/\{[^}]+\}/, '');
+    return fullString;
+};
+const removeName = (fullString) => {
+    fullString = fullString.replace(/import\s+(\w+)\s*,\s+/, 'import ');
+    return fullString;
+};
+const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0, void 0, function* () {
     const relativeRegExp = /^\./;
     const groups = {
         //locals (absolute)
@@ -71,6 +80,10 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
         globalDirect: [],
         global: [],
     };
+    if (options.removeUnusedImports) {
+        const exclude = options.removeUnusedImportsExcludeList || [];
+        imports = imports.filter(x => x.isUsed || x.specifiers.length > 0 || exclude.some(y => y === x.name));
+    }
     //split into global / local
     imports.forEach(_import => {
         let fullPath = '';
@@ -167,7 +180,7 @@ const mapImports = (content, _imports, options) => {
     // All imports before first statement, mapped with import path
     // Map with name?, fullString, and named imports info
     const imports = _imports.map((node, index) => {
-        let name = '', sortName = '';
+        let name = '', sortName = '', alias = '';
         const path = node.moduleSpecifier
             .getText()
             .replace(/^['"]|['"]$/g, '');
@@ -181,29 +194,49 @@ const mapImports = (content, _imports, options) => {
             if (importClause.name) {
                 name = importClause.name.getText();
                 sortName = name;
+                alias = name;
             }
             if (importClause.namedBindings && ts.isNamedImports(importClause.namedBindings)) {
                 specifiers = importClause.namedBindings.elements.map(e => ({
                     fullString: e.getText().trim(),
                     node: e,
-                    name: e.name.getText()
+                    name: e.name.getText(),
+                    isUsed: exports.isUsed(content, e.name.getText(), e.pos, e.end)
                 }));
+                if (options.removeUnusedImports) {
+                    const exclude = options.removeUnusedImportsExcludeList || [];
+                    specifiers = specifiers.filter(x => x.isUsed || exclude.some(ex => ex === x.name));
+                }
                 if (options.orderSpecifiers) {
                     importFullString = sortNamedImports(specifiers, importFullString, options.orderSpecifiersAsSingleLine);
+                }
+                if (options.removeUnusedImports && specifiers.length === 0) {
+                    importFullString = removeSortNamedImports(importFullString);
                 }
                 sortName = sortName + specifiers.map(s => s.name).join();
             }
             else if (importClause.namedBindings && ts.isNamespaceImport(importClause.namedBindings)) {
                 sortName = importClause.namedBindings.name.getText();
+                alias = sortName;
             }
         }
         else {
             sortName = "___" + path;
         }
         const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
+        const used = exports.isUsed(content, alias, node.pos, node.end);
+        if (options.removeUnusedImports) {
+            const exclude = options.removeUnusedImportsExcludeList || [];
+            const ex = exclude.some(ex => ex === alias);
+            if (!used && !ex) {
+                importFullString = removeName(importFullString);
+            }
+        }
         return ({
             name,
+            alias,
             sortName,
+            isUsed: used,
             pos,
             specifiers,
             fullString: importFullString,
@@ -212,5 +245,41 @@ const mapImports = (content, _imports, options) => {
         });
     });
     return imports;
+};
+exports.isUsed = (source, name, pos, end) => {
+    let program = getProgram(source);
+    let sourceFile = program.getSourceFile('sourceFile.ts');
+    if (!sourceFile) {
+        return true;
+    }
+    let isUsed = false;
+    const t = vsc.tsCreateNodeVisitor((node, typeChecker) => {
+        if (isUsed) {
+            return;
+        }
+        if (typeChecker && ts.isIdentifier(node) && node.getText() === name && node.pos >= pos && node.pos <= end) {
+            let s = typeChecker.getSymbolAtLocation(node);
+            if (s && s.isReferenced) {
+                isUsed = true;
+            }
+        }
+    }, program);
+    vsc.tsTransformNode(sourceFile, [t], vsc.TsDefaultCompilerOptions);
+    return isUsed;
+};
+const getProgram = (code) => {
+    const file = {
+        fileName: 'sourceFile.ts',
+        content: code,
+        sourceFile: undefined
+    };
+    const compilerHost = ts.createCompilerHost(vsc.TsDefaultCompilerOptions);
+    compilerHost.getSourceFile = (fileName) => {
+        file.sourceFile = file.sourceFile || ts.createSourceFile(fileName, file.content, ts.ScriptTarget.ES2015, true);
+        return file.sourceFile;
+    };
+    const program = ts.createProgram([file.fileName], vsc.TsDefaultCompilerOptions, compilerHost);
+    let emitResult = program.emit();
+    return program;
 };
 //# sourceMappingURL=SortImports.js.map

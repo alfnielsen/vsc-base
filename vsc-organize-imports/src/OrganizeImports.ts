@@ -9,6 +9,7 @@ export default class OrganizeImports {
     return vsc.getConfig('vscOrganizeImports', property, defaultValue)
   }
   async run(options: SortImportsOptions, uri?: vscode.Uri) {
+    //var t0 = Date.now()
     if (!uri) {
       return
     }
@@ -27,5 +28,8 @@ export default class OrganizeImports {
     options.basePath = vsc.joinPaths(rootPath, options.baseUrl)
 
     await SortImports(path, content, options)
+    // var t1 = Date.now()
+    // var time = t1 - t0
+    // console.log('Call to doSomething took ' + time + ' milliseconds.')
   }
 }

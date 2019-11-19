@@ -366,30 +366,3 @@ export const isUsed = (
    vsc.tsTransformNode(sourceFile, [t], vsc.TsDefaultCompilerOptions)
    return isUsed
 }
-
-const getProgram = (code: string): [ts.Program, ts.SourceFile | undefined] => {
-   const file = {
-      fileName: 'sourceFile.ts',
-      content: code,
-      sourceFile: undefined
-   } as {
-      fileName: string
-      content: string
-      sourceFile: ts.SourceFile | undefined
-   }
-   const compilerHost = ts.createCompilerHost(vsc.TsDefaultCompilerOptions)
-   compilerHost.getSourceFile = fileName => {
-      file.sourceFile =
-         file.sourceFile ||
-         ts.createSourceFile(fileName, file.content, ts.ScriptTarget.ES2015, true)
-      return file.sourceFile
-   }
-   const program = ts.createProgram(
-      [file.fileName],
-      vsc.TsDefaultCompilerOptions,
-      compilerHost
-   )
-   let emitResult = program.emit()
-   const _sourceFile = program.getSourceFile('sourceFile.ts')
-   return [program, _sourceFile]
-}

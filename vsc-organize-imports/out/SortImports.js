@@ -267,22 +267,4 @@ exports.isUsed = (sourceFile, name, pos, end, program) => {
     vsc.tsTransformNode(sourceFile, [t], vsc.TsDefaultCompilerOptions);
     return isUsed;
 };
-const getProgram = (code) => {
-    const file = {
-        fileName: 'sourceFile.ts',
-        content: code,
-        sourceFile: undefined
-    };
-    const compilerHost = ts.createCompilerHost(vsc.TsDefaultCompilerOptions);
-    compilerHost.getSourceFile = fileName => {
-        file.sourceFile =
-            file.sourceFile ||
-                ts.createSourceFile(fileName, file.content, ts.ScriptTarget.ES2015, true);
-        return file.sourceFile;
-    };
-    const program = ts.createProgram([file.fileName], vsc.TsDefaultCompilerOptions, compilerHost);
-    let emitResult = program.emit();
-    const _sourceFile = program.getSourceFile('sourceFile.ts');
-    return [program, _sourceFile];
-};
 //# sourceMappingURL=SortImports.js.map

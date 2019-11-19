@@ -74,7 +74,6 @@ export default class Script {
          return
       }
       try {
-         vsc.showErrorMessage(`Running '${method}'`)
          await verifiedModule[method](
             path,
             this.context

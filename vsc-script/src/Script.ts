@@ -2,10 +2,10 @@ import * as cp from 'child-process-promise'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import * as ts from 'typescript'
-//import * as vsc from 'vsc-base'
+import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 
-import * as vsc from './vsc-base-development/vsc-base'
+//import * as vsc from './vsc-base-development/vsc-base'
 
 export type SenderFunc = (content: any) => Promise<void>
 

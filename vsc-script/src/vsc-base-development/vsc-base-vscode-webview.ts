@@ -24,6 +24,9 @@ export const WebviewHTMLTemplate = (body = '', script = '()=>{}', style = ''): s
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <style>
+      * {
+         line-height: 20px;
+      }
       a:focus,
       input:focus,
       select:focus,
@@ -226,7 +229,7 @@ export const setupWebviewConnection = (
          }
       })
    }
-   return [postMessage, createdOnMessage]
+   return [postMessage, createdOnMessage, webviewPanel.dispose, webviewPanel]
 }
 
 /** vsc-base method
@@ -240,7 +243,7 @@ export const setupWebviewConnection = (
 * @vscType webview
 * @returns
 * @example
-* const [postMessage, onMessage] = vsc.startWebview(context, {
+* const [postMessage, onMessage, dispose] = vsc.startWebview(context, {
 *    title: "Rename",
 *    body: `
 *        <div class='container'>
@@ -264,7 +267,7 @@ export const setupWebviewConnection = (
 *      }
 *    }
 *  });
-*  await onMessage(async (message, dispose) => {
+*  await onMessage(async message => {
 *    switch (message.command) {
 *      case "show":
 *        vsc.showMessage(message.value);
@@ -282,8 +285,8 @@ export const setupWebviewConnection = (
 */
 export const startWebview = (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions): vsc.WebviewConnectionReturnType => {
    const webviewPanel = vsc.initWebview(startOptions);
-   const [sendMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
-   return [sendMessage, createdOnMessage]
+   const [sendMessage, createdOnMessage, dispose] = vsc.setupWebviewConnection(context, webviewPanel)
+   return [sendMessage, createdOnMessage, dispose, webviewPanel]
 }
 export interface IStartWebviewOptions {
    viewType?: string,
@@ -301,4 +304,4 @@ export interface IStartWebviewOptions {
    options?: vscode.WebviewPanelOptions & vscode.WebviewOptions
 }
 
-export type WebviewConnectionReturnType = [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>]
+export type WebviewConnectionReturnType = [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel]

@@ -1,10 +1,9 @@
 'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -14,7 +13,10 @@ const vsc = require("vsc-base");
 function SortImports(path, content, options) {
     return __awaiter(this, void 0, void 0, function* () {
         // Find first non imports: (exclude 'use strict' and sourceFile')
-        const sourceFile = vsc.tsCreateSourceFile(content);
+        const [program, sourceFile] = getProgram(content);
+        if (!sourceFile) {
+            return;
+        }
         const children = vsc.tsGetParsedChildren(sourceFile);
         let strictNode;
         const firstNode = children.find(node => {
@@ -29,7 +31,7 @@ function SortImports(path, content, options) {
         });
         const _imports = children.filter(node => ts.isImportDeclaration(node) && (!firstNode || node.pos < firstNode.pos));
         //Find first node that is not in import
-        const imports = mapImports(content, _imports, options);
+        const imports = mapImports(content, sourceFile, program, _imports, options);
         if (!imports) {
             return Promise.resolve(undefined);
         }
@@ -67,7 +69,7 @@ const removeName = (fullString) => {
     fullString = fullString.replace(/import\s+(\w+)\s*,\s+/, 'import ');
     return fullString;
 };
-const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0, void 0, function* () {
+const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, void 0, function* () {
     const relativeRegExp = /^\./;
     const groups = {
         //locals (absolute)
@@ -78,7 +80,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0,
         relative: [],
         //globals
         globalDirect: [],
-        global: [],
+        global: []
     };
     if (options.removeUnusedImports) {
         const exclude = options.removeUnusedImportsExcludeList || [];
@@ -96,8 +98,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0,
         }
         //base groups settings:
         let local = vsc.doesExists(fullPath);
-        if (!local &&
-            vsc.doesExists(fullPath + '.ts') ||
+        if ((!local && vsc.doesExists(fullPath + '.ts')) ||
             vsc.doesExists(fullPath + '.tsx') ||
             vsc.doesExists(fullPath + '.js') ||
             vsc.doesExists(fullPath + '.jsx')) {
@@ -133,7 +134,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0,
         }
     });
     const defaultMapping = options.groups;
-    let newImportContent = "";
+    let newImportContent = '';
     defaultMapping.forEach((groupOptions, index) => {
         let group = [];
         groupOptions.groups.forEach(groupName => {
@@ -176,14 +177,12 @@ const addEmptyLines = (newImportContent, options) => {
     }
     return newImportContent;
 };
-const mapImports = (content, _imports, options) => {
+const mapImports = (content, sourceFile, program, _imports, options) => {
     // All imports before first statement, mapped with import path
     // Map with name?, fullString, and named imports info
     const imports = _imports.map((node, index) => {
         let name = '', sortName = '', alias = '';
-        const path = node.moduleSpecifier
-            .getText()
-            .replace(/^['"]|['"]$/g, '');
+        const path = node.moduleSpecifier.getText().replace(/^['"]|['"]$/g, '');
         let importFullString = content
             .substring(index === 0 ? node.pos : _imports[index - 1].end + 1, node.end)
             .trim();
@@ -196,12 +195,13 @@ const mapImports = (content, _imports, options) => {
                 sortName = name;
                 alias = name;
             }
-            if (importClause.namedBindings && ts.isNamedImports(importClause.namedBindings)) {
+            if (importClause.namedBindings &&
+                ts.isNamedImports(importClause.namedBindings)) {
                 specifiers = importClause.namedBindings.elements.map(e => ({
                     fullString: e.getText().trim(),
                     node: e,
                     name: e.name.getText(),
-                    isUsed: exports.isUsed(content, e.name.getText(), e.pos, e.end)
+                    isUsed: exports.isUsed(sourceFile, e.name.getText(), e.pos, e.end, program)
                 }));
                 if (options.removeUnusedImports) {
                     const exclude = options.removeUnusedImportsExcludeList || [];
@@ -215,16 +215,17 @@ const mapImports = (content, _imports, options) => {
                 }
                 sortName = sortName + specifiers.map(s => s.name).join();
             }
-            else if (importClause.namedBindings && ts.isNamespaceImport(importClause.namedBindings)) {
+            else if (importClause.namedBindings &&
+                ts.isNamespaceImport(importClause.namedBindings)) {
                 sortName = importClause.namedBindings.name.getText();
                 alias = sortName;
             }
         }
         else {
-            sortName = "___" + path;
+            sortName = '___' + path;
         }
         const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
-        const used = exports.isUsed(content, alias, node.pos, node.end);
+        const used = exports.isUsed(sourceFile, alias, node.pos, node.end, program);
         if (options.removeUnusedImports) {
             const exclude = options.removeUnusedImportsExcludeList || [];
             const ex = exclude.some(ex => ex === alias);
@@ -232,7 +233,7 @@ const mapImports = (content, _imports, options) => {
                 importFullString = removeName(importFullString);
             }
         }
-        return ({
+        return {
             name,
             alias,
             sortName,
@@ -241,23 +242,22 @@ const mapImports = (content, _imports, options) => {
             specifiers,
             fullString: importFullString,
             node: node,
-            path,
-        });
+            path
+        };
     });
     return imports;
 };
-exports.isUsed = (source, name, pos, end) => {
-    let program = getProgram(source);
-    let sourceFile = program.getSourceFile('sourceFile.ts');
-    if (!sourceFile) {
-        return true;
-    }
+exports.isUsed = (sourceFile, name, pos, end, program) => {
     let isUsed = false;
     const t = vsc.tsCreateNodeVisitor((node, typeChecker) => {
         if (isUsed) {
             return;
         }
-        if (typeChecker && ts.isIdentifier(node) && node.getText() === name && node.pos >= pos && node.pos <= end) {
+        if (typeChecker &&
+            ts.isIdentifier(node) &&
+            node.getText() === name &&
+            node.pos >= pos &&
+            node.pos <= end) {
             let s = typeChecker.getSymbolAtLocation(node);
             if (s && s.isReferenced) {
                 isUsed = true;
@@ -274,12 +274,15 @@ const getProgram = (code) => {
         sourceFile: undefined
     };
     const compilerHost = ts.createCompilerHost(vsc.TsDefaultCompilerOptions);
-    compilerHost.getSourceFile = (fileName) => {
-        file.sourceFile = file.sourceFile || ts.createSourceFile(fileName, file.content, ts.ScriptTarget.ES2015, true);
+    compilerHost.getSourceFile = fileName => {
+        file.sourceFile =
+            file.sourceFile ||
+                ts.createSourceFile(fileName, file.content, ts.ScriptTarget.ES2015, true);
         return file.sourceFile;
     };
     const program = ts.createProgram([file.fileName], vsc.TsDefaultCompilerOptions, compilerHost);
     let emitResult = program.emit();
-    return program;
+    const _sourceFile = program.getSourceFile('sourceFile.ts');
+    return [program, _sourceFile];
 };
 //# sourceMappingURL=SortImports.js.map

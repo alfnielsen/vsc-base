@@ -1,3 +1,4 @@
+import { disposeEmitNodes } from 'typescript';
 //vsc-script-name: VSC-Project > Full Compiler
 import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
@@ -8,7 +9,7 @@ import { CodePart, createPartMap } from './vcs-base-util/mapping';
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
  */
 export async function run(path: string, context: vscode.ExtensionContext) {
-   const [postMessage, onMessage] = vsc.startWebview(context, {
+   const [postMessage, onMessage, dispose] = vsc.startWebview(context, {
       title: "Rename",
       style: "*{line-height:20px;}",
       showOptions: { viewColumn: 2 },
@@ -45,6 +46,20 @@ export async function run(path: string, context: vscode.ExtensionContext) {
    post('Cloning to vsc-base..')
    await CloneAndBuildVscBase(dir, vscFiles, post)
    post(`Compiling Done`)
+   await vsc.sleep(1000)
+   post(`-------------`)
+   await vsc.sleep(1000)
+   post(`Closing in 5`)
+   await vsc.sleep(1000)
+   post(`Closing in 4`)
+   await vsc.sleep(1000)
+   post(`Closing in 3`)
+   await vsc.sleep(1000)
+   post(`Closing in 2`)
+   await vsc.sleep(1000)
+   post(`Closing in 1`)
+   await vsc.sleep(1000)
+   dispose()
 }
 
 

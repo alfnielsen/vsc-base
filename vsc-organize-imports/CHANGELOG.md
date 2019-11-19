@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.1.8
+## 0.1.8+0.1.9
 
 removeUnusedImports has been remove. It underlying API is not stable and did not always work as expected.
 And there was performance problems with it.

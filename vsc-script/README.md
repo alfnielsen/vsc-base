@@ -46,14 +46,14 @@ A script file is written in typescript.
 ```ts
 //documentation on http://vsc-base.org
 //vcc-script-name: Example > Replace 'something'
-import * as vsc from 'vsc-base'
+import * as vsc from "vsc-base";
 
 export async function run(path: string) {
-   let source = await vsc.getFileContent(path)
-   source = source.replace(/something/, 'SomeTing')
-   await vsc.saveFileContent(path, source)
-   vsc.showMessage('File Updated.')
-   // happy hacking!
+  let source = await vsc.getFileContent(path);
+  source = source.replace(/something/, "SomeTing");
+  await vsc.saveFileContent(path, source);
+  vsc.showMessage("File Updated.");
+  // happy hacking!
 }
 ```
 
@@ -62,10 +62,10 @@ You can use these modules in your script: vsc-base, fs-extra, vscode and typescr
 ```ts
 // documentation on http://vsc-base.org
 //vcc-script-name: Example > modules you can use
-import * as vsc from 'vsc-base'
-import * as vscode from 'vscode'
-import * as ts from 'typescript'
-import * as fs from 'fs-extra'
+import * as vsc from "vsc-base";
+import * as vscode from "vscode";
+import * as ts from "typescript";
+import * as fs from "fs-extra";
 
 export async function run(path: string) {}
 ```
@@ -87,7 +87,7 @@ A script can be named by adding a comment in it with //vcc-script-name: {NAME}
 ```ts
 // documentation on http://vsc-base.org
 //vcc-script-name: My Script
-import * as vsc from 'vsc-base'
+import * as vsc from "vsc-base";
 export async function run(path: string) {}
 ```
 
@@ -96,8 +96,56 @@ Script's can be grouped by adding '>' in the name
 ```ts
 // documentation on http://vsc-base.org
 //vcc-script-name: Components > Rename
-import * as vsc from 'vsc-base'
+import * as vsc from "vsc-base";
 export async function run(path: string) {}
+```
+
+### Webview
+
+From version 0.6.0 (vsc-base 0.9.3) webview has been added:
+
+The run method now as a second argument with 'context'
+
+```ts
+//vsc-script-name: WebView Test > Search files in project
+import * as vsc from "vsc-base";
+import * as vscode from "vscode";
+
+export async function run(path: string, context: vscode.ExtensionContext) {
+  const [postMessage, onMessage] = vsc.startWebview(context, {
+    title: "Rename",
+    body: `
+      <button onClick="postMessage({command:'show',value:'1'})">Show '1'</button>
+      <button onClick="postMessage({command:'end'})">END</button><br/>
+      <br><br>
+      Search: <input type='text' id='s' onkeyup="postMessage({command:'search',value:this.value})" >
+      <br><br>
+      <div id='info'>info</div>
+    `,
+    onWebviewMessage: (message: any) => {
+      switch (message.command) {
+        case "info":
+          document.getElementById("info")!.innerHTML = message.content;
+          break;
+      }
+    }
+  });
+  await onMessage(async (message, dispose) => {
+    switch (message.command) {
+      case "show":
+        vsc.showMessage(message.value);
+        break;
+      case "end":
+        dispose();
+        break;
+      case "search":
+        const files = await vsc.findFilePaths(message.value);
+        postMessage({ command: "info", content: files.length });
+        break;
+    }
+  });
+  vsc.showMessage("Script Done!");
+}
 ```
 
 ### onSave script's (Preview)
@@ -110,10 +158,10 @@ Dont have to many (They will slow down vscode save)
 
 ```ts
 // documentation on http://vsc-base.org
-import * as vsc from 'vsc-base'
+import * as vsc from "vsc-base";
 
 export async function runOnSave(path: string) {
-   //Use vsc.getDocumentContent() and vsc.insertAt() and other method to change document before its saved
+  //Use vsc.getDocumentContent() and vsc.insertAt() and other method to change document before its saved
 }
 ```
 

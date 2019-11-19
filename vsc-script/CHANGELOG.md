@@ -1,5 +1,19 @@
 # Change Log
 
+## 0.6.0
+
+Update vsc-base to version 0.9.3
+
+This version includes the helpers for vscode webview api!
+
+### Breaking changes
+
+The run method in a script has changed to second arguments from 'libs' to 'context'
+
+The 'libs' was only there for testing and was not in any documentation.
+
+Now the second argument is vsc-script extensions context. Its used to create webview in a script.
+
 ## 0.5.6
 
 Update vsc-base to version 0.9.2
@@ -186,4 +200,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
--  Initial release
+- Initial release

@@ -12,7 +12,7 @@ export async function run(path: string, context: vscode.ExtensionContext) {
 
 const startFindWebview = async (context: vscode.ExtensionContext) => {
    const docs = vscode.workspace.textDocuments;
-   const [postMessage, onMessage] = vsc.startWebview(context, {
+   const [postMessage, onMessage, dispose] = vsc.startWebview(context, {
       title: "Rename",
       showOptions: { viewColumn: 2 },
       style: `pre { background: var(--vscode-input-background); padding: 10px; }`,
@@ -58,7 +58,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
       }
    });
    let file = "";
-   await onMessage(async (message, dispose) => {
+   await onMessage(async (message, resolve) => {
       //vsc.showMessage(message.command);
       switch (message.command) {
          case "select":
@@ -68,7 +68,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
             vsc.showMessage(message.value);
             break;
          case "end":
-            dispose();
+            resolve();
             break;
          case "search":
             if (!file) {
@@ -88,6 +88,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
             break;
       }
    });
+   dispose()
 };
 
 const search = async (file: string, value: string) => {

@@ -53,13 +53,13 @@ const [postMessage, onMessage, dispose] = vsc.startWebview(context, \{
      }
    }
  });
- await onMessage(async (message, dispose) => \{
+ await onMessage(async (message, resolve) => \{
    switch (message.command) \{
      case "show":
        vsc.showMessage(message.value);
        break;
      case "end":
-       dispose();
+       resolve();
        break;
      case "search":
        const files = await vsc.findFilePaths(message.value);
@@ -67,6 +67,7 @@ const [postMessage, onMessage, dispose] = vsc.startWebview(context, \{
        break;
    }
  });
+ dispose();
  vsc.showMessage('Done!')`}
          code={`/**
  * @internal internal

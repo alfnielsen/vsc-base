@@ -28,10 +28,10 @@ Setup message passing methods between a webview and the extension.
                and &#039;createdOnMessage&#039; which creates a awaited receiver for messages send from the webview. 
                </p>
                <p>
-               &#039;createdOnMessage&#039; take a onMessage call back with two arguments: (message: any) and (dispose: ()=&gt;void) 
+               &#039;createdOnMessage&#039; take a onMessage call back with two arguments: (message: any) and (resolve: ()=&gt;void) 
                </p>
                <p>
-               The &#039;createdOnMessage&#039; will await until the dispose method is called, which will stop the webview, 
+               The &#039;createdOnMessage&#039; will await until the resolve method is called, 
                </p>
                <p>
                and continue code after. (Normally it will end the execution of the extension there) 
@@ -47,7 +47,7 @@ Setup message passing methods between a webview and the extension.
          code={`/**
  * @internal internal
  * @vscType webview
- * @returns [postMessage, createdOnMessage],[(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>]
+ * @returns [postMessage, createdOnMessage],[(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
  */
 export const setupWebviewConnection = (
    context: vscode.ExtensionContext,
@@ -63,32 +63,34 @@ export const setupWebviewConnection = (
       return false
    }
    const proxy: \{
-      onMessage: (message: any, dispose: () => void) => void
-      dispose: (value?: unknown) => void
+      onMessage: (message: any, resolve: () => void) => void
+      resolve: (value?: unknown) => void
    } = \{
-      onMessage: (message, dispose) => \{ },
-      dispose: (value) => \{ }
+      onMessage: (message, resolve) => \{ },
+      resolve: (value) => \{ }
    }
    webviewPanel.webview.onDidReceiveMessage(
       message =>
          proxy.onMessage &&
-         proxy.onMessage(message, proxy.dispose)
+         proxy.onMessage(message, proxy.resolve)
       ,
       undefined,
       context.subscriptions
    );
-   const createdOnMessage = async (onMessage: (message: any, dispose: () => void) => void): Promise<void> => \{
+   const dispose = () => \{
+      if (webviewPanel) \{
+         webviewPanel.dispose();
+      }
+   }
+   const createdOnMessage = async (onMessage: (message: any, resolve: () => void) => void): Promise<void> => \{
       proxy.onMessage = onMessage;
       return new Promise((resolve) => \{
-         proxy.dispose = () => \{
-            if (webviewPanel) \{
-               webviewPanel.dispose();
-            }
+         proxy.resolve = () => \{
             resolve()
          }
       })
    }
-   return [postMessage, createdOnMessage, webviewPanel.dispose, webviewPanel]
+   return [postMessage, createdOnMessage, dispose, webviewPanel]
 }`}
       />
    )

@@ -2,9 +2,18 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.6
+
+fix dispose
+
+## 0.9.5
+
+change dispose first response so it no longer dispose but only resolve.
+(Use dispose after resolve instead, see ex)
+
 ## 0.9.4
 
-Add two extra return elements from [startWebview](http://vsc-base.org/#startWebview) :
+Add two extra return elements from [dispose](http://vsc-base.org/#startWebview) :
 
 'dispose' (for closing webview) and 'webviewPanel' (The panel that is created)
 

@@ -9,7 +9,7 @@
     "url": "https://github.com/alfnielsen/vsc-base"
   },
   "homepage": "https://vsc-base.org",
-  "version": "0.6.1",
+  "version": "0.6.3",
   "engines": {
     "vscode": "^1.32.0"
   },
@@ -72,7 +72,7 @@
     "child-process-promise": "^2.2.1",
     "fs-extra": "^7.0.1",
     "typescript": "^3.7.2",
-    "vsc-base": "^0.9.3"
+    "vsc-base": "^0.9.5"
   },
   "vsc-organize-imports": {
     "orderSpecifiers": true,

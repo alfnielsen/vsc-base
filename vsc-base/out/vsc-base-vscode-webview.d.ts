@@ -43,15 +43,15 @@ export declare const initWebview: ({ viewType, title, html, body, style, onWebvi
  * This method returns two async methods:\
  * 'postMessage' which post a message from the extension to the webview \
  * and 'createdOnMessage' which creates a awaited receiver for messages send from the webview. \
- * 'createdOnMessage' take a onMessage call back with two arguments: (message: any) and (dispose: ()=>void) \
- * The 'createdOnMessage' will await until the dispose method is called, which will stop the webview, \
+ * 'createdOnMessage' take a onMessage call back with two arguments: (message: any) and (resolve: ()=>void) \
+ * The 'createdOnMessage' will await until the resolve method is called, \
  * and continue code after. (Normally it will end the execution of the extension there) \
  * See [startWebview](http://vsc-base.org/#startWebview) for full detail and example.
  * @see [setupWebviewConnection](http://vsc-base.org/#setupWebviewConnection)
  * @internal
  * @vscType webview
  * @returns [postMessage, createdOnMessage]
- * @returns [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>]
+ * @returns [(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
@@ -92,13 +92,13 @@ export declare const setupWebviewConnection: (context: vscode.ExtensionContext, 
  *      }
  *    }
  *  });
- *  await onMessage(async (message, dispose) => {
+ *  await onMessage(async (message, resolve) => {
  *    switch (message.command) {
  *      case "show":
  *        vsc.showMessage(message.value);
  *        break;
  *      case "end":
- *        dispose();
+ *        resolve();
  *        break;
  *      case "search":
  *        const files = await vsc.findFilePaths(message.value);
@@ -106,6 +106,7 @@ export declare const setupWebviewConnection: (context: vscode.ExtensionContext, 
  *        break;
  *    }
  *  });
+ *  dispose();
  *  vsc.showMessage('Done!')
  */
 export declare const startWebview: (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions) => [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel];

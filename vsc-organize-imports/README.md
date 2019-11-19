@@ -36,16 +36,17 @@ The option model is defined in the package.json file.
 
 ### Base options:
 
-| name                           | optional |   type   | note                                                 |
-| :----------------------------- | :------: | :------: | :--------------------------------------------------- |
-| orderSpecifiers                | required | boolean  | Sort named imports: `import {a, b, c} from 'module'` |
-| orderSpecifiersAsSingleLine    | required | boolean  |                                                      |
-| baseUrl                        | required |  string  | (normally: "src")                                    |
-| emptyLinesAfterImports         | required |  number  | (normally 1 or 2)                                    |
-| emptyLinesBetweenFilledGroups  | required |  number  | (normally 1 or 2)                                    |
-| removeUnusedImports            | optional | boolean  |                                                      |
-| removeUnusedImportsExcludeList | optional | string[] | (normally ['React'] for react projects)              |
-| groups                         | required | group[]  | (See group description below)                        |
+| name                          | optional |  type   | note                                                 |
+| :---------------------------- | :------: | :-----: | :--------------------------------------------------- |
+| orderSpecifiers               | required | boolean | Sort named imports: `import {a, b, c} from 'module'` |
+| orderSpecifiersAsSingleLine   | required | boolean |                                                      |
+| baseUrl                       | required | string  | (normally: "src")                                    |
+| emptyLinesAfterImports        | required | number  | (normally 1 or 2)                                    |
+| emptyLinesBetweenFilledGroups | required | number  | (normally 1 or 2)                                    |
+| groups                        | required | group[] | (See group description below)                        |
+
+The feature _removeUnusedImports_ has been remove, there was errors and performance problems with it.
+It will will hopefully come back in later versions.
 
 ### Group options:
 
@@ -121,66 +122,6 @@ import styles from "./Home.module.scss";
       "baseUrl": "src",
       "emptyLinesAfterImports": 1,
       "emptyLinesBetweenFilledGroups": 1,
-      "groups": [
-         {
-            "groups": [
-               "global"
-            ],
-            "sortBy": "path",
-            "emptyLines": true
-         },
-         {
-            "groups": [
-               "absolute"
-            ],
-            "sortBy": "path",
-            "emptyLines": true
-         },
-         {
-            "groups": [
-               "relative"
-            ],
-            "sortBy": "path",
-            "emptyLines": true
-         },
-         {
-            "groups": [
-               "globalDirect",
-               "absoluteDirect",
-               "relativeDirect"
-            ],
-            "sortBy": "path",
-            "emptyLines": true
-         }
-      ]
-   }
-```
-
-## Remove Unused Imports
-
-This extension can remove unused imports (From version 1.6)
-
-Set **removeUnusedImports** to true and optional add imports that you don't want to remove in **removeUnusedImportsExcludeList**
-
-### React import
-
-You will need to add 'React' for react project.
-
-React keywords is not used directly when the file contains jsx but its required by the ts compiler to have the import.
-
-**package.json:**
-
-```json
-   "vsc-organize-imports": {
-      "orderSpecifiers": true,
-      "orderSpecifiersAsSingleLine": true,
-      "baseUrl": "src",
-      "emptyLinesAfterImports": 1,
-      "emptyLinesBetweenFilledGroups": 1,
-      "removeUnusedImports": true,
-      "removeUnusedImportsExcludeList": [
-         "React"
-      ],
       "groups": [
          {
             "groups": [

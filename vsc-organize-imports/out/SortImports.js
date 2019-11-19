@@ -1,9 +1,10 @@
 'use strict';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -13,10 +14,8 @@ const vsc = require("vsc-base");
 function SortImports(path, content, options) {
     return __awaiter(this, void 0, void 0, function* () {
         // Find first non imports: (exclude 'use strict' and sourceFile')
-        const [program, sourceFile] = getProgram(content);
-        if (!sourceFile) {
-            return;
-        }
+        //const [program, sourceFile] = getProgram(content)
+        const sourceFile = vsc.tsCreateSourceFile(content);
         const children = vsc.tsGetParsedChildren(sourceFile);
         let strictNode;
         const firstNode = children.find(node => {
@@ -31,7 +30,7 @@ function SortImports(path, content, options) {
         });
         const _imports = children.filter(node => ts.isImportDeclaration(node) && (!firstNode || node.pos < firstNode.pos));
         //Find first node that is not in import
-        const imports = mapImports(content, sourceFile, program, _imports, options);
+        const imports = mapImports(content, _imports, options);
         if (!imports) {
             return Promise.resolve(undefined);
         }
@@ -69,7 +68,7 @@ const removeName = (fullString) => {
     fullString = fullString.replace(/import\s+(\w+)\s*,\s+/, 'import ');
     return fullString;
 };
-const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, void 0, function* () {
+const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0, void 0, function* () {
     const relativeRegExp = /^\./;
     const groups = {
         //locals (absolute)
@@ -82,7 +81,7 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
         globalDirect: [],
         global: []
     };
-    if (options.removeUnusedImports) {
+    if (options.removeUnusedImports && false) {
         const exclude = options.removeUnusedImportsExcludeList || [];
         imports = imports.filter(x => x.isUsed || x.specifiers.length > 0 || exclude.some(y => y === x.name));
     }
@@ -98,10 +97,11 @@ const organizeImports = (fillDir, imports, options) => __awaiter(this, void 0, v
         }
         //base groups settings:
         let local = vsc.doesExists(fullPath);
-        if ((!local && vsc.doesExists(fullPath + '.ts')) ||
-            vsc.doesExists(fullPath + '.tsx') ||
-            vsc.doesExists(fullPath + '.js') ||
-            vsc.doesExists(fullPath + '.jsx')) {
+        if (!local &&
+            (vsc.doesExists(fullPath + '.ts') ||
+                vsc.doesExists(fullPath + '.tsx') ||
+                vsc.doesExists(fullPath + '.js') ||
+                vsc.doesExists(fullPath + '.jsx'))) {
             local = true;
         }
         const direct = !_import.node.importClause;
@@ -177,7 +177,7 @@ const addEmptyLines = (newImportContent, options) => {
     }
     return newImportContent;
 };
-const mapImports = (content, sourceFile, program, _imports, options) => {
+const mapImports = (content, _imports, options) => {
     // All imports before first statement, mapped with import path
     // Map with name?, fullString, and named imports info
     const imports = _imports.map((node, index) => {
@@ -201,9 +201,9 @@ const mapImports = (content, sourceFile, program, _imports, options) => {
                     fullString: e.getText().trim(),
                     node: e,
                     name: e.name.getText(),
-                    isUsed: exports.isUsed(sourceFile, e.name.getText(), e.pos, e.end, program)
+                    isUsed: true // isUsed(sourceFile, e.name.getText(), e.pos, e.end, program)
                 }));
-                if (options.removeUnusedImports) {
+                if (options.removeUnusedImports && false) {
                     const exclude = options.removeUnusedImportsExcludeList || [];
                     specifiers = specifiers.filter(x => x.isUsed || exclude.some(ex => ex === x.name));
                 }
@@ -225,7 +225,7 @@ const mapImports = (content, sourceFile, program, _imports, options) => {
             sortName = '___' + path;
         }
         const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end);
-        const used = exports.isUsed(sourceFile, alias, node.pos, node.end, program);
+        const used = true; // isUsed(sourceFile, alias, node.pos, node.end, program)
         if (options.removeUnusedImports) {
             const exclude = options.removeUnusedImportsExcludeList || [];
             const ex = exclude.some(ex => ex === alias);

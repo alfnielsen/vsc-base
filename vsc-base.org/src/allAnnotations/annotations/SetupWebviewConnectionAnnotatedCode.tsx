@@ -16,33 +16,33 @@ const SetupWebviewConnectionAnnotatedCode = ({ open = false }: {open?: boolean})
 Setup message passing methods between a webview and the extension. 
                </p>
                <p>
-               * This is normally used in <a href='http://vsc-base.org/#startWebview'>startWebview</a> together with <a href='http://vsc-base.org/#initWebview'>initWebview</a> 
+               This is normally used in <a href='http://vsc-base.org/#startWebview'>startWebview</a> together with <a href='http://vsc-base.org/#initWebview'>initWebview</a> 
                </p>
                <p>
-               * This method returns two async methods:
+               This method returns two async methods:
                </p>
                <p>
-               * &#039;postMessage&#039; which post a message from the extension to the webview 
+               &#039;postMessage&#039; which post a message from the extension to the webview 
                </p>
                <p>
-               * and &#039;createdOnMessage&#039; which creates a awaited receiver for messages send from the webview. 
+               and &#039;createdOnMessage&#039; which creates a awaited receiver for messages send from the webview. 
                </p>
                <p>
-               * &#039;createdOnMessage&#039; take a onMessage call back with two arguments: (message: any) and (dispose: ()=&gt;void) 
+               &#039;createdOnMessage&#039; take a onMessage call back with two arguments: (message: any) and (dispose: ()=&gt;void) 
                </p>
                <p>
-               * The &#039;createdOnMessage&#039; will await until the dispose method is called, which will stop the webview, 
+               The &#039;createdOnMessage&#039; will await until the dispose method is called, which will stop the webview, 
                </p>
                <p>
-               * and continue code after. (Normally it will end the execution of the extension there) 
+               and continue code after. (Normally it will end the execution of the extension there) 
                </p>
                <p>
-               * See <a href='http://vsc-base.org/#startWebview'>startWebview</a> for full detail and example.
+               See <a href='http://vsc-base.org/#startWebview'>startWebview</a> for full detail and example.
                </p>
             </>
          }
          
-         codeOneLineEx={`* const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)`}
+         codeOneLineEx={`const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)`}
          codeEx={``}
          code={`/**
  * @internal internal
@@ -88,7 +88,7 @@ export const setupWebviewConnection = (
          }
       })
    }
-   return [postMessage, createdOnMessage]
+   return [postMessage, createdOnMessage, webviewPanel.dispose, webviewPanel]
 }`}
       />
    )

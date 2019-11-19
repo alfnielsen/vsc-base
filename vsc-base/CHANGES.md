@@ -2,6 +2,12 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.4
+
+Add two extra return elements from [startWebview](http://vsc-base.org/#startWebview) :
+
+'dispose' (for closing webview) and 'webviewPanel' (The panel that is created)
+
 ## 0.9.3
 
 ### Added

@@ -14,15 +14,15 @@ const WebviewHTMLTemplateAnnotatedCode = ({ open = false }: {open?: boolean}) =>
                <p>
                   
 vsc-base&#039;s internal default htmlTemplate for webviews.
-* It provides an html template with:
-* An addEventListener for &#039;postMessage&#039; that sets the body on message: 
-* &#123; command: &#039;setBody&#039;, content: &#039;myBodyHTML&#039; &#125;
-* And a &#039;postMessage&#039; that will send messages back to the extension that created the web view.
+It provides an html template with:
+An addEventListener for &#039;postMessage&#039; that sets the body on message: 
+&#123; command: &#039;setBody&#039;, content: &#039;myBodyHTML&#039; &#125;
+And a &#039;postMessage&#039; that will send messages back to the extension that created the web view.
                </p>
             </>
          }
          
-         codeOneLineEx={`* const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)`}
+         codeOneLineEx={`const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)`}
          codeEx={``}
          code={`/**
  * @internal internal
@@ -36,6 +36,9 @@ export const WebviewHTMLTemplate = (body = '', script = '()=>\{}', style = ''): 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <style>
+      * \{
+         line-height: 20px;
+      }
       a:focus,
       input:focus,
       select:focus,

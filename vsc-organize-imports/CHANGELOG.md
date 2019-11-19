@@ -2,7 +2,7 @@
 
 ## 0.1.8
 
-removeUnusedImports has been remove. It underlying API has not stable and did not always work as expected.
+removeUnusedImports has been remove. It underlying API is not stable and did not always work as expected.
 And there was performance problems with it.
 
 ## 0.1.6+0.1.7

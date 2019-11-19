@@ -46,7 +46,7 @@ The option model is defined in the package.json file.
 | groups                        | required | group[] | (See group description below)                        |
 
 The feature _removeUnusedImports_ has been remove, there was errors and performance problems with it.
-It will will hopefully come back in later versions.
+It will hopefully come back in later versions.
 
 ### Group options:
 

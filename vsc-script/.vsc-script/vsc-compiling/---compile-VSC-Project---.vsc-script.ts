@@ -1,30 +1,50 @@
 //vsc-script-name: VSC-Project > Full Compiler
 import * as vsc from 'vsc-base'
+import * as vscode from 'vscode'
 
 import { CodePart, createPartMap } from './vcs-base-util/mapping';
 
 /**
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
  */
-export async function run(path: string) {
-   vsc.showMessage('Start compiling vsc...')
+export async function run(path: string, context: vscode.ExtensionContext) {
+   const [postMessage, onMessage] = vsc.startWebview(context, {
+      title: "Rename",
+      style: "*{line-height:20px;}",
+      showOptions: { viewColumn: 2 },
+      body: `
+         <h2>vsc-script compiler</h2>
+         <div id='info'></div>
+       `,
+      onWebviewMessage: (message: any) => {
+         switch (message.command) {
+            case "post":
+               document.getElementById("info")!.innerHTML += "<br />" + message.content;
+               break;
+         }
+      }
+   });
+   const post = (content: string) => {
+      postMessage({ command: "post", content: content });
+   }
+   post('Start compiling vsc...')
    // Find all files under vsc-base-development folder with starting name 'vsc-base-'
    const vscFiles = await vsc.findFilePaths(
       '**/vsc-base-development/vsc-base-*.ts'
    )
    // create a part of combined from all files
    const parts = await createPartMap(vscFiles)
-   vsc.showMessage(`found ${parts.length} methods in ${vscFiles.length} files`)
+   post(`Found ${parts.length} methods in ${vscFiles.length} files`)
 
    // get the dir (vsc-script/src/vsc-base-development), the script don't care where you click to start it!
    let [dir] = vsc.splitPath(vscFiles[0])
    dir = '/' + vsc.trimDashes(dir)
    // Now create all element/files used by the the vsc-base.org project
    await CreateTests(parts)
-   await CompileToVscBaseOrg(dir, parts)
-   vsc.showMessage('Cloning to vsc-base..')
-   await CloneAndBuildVscBase(dir, vscFiles)
-   vsc.showMessage(`Compiling Done`)
+   await CompileToVscBaseOrg(dir, parts, post)
+   post('Cloning to vsc-base..')
+   await CloneAndBuildVscBase(dir, vscFiles, post)
+   post(`Compiling Done`)
 }
 
 
@@ -60,7 +80,7 @@ suite('${part.metaMap['vscType']}_${part.name}', () => {
 `
 }
 
-const CloneAndBuildVscBase = async (dir: string, vscFiles: string[]) => {
+const CloneAndBuildVscBase = async (dir: string, vscFiles: string[], post: (m: string) => void) => {
    const basePath = dir + '/vsc-base.ts';
    const vscBaseDir = dir.replace('vsc-script/src/vsc-base-development', 'vsc-base');
    const newPath = basePath.replace('vsc-script/src/vsc-base-development', 'vsc-base/src');
@@ -73,12 +93,12 @@ const CloneAndBuildVscBase = async (dir: string, vscFiles: string[]) => {
       await vsc.copy(filePath, newPath)
    }
    await vsc.copy(basePath, newPath)
-   vsc.showMessage("Building vsc-base ..")
+   post("Building vsc-base ..")
    //run build:
    await vsc.execFromPath("yarn build", vscBaseDir)
 }
 
-const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
+const CompileToVscBaseOrg = async (dir: string, parts: CodePart[], post: (m: string) => void) => {
    // For vsc-base.org we change the path to point into that project (in this mono-respo)
    const orgDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org/src/allAnnotations');
    const orgRootDir = dir.replace('/vsc-script/src/vsc-base-development', '/vsc-base.org');
@@ -101,7 +121,7 @@ const CompileToVscBaseOrg = async (dir: string, parts: CodePart[]) => {
    // Save the modified vsc-base-raw to vsc-base-org project:
    await vsc.saveFileContent(newRawPath, rawPathContent)
 
-   vsc.showMessage("Building vsc-base.org ...")
+   post("Building vsc-base.org ...")
    //build
    await vsc.execFromPath('yarn build', orgRootDir)
 

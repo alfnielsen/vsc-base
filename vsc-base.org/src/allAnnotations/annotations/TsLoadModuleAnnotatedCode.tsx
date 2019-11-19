@@ -25,19 +25,19 @@ Load a ts file.
                export default xxx transpile to export.default 
                </p>
                <p>
-               IMPORTANT Don't just run code you don't now, this can cause injection! 
+               IMPORTANT Don&#039;t just run code you don&#039;t now, this can cause injection! 
                </p>
                <p>
                IMPORTANT Be careful when running scripts that also uses tsLoadModule, this can break down entire systems! 
                </p>
                <p>
-               (If you start a recursive change that don't stop..) 
+               (If you start a recursive change that don&#039;t stop..) 
                </p>
                <p>
                IMPORTANT: It does not check for circular imports, which will create infinity loops! 
                </p>
                <p>
-               (Its recommended to only use imports from your local project that don't have other imports)
+               (Its recommended to only use imports from your local project that don&#039;t have other imports)
                </p>
             </>
          }

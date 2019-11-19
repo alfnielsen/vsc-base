@@ -19,11 +19,11 @@ Insert/add a member in an interface.
                Intention will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'newIntention'
+               If no members are defined it will use the &#039;newIntention&#039;
 Use of semiColon will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'addNewLeadingSemiColon' (default false)
+               If no members are defined it will use the &#039;addNewLeadingSemiColon&#039; (default false)
                </p>
             </>
          }

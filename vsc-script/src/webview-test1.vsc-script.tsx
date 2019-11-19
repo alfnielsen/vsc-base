@@ -1,9 +1,9 @@
 //vsc-script-name: WebView Test > WebView test (test 1)
 import React from "react";
-import * as vsc from "vsc-base";
+//import * as vsc from "vsc-base";
 import * as vscode from "vscode";
 
-//import * as vsc from "./vsc-base-development/vsc-base";
+import * as vsc from "./vsc-base-development/vsc-base";
 
 export async function run(path: string, context: vscode.ExtensionContext) {
   await startFindWebview(context);
@@ -12,9 +12,8 @@ export async function run(path: string, context: vscode.ExtensionContext) {
 }
 
 const startFindWebview = async (context: vscode.ExtensionContext) => {
-  const [postMessage, onMessage] = vsc.webviewStartUp(context, {
+  const [postMessage, onMessage] = vsc.startWebview(context, {
     title: "Rename",
-    showOptions: { viewColumn: 3 },
     body: `
         <div class='container'>
             <h2>Test 1: Search for file path with glob</h2>
@@ -28,7 +27,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
            <div id='info'>info</div>
         </div>
      `,
-    onWebViewMessage: (message: any) => {
+    onWebviewMessage: (message: any) => {
       switch (message.command) {
         case "info":
         case "find":

@@ -20,7 +20,7 @@ const CleanPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 Get clean path. 
                </p>
                <p>
-               Ex: 'folder/../folder/file' => 'folder/file', 'folder/./file' => 'file'
+               Ex: &#039;folder/../folder/file&#039; =&gt; &#039;folder/file&#039;, &#039;folder/./file&#039; =&gt; &#039;file&#039;
                </p>
             </>
          }

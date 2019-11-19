@@ -14,7 +14,7 @@ const GetLineStreamReaderAnnotatedCode = ({ open = false }: {open?: boolean}) =>
                <p>
                   
 Create a LineReader (generator method) for a ReadStream /
-Optional params 'excludeNewLine' (default value false). /
+Optional params &#039;excludeNewLine&#039; (default value false). /
 If set to true it will omit the newline feed from the returned lines. /
 EXPERIMENTAL NodeJs feature. NodeJs community writes: 
                </p>

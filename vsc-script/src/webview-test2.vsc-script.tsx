@@ -1,9 +1,9 @@
 //vsc-script-name: WebView Test > Replace in file (test 2)
 import React from "react";
-import * as vsc from "vsc-base";
+//import * as vsc from "vsc-base";
 import * as vscode from "vscode";
 
-//import * as vsc from "./vsc-base-development/vsc-base";
+import * as vsc from "./vsc-base-development/vsc-base";
 
 export async function run(path: string, context: vscode.ExtensionContext) {
   await startFindWebview(context);
@@ -13,7 +13,7 @@ export async function run(path: string, context: vscode.ExtensionContext) {
 
 const startFindWebview = async (context: vscode.ExtensionContext) => {
   const docs = vscode.workspace.textDocuments;
-  const [postMessage, onMessage] = vsc.webviewStartUp(context, {
+  const [postMessage, onMessage] = vsc.startWebview(context, {
     title: "Rename",
     showOptions: { viewColumn: 2 },
     style: `pre { background: var(--vscode-input-background); padding: 10px; }`,
@@ -45,7 +45,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
            <div id='info'>info</div>
         </div>
      `,
-    onWebViewMessage: (message: any) => {
+    onWebviewMessage: (message: any) => {
       switch (message.command) {
         case "info":
         case "find":

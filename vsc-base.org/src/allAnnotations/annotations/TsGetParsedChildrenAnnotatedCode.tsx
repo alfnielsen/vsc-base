@@ -13,10 +13,10 @@ const TsGetParsedChildrenAnnotatedCode = ({ open = false }: {open?: boolean}) =>
             <>
                <p>
                   
-ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. 
+ts.Node&#039;s getChildren and getChildrenCount uses tokens not parsed nodes. 
                </p>
                <p>
-               So this method uses ts' forEachChild to collect the parsed nodes. 
+               So this method uses ts&#039; forEachChild to collect the parsed nodes. 
                </p>
                <p>
                Normally used in custom transformer methods (vsc.tsCreateTransformer)

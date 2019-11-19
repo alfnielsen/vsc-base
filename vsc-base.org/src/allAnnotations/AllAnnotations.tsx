@@ -14,6 +14,7 @@ import CreateSelectionAnnotatedCode from './annotations/CreateSelectionAnnotated
 import CreateVscodeRangeAndPositionAnnotatedCode from './annotations/CreateVscodeRangeAndPositionAnnotatedCode'
 import DoesExistsAnnotatedCode from './annotations/DoesExistsAnnotatedCode'
 import EmptyDirAnnotatedCode from './annotations/EmptyDirAnnotatedCode'
+import EscapeHtmlAnnotatedCode from './annotations/EscapeHtmlAnnotatedCode'
 import ExecFromPathAnnotatedCode from './annotations/ExecFromPathAnnotatedCode'
 import FindFilePathsAnnotatedCode from './annotations/FindFilePathsAnnotatedCode'
 import FindFilePathsFromBaseAnnotatedCode from './annotations/FindFilePathsFromBaseAnnotatedCode'
@@ -42,6 +43,7 @@ import GetRootPathAnnotatedCode from './annotations/GetRootPathAnnotatedCode'
 import GetSubRelativePathFromAbsoluteRootPathAnnotatedCode from './annotations/GetSubRelativePathFromAbsoluteRootPathAnnotatedCode'
 import GetTimestampAnnotatedCode from './annotations/GetTimestampAnnotatedCode'
 import GetVscDefaultModuleMapAnnotatedCode from './annotations/GetVscDefaultModuleMapAnnotatedCode'
+import InitWebviewAnnotatedCode from './annotations/InitWebviewAnnotatedCode'
 import InsertAfterAnnotatedCode from './annotations/InsertAfterAnnotatedCode'
 import InsertAtAnnotatedCode from './annotations/InsertAtAnnotatedCode'
 import InsertAtRangeAnnotatedCode from './annotations/InsertAtRangeAnnotatedCode'
@@ -71,11 +73,13 @@ import SetSelectionAnnotatedCode from './annotations/SetSelectionAnnotatedCode'
 import SetSelectionFromRangeAnnotatedCode from './annotations/SetSelectionFromRangeAnnotatedCode'
 import SetSelectionsAnnotatedCode from './annotations/SetSelectionsAnnotatedCode'
 import SetSelectionsFromRangesAnnotatedCode from './annotations/SetSelectionsFromRangesAnnotatedCode'
+import SetupWebviewConnectionAnnotatedCode from './annotations/SetupWebviewConnectionAnnotatedCode'
 import SharedPathAnnotatedCode from './annotations/SharedPathAnnotatedCode'
 import ShowErrorMessageAnnotatedCode from './annotations/ShowErrorMessageAnnotatedCode'
 import ShowMessageAnnotatedCode from './annotations/ShowMessageAnnotatedCode'
 import SleepAnnotatedCode from './annotations/SleepAnnotatedCode'
 import SplitPathAnnotatedCode from './annotations/SplitPathAnnotatedCode'
+import StartWebviewAnnotatedCode from './annotations/StartWebviewAnnotatedCode'
 import SubtractPathAnnotatedCode from './annotations/SubtractPathAnnotatedCode'
 import ToCamelCaseAnnotatedCode from './annotations/ToCamelCaseAnnotatedCode'
 import ToJSONStringAnnotatedCode from './annotations/ToJSONStringAnnotatedCode'
@@ -86,6 +90,7 @@ import ToTitleCaseAnnotatedCode from './annotations/ToTitleCaseAnnotatedCode'
 import TrimDashesAnnotatedCode from './annotations/TrimDashesAnnotatedCode'
 import TrimLeadingDashAnnotatedCode from './annotations/TrimLeadingDashAnnotatedCode'
 import TsCreateNodeVisitorAnnotatedCode from './annotations/TsCreateNodeVisitorAnnotatedCode'
+import TsCreateProgramAnnotatedCode from './annotations/TsCreateProgramAnnotatedCode'
 import TsCreateRemoveNodesTransformerAnnotatedCode from './annotations/TsCreateRemoveNodesTransformerAnnotatedCode'
 import TsCreateSourceFileAnnotatedCode from './annotations/TsCreateSourceFileAnnotatedCode'
 import TsCreateTransformerAnnotatedCode from './annotations/TsCreateTransformerAnnotatedCode'
@@ -143,6 +148,7 @@ import TsTransformNodeAnnotatedCode from './annotations/TsTransformNodeAnnotated
 import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import TsVisitWithTransformersAnnotatedCode from './annotations/TsVisitWithTransformersAnnotatedCode'
 import VerifyModuleMethodsAnnotatedCode from './annotations/VerifyModuleMethodsAnnotatedCode'
+import WebviewHTMLTemplateAnnotatedCode from './annotations/WebviewHTMLTemplateAnnotatedCode'
 import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
 
 const annotations = [
@@ -160,6 +166,7 @@ const annotations = [
   { vscType: 'vscode', name: 'createvscoderangeandposition', component: (open: boolean) => <CreateVscodeRangeAndPositionAnnotatedCode key={'createVscodeRangeAndPosition'} open={open} /> },
   { vscType: 'system', name: 'doesexists', component: (open: boolean) => <DoesExistsAnnotatedCode key={'doesExists'} open={open} /> },
   { vscType: 'system', name: 'emptydir', component: (open: boolean) => <EmptyDirAnnotatedCode key={'emptyDir'} open={open} /> },
+  { vscType: 'raw', name: 'escapehtml', component: (open: boolean) => <EscapeHtmlAnnotatedCode key={'escapeHtml'} open={open} /> },
   { vscType: 'system', name: 'execfrompath', component: (open: boolean) => <ExecFromPathAnnotatedCode key={'execFromPath'} open={open} /> },
   { vscType: 'vscode', name: 'findfilepaths', component: (open: boolean) => <FindFilePathsAnnotatedCode key={'findFilePaths'} open={open} /> },
   { vscType: 'vscode', name: 'findfilepathsfrombase', component: (open: boolean) => <FindFilePathsFromBaseAnnotatedCode key={'findFilePathsFromBase'} open={open} /> },
@@ -188,6 +195,7 @@ const annotations = [
   { vscType: 'raw', name: 'getsubrelativepathfromabsoluterootpath', component: (open: boolean) => <GetSubRelativePathFromAbsoluteRootPathAnnotatedCode key={'getSubRelativePathFromAbsoluteRootPath'} open={open} /> },
   { vscType: 'raw', name: 'gettimestamp', component: (open: boolean) => <GetTimestampAnnotatedCode key={'getTimestamp'} open={open} /> },
   { vscType: 'system', name: 'getvscdefaultmodulemap', component: (open: boolean) => <GetVscDefaultModuleMapAnnotatedCode key={'getVscDefaultModuleMap'} open={open} /> },
+  { vscType: 'webview', name: 'initwebview', component: (open: boolean) => <InitWebviewAnnotatedCode key={'initWebview'} open={open} /> },
   { vscType: 'raw', name: 'insertafter', component: (open: boolean) => <InsertAfterAnnotatedCode key={'insertAfter'} open={open} /> },
   { vscType: 'vscode', name: 'insertat', component: (open: boolean) => <InsertAtAnnotatedCode key={'insertAt'} open={open} /> },
   { vscType: 'vscode', name: 'insertatrange', component: (open: boolean) => <InsertAtRangeAnnotatedCode key={'insertAtRange'} open={open} /> },
@@ -217,11 +225,13 @@ const annotations = [
   { vscType: 'vscode', name: 'setselectionfromrange', component: (open: boolean) => <SetSelectionFromRangeAnnotatedCode key={'setSelectionFromRange'} open={open} /> },
   { vscType: 'vscode', name: 'setselections', component: (open: boolean) => <SetSelectionsAnnotatedCode key={'setSelections'} open={open} /> },
   { vscType: 'vscode', name: 'setselectionsfromranges', component: (open: boolean) => <SetSelectionsFromRangesAnnotatedCode key={'setSelectionsFromRanges'} open={open} /> },
+  { vscType: 'webview', name: 'setupwebviewconnection', component: (open: boolean) => <SetupWebviewConnectionAnnotatedCode key={'setupWebviewConnection'} open={open} /> },
   { vscType: 'raw', name: 'sharedpath', component: (open: boolean) => <SharedPathAnnotatedCode key={'sharedPath'} open={open} /> },
   { vscType: 'vscode', name: 'showerrormessage', component: (open: boolean) => <ShowErrorMessageAnnotatedCode key={'showErrorMessage'} open={open} /> },
   { vscType: 'vscode', name: 'showmessage', component: (open: boolean) => <ShowMessageAnnotatedCode key={'showMessage'} open={open} /> },
   { vscType: 'raw', name: 'sleep', component: (open: boolean) => <SleepAnnotatedCode key={'sleep'} open={open} /> },
   { vscType: 'raw', name: 'splitpath', component: (open: boolean) => <SplitPathAnnotatedCode key={'splitPath'} open={open} /> },
+  { vscType: 'webview', name: 'startwebview', component: (open: boolean) => <StartWebviewAnnotatedCode key={'startWebview'} open={open} /> },
   { vscType: 'raw', name: 'subtractpath', component: (open: boolean) => <SubtractPathAnnotatedCode key={'subtractPath'} open={open} /> },
   { vscType: 'raw', name: 'tocamelcase', component: (open: boolean) => <ToCamelCaseAnnotatedCode key={'toCamelCase'} open={open} /> },
   { vscType: 'raw', name: 'tojsonstring', component: (open: boolean) => <ToJSONStringAnnotatedCode key={'toJSONString'} open={open} /> },
@@ -232,6 +242,7 @@ const annotations = [
   { vscType: 'raw', name: 'trimdashes', component: (open: boolean) => <TrimDashesAnnotatedCode key={'trimDashes'} open={open} /> },
   { vscType: 'raw', name: 'trimleadingdash', component: (open: boolean) => <TrimLeadingDashAnnotatedCode key={'trimLeadingDash'} open={open} /> },
   { vscType: 'ts', name: 'tscreatenodevisitor', component: (open: boolean) => <TsCreateNodeVisitorAnnotatedCode key={'tsCreateNodeVisitor'} open={open} /> },
+  { vscType: 'ts', name: 'tscreateprogram', component: (open: boolean) => <TsCreateProgramAnnotatedCode key={'tsCreateProgram'} open={open} /> },
   { vscType: 'ts', name: 'tscreateremovenodestransformer', component: (open: boolean) => <TsCreateRemoveNodesTransformerAnnotatedCode key={'tsCreateRemoveNodesTransformer'} open={open} /> },
   { vscType: 'ts', name: 'tscreatesourcefile', component: (open: boolean) => <TsCreateSourceFileAnnotatedCode key={'tsCreateSourceFile'} open={open} /> },
   { vscType: 'ts', name: 'tscreatetransformer', component: (open: boolean) => <TsCreateTransformerAnnotatedCode key={'tsCreateTransformer'} open={open} /> },
@@ -289,6 +300,7 @@ const annotations = [
   { vscType: 'system', name: 'tstranspile', component: (open: boolean) => <TsTranspileAnnotatedCode key={'tsTranspile'} open={open} /> },
   { vscType: 'ts', name: 'tsvisitwithtransformers', component: (open: boolean) => <TsVisitWithTransformersAnnotatedCode key={'tsVisitWithTransformers'} open={open} /> },
   { vscType: 'system', name: 'verifymodulemethods', component: (open: boolean) => <VerifyModuleMethodsAnnotatedCode key={'verifyModuleMethods'} open={open} /> },
+  { vscType: 'webview', name: 'webviewhtmltemplate', component: (open: boolean) => <WebviewHTMLTemplateAnnotatedCode key={'WebviewHTMLTemplate'} open={open} /> },
   { vscType: 'vscode', name: 'writetoterminal', component: (open: boolean) => <WriteToTerminalAnnotatedCode key={'writeToTerminal'} open={open} /> }
 ]
 

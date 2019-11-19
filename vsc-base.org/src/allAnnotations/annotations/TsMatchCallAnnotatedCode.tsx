@@ -19,7 +19,7 @@ Test is a node is a call expression (node: ts.CallExpression)
                and optional test for its name, and arguments.
                </p>
                <p>
-               it's value, hasAncestor and hasGrandchild 
+               it&#039;s value, hasAncestor and hasGrandchild 
                </p>
                <p>
                See <a href='http://vsc-base.org/#tsIsNode'>tsIsNode</a> \

@@ -13,7 +13,7 @@ const GetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
-Get current open file's content.
+Get current open file&#039;s content.
                </p>
             </>
          }

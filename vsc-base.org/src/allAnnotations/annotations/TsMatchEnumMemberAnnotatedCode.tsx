@@ -16,7 +16,7 @@ const TsMatchEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 Test is a node is a enum member (node: ts.EnumMember) 
                </p>
                <p>
-               and optional test for its name, the enum' name (its parent) 
+               and optional test for its name, the enum&#039; name (its parent) 
                </p>
                <p>
                it value, hasAncestor and hasGrandchild 

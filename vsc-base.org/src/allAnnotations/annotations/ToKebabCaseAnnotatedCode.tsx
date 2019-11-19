@@ -23,7 +23,7 @@ Format a string from camel-case to kebab-case
                Commonly used to define css class names. 
                </p>
                <p>
-               Ex: 'SomeName' => 'some-name', 'Some_Other.name' => 'some-other-name'
+               Ex: &#039;SomeName&#039; =&gt; &#039;some-name&#039;, &#039;Some_Other.name&#039; =&gt; &#039;some-other-name&#039;
                </p>
             </>
          }

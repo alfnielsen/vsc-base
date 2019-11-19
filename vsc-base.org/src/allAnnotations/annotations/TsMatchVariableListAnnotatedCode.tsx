@@ -16,7 +16,7 @@ const TsMatchVariableListAnnotatedCode = ({ open = false }: {open?: boolean}) =>
 Test is a node is a variable declaration (node: ts.VariableDeclarationList) 
                </p>
                <p>
-               This one includes the 'const','let','var' and a list of variables.
+               This one includes the &#039;const&#039;,&#039;let&#039;,&#039;var&#039; and a list of variables.
 See also <a href='http://vsc-base.org/#tsMatchVariable'>tsMatchVariable</a> 
                </p>
                <p>

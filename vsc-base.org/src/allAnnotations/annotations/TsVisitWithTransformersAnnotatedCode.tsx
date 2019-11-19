@@ -13,7 +13,7 @@ const TsVisitWithTransformersAnnotatedCode = ({ open = false }: {open?: boolean}
             <>
                <p>
                   
-This is like a <a href='http://vsc-base.org/#tsTransform'>tsTransform</a>, but it doesn't transform or print content. 
+This is like a <a href='http://vsc-base.org/#tsTransform'>tsTransform</a>, but it doesn&#039;t transform or print content. 
                </p>
                <p>
                Used for walking a ts-ast tree. 

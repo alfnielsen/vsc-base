@@ -13,7 +13,7 @@ const TsDefaultCompilerOptionsAnnotatedCode = ({ open = false }: {open?: boolean
             <>
                <p>
                   
-vsc-base's internal default ts compiler options
+vsc-base&#039;s internal default ts compiler options
                </p>
             </>
          }

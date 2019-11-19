@@ -23,7 +23,7 @@ Execute a bash command.
 execute the command! 
                </p>
                <p>
-               This method is mostly design for vsc-script's, where you have control of the environment. 
+               This method is mostly design for vsc-script&#039;s, where you have control of the environment. 
                </p>
                <p>
                See also <a href='http://vsc-base.org/#writeToTerminal'>vsc.writeToTerminal</a>

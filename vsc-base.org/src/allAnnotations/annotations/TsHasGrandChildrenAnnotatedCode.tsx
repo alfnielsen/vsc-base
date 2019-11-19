@@ -13,7 +13,7 @@ const TsHasGrandChildrenAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
-Test if it has all Children or grandChildren (child's child) that matches conditions in a callback 
+Test if it has all Children or grandChildren (child&#039;s child) that matches conditions in a callback 
                </p>
                <p>
                Using <a href='http://vsc-base.org/#tsFindGrandchild'>tsFindGrandchild</a>

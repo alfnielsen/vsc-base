@@ -19,7 +19,7 @@ Base test for node properties.
                Optional test for its name with a string or regexp. 
                </p>
                <p>
-               (return false for node that don't have name property)
+               (return false for node that don&#039;t have name property)
                </p>
                <p>
                Optional test for tsHasAncestor and hasGrandChild 
@@ -31,7 +31,7 @@ Base test for node properties.
                Optional value can be tested against a string, a number (with a string, number or regexp). 
                </p>
                <p>
-               (return false for node that don't have initializer)
+               (return false for node that don&#039;t have initializer)
                </p>
                <p>
                See <a href='http://vsc-base.org/#tsIsValue'>tsIsValue</a> \

@@ -16,7 +16,7 @@ const VerifyModuleMethodsAnnotatedCode = ({ open = false }: {open?: boolean}) =>
 Test if a loaded module has methods (Loaded with vsc.loadTsModule) 
                </p>
                <p>
-               return undefined if a method didn't exist.
+               return undefined if a method didn&#039;t exist.
                </p>
             </>
          }

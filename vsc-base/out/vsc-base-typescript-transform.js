@@ -4,6 +4,32 @@ const ts = require("typescript");
 const vsc = require("./vsc-base");
 /** vsc-base method
  * @description
+ * Creates a ts program with one file and a compiler host. \
+ * This is needed for getting a real program with typeChecker.
+ * @see [tsCreateProgram](http://vsc-base.org/#tsCreateProgram)
+ * @param source
+ * @param transformers
+ * @param compilerOptions
+ * @param printer
+ * @internal
+ * @experimental This method can easily change, because ts api is in experimental state.
+ * @vscType ts
+ * @example
+ * const [program, sourceFile] = vsc.tsCreateProgram(code)
+ */
+exports.tsCreateProgram = (code, sourceFileName = 'sourceFile.ts', compilerOptions = vsc.TsDefaultCompilerOptions, compilerHost = ts.createCompilerHost(compilerOptions)) => {
+    let innerSourceFile;
+    compilerHost.getSourceFile = (fileName) => {
+        innerSourceFile = innerSourceFile || ts.createSourceFile(fileName, code, ts.ScriptTarget.ES2015, true);
+        return sourceFile;
+    };
+    const program = ts.createProgram([sourceFileName], vsc.TsDefaultCompilerOptions, compilerHost);
+    let emitResult = program.emit();
+    const sourceFile = program.getSourceFile(sourceFileName);
+    return [program, sourceFile];
+};
+/** vsc-base method
+ * @description
  * Transform source code using custom transformers \
  * See [tsCreateTransformer](http://vsc-base.org/#tsCreateTransformer)
  * and [tsCreateRemoveNodesTransformer](http://vsc-base.org/#tsCreateRemoveNodesTransformer)

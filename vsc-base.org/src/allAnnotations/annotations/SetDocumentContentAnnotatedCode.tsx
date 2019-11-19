@@ -13,7 +13,7 @@ const SetDocumentContentAnnotatedCode = ({ open = false }: {open?: boolean}) => 
             <>
                <p>
                   
-Set current open file's content. 
+Set current open file&#039;s content. 
                </p>
                <p>
                Return true if success, and false if there was no active TextEditor or open Document.

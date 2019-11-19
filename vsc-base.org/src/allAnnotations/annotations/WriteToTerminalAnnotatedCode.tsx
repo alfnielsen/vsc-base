@@ -16,7 +16,7 @@ const WriteToTerminalAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 Write text to a terminal 
                </p>
                <p>
-               If addNewLine = true (it's the default value), the text written will be executed. 
+               If addNewLine = true (it&#039;s the default value), the text written will be executed. 
                </p>
                <p>
                This will also happen if the text contains newline feeds (\n or \r\n) 
@@ -31,7 +31,7 @@ Write text to a terminal
                execute the command! 
                </p>
                <p>
-               This method is mostly design for vsc-script's, where you have control of the environment. 
+               This method is mostly design for vsc-script&#039;s, where you have control of the environment. 
                </p>
                <p>
                See also <a href='http://vsc-base.org/#execFromPath'>execFromPath</a>

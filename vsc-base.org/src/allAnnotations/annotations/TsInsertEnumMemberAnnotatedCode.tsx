@@ -16,21 +16,21 @@ const TsInsertEnumMemberAnnotatedCode = ({ open = false }: {open?: boolean}) => 
 Insert/add a member in an enum. 
                </p>
                <p>
-               'value' is optional. 
+               &#039;value&#039; is optional. 
                </p>
                <p>
                For complex (calculated values) or number values, 
                </p>
                <p>
-               set 'addQuotes' to false.
+               set &#039;addQuotes&#039; to false.
 Intention will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'newIntention'
+               If no members are defined it will use the &#039;newIntention&#039;
 LeadingComma will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'addNewLeadingComma' (default false)
+               If no members are defined it will use the &#039;addNewLeadingComma&#039; (default false)
                </p>
             </>
          }

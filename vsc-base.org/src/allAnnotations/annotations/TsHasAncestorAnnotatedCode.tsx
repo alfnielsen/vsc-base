@@ -13,7 +13,7 @@ const TsHasAncestorAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
-Test if it has a parent or ancestor (parent's parent) that matches conditions in a callback 
+Test if it has a parent or ancestor (parent&#039;s parent) that matches conditions in a callback 
                </p>
                <p>
                Using <a href='http://vsc-base.org/#tsFindAncestor'>tsFindAncestor</a>

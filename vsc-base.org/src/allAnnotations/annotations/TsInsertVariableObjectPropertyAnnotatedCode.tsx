@@ -19,11 +19,11 @@ Insert/add a key-value pair in an variable object.
                Intention will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'newIntention'
+               If no members are defined it will use the &#039;newIntention&#039;
 Use of trailingComma will follow the members already defined. 
                </p>
                <p>
-               If no members are defined it will use the 'addNewTrailingComma' (default false)
+               If no members are defined it will use the &#039;addNewTrailingComma&#039; (default false)
                </p>
             </>
          }

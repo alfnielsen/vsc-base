@@ -20,7 +20,7 @@ const ToTitleCaseAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 Format a string to a title string  
                </p>
                <p>
-               Ex: 'Some-Name' => 'Some Name', 'some_name' => 'Some Name', 'some.name' => 'Some Name' 
+               Ex: &#039;Some-Name&#039; =&gt; &#039;Some Name&#039;, &#039;some_name&#039; =&gt; &#039;Some Name&#039;, &#039;some.name&#039; =&gt; &#039;Some Name&#039; 
                </p>
                <p>
                All non word separators will be removed and the word character after will be transforms to upper case, 

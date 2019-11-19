@@ -17,7 +17,7 @@ const TrimDashesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
-Remove '/' from start and end of path
+Remove &#039;/&#039; from start and end of path
                </p>
             </>
          }

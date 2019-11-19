@@ -13,7 +13,7 @@ const TsGetLocalModulesAnnotatedCode = ({ open = false }: {open?: boolean}) => {
             <>
                <p>
                   
-Replace ts transpiled code's require by loading each import with another tsLoadModule execution. 
+Replace ts transpiled code&#039;s require by loading each import with another tsLoadModule execution. 
                </p>
                <p>
                This enables tsLoadModule to load files with imports. 

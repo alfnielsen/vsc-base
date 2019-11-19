@@ -29,7 +29,7 @@ export const tsCreateProgram = (
       return sourceFile;
    };
    const program = ts.createProgram([sourceFileName], vsc.TsDefaultCompilerOptions, compilerHost);
-   let emitResult = program.emit();// TODO: Do we really need this?
+   let emitResult = program.emit();
    const sourceFile = program.getSourceFile(sourceFileName)
    return [program, sourceFile]
 }

@@ -2,14 +2,38 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.3
+
+### Added
+
+Add new raw methods:
+
+- [escapeHtml](http://vsc-base.org/#escapeHtml)
+
+Add new ts methods:
+
+- [tsCreateProgram](http://vsc-base.org/#tsCreateProgram)
+
+Add new area: webview
+
+New webview methods added:
+
+- [startWebview](http://vsc-base.org/#startWebview)
+
+- [setupWebViewConnection](http://vsc-base.org/#setupWebViewConnection)
+
+- [initWebView](http://vsc-base.org/#initWebView)
+
+- [WebViewHTMLTemplate](http://vsc-base.org/#WebViewHTMLTemplate)
+
 ## 0.9.2
 
 ### Added
 
 Add two raw methods:
 
--  [insertAfter](http://vsc-base.org/#insertAfter)
--  [insertBefore](http://vsc-base.org/#insertBefore)
+- [insertAfter](http://vsc-base.org/#insertAfter)
+- [insertBefore](http://vsc-base.org/#insertBefore)
 
 ## 0.9.1
 
@@ -27,12 +51,12 @@ EX:
 ```ts
 //from
 const f = {
-   f: f
-}
+  f: f
+};
 //to
 const f = {
-   f
-}
+  f
+};
 ```
 
 ## 0.9.0
@@ -88,10 +112,10 @@ New area typescript-top-level-transform has been added.
 For now all method here are insert methods, that accept a source and return a transformed source.
 Method in this area are:
 
--  [tsInsertImport](http://vsc-base.org/#tsInsertImport)
--  [tsInsertVariableObjectProperty](http://vsc-base.org/#tsInsertVariableObjectProperty)
--  [tsInsertInterfaceMember](http://vsc-base.org/#tsInsertInterfaceMember)
--  [tsInsertEnumMember](http://vsc-base.org/#tsInsertEnumMember)
+- [tsInsertImport](http://vsc-base.org/#tsInsertImport)
+- [tsInsertVariableObjectProperty](http://vsc-base.org/#tsInsertVariableObjectProperty)
+- [tsInsertInterfaceMember](http://vsc-base.org/#tsInsertInterfaceMember)
+- [tsInsertEnumMember](http://vsc-base.org/#tsInsertEnumMember)
 
 ## 0.8.31
 
@@ -177,7 +201,7 @@ Fix generic problems with callback (Callback now accept undefined) in [tsFindNod
 
 ### Add
 
--  [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
+- [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
 
 ## 0.8.23
 
@@ -222,8 +246,8 @@ now also has the option: 'hasParent'
 
 new method:
 
--  [tsMatchCall](http://vsc-base.org/#tsMatchCall)
--  [tsIsCall](http://vsc-base.org/#tsIsCall)
+- [tsMatchCall](http://vsc-base.org/#tsMatchCall)
+- [tsIsCall](http://vsc-base.org/#tsIsCall)
 
 ## 0.8.19
 
@@ -243,12 +267,12 @@ It will now remove comments as well as spaces.
 
 insertAtRange and all method using it is now NOT async:
 
--  [insertAt](http://vsc-base.org/#insertAt)
--  [insertAtRange](http://vsc-base.org/#insertAtRange)
--  [setDocumentContent](http://vsc-base.org/#setDocumentContent)
--  [prependToDocument](http://vsc-base.org/#prependToDocument)
--  [appendLineToDocument](http://vsc-base.org/#appendLineToDocument)
--  [prependLineToDocument](http://vsc-base.org/#prependLineToDocument)
+- [insertAt](http://vsc-base.org/#insertAt)
+- [insertAtRange](http://vsc-base.org/#insertAtRange)
+- [setDocumentContent](http://vsc-base.org/#setDocumentContent)
+- [prependToDocument](http://vsc-base.org/#prependToDocument)
+- [appendLineToDocument](http://vsc-base.org/#appendLineToDocument)
+- [prependLineToDocument](http://vsc-base.org/#prependLineToDocument)
 
 The underlying vscode commands has been changed to vscode.TextEdit, insert of snippets.
 
@@ -305,8 +329,8 @@ Update docs (typings)
 
 ### Add methods
 
--  [insertAt](http://vsc-base.org/#insertAt)
--  [insertAtRange](http://vsc-base.org/#insertAtRange)
+- [insertAt](http://vsc-base.org/#insertAt)
+- [insertAtRange](http://vsc-base.org/#insertAtRange)
 
 **Internal:**
 vsc-base now use direct export of sub files.
@@ -327,9 +351,9 @@ Add generic to awaitResult (default any)
 
 new system methods:
 
--  [addFileContent](http://vsc-base.ord/#addFileContent)
--  [emptyDir](http://vsc-base.ord/#emptyDir)
--  [remove](http://vsc-base.ord/#remove)
+- [addFileContent](http://vsc-base.ord/#addFileContent)
+- [emptyDir](http://vsc-base.ord/#emptyDir)
+- [remove](http://vsc-base.ord/#remove)
 
 ### Changes
 
@@ -363,19 +387,19 @@ To enable previous behavior set trimSpaces to false.
 
 new ts methods:
 
--  [tsIsObjectProperty](http://vsc-base.ord/#tsIsObjectProperty)
--  [tsIsInterface](http://vsc-base.ord/#tsIsInterface)
--  [tsIsTypeRef](http://vsc-base.ord/#tsIsTypeRef)
--  [tsIsEnum](http://vsc-base.ord/#tsIsEnum)
--  [tsIsEnumMember](http://vsc-base.ord/#tsIsEnumMember)
--  [tsIsFunction](http://vsc-base.ord/#tsIsFunction)
--  [tsIsVariable](http://vsc-base.ord/#tsIsVariable)
--  [tsIsIdentifier](http://vsc-base.ord/#tsIsIdentifier)
+- [tsIsObjectProperty](http://vsc-base.ord/#tsIsObjectProperty)
+- [tsIsInterface](http://vsc-base.ord/#tsIsInterface)
+- [tsIsTypeRef](http://vsc-base.ord/#tsIsTypeRef)
+- [tsIsEnum](http://vsc-base.ord/#tsIsEnum)
+- [tsIsEnumMember](http://vsc-base.ord/#tsIsEnumMember)
+- [tsIsFunction](http://vsc-base.ord/#tsIsFunction)
+- [tsIsVariable](http://vsc-base.ord/#tsIsVariable)
+- [tsIsIdentifier](http://vsc-base.ord/#tsIsIdentifier)
 
 new vscode methods:
 
--  [setSelections](http://vsc-base.ord/#setSelections)
--  [setSelectionsFromRanges](http://vsc-base.ord/#setSelectionsFromRanges)
+- [setSelections](http://vsc-base.ord/#setSelections)
+- [setSelectionsFromRanges](http://vsc-base.ord/#setSelectionsFromRanges)
 
 ### Changes
 
@@ -400,10 +424,10 @@ Other extension using vsc-base that dont use fs-extra needs the typings.
 
 Add ts methods
 
--  [tsMatchIdentifier](http://vsc-base.org/#tsMatchIdentifier)
--  [tsMatchInterface](http://vsc-base.org/#tsMatchInterface)
--  [tsMatchTypeRef](http://vsc-base.org/#tsMatchTypeRef)
--  [tsMatchNode](http://vsc-base.org/#tsMatchNode)
+- [tsMatchIdentifier](http://vsc-base.org/#tsMatchIdentifier)
+- [tsMatchInterface](http://vsc-base.org/#tsMatchInterface)
+- [tsMatchTypeRef](http://vsc-base.org/#tsMatchTypeRef)
+- [tsMatchNode](http://vsc-base.org/#tsMatchNode)
 
 The new tsMacthIdentifier is really good for smart search and replace for type/interface/variable name.
 
@@ -453,18 +477,18 @@ Optional 'matchName' for all the above match function now accepts a string.
 
 new method ts methods:
 
--  [tsMatchEnum](http://vsc-base.org/#tsMatchEnum)
--  [tsMatchEnumMember](http://vsc-base.org/#tsMatchEnumMember)
--  [tsMatchValue](http://vsc-base.org/#tsMatchValue)
+- [tsMatchEnum](http://vsc-base.org/#tsMatchEnum)
+- [tsMatchEnumMember](http://vsc-base.org/#tsMatchEnumMember)
+- [tsMatchValue](http://vsc-base.org/#tsMatchValue)
 
--  [tsFindChild](http://vsc-base.org/#tsFindChild)
--  [tsHasChild](http://vsc-base.org/#tsHasChild)
--  [tsFindGrandChild](http://vsc-base.org/#tsFindGrandChild)
--  [tsHasGrandChild](http://vsc-base.org/#tsHasGrandChild)
--  [tsHasGrandChilds](http://vsc-base.org/#tsHasGrandChilds)
--  [tsFindParent](http://vsc-base.org/#tsFindParent)
--  [tsFindAncestor](http://vsc-base.org/#tsFindAncestor)
--  [tsHasAncestor](http://vsc-base.org/#tsHasAncestor)
+- [tsFindChild](http://vsc-base.org/#tsFindChild)
+- [tsHasChild](http://vsc-base.org/#tsHasChild)
+- [tsFindGrandChild](http://vsc-base.org/#tsFindGrandChild)
+- [tsHasGrandChild](http://vsc-base.org/#tsHasGrandChild)
+- [tsHasGrandChilds](http://vsc-base.org/#tsHasGrandChilds)
+- [tsFindParent](http://vsc-base.org/#tsFindParent)
+- [tsFindAncestor](http://vsc-base.org/#tsFindAncestor)
+- [tsHasAncestor](http://vsc-base.org/#tsHasAncestor)
 
 Add optional matches for all 'Match' method has new optional match options.
 
@@ -560,52 +584,52 @@ New dependency has been added to vsc: **child-process-promise**
 It can be used in vsc-script like this:
 
 ```ts
-import * as cp from 'child-process-promise'
+import * as cp from "child-process-promise";
 ```
 
 **new vscode methods:**
 
--  [insertAt](http://vsc-base.org/#insertAt)
-   It take the content and start (and optional end) position and replace/insert the content.
--  [insertAtRange](http://vsc-base.org/#insertAtRange)
-   It take the content and a vscode.range and replace/insert the content.
--  [prependToDocument](http://vsc-base.orb/#prependToDocument)
-   Same as appendToDocument but the content is inserted at start of document.
--  [prependLineToDocument](http://vsc-base.orb/#prependLineToDocument)
-   Same as appendLineToDocument but the content is inserted at start of document.
--  [getActiveTerminal](http://vsc-base.orb/#getActiveTerminal)
-   It active terminal in vscode
--  [writeToTerminal](http://vsc-base.orb/#writeToTerminal)
-   Write to the active terminal
--  [newDocument](http://vsc-base.orb/#newDocument)
-   Create a new document
--  [setSelectionFromRange](http://vsc-base.orb/#setSelectionFromRange)
-   Set a selection
--  [addSelectionFromRange](http://vsc-base.orb/#addSelectionFromRange)
-   Add a selection
--  [setSelection](http://vsc-base.orb/#setSelection)
-   Set a selection
--  [addSelection](http://vsc-base.orb/#addSelection)
-   Add a selection
--  [createSelection](http://vsc-base.orb/#createSelection)
-   Add a vscode.Selection
--  [getVscodeRangeAndPosition](http://vsc-base.orb/#getVscodeRangeAndPosition)
-   Get a vscode.Position's ans vscode.Rage from start end end positions (numbers)
+- [insertAt](http://vsc-base.org/#insertAt)
+  It take the content and start (and optional end) position and replace/insert the content.
+- [insertAtRange](http://vsc-base.org/#insertAtRange)
+  It take the content and a vscode.range and replace/insert the content.
+- [prependToDocument](http://vsc-base.orb/#prependToDocument)
+  Same as appendToDocument but the content is inserted at start of document.
+- [prependLineToDocument](http://vsc-base.orb/#prependLineToDocument)
+  Same as appendLineToDocument but the content is inserted at start of document.
+- [getActiveTerminal](http://vsc-base.orb/#getActiveTerminal)
+  It active terminal in vscode
+- [writeToTerminal](http://vsc-base.orb/#writeToTerminal)
+  Write to the active terminal
+- [newDocument](http://vsc-base.orb/#newDocument)
+  Create a new document
+- [setSelectionFromRange](http://vsc-base.orb/#setSelectionFromRange)
+  Set a selection
+- [addSelectionFromRange](http://vsc-base.orb/#addSelectionFromRange)
+  Add a selection
+- [setSelection](http://vsc-base.orb/#setSelection)
+  Set a selection
+- [addSelection](http://vsc-base.orb/#addSelection)
+  Add a selection
+- [createSelection](http://vsc-base.orb/#createSelection)
+  Add a vscode.Selection
+- [getVscodeRangeAndPosition](http://vsc-base.orb/#getVscodeRangeAndPosition)
+  Get a vscode.Position's ans vscode.Rage from start end end positions (numbers)
 
 **new system method:**
 
--  [execFromPath](http://vsc-base.orb/#execFromPath)
-   Execute a command in the nodejs context (Not vscode!)
+- [execFromPath](http://vsc-base.orb/#execFromPath)
+  Execute a command in the nodejs context (Not vscode!)
 
 **new ts method**
 
--  [tsFindNodePosition](http://vsc-base.orb/#tsFindNodePosition)
--  [tsMatchVariable](http://vsc-base.orb/#tsMatchVariable)
--  [tsMatchObjectProperty](http://vsc-base.orb/#tsMatchObjectProperty)
--  [tsMatchFunction](http://vsc-base.orb/#tsMatchFunction)
--  [tsMatchAnsector](http://vsc-base.orb/#tsMatchAnsector)
--  [tsFindChildNode](http://vsc-base.orb/#tsFindChildNode)
--  [tsFindGrandChildNode](http://vsc-base.orb/#tsFindGrandChildNode)
+- [tsFindNodePosition](http://vsc-base.orb/#tsFindNodePosition)
+- [tsMatchVariable](http://vsc-base.orb/#tsMatchVariable)
+- [tsMatchObjectProperty](http://vsc-base.orb/#tsMatchObjectProperty)
+- [tsMatchFunction](http://vsc-base.orb/#tsMatchFunction)
+- [tsMatchAnsector](http://vsc-base.orb/#tsMatchAnsector)
+- [tsFindChildNode](http://vsc-base.orb/#tsFindChildNode)
+- [tsFindGrandChildNode](http://vsc-base.orb/#tsFindGrandChildNode)
 
 ### Changes
 
@@ -645,8 +669,8 @@ Add maxDepth option to toString
 
 Add Raw methods:
 
--  [getJSONCircularReplacer](http://vsc-base.org/#getJSONCircularReplacer)
--  [toString](http://vsc-base.org/#toString)
+- [getJSONCircularReplacer](http://vsc-base.org/#getJSONCircularReplacer)
+- [toString](http://vsc-base.org/#toString)
 
 ## 0.4.1
 
@@ -695,12 +719,12 @@ with vsc-base, vsc-base.org and vsc-script on one mono-respo.
 Lots of new methods.
 Important one:
 
--  [pick](http://vsc-base.org/#pick)
-   (Let the user pick deom a list)
--  [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
-   ect (New methods for editing the open document)
--  [relative](http://vsc-base.org/#relative)
-   Find path methods.
+- [pick](http://vsc-base.org/#pick)
+  (Let the user pick deom a list)
+- [appendLineToActiveDocument](http://vsc-base.org/#appendLineToActiveDocument)
+  ect (New methods for editing the open document)
+- [relative](http://vsc-base.org/#relative)
+  Find path methods.
 
 (Documentation will be added to vsc-base.org, but this will be later..)
 Version update will come when it happens.

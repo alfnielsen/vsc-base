@@ -22,7 +22,7 @@ Test if a node is a function
                Optional test for its name with a string or regexp. 
                </p>
                <p>
-               (For ArrowFunction's and FunctionExpression's it will test for a variable declaration that points to the function) 
+               (For ArrowFunction&#039;s and FunctionExpression&#039;s it will test for a variable declaration that points to the function) 
                </p>
                <p>
                Optional test for tsHasAncestor and hasGrandChild 

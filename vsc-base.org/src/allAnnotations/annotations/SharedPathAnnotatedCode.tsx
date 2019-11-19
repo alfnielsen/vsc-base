@@ -20,7 +20,7 @@ const SharedPathAnnotatedCode = ({ open = false }: {open?: boolean}) => {
 Return the path that are shared. 
                </p>
                <p>
-               (Return '' if no path are shared).
+               (Return &#039;&#039; if no path are shared).
                </p>
             </>
          }

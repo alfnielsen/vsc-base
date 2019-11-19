@@ -841,6 +841,43 @@ exports.keyValueReplacer = (obj, key, newValue) => {
 };
 /** vsc-base method
  * @description
+ * Simple implementation of that escape: & < > " and ' \
+ * It will also encode curly bracket { } unless option is set to false (encodeCurlyBracket: default is true) \
+ * @see [escapeHtml](http://vsc-base.org/#escapeHtml)
+ * @vscType Raw
+ * @example
+ * const safeHTML = vsc.escapeHtml(unsafeHTML);
+ * @testPrinterArgument
+{
+   html: ''
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const res = vsc.escapeHtml(args.html)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}
+ * @returns string
+ */
+exports.escapeHtml = (unsafe, encodeCurlyBracket = true) => {
+    let save = unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    if (encodeCurlyBracket) {
+        save = save
+            .replace(/{/g, "&#123;")
+            .replace(/}/g, "&#125;");
+    }
+    return save;
+};
+/** vsc-base method
+ * @description
  * Clone an JSON Object (any type) going through its entire tree structure. \
  * This method goes through the object structure, and call the given callback on esh child (and grandchild). \
  * The call back can replace each child or stop the iteration. \

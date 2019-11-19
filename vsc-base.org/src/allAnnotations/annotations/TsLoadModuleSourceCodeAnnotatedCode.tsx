@@ -16,7 +16,7 @@ const TsLoadModuleSourceCodeAnnotatedCode = ({ open = false }: {open?: boolean})
 Pre method for tsLoadModule. 
                </p>
                <p>
-               (This methods load the ts source, transpile it to js and replace all 'require' instance)
+               (This methods load the ts source, transpile it to js and replace all &#039;require&#039; instance)
                </p>
             </>
          }

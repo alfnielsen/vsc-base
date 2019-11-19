@@ -326,3 +326,10 @@ suite('Raw_insertBefore', () => {
       assert.equal(r1, res)
    })
 })
+
+suite('Raw_escapeHtml', () => {
+   test(' 1', () => {
+      const r1 = vsc.escapeHtml('&<>"\'{}')
+      assert.equal(r1, '&amp;&lt;&gt;&quot;&#039;&#123;&#125;')
+   })
+})

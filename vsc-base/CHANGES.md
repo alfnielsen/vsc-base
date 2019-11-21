@@ -2,6 +2,12 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.7
+
+Add new vscode methods:
+
+- [open](http://vsc-base.org/#open)
+
 ## 0.9.6
 
 fix dispose

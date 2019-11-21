@@ -17,6 +17,17 @@ import * as vsc from './vsc-base';
 export declare const ask: (question: string, defaultValue: string) => Promise<string | undefined>;
 /** vsc-base method
  * @description
+ * Open a file in vscode.
+ * @see [ask](http://vsc-base.org/#open)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @example
+ * const editor = await vc.open(path)
+ * @returns Promise<vscode.TextEditor | undefined>
+ */
+export declare const open: (path: string, column?: vscode.ViewColumn | undefined, preserveFocus?: boolean | undefined) => Promise<vscode.TextEditor | undefined>;
+/** vsc-base method
+ * @description
  * Prompt user for a question with a list of answers
  * @see [pick](http://vsc-base.org/#pick)
  * @param path string[]

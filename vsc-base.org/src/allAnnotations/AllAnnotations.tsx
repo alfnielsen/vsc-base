@@ -58,6 +58,7 @@ import MaxDepthReplacerAnnotatedCode from './annotations/MaxDepthReplacerAnnotat
 import MoveAnnotatedCode from './annotations/MoveAnnotatedCode'
 import NewDocumentAnnotatedCode from './annotations/NewDocumentAnnotatedCode'
 import ObjectWalkerAnnotatedCode from './annotations/ObjectWalkerAnnotatedCode'
+import OpenAnnotatedCode from './annotations/OpenAnnotatedCode'
 import PathAsUnixAnnotatedCode from './annotations/PathAsUnixAnnotatedCode'
 import PickAnnotatedCode from './annotations/PickAnnotatedCode'
 import PrependLineToDocumentAnnotatedCode from './annotations/PrependLineToDocumentAnnotatedCode'
@@ -210,6 +211,7 @@ const annotations = [
   { vscType: 'system', name: 'move', component: (open: boolean) => <MoveAnnotatedCode key={'move'} open={open} /> },
   { vscType: 'vscode', name: 'newdocument', component: (open: boolean) => <NewDocumentAnnotatedCode key={'newDocument'} open={open} /> },
   { vscType: 'raw', name: 'objectwalker', component: (open: boolean) => <ObjectWalkerAnnotatedCode key={'objectWalker'} open={open} /> },
+  { vscType: 'vscode', name: 'open', component: (open: boolean) => <OpenAnnotatedCode key={'open'} open={open} /> },
   { vscType: 'raw', name: 'pathasunix', component: (open: boolean) => <PathAsUnixAnnotatedCode key={'pathAsUnix'} open={open} /> },
   { vscType: 'vscode', name: 'pick', component: (open: boolean) => <PickAnnotatedCode key={'pick'} open={open} /> },
   { vscType: 'vscode', name: 'prependlinetodocument', component: (open: boolean) => <PrependLineToDocumentAnnotatedCode key={'prependLineToDocument'} open={open} /> },

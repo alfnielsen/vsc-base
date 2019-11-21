@@ -27,6 +27,31 @@ export const ask = async (
 
 /** vsc-base method
  * @description 
+ * Open a file in vscode.
+ * @see [ask](http://vsc-base.org/#open)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @example
+ * const editor = await vc.open(path)
+ * @returns Promise<vscode.TextEditor | undefined>
+ */
+export const open = async (
+   path: string,
+   column?: vscode.ViewColumn | undefined,
+   preserveFocus?: boolean | undefined
+): Promise<vscode.TextEditor | undefined> => {
+   const uri = vscode.Uri.parse('file:' + path);
+   try {
+      const doc = await vscode.workspace.openTextDocument(uri);
+      const editor = await vscode.window.showTextDocument(doc, column, preserveFocus)
+      return editor
+   } catch (e) {
+      return undefined
+   }
+}
+
+/** vsc-base method
+ * @description 
  * Prompt user for a question with a list of answers
  * @see [pick](http://vsc-base.org/#pick)
  * @param path string[]

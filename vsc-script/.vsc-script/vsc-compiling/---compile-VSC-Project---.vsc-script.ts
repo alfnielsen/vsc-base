@@ -45,24 +45,19 @@ export async function run(path: string, context: vscode.ExtensionContext) {
    await CompileToVscBaseOrg(dir, parts, post)
    post('Cloning to vsc-base..')
    await CloneAndBuildVscBase(dir, vscFiles, post)
-   post(`Compiling Done`)
-   await vsc.sleep(1000)
    post(`-------------`)
-   await vsc.sleep(1000)
-   post(`Closing in 5`)
-   await vsc.sleep(1000)
-   post(`Closing in 4`)
-   await vsc.sleep(1000)
-   post(`Closing in 3`)
-   await vsc.sleep(1000)
-   post(`Closing in 2`)
-   await vsc.sleep(1000)
-   post(`Closing in 1`)
-   await vsc.sleep(1000)
-   dispose()
+   post(`Compiling Done`)
+   post(`-------------`)
+   post(`<button onClick="postMessage({command:'end'})">Close</button>`)
+   await onMessage((message, resolve) => {
+      switch (message.command) {
+         case "end":
+            dispose()
+            resolve()
+            break;
+      }
+   })
 }
-
-
 
 const CreateTests = async (parts: CodePart[]) => {
    for (const part of parts) {

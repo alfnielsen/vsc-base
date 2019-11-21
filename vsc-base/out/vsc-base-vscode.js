@@ -32,6 +32,27 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
 });
 /** vsc-base method
  * @description
+ * Open a file in vscode.
+ * @see [ask](http://vsc-base.org/#open)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @example
+ * const editor = await vc.open(path)
+ * @returns Promise<vscode.TextEditor | undefined>
+ */
+exports.open = (path, column, preserveFocus) => __awaiter(this, void 0, void 0, function* () {
+    const uri = vscode.Uri.parse('file:' + path);
+    try {
+        const doc = yield vscode.workspace.openTextDocument(uri);
+        const editor = yield vscode.window.showTextDocument(doc, column, preserveFocus);
+        return editor;
+    }
+    catch (e) {
+        return undefined;
+    }
+});
+/** vsc-base method
+ * @description
  * Prompt user for a question with a list of answers
  * @see [pick](http://vsc-base.org/#pick)
  * @param path string[]

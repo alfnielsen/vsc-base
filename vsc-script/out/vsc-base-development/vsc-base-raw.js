@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -561,7 +562,7 @@ exports.sharedPath = (path1, path2) => {
 }
  * @returns Promise<void>
  */
-exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
+exports.sleep = (ms) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise(resolve => setTimeout(resolve, ms));
 });
 /** vsc-base method
@@ -845,6 +846,43 @@ exports.keyValueReplacer = (obj, key, newValue) => {
         }
     });
     return walkedObj;
+};
+/** vsc-base method
+ * @description
+ * Simple implementation of that escape: & < > " and ' \
+ * It will also encode curly bracket { } unless option is set to false (encodeCurlyBracket: default is true) \
+ * @see [escapeHtml](http://vsc-base.org/#escapeHtml)
+ * @vscType Raw
+ * @example
+ * const safeHTML = vsc.escapeHtml(unsafeHTML);
+ * @testPrinterArgument
+{
+   html: ''
+}
+ * @testPrinter (args, setResult) => {
+    try{
+       const res = vsc.escapeHtml(args.html)
+       const resString = JSON.stringify(res)
+       setResult(resString)
+    }catch(e){
+       setResult(''+e)
+    }
+}
+ * @returns string
+ */
+exports.escapeHtml = (unsafe, encodeCurlyBracket = true) => {
+    let save = unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    if (encodeCurlyBracket) {
+        save = save
+            .replace(/{/g, "&#123;")
+            .replace(/}/g, "&#125;");
+    }
+    return save;
 };
 /** vsc-base method
  * @description

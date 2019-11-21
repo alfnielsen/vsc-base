@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -25,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const assert = __importStar(require("assert"));
 const vsc = __importStar(require("../../vsc-base-development/vsc-base"));
 suite('System_addFileContent', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE.ts';
         yield vsc.saveFileContent(path, 'File1');
         yield vsc.addFileContent(path, '\nMORE!');
@@ -34,7 +35,7 @@ suite('System_addFileContent', () => {
     }));
 });
 suite('System_copy', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE.ts';
         const path2 = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE2.ts';
         yield vsc.copy(path, path2);
@@ -56,7 +57,7 @@ suite('System_doesExists', () => {
     });
 });
 suite('System_emptyDir', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE';
         const path2 = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE2.ts';
         const r1 = vsc.doesExists(path2);
@@ -68,7 +69,7 @@ suite('System_emptyDir', () => {
     }));
 });
 suite('System_execFromPath', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE';
         yield vsc.execFromPath('mkdir test', path);
         const path2 = '/Users/alfnielsen/TEMP_VSC-BASE/test';
@@ -83,7 +84,7 @@ suite('System_execFromPath', () => {
 //    })
 // })
 suite('System_getDir', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE2.ts';
         yield vsc.saveFileContent(path, 'File1');
         const dir = vsc.getDir(path);
@@ -91,14 +92,14 @@ suite('System_getDir', () => {
     }));
 });
 suite('System_getFileContent', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/TEMP_TEST_FILE2.ts';
         const source = yield vsc.getFileContent(path);
         assert.equal(source, 'File1');
     }));
 });
 suite('System_getJsonContent', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/json.json';
         yield vsc.saveFileContent(path, '{"test":1}');
         const json = yield vsc.getJsonContent(path);
@@ -108,7 +109,7 @@ suite('System_getJsonContent', () => {
     }));
 });
 suite('System_getLineStreamReader', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         var e_1, _a;
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/reader.ts';
         yield vsc.saveFileContent(path, '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n');
@@ -145,7 +146,7 @@ suite('System_getLineStreamReader', () => {
             finally { if (e_1) throw e_1.error; }
         }
     }));
-    test(' 2', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 2', () => __awaiter(void 0, void 0, void 0, function* () {
         var e_2, _d;
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/reader.ts';
         yield vsc.saveFileContent(path, '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n');
@@ -200,7 +201,7 @@ suite('System_getLineStreamReader', () => {
 //    })
 // })
 suite('System_getReadStream', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         var e_3, _a;
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/readerChunk.ts';
         yield vsc.saveFileContent(path, `readerChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreaderChunkreader`);
@@ -246,7 +247,7 @@ suite('System_isDir', () => {
     });
 });
 suite('System_makeDir', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir';
         yield vsc.makeDir(path);
         const r1 = vsc.doesExists(path);
@@ -260,7 +261,7 @@ suite('System_makeDir', () => {
     }));
 });
 suite('System_move', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path1 = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir';
         const path12 = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir/test1.ts';
         const path13 = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir/test1-2.ts';
@@ -275,7 +276,7 @@ suite('System_move', () => {
     }));
 });
 suite('System_remove', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const path1 = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir/test1-2.ts';
         const pathDir = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir';
         const pathSupDir = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir/testSubDir';
@@ -292,7 +293,7 @@ suite('System_remove', () => {
     }));
 });
 suite('System_rename', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const pathDir = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir';
         const pathDir2 = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir2';
         const pathDirFile = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir/file1.ts';
@@ -309,7 +310,7 @@ suite('System_rename', () => {
     }));
 });
 suite('System_saveFileContent', () => {
-    test(' 1', () => __awaiter(this, void 0, void 0, function* () {
+    test(' 1', () => __awaiter(void 0, void 0, void 0, function* () {
         const pathDirFile = '/Users/alfnielsen/TEMP_VSC-BASE/test-new-dir2/file1.ts';
         yield vsc.saveFileContent(pathDirFile, "file1");
         const r1 = vsc.doesExists(pathDirFile);

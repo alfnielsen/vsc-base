@@ -1,5 +1,14 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const assert = __importStar(require("assert"));
+const vsc = __importStar(require("../../vsc-base-development/vsc-base"));
 // suite('Vscode_addSelection', () => {
 //    test(' 1', () => {
 //       const r1 = vsc.addSelection()
@@ -198,4 +207,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //       assert.equal(r1, '')
 //    })
 // })
+suite('Vscode_open', () => {
+    test(' 1', () => {
+        const r1 = vsc.open();
+        assert.equal(r1, '');
+    });
+});
 //# sourceMappingURL=vsc-base-vscode.test.js.map

@@ -233,9 +233,9 @@ import * as vsc from '../../vsc-base-development/vsc-base'
 //    })
 // })
 
-suite('Vscode_open', () => {
-   test(' 1', () => {
-      const r1 = vsc.open()
-      assert.equal(r1, '')
-   })
-})
+// suite('Vscode_open', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.open()
+//       assert.equal(r1, '')
+//    })
+// })

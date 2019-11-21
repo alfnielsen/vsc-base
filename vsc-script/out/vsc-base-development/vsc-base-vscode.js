@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -31,11 +32,32 @@ const vsc = __importStar(require("./vsc-base"));
  * const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
  */
-exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, function* () {
+exports.ask = (question, defaultValue) => __awaiter(void 0, void 0, void 0, function* () {
     return yield vscode.window.showInputBox({
         prompt: question,
         value: defaultValue
     });
+});
+/** vsc-base method
+ * @description
+ * Open a file in vscode.
+ * @see [ask](http://vsc-base.org/#open)
+ * @dependencyExternal vscode
+ * @vscType Vscode
+ * @example
+ * const editor = await vc.open(path)
+ * @returns Promise<vscode.TextEditor | undefined>
+ */
+exports.open = (path, column, preserveFocus) => __awaiter(void 0, void 0, void 0, function* () {
+    const uri = vscode.Uri.parse('file:' + path);
+    try {
+        const doc = yield vscode.workspace.openTextDocument(uri);
+        const editor = yield vscode.window.showTextDocument(doc, column, preserveFocus);
+        return editor;
+    }
+    catch (e) {
+        return undefined;
+    }
 });
 /** vsc-base method
  * @description
@@ -51,7 +73,7 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
  * const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */
-exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
+exports.pick = (answerList) => __awaiter(void 0, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
 /** vsc-base method
  * @description
  * Get a list off all filePaths in project the matches a glob pattern
@@ -72,7 +94,7 @@ exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { re
  * }
  * @returns Promise<string[]>
  */
-exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     const uriFiles = yield vscode.workspace.findFiles(include, exclude, maxResults);
     const files = uriFiles.map((uri) => vsc.pathAsUnix(uri.fsPath));
     return files;
@@ -97,7 +119,7 @@ exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_mo
  * }
  * @returns Promise<string[]>
  */
-exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     let baseDir = vsc.getDir(basePath);
     const include = new vscode.RelativePattern(baseDir, includePattern);
     const filePaths = yield vsc.findFilePaths(include, exclude, maxResults);
@@ -131,7 +153,7 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
  * // Do something with modulePath..
  * @returns Promise<string[]>
  */
-exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     const dir = vsc.getDir(path);
     const joinPath = vsc.joinPaths(dir, relativePath);
     let base = vsc.cleanPath(joinPath + '/');
@@ -222,7 +244,7 @@ exports.getActiveDocument = (editor) => {
  * @vscType Vscode
  * @returns Promise<vscode.TextDocument>
  */
-exports.newDocument = (content, language = 'typescript') => __awaiter(this, void 0, void 0, function* () {
+exports.newDocument = (content, language = 'typescript') => __awaiter(void 0, void 0, void 0, function* () {
     const document = yield vscode.workspace.openTextDocument({ language, content });
     yield vscode.window.showTextDocument(document);
     return document;
@@ -441,7 +463,7 @@ exports.prependLineToDocument = (content, editor) => {
  * const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
-exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* () {
+exports.saveDocument = (document) => __awaiter(void 0, void 0, void 0, function* () {
     if (!document) {
         document = vsc.getActiveDocument();
     }
@@ -691,7 +713,7 @@ exports.getRootPath = (path) => {
  * await vsc.saveAll()
  * @returns Promise<void>
  */
-exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
+exports.saveAll = () => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.workspace.saveAll(false);
 });
 /** vsc-base method
@@ -705,7 +727,7 @@ exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
  * vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
-exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function* () {
+exports.showErrorMessage = (message) => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.window.showErrorMessage(message);
 });
 /** vsc-base method
@@ -719,7 +741,7 @@ exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function
  * vsc.showMessage(message)
  * @returns Promise<void>
  */
-exports.showMessage = (message) => __awaiter(this, void 0, void 0, function* () {
+exports.showMessage = (message) => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.window.showInformationMessage(message);
 });
 //# sourceMappingURL=vsc-base-vscode.js.map

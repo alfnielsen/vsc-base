@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -29,7 +30,7 @@ const vsc = __importStar(require("./vsc-base"));
  * await vsc.scaffoldTemplate(path, template)
  * @returns Promise<void>
  */
-exports.scaffoldTemplate = (path, templateItem, userInputs = {}) => __awaiter(this, void 0, void 0, function* () {
+exports.scaffoldTemplate = (path, templateItem, userInputs = {}) => __awaiter(void 0, void 0, void 0, function* () {
     switch (templateItem.type) {
         case 'folder': {
             let name = templateItem.name;
@@ -41,7 +42,7 @@ exports.scaffoldTemplate = (path, templateItem, userInputs = {}) => __awaiter(th
             if (!templateItem.children) {
                 break;
             }
-            templateItem.children.forEach((childItem) => __awaiter(this, void 0, void 0, function* () {
+            templateItem.children.forEach((childItem) => __awaiter(void 0, void 0, void 0, function* () {
                 vsc.scaffoldTemplate(folderPath, childItem, userInputs);
             }));
             break;

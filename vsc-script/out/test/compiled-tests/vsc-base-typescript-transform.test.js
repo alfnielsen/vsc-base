@@ -60,4 +60,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //       assert.equal(r1, '')
 //    })
 // })
+// suite('ts_tsCreateProgram', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.tsCreateProgram()
+//       assert.equal(r1, '')
+//    })
+// })
 //# sourceMappingURL=vsc-base-typescript-transform.test.js.map

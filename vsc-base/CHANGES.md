@@ -46,6 +46,18 @@ Change in all of these methods:
 
 - [WebViewHTMLTemplate](http://vsc-base.org/#WebViewHTMLTemplate)
 
+Most important breaking change:
+
+```ts
+// Old:
+const [postMessage, onWevviewMessage, dispose] = vsc.startWebview(context, {});
+// New:
+const { postMessage, onCommand, onMessage, dispose } = vsc.startWebview(
+  context,
+  {}
+);
+```
+
 ## 0.9.7
 
 Add new vscode methods:

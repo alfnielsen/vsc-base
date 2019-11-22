@@ -29,7 +29,7 @@ Start up a webview with message passing between it and the extension.
          
          codeOneLineEx={`const [postMessage, onMessage, dispose] = vsc.startWebview(context, startOptions)`}
          codeEx={`
-const [postMessage, onMessage, dispose] = vsc.startWebview(context, \{
+const \{postMessage, onMessage, dispose} = vsc.startWebview(context, \{
    title: "Rename",
    body: \`
        <div class='container'>
@@ -44,7 +44,7 @@ const [postMessage, onMessage, dispose] = vsc.startWebview(context, \{
           <div id='info'>info</div>
        </div>
     \`,
-   onWebviewMessage: (message: any) => \{
+   onMessage: (message: any) => \{
      switch (message.command) \{
        case "info":
        case "find":

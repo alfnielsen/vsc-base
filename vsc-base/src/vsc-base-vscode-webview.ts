@@ -17,7 +17,16 @@ import * as vsc from './vsc-base'
  * @example
  * const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)
  */
-export const WebviewHTMLTemplate = (body = '', script = '()=>{}', style = ''): string => (`<!DOCTYPE html>
+export const WebviewHTMLTemplate = ({
+   body = '',
+   onMessageScript = '',
+   onCommandScript = '',
+   style = '',
+   script = ''
+}): string => {
+   onMessageScript = onMessageScript || 'undefined;'
+   onCommandScript = onCommandScript || 'undefined;'
+   return (`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -112,16 +121,39 @@ export const WebviewHTMLTemplate = (body = '', script = '()=>{}', style = ''): s
     (function() {
       const vscode = acquireVsCodeApi();
       window.postMessage = vscode.postMessage;
-      const onMessageCode = (event) => {
-         const messageCallback = ${script}
-         messageCallback(event.data)
+      window.sendCommand = (command, value) => {
+         vscode.postMessage({command, value})
       } 
+      const onMessageCode = (event) => {
+         const onMessageCallback = ${onMessageScript}
+         const onCommandCallback = ${onCommandScript}
+         const data = event.data;
+         if(data && data.__vscCommand__){
+            switch (data.__vscCommand__) {
+               case "setHTML":
+                  var elm = document.querySelector(data.querySelector)
+                  if(elm){
+                     elm.innerHTML = data.html;
+                  }
+                  break;
+            }
+         }else{
+            if(onCommandCallback && data && typeof data.command === 'string'){
+               onCommandCallback(data.command, data.value, event)
+            }
+            if(onMessageCallback){
+               onMessageCallback(data, event)
+            }
+         }
+      }
       window.addEventListener('message', onMessageCode);
     }())
     </script>
+    <script>${script}</script>
 </head>
 <body>${body}</body>
-</html>`)
+</html>`);
+}
 
 /** vsc-base method
  * @description 
@@ -149,7 +181,9 @@ export const initWebview = ({
    html,
    body,
    style,
-   onWebviewMessage: onMessageCode,
+   script,
+   onMessage: onMessageCode = '',
+   onCommand: onCommandCode = '',
    showOptions = vscode.ViewColumn.One,
    options = { enableScripts: true },
    htmlTemplateMethod = vsc.WebviewHTMLTemplate
@@ -162,11 +196,28 @@ export const initWebview = ({
    );
    if (html) {
       webviewPanel.webview.html = html;
-   } else if (body && onMessageCode) {
-      const onMessageCodeString = (onMessageCode instanceof Function) ?
-         onMessageCode.toString() : onMessageCode
+   } else {
+      let onMessageCodeString = ''
+      if (onMessageCode instanceof Function) {
+         onMessageCodeString = onMessageCode.toString()
+      } else {
+         onMessageCodeString = onMessageCode
+      }
       const onMessageCodeJs = vsc.tsTranspile(onMessageCodeString)
-      webviewPanel.webview.html = htmlTemplateMethod(body, onMessageCodeJs, style)
+      let onCommandCodeString = ''
+      if (onCommandCode instanceof Function) {
+         onCommandCodeString = onCommandCode.toString()
+      } else {
+         onCommandCodeString = onCommandCode
+      }
+      const onCommandCodeJs = vsc.tsTranspile(onCommandCodeString)
+      webviewPanel.webview.html = htmlTemplateMethod({
+         body,
+         onMessageScript: onMessageCodeJs,
+         onCommandScript: onCommandCodeJs,
+         style,
+         script
+      })
    }
    return webviewPanel
 }
@@ -185,8 +236,7 @@ export const initWebview = ({
  * @see [setupWebviewConnection](http://vsc-base.org/#setupWebviewConnection)
  * @internal
  * @vscType webview
- * @returns [postMessage, createdOnMessage]
- * @returns [(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
+ * @returns vsc.WebviewConnectionReturnType (See [startWebview](http://vsc-base.org/#startWebview))
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
@@ -203,17 +253,34 @@ export const setupWebviewConnection = (
       }
       return false
    }
-   const proxy: {
-      onMessage: (message: any, resolve: () => void) => void
-      resolve: (value?: unknown) => void
-   } = {
-      onMessage: (message, resolve) => { },
-      resolve: (value) => { }
+   const sendCommand = async (command: string, value: any) => {
+      if (webviewPanel) {
+         return await webviewPanel.webview.postMessage({ command, value });
+      }
+      return false
    }
+   const sendSetHTML = async (querySelector: string, html: string) => {
+      if (webviewPanel) {
+         return await webviewPanel.webview.postMessage({ __vscCommand__: 'setHTML', querySelector, html });
+      }
+      return false
+   }
+   const proxy: {
+      onMessage?: WebviewOnMessageCallBack
+      onCommand?: WebviewOnCommandCallBack
+      resolve?: (value?: unknown) => void
+   } = {}
    webviewPanel.webview.onDidReceiveMessage(
-      message =>
-         proxy.onMessage &&
-         proxy.onMessage(message, proxy.resolve)
+      message => {
+         if (proxy.resolve) {
+            if (proxy.onMessage) {
+               proxy.onMessage(message, proxy.resolve)
+            }
+            if (proxy.onCommand && message && typeof message.command === 'string') {
+               proxy.onCommand(message.command, message.value, proxy.resolve)
+            }
+         }
+      }
       ,
       undefined,
       context.subscriptions
@@ -223,7 +290,7 @@ export const setupWebviewConnection = (
          webviewPanel.dispose();
       }
    }
-   const createdOnMessage = async (onMessage: (message: any, resolve: () => void) => void): Promise<void> => {
+   const createdOnMessage = async (onMessage: WebviewOnMessageCallBack): Promise<void> => {
       proxy.onMessage = onMessage;
       return new Promise((resolve) => {
          proxy.resolve = () => {
@@ -231,7 +298,23 @@ export const setupWebviewConnection = (
          }
       })
    }
-   return [postMessage, createdOnMessage, dispose, webviewPanel]
+   const createdOnCommand = async (onCommand: WebviewOnCommandCallBack): Promise<void> => {
+      proxy.onCommand = onCommand;
+      return new Promise((resolve) => {
+         proxy.resolve = () => {
+            resolve()
+         }
+      })
+   }
+   return {
+      sendSetHTML,
+      postMessage,
+      onMessage: createdOnMessage,
+      dispose,
+      webviewPanel,
+      sendCommand,
+      onCommand: createdOnCommand
+   }
 }
 
 /** vsc-base method
@@ -289,8 +372,9 @@ export const setupWebviewConnection = (
  */
 export const startWebview = (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions): vsc.WebviewConnectionReturnType => {
    const webviewPanel = vsc.initWebview(startOptions);
-   const [sendMessage, createdOnMessage, dispose] = vsc.setupWebviewConnection(context, webviewPanel)
-   return [sendMessage, createdOnMessage, dispose, webviewPanel]
+   const options = vsc.setupWebviewConnection(context, webviewPanel)
+   options.webviewPanel = webviewPanel
+   return options
 }
 export interface IStartWebviewOptions {
    viewType?: string,
@@ -298,9 +382,10 @@ export interface IStartWebviewOptions {
    html?: string,
    body?: string,
    style?: string,
-   onWebviewMessage?: string | ((message: any) => void),
-   webviewCommands?: any,
-   htmlTemplateMethod?: (body?: string, script?: string, style?: string) => string,
+   script?: string,
+   onMessage?: string | ((message: any) => void),
+   onCommand?: string | ((command: string, value: any) => void),
+   htmlTemplateMethod?: WebviewHTMLTemplateMethod,
    showOptions?: vscode.ViewColumn | {
       viewColumn: vscode.ViewColumn;
       preserveFocus?: boolean | undefined;
@@ -308,4 +393,15 @@ export interface IStartWebviewOptions {
    options?: vscode.WebviewPanelOptions & vscode.WebviewOptions
 }
 
-export type WebviewConnectionReturnType = [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel]
+export type WebviewConnectionReturnType = {
+   sendSetHTML: (querySelector: string, html: string) => Promise<boolean>,
+   postMessage: (message: any) => Promise<boolean>,
+   onMessage: (callback: WebviewOnMessageCallBack) => Promise<void>,
+   sendCommand: (command: string, value: any) => Promise<boolean>,
+   onCommand: (callback: WebviewOnCommandCallBack) => Promise<void>,
+   dispose: () => void,
+   webviewPanel: vscode.WebviewPanel
+}
+export type WebviewOnMessageCallBack = (message: any, resolve: () => void) => void
+export type WebviewOnCommandCallBack = (command: any, value: any, resolve: () => void) => void
+export type WebviewHTMLTemplateMethod = (options: { body?: string, onMessageScript?: string, onCommandScript?: string, style?: string, script?: string }) => string

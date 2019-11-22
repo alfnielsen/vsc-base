@@ -24,7 +24,10 @@ const vsc = require("./vsc-base");
  * @example
  * const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)
  */
-exports.WebviewHTMLTemplate = (body = '', script = '()=>{}', style = '') => (`<!DOCTYPE html>
+exports.WebviewHTMLTemplate = ({ body = '', onMessageScript = '', onCommandScript = '', style = '', script = '' }) => {
+    onMessageScript = onMessageScript || 'undefined;';
+    onCommandScript = onCommandScript || 'undefined;';
+    return (`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -119,16 +122,39 @@ exports.WebviewHTMLTemplate = (body = '', script = '()=>{}', style = '') => (`<!
     (function() {
       const vscode = acquireVsCodeApi();
       window.postMessage = vscode.postMessage;
-      const onMessageCode = (event) => {
-         const messageCallback = ${script}
-         messageCallback(event.data)
+      window.sendCommand = (command, value) => {
+         vscode.postMessage({command, value})
       } 
+      const onMessageCode = (event) => {
+         const onMessageCallback = ${onMessageScript}
+         const onCommandCallback = ${onCommandScript}
+         const data = event.data;
+         if(data && data.__vscCommand__){
+            switch (data.__vscCommand__) {
+               case "setHTML":
+                  var elm = document.querySelector(data.querySelector)
+                  if(elm){
+                     elm.innerHTML = data.html;
+                  }
+                  break;
+            }
+         }else{
+            if(onCommandCallback && data && typeof data.command === 'string'){
+               onCommandCallback(data.command, data.value, event)
+            }
+            if(onMessageCallback){
+               onMessageCallback(data, event)
+            }
+         }
+      }
       window.addEventListener('message', onMessageCode);
     }())
     </script>
+    <script>${script}</script>
 </head>
 <body>${body}</body>
 </html>`);
+};
 /** vsc-base method
  * @description
  * Creates an WebviewPanel. \
@@ -149,16 +175,35 @@ exports.WebviewHTMLTemplate = (body = '', script = '()=>{}', style = '') => (`<!
  * @example
  * const webviewPanel = vsc.initWebview(startOptions)
  */
-exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, style, onWebviewMessage: onMessageCode, showOptions = vscode.ViewColumn.One, options = { enableScripts: true }, htmlTemplateMethod = vsc.WebviewHTMLTemplate }) => {
+exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, style, script, onMessage: onMessageCode = '', onCommand: onCommandCode = '', showOptions = vscode.ViewColumn.One, options = { enableScripts: true }, htmlTemplateMethod = vsc.WebviewHTMLTemplate }) => {
     const webviewPanel = vscode.window.createWebviewPanel(viewType, title, showOptions, options);
     if (html) {
         webviewPanel.webview.html = html;
     }
-    else if (body && onMessageCode) {
-        const onMessageCodeString = (onMessageCode instanceof Function) ?
-            onMessageCode.toString() : onMessageCode;
+    else {
+        let onMessageCodeString = '';
+        if (onMessageCode instanceof Function) {
+            onMessageCodeString = onMessageCode.toString();
+        }
+        else {
+            onMessageCodeString = onMessageCode;
+        }
         const onMessageCodeJs = vsc.tsTranspile(onMessageCodeString);
-        webviewPanel.webview.html = htmlTemplateMethod(body, onMessageCodeJs, style);
+        let onCommandCodeString = '';
+        if (onCommandCode instanceof Function) {
+            onCommandCodeString = onCommandCode.toString();
+        }
+        else {
+            onCommandCodeString = onCommandCode;
+        }
+        const onCommandCodeJs = vsc.tsTranspile(onCommandCodeString);
+        webviewPanel.webview.html = htmlTemplateMethod({
+            body,
+            onMessageScript: onMessageCodeJs,
+            onCommandScript: onCommandCodeJs,
+            style,
+            script
+        });
     }
     return webviewPanel;
 };
@@ -176,8 +221,7 @@ exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, s
  * @see [setupWebviewConnection](http://vsc-base.org/#setupWebviewConnection)
  * @internal
  * @vscType webview
- * @returns [postMessage, createdOnMessage]
- * @returns [(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
+ * @returns vsc.WebviewConnectionReturnType (See [startWebview](http://vsc-base.org/#startWebview))
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
@@ -191,12 +235,29 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
         }
         return false;
     });
-    const proxy = {
-        onMessage: (message, resolve) => { },
-        resolve: (value) => { }
-    };
-    webviewPanel.webview.onDidReceiveMessage(message => proxy.onMessage &&
-        proxy.onMessage(message, proxy.resolve), undefined, context.subscriptions);
+    const sendCommand = (command, value) => __awaiter(this, void 0, void 0, function* () {
+        if (webviewPanel) {
+            return yield webviewPanel.webview.postMessage({ command, value });
+        }
+        return false;
+    });
+    const sendSetHTML = (querySelector, html) => __awaiter(this, void 0, void 0, function* () {
+        if (webviewPanel) {
+            return yield webviewPanel.webview.postMessage({ __vscCommand__: 'setHTML', querySelector, html });
+        }
+        return false;
+    });
+    const proxy = {};
+    webviewPanel.webview.onDidReceiveMessage(message => {
+        if (proxy.resolve) {
+            if (proxy.onMessage) {
+                proxy.onMessage(message, proxy.resolve);
+            }
+            if (proxy.onCommand && message && typeof message.command === 'string') {
+                proxy.onCommand(message.command, message.value, proxy.resolve);
+            }
+        }
+    }, undefined, context.subscriptions);
     const dispose = () => {
         if (webviewPanel) {
             webviewPanel.dispose();
@@ -210,7 +271,23 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
             };
         });
     });
-    return [postMessage, createdOnMessage, dispose, webviewPanel];
+    const createdOnCommand = (onCommand) => __awaiter(this, void 0, void 0, function* () {
+        proxy.onCommand = onCommand;
+        return new Promise((resolve) => {
+            proxy.resolve = () => {
+                resolve();
+            };
+        });
+    });
+    return {
+        sendSetHTML,
+        postMessage,
+        onMessage: createdOnMessage,
+        dispose,
+        webviewPanel,
+        sendCommand,
+        onCommand: createdOnCommand
+    };
 };
 /** vsc-base method
  * @description
@@ -267,7 +344,8 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
  */
 exports.startWebview = (context, startOptions) => {
     const webviewPanel = vsc.initWebview(startOptions);
-    const [sendMessage, createdOnMessage, dispose] = vsc.setupWebviewConnection(context, webviewPanel);
-    return [sendMessage, createdOnMessage, dispose, webviewPanel];
+    const options = vsc.setupWebviewConnection(context, webviewPanel);
+    options.webviewPanel = webviewPanel;
+    return options;
 };
 //# sourceMappingURL=vsc-base-vscode-webview.js.map

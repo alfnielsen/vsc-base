@@ -29,7 +29,16 @@ And a &#039;postMessage&#039; that will send messages back to the extension that
  * @vscType webview
  * @returns (body: string, script?: string) => string
  */
-export const WebviewHTMLTemplate = (body = '', script = '()=>\{}', style = ''): string => (\`<!DOCTYPE html>
+export const WebviewHTMLTemplate = (\{
+   body = '',
+   onMessageScript = '',
+   onCommandScript = '',
+   style = '',
+   script = ''
+}): string => \{
+   onMessageScript = onMessageScript || 'undefined;'
+   onCommandScript = onCommandScript || 'undefined;'
+   return (\`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -124,16 +133,39 @@ export const WebviewHTMLTemplate = (body = '', script = '()=>\{}', style = ''): 
     (function() \{
       const vscode = acquireVsCodeApi();
       window.postMessage = vscode.postMessage;
-      const onMessageCode = (event) => \{
-         const messageCallback = \$\{script}
-         messageCallback(event.data)
+      window.sendCommand = (command, value) => \{
+         vscode.postMessage(\{command, value})
       } 
+      const onMessageCode = (event) => \{
+         const onMessageCallback = \$\{onMessageScript}
+         const onCommandCallback = \$\{onCommandScript}
+         const data = event.data;
+         if(data && data.__vscCommand__)\{
+            switch (data.__vscCommand__) \{
+               case "setHTML":
+                  var elm = document.querySelector(data.querySelector)
+                  if(elm)\{
+                     elm.innerHTML = data.html;
+                  }
+                  break;
+            }
+         }else\{
+            if(onCommandCallback && data && typeof data.command === 'string')\{
+               onCommandCallback(data.command, data.value, event)
+            }
+            if(onMessageCallback)\{
+               onMessageCallback(data, event)
+            }
+         }
+      }
       window.addEventListener('message', onMessageCode);
     }())
     </script>
+    <script>\$\{script}</script>
 </head>
 <body>\$\{body}</body>
-</html>\`)`}
+</html>\`);
+}`}
       />
    )
 }

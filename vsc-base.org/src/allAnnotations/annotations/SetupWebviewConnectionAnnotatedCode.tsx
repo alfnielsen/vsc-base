@@ -47,7 +47,7 @@ Setup message passing methods between a webview and the extension.
          code={`/**
  * @internal internal
  * @vscType webview
- * @returns [postMessage, createdOnMessage],[(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
+ * @returns vsc.WebviewConnectionReturnType (See [startWebview](http://vsc-base.org/#startWebview))
  */
 export const setupWebviewConnection = (
    context: vscode.ExtensionContext,
@@ -62,17 +62,34 @@ export const setupWebviewConnection = (
       }
       return false
    }
-   const proxy: \{
-      onMessage: (message: any, resolve: () => void) => void
-      resolve: (value?: unknown) => void
-   } = \{
-      onMessage: (message, resolve) => \{ },
-      resolve: (value) => \{ }
+   const sendCommand = async (command: string, value: any) => \{
+      if (webviewPanel) \{
+         return await webviewPanel.webview.postMessage(\{ command, value });
+      }
+      return false
    }
+   const sendSetHTML = async (querySelector: string, html: string) => \{
+      if (webviewPanel) \{
+         return await webviewPanel.webview.postMessage(\{ __vscCommand__: 'setHTML', querySelector, html });
+      }
+      return false
+   }
+   const proxy: \{
+      onMessage?: WebviewOnMessageCallBack
+      onCommand?: WebviewOnCommandCallBack
+      resolve?: (value?: unknown) => void
+   } = \{}
    webviewPanel.webview.onDidReceiveMessage(
-      message =>
-         proxy.onMessage &&
-         proxy.onMessage(message, proxy.resolve)
+      message => \{
+         if (proxy.resolve) \{
+            if (proxy.onMessage) \{
+               proxy.onMessage(message, proxy.resolve)
+            }
+            if (proxy.onCommand && message && typeof message.command === 'string') \{
+               proxy.onCommand(message.command, message.value, proxy.resolve)
+            }
+         }
+      }
       ,
       undefined,
       context.subscriptions
@@ -82,7 +99,7 @@ export const setupWebviewConnection = (
          webviewPanel.dispose();
       }
    }
-   const createdOnMessage = async (onMessage: (message: any, resolve: () => void) => void): Promise<void> => \{
+   const createdOnMessage = async (onMessage: WebviewOnMessageCallBack): Promise<void> => \{
       proxy.onMessage = onMessage;
       return new Promise((resolve) => \{
          proxy.resolve = () => \{
@@ -90,7 +107,23 @@ export const setupWebviewConnection = (
          }
       })
    }
-   return [postMessage, createdOnMessage, dispose, webviewPanel]
+   const createdOnCommand = async (onCommand: WebviewOnCommandCallBack): Promise<void> => \{
+      proxy.onCommand = onCommand;
+      return new Promise((resolve) => \{
+         proxy.resolve = () => \{
+            resolve()
+         }
+      })
+   }
+   return \{
+      sendSetHTML,
+      postMessage,
+      onMessage: createdOnMessage,
+      dispose,
+      webviewPanel,
+      sendCommand,
+      onCommand: createdOnCommand
+   }
 }`}
       />
    )

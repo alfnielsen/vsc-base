@@ -57,7 +57,9 @@ export const initWebview = (\{
    html,
    body,
    style,
-   onWebviewMessage: onMessageCode,
+   script,
+   onMessage: onMessageCode = '',
+   onCommand: onCommandCode = '',
    showOptions = vscode.ViewColumn.One,
    options = \{ enableScripts: true },
    htmlTemplateMethod = vsc.WebviewHTMLTemplate
@@ -70,11 +72,28 @@ export const initWebview = (\{
    );
    if (html) \{
       webviewPanel.webview.html = html;
-   } else if (body && onMessageCode) \{
-      const onMessageCodeString = (onMessageCode instanceof Function) ?
-         onMessageCode.toString() : onMessageCode
+   } else \{
+      let onMessageCodeString = ''
+      if (onMessageCode instanceof Function) \{
+         onMessageCodeString = onMessageCode.toString()
+      } else \{
+         onMessageCodeString = onMessageCode
+      }
       const onMessageCodeJs = vsc.tsTranspile(onMessageCodeString)
-      webviewPanel.webview.html = htmlTemplateMethod(body, onMessageCodeJs, style)
+      let onCommandCodeString = ''
+      if (onCommandCode instanceof Function) \{
+         onCommandCodeString = onCommandCode.toString()
+      } else \{
+         onCommandCodeString = onCommandCode
+      }
+      const onCommandCodeJs = vsc.tsTranspile(onCommandCodeString)
+      webviewPanel.webview.html = htmlTemplateMethod(\{
+         body,
+         onMessageScript: onMessageCodeJs,
+         onCommandScript: onCommandCodeJs,
+         style,
+         script
+      })
    }
    return webviewPanel
 }`}

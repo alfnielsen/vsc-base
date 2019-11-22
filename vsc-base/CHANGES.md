@@ -2,6 +2,50 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.8
+
+###
+
+StartOption for webview methods primarily [startWebview](http://vsc-base.org/#startWebview),
+has now new options:
+
+- onCommand (This is done for both the input, that will work in the viewview, and the return that will work in the extension)
+
+onCommand is a wrap on postMessage but enforce and simplify a command model:
+
+```ts
+sendCommand(command: string, value:any) => onCommand(command: string, value: any)
+postMessage({command: string, value:any}) => onMessage(message: any)
+```
+
+- sendSetHtml (Only works form extension to webview, and only works with default html template)
+
+sendSetHtml wrapped a document.querySelector().innerHTML = value command
+
+```ts
+sendSetHtml(querySelector: string, html: string)
+```
+
+'script' has been added to the startOption and template to enable custom script in webview using default template.
+
+### Breaking changes
+
+StartOption for webview methods: 'onWebviewMessage' has changed to 'onMessage'
+
+Options for webview methods has change into a option object and return value is also now an object.
+
+This is done to make it easy to add new features without breaking old.
+
+Change in all of these methods:
+
+- [startWebview](http://vsc-base.org/#startWebview)
+
+- [setupWebViewConnection](http://vsc-base.org/#setupWebViewConnection)
+
+- [initWebView](http://vsc-base.org/#initWebView)
+
+- [WebViewHTMLTemplate](http://vsc-base.org/#WebViewHTMLTemplate)
+
 ## 0.9.7
 
 Add new vscode methods:

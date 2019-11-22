@@ -12,7 +12,7 @@ export async function run(path: string, context: vscode.ExtensionContext) {
 
 const startFindWebview = async (context: vscode.ExtensionContext) => {
    const docs = vscode.workspace.textDocuments;
-   const [postMessage, onMessage, dispose] = vsc.startWebview(context, {
+   const { postMessage, onCommand, onMessage, dispose } = vsc.startWebview(context, {
       title: "Rename",
       showOptions: { viewColumn: 2 },
       style: `pre { background: var(--vscode-input-background); padding: 10px; }`,
@@ -21,7 +21,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
               <h2>Test 1: Search in open file</h2>
            <br><br>
           <div class="row">
-              <button onClick="postMessage({command:'show',value:'1'})">Show '1'</button>
+              <button onClick="sendCommand('show','1')">Show '1'</button>
               <button onClick="postMessage({command:'end'})">END</button><br/>
            </div>
            <br><br>
@@ -45,10 +45,11 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
            <div>
            Search: <input type='text' id='s' onkeyup="postMessage({command:'search',value:this.value})" >
            <br><br>
-           <div id='info'>info</div>
+           <pre id='info'>info</pre>
         </div>
      `,
-      onWebviewMessage: (message: any) => {
+      onMessage: (message: any) => {
+         console.log("HERE!!!", message)
          switch (message.command) {
             case "info":
             case "find":
@@ -58,6 +59,14 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
       }
    });
    let file = "";
+
+   onCommand(async (command, value, resolve) => {
+      switch (command) {
+         case "show":
+            vsc.showMessage(value);
+            break;
+      }
+   })
    await onMessage(async (message, resolve) => {
       //vsc.showMessage(message.command);
       switch (message.command) {
@@ -65,7 +74,7 @@ const startFindWebview = async (context: vscode.ExtensionContext) => {
             file = message.value;
             break;
          case "show":
-            vsc.showMessage(message.value);
+            vsc.showMessage("SHOW!::" + message.value);
             break;
          case "end":
             resolve();

@@ -14,7 +14,13 @@ import * as vsc from './vsc-base';
  * @example
  * const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)
  */
-export declare const WebviewHTMLTemplate: (body?: string, script?: string, style?: string) => string;
+export declare const WebviewHTMLTemplate: ({ body, onMessageScript, onCommandScript, style, script }: {
+    body?: string | undefined;
+    onMessageScript?: string | undefined;
+    onCommandScript?: string | undefined;
+    style?: string | undefined;
+    script?: string | undefined;
+}) => string;
 /** vsc-base method
  * @description
  * Creates an WebviewPanel. \
@@ -35,7 +41,7 @@ export declare const WebviewHTMLTemplate: (body?: string, script?: string, style
  * @example
  * const webviewPanel = vsc.initWebview(startOptions)
  */
-export declare const initWebview: ({ viewType, title, html, body, style, onWebviewMessage: onMessageCode, showOptions, options, htmlTemplateMethod }: vsc.IStartWebviewOptions) => vscode.WebviewPanel;
+export declare const initWebview: ({ viewType, title, html, body, style, script, onMessage: onMessageCode, onCommand: onCommandCode, showOptions, options, htmlTemplateMethod }: vsc.IStartWebviewOptions) => vscode.WebviewPanel;
 /** vsc-base method
  * @description
  * Setup message passing methods between a webview and the extension. \
@@ -50,12 +56,11 @@ export declare const initWebview: ({ viewType, title, html, body, style, onWebvi
  * @see [setupWebviewConnection](http://vsc-base.org/#setupWebviewConnection)
  * @internal
  * @vscType webview
- * @returns [postMessage, createdOnMessage]
- * @returns [(message: any) => Promise<boolean>, (callback: (message: any, resolve: () => void) => void) => Promise<void>]
+ * @returns vsc.WebviewConnectionReturnType (See [startWebview](http://vsc-base.org/#startWebview))
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
-export declare const setupWebviewConnection: (context: vscode.ExtensionContext, webviewPanel: vscode.WebviewPanel) => [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel];
+export declare const setupWebviewConnection: (context: vscode.ExtensionContext, webviewPanel: vscode.WebviewPanel) => vsc.WebviewConnectionReturnType;
 /** vsc-base method
  * @description
  * Start up a webview with message passing between it and the extension. \
@@ -109,20 +114,38 @@ export declare const setupWebviewConnection: (context: vscode.ExtensionContext, 
  *  dispose();
  *  vsc.showMessage('Done!')
  */
-export declare const startWebview: (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions) => [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel];
+export declare const startWebview: (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions) => vsc.WebviewConnectionReturnType;
 export interface IStartWebviewOptions {
     viewType?: string;
     title?: string;
     html?: string;
     body?: string;
     style?: string;
-    onWebviewMessage?: string | ((message: any) => void);
-    webviewCommands?: any;
-    htmlTemplateMethod?: (body?: string, script?: string, style?: string) => string;
+    script?: string;
+    onMessage?: string | ((message: any) => void);
+    onCommand?: string | ((command: string, value: any) => void);
+    htmlTemplateMethod?: WebviewHTMLTemplateMethod;
     showOptions?: vscode.ViewColumn | {
         viewColumn: vscode.ViewColumn;
         preserveFocus?: boolean | undefined;
     };
     options?: vscode.WebviewPanelOptions & vscode.WebviewOptions;
 }
-export declare type WebviewConnectionReturnType = [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel];
+export declare type WebviewConnectionReturnType = {
+    sendSetHTML: (querySelector: string, html: string) => Promise<boolean>;
+    postMessage: (message: any) => Promise<boolean>;
+    onMessage: (callback: WebviewOnMessageCallBack) => Promise<void>;
+    sendCommand: (command: string, value: any) => Promise<boolean>;
+    onCommand: (callback: WebviewOnCommandCallBack) => Promise<void>;
+    dispose: () => void;
+    webviewPanel: vscode.WebviewPanel;
+};
+export declare type WebviewOnMessageCallBack = (message: any, resolve: () => void) => void;
+export declare type WebviewOnCommandCallBack = (command: any, value: any, resolve: () => void) => void;
+export declare type WebviewHTMLTemplateMethod = (options: {
+    body?: string;
+    onMessageScript?: string;
+    onCommandScript?: string;
+    style?: string;
+    script?: string;
+}) => string;

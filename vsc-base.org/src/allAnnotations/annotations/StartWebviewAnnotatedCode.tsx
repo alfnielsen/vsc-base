@@ -76,8 +76,9 @@ const [postMessage, onMessage, dispose] = vsc.startWebview(context, \{
  */
 export const startWebview = (context: vscode.ExtensionContext, startOptions: vsc.IStartWebviewOptions): vsc.WebviewConnectionReturnType => \{
    const webviewPanel = vsc.initWebview(startOptions);
-   const [sendMessage, createdOnMessage, dispose] = vsc.setupWebviewConnection(context, webviewPanel)
-   return [sendMessage, createdOnMessage, dispose, webviewPanel]
+   const options = vsc.setupWebviewConnection(context, webviewPanel)
+   options.webviewPanel = webviewPanel
+   return options
 }
 export interface IStartWebviewOptions \{
    viewType?: string,
@@ -85,9 +86,10 @@ export interface IStartWebviewOptions \{
    html?: string,
    body?: string,
    style?: string,
-   onWebviewMessage?: string | ((message: any) => void),
-   webviewCommands?: any,
-   htmlTemplateMethod?: (body?: string, script?: string, style?: string) => string,
+   script?: string,
+   onMessage?: string | ((message: any) => void),
+   onCommand?: string | ((command: string, value: any) => void),
+   htmlTemplateMethod?: WebviewHTMLTemplateMethod,
    showOptions?: vscode.ViewColumn | \{
       viewColumn: vscode.ViewColumn;
       preserveFocus?: boolean | undefined;
@@ -95,7 +97,18 @@ export interface IStartWebviewOptions \{
    options?: vscode.WebviewPanelOptions & vscode.WebviewOptions
 }
 
-export type WebviewConnectionReturnType = [(message: any) => Promise<boolean>, (callback: (message: any, dispose: () => void) => void) => Promise<void>, () => void, vscode.WebviewPanel]`}
+export type WebviewConnectionReturnType = \{
+   sendSetHTML: (querySelector: string, html: string) => Promise<boolean>,
+   postMessage: (message: any) => Promise<boolean>,
+   onMessage: (callback: WebviewOnMessageCallBack) => Promise<void>,
+   sendCommand: (command: string, value: any) => Promise<boolean>,
+   onCommand: (callback: WebviewOnCommandCallBack) => Promise<void>,
+   dispose: () => void,
+   webviewPanel: vscode.WebviewPanel
+}
+export type WebviewOnMessageCallBack = (message: any, resolve: () => void) => void
+export type WebviewOnCommandCallBack = (command: any, value: any, resolve: () => void) => void
+export type WebviewHTMLTemplateMethod = (options: \{ body?: string, onMessageScript?: string, onCommandScript?: string, style?: string, script?: string }) => string`}
       />
    )
 }

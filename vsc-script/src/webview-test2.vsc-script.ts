@@ -1,8 +1,9 @@
 //vsc-script-name: WebView Test > Replace in file (test 2)
 import React from "react";
-//import * as vsc from "./vsc-base-development/vsc-base";
-import * as vsc from "vsc-base";
+//import * as vsc from "vsc-base";
 import * as vscode from "vscode";
+
+import * as vsc from "./vsc-base-development/vsc-base";
 
 export async function run(path: string, context: vscode.ExtensionContext) {
    await startFindWebview(context);

@@ -45,7 +45,7 @@ export const WebviewHTMLTemplate: WebviewHTMLTemplateMethod = (\{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    \$\{includeBaseStyle && \`<style>\$\{vsc.WebviewStyleTemplate}</style>\`}
+    \$\{includeBaseStyle ? \`<style>\$\{vsc.WebviewStyleTemplate}</style>\` : \`\`}
     <style>\$\{style}</style>
     <script>
     (function() \{

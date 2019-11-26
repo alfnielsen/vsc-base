@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.6.7
+
+Update vsc-base to version 0.9.10
+
 ## 0.6.6
 
 Update vsc-base to version 0.9.9

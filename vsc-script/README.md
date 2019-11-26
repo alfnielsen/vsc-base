@@ -106,44 +106,40 @@ From version 0.6.0 (vsc-base 0.9.3) webview has been added:
 
 The run method now as a second argument with 'context'
 
+See [Webview-with-vsc-base](https://github.com/alfnielsen/vsc-base/wiki/Webview-with-vsc-base) for more examples.
+
 ```ts
 //vsc-script-name: WebView Test > Search files in project
 import * as vsc from "vsc-base";
 import * as vscode from "vscode";
 
 export async function run(path: string, context: vscode.ExtensionContext) {
-  const [postMessage, onMessage] = vsc.startWebview(context, {
-    title: "Rename",
+  const { onCommand, sendSetHTML: set, dispose } = vsc.startWebview(context, {
+    title: "Search",
     body: `
-      <button onClick="postMessage({command:'show',value:'1'})">Show '1'</button>
-      <button onClick="postMessage({command:'end'})">END</button><br/>
+      <button onClick="sendCommand('show','1')">Show '1'</button>
+      <button onClick="sendCommand('end')">END</button><br/>
       <br><br>
-      Search: <input type='text' id='s' onkeyup="postMessage({command:'search',value:this.value})" >
+      Search: <input type='text' id='s' onkeyup="sendCommand('search',this.value)" >
       <br><br>
       <div id='info'>info</div>
-    `,
-    onWebviewMessage: (message: any) => {
-      switch (message.command) {
-        case "info":
-          document.getElementById("info")!.innerHTML = message.content;
-          break;
-      }
-    }
+    `
   });
-  await onMessage(async (message, dispose) => {
-    switch (message.command) {
+  await onCommand(async (command, value, resolve) => {
+    switch (message) {
       case "show":
-        vsc.showMessage(message.value);
+        vsc.showMessage(value);
         break;
       case "end":
-        dispose();
+        resolve();
         break;
       case "search":
-        const files = await vsc.findFilePaths(message.value);
-        postMessage({ command: "info", content: files.length });
+        const files = await vsc.findFilePaths(value);
+        set("#info", files.length);
         break;
     }
   });
+  dispose();
   vsc.showMessage("Script Done!");
 }
 ```

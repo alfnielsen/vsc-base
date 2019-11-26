@@ -30,9 +30,9 @@ import * as vsc from '../../vsc-base-development/vsc-base'
 //    })
 // })
 
-suite('webview_WebviewStyleTemplate', () => {
-   test(' 1', () => {
-      const r1 = vsc.WebviewStyleTemplate()
-      assert.equal(r1, '')
-   })
-})
+// suite('webview_WebviewStyleTemplate', () => {
+//    test(' 1', () => {
+//       const r1 = vsc.WebviewStyleTemplate()
+//       assert.equal(r1, '')
+//    })
+// })

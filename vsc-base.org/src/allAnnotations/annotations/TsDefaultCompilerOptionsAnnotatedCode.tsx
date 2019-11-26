@@ -27,8 +27,9 @@ vsc-base&#039;s internal default ts compiler options
  */
 export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = (\{
    module: ts.ModuleKind.CommonJS,
-   target: ts.ScriptTarget.ES2015,
-   libs: ['es6']
+   target: ts.ScriptTarget.ES2016,
+   libs: ['es6', "esnext", "dom"],
+   jsx: ts.JsxEmit.React
 })`}
       />
    )

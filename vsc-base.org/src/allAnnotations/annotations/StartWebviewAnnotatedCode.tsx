@@ -27,7 +27,7 @@ Start up a webview with message passing between it and the extension.
             </>
          }
          
-         codeOneLineEx={`const [postMessage, onMessage, dispose] = vsc.startWebview(context, startOptions)`}
+         codeOneLineEx={`const \{postMessage, onMessage, dispose} = vsc.startWebview(context, startOptions)`}
          codeEx={`
 const \{postMessage, onMessage, dispose} = vsc.startWebview(context, \{
    title: "Rename",
@@ -108,7 +108,14 @@ export type WebviewConnectionReturnType = \{
 }
 export type WebviewOnMessageCallBack = (message: any, resolve: () => void) => void
 export type WebviewOnCommandCallBack = (command: any, value: any, resolve: () => void) => void
-export type WebviewHTMLTemplateMethod = (options: \{ body?: string, onMessageScript?: string, onCommandScript?: string, style?: string, script?: string }) => string`}
+export type WebviewHTMLTemplateMethod = (options: \{
+   body?: string,
+   onMessageScript?: string,
+   onCommandScript?: string,
+   style?: string,
+   script?: string,
+   includeBaseStyle?: boolean
+}) => string`}
       />
    )
 }

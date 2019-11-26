@@ -1,8 +1,8 @@
+//vsc-script-name: WebView Test > WebView test (test 1)
+import * as vsc from "vsc-base";
 import * as vscode from "vscode";
 
-//vsc-script-name: WebView Test > WebView test (test 1)
-//import * as vsc from "vsc-base";
-import * as vsc from "./vsc-base-development/vsc-base";
+//import * as vsc from "./vsc-base-development/vsc-base";
 
 export async function run(path: string, context: vscode.ExtensionContext) {
    const { sendCommand: post, sendSetHTML, onCommand, dispose } = vsc.startWebview(context, {

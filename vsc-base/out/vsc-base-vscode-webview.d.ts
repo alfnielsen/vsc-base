@@ -2,6 +2,18 @@ import * as vscode from 'vscode';
 import * as vsc from './vsc-base';
 /** vsc-base method
  * @description
+ * vsc-base's internal default style for htmlTemplate for webviews.
+ * This style uses vscode color variables to make form elements look like the user selected theme.
+ * @see [WebviewStyleTemplate](http://vsc-base.org/#WebviewStyleTemplate)
+ * @internal
+ * @vscType webview
+ * @returns string
+ * @example
+ * const style = vsc.WebviewStyleTemplate
+ */
+export declare const WebviewStyleTemplate = "\n   * {\n      line-height: 20px;\n   }\n   a:focus,\n   input:focus,\n   select:focus,\n   textarea:focus {\n      outline: none;\n   }\n   body {\n      margin: 10px 20px;\n   }\n   button {\n      background: var(--vscode-button-background);\n      color: var(--vscode-button-foreground);\n      border: 0;\n      padding: 7px;\n      cursor: pointer;\n      outline: 0;\n   }\n   button:hover {\n      background: var(--vscode-button-hoverBackground);\n   }\n   textarea {\n      font-size: 1em;\n      padding: 10px;\n      background: var(--vscode-input-background);\n      border: 1px solid var(--vscode-dropdown-border);\n      color: var(--vscode-input-foreground);\n      width: 300px;\n      height: 120px;\n   }\n   input {\n      font-size: 1em;\n      background: var(--vscode-input-background);\n      border: 1px solid var(--vscode-dropdown-border);\n      color: var(--vscode-input-foreground);\n      outline: 0;\n   }\n   input::placeholder {\n      color: var(--vscode-input-placeholderForeground);\n   }\n   input[type=\"text\"] {\n      width: 300px;\n   }\n   input[type=\"checkbox\"] {\n      background: var(--vscode-input-background);\n      border-radius: 2px;\n      border: 1px solid var(--vscode-dropdown-border);\n      width: 17px;\n      height: 17px;\n      cursor: pointer;\n      position: relative;\n      appearance: none;\n      -webkit-appearance: none;\n      -moz-appearance: none;\n   }\n   input[type=\"checkbox\"]:checked:after {\n      position: absolute;\n      content: \" \";\n      display: block;\n      left: 6px;\n      top: 3px;\n      width: 4px;\n      height: 10px;\n      border: solid var(--vscode-input-foreground);\n      border-width: 0 3px 3px 0;\n      -webkit-transform: rotate(45deg);\n      -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n   }\n   select {\n      background: var(--vscode-dropdown-background);\n      color: var(--vscode-input-foreground);\n      border: 1px solid var(--vscode-dropdown-border);\n      padding: 7px;\n      font-size: 1em;\n      height: 35px;\n   }\n   option {\n      background: var(--vscode-dropdown-listBackground);\n   }\n";
+/** vsc-base method
+ * @description
  * vsc-base's internal default htmlTemplate for webviews.
  * It provides an html template with:
  * An addEventListener for 'postMessage' that sets the body on message:
@@ -14,13 +26,7 @@ import * as vsc from './vsc-base';
  * @example
  * const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)
  */
-export declare const WebviewHTMLTemplate: ({ body, onMessageScript, onCommandScript, style, script }: {
-    body?: string | undefined;
-    onMessageScript?: string | undefined;
-    onCommandScript?: string | undefined;
-    style?: string | undefined;
-    script?: string | undefined;
-}) => string;
+export declare const WebviewHTMLTemplate: WebviewHTMLTemplateMethod;
 /** vsc-base method
  * @description
  * Creates an WebviewPanel. \
@@ -71,7 +77,7 @@ export declare const setupWebviewConnection: (context: vscode.ExtensionContext, 
  * @internal
  * @vscType webview
  * @returns
- * @example const [postMessage, onMessage, dispose] = vsc.startWebview(context, startOptions)
+ * @example const {postMessage, onMessage, dispose} = vsc.startWebview(context, startOptions)
  * @example
  * const {postMessage, onMessage, dispose} = vsc.startWebview(context, {
  *    title: "Rename",
@@ -148,4 +154,5 @@ export declare type WebviewHTMLTemplateMethod = (options: {
     onCommandScript?: string;
     style?: string;
     script?: string;
+    includeBaseStyle?: boolean;
 }) => string;

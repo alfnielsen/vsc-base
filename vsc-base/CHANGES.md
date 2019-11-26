@@ -2,11 +2,28 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+## 0.9.10
+
+New webview style template [WebviewStyleTemplate](http://vsc-base.org/#WebviewStyleTemplate)
+
+(The style that is used by the default html template, to match users theme in vscode)
+
+[WebviewHTMLTemplate](http://vsc-base.org/#WebviewHTMLTemplate) now has option `includeBaseStyle` (default value true)
+which include the new [WebviewStyleTemplate](http://vsc-base.org/#WebviewStyleTemplate)
+
+### Breaking change
+
+The default ts compiler options has been updated [TsDefaultCompilerOptions](http://vsc-base.org/#TsDefaultCompilerOptions)
+
+It now targets ES2016 and option jsx is set the 'react' and 'dom' added.
+
+This is done for future version of webview with jsx.
+
+(The sibling project `vsc-script` that is also now allowing `tsx` files.)
+
 ## 0.9.8+0.9.9
 
-###
-
-StartOption for webview methods primarily [startWebview](http://vsc-base.org/#startWebview),
+StartOption for webview methods primarily used by [startWebview](http://vsc-base.org/#startWebview),
 has now new options:
 
 - onCommand (This is done for both the input, that will work in the viewview, and the return that will work in the extension)

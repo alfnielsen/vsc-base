@@ -56,8 +56,9 @@ export const tsTransformNode = <T extends ts.Node = ts.SourceFile>(
  */
 export const TsDefaultCompilerOptions: Readonly<ts.CompilerOptions> = ({
    module: ts.ModuleKind.CommonJS,
-   target: ts.ScriptTarget.ES2015,
-   libs: ['es6']
+   target: ts.ScriptTarget.ES2016,
+   libs: ['es6', "esnext", "dom"],
+   jsx: ts.JsxEmit.React
 })
 
 /** vsc-base method

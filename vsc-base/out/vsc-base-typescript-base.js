@@ -47,8 +47,9 @@ exports.tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDef
  */
 exports.TsDefaultCompilerOptions = ({
     module: ts.ModuleKind.CommonJS,
-    target: ts.ScriptTarget.ES2015,
-    libs: ['es6']
+    target: ts.ScriptTarget.ES2016,
+    libs: ['es6', "esnext", "dom"],
+    jsx: ts.JsxEmit.React
 });
 /** vsc-base method
  * @description

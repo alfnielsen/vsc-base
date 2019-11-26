@@ -150,6 +150,7 @@ import TsTranspileAnnotatedCode from './annotations/TsTranspileAnnotatedCode'
 import TsVisitWithTransformersAnnotatedCode from './annotations/TsVisitWithTransformersAnnotatedCode'
 import VerifyModuleMethodsAnnotatedCode from './annotations/VerifyModuleMethodsAnnotatedCode'
 import WebviewHTMLTemplateAnnotatedCode from './annotations/WebviewHTMLTemplateAnnotatedCode'
+import WebviewStyleTemplateAnnotatedCode from './annotations/WebviewStyleTemplateAnnotatedCode'
 import WriteToTerminalAnnotatedCode from './annotations/WriteToTerminalAnnotatedCode'
 
 const annotations = [
@@ -303,6 +304,7 @@ const annotations = [
   { vscType: 'ts', name: 'tsvisitwithtransformers', component: (open: boolean) => <TsVisitWithTransformersAnnotatedCode key={'tsVisitWithTransformers'} open={open} /> },
   { vscType: 'system', name: 'verifymodulemethods', component: (open: boolean) => <VerifyModuleMethodsAnnotatedCode key={'verifyModuleMethods'} open={open} /> },
   { vscType: 'webview', name: 'webviewhtmltemplate', component: (open: boolean) => <WebviewHTMLTemplateAnnotatedCode key={'WebviewHTMLTemplate'} open={open} /> },
+  { vscType: 'webview', name: 'webviewstyletemplate', component: (open: boolean) => <WebviewStyleTemplateAnnotatedCode key={'WebviewStyleTemplate'} open={open} /> },
   { vscType: 'vscode', name: 'writetoterminal', component: (open: boolean) => <WriteToTerminalAnnotatedCode key={'writeToTerminal'} open={open} /> }
 ]
 

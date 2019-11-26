@@ -9,7 +9,7 @@ import { CodePart, createPartMap } from './vcs-base-util/mapping';
  * This script finds all const names in a file (From start of lines) and append the list to the end of that file.
  */
 export async function run(path: string, context: vscode.ExtensionContext) {
-   const [postMessage, onMessage, dispose] = vsc.startWebview(context, {
+   const { postMessage, onMessage, dispose } = vsc.startWebview(context, {
       title: "Rename",
       style: "*{line-height:20px;}",
       showOptions: { viewColumn: 2 },
@@ -17,7 +17,7 @@ export async function run(path: string, context: vscode.ExtensionContext) {
          <h2>vsc-script compiler</h2>
          <div id='info'></div>
        `,
-      onWebviewMessage: (message: any) => {
+      onMessage: (message: any) => {
          switch (message.command) {
             case "post":
                document.getElementById("info")!.innerHTML += "<br />" + message.content;

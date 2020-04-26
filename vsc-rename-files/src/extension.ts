@@ -1,3 +1,4 @@
+import * as vsc from 'vsc-base'
 import * as vscode from 'vscode'
 
 import RenameFiles from './RenameFiles'
@@ -19,7 +20,15 @@ export function activate(context: vscode.ExtensionContext) {
    let disposable = vscode.commands.registerCommand(
       'extension.vscRenameFiles',
       (uri?: vscode.Uri, uris?: vscode.Uri[]) => {
-         renameFiles.rename(uri)
+         vsc.showMessage("" + uri)
+         if (!uri) {
+            vsc.showErrorMessage(
+               'vsc rename-files most be run by right-clicking a file or folder!'
+            )
+            return
+         }
+         const selectedPath = vsc.pathAsUnix(uri.fsPath)
+         renameFiles.rename(selectedPath, context)
       }
    )
 

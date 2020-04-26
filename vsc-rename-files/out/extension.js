@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const vsc = require("vsc-base");
 const vscode = require("vscode");
 const RenameFiles_1 = require("./RenameFiles");
 // Import the module and reference it with the alias vscode in your code below
@@ -14,7 +15,13 @@ function activate(context) {
     // The commandId parameter must match the command field in package.json
     const renameFiles = new RenameFiles_1.default();
     let disposable = vscode.commands.registerCommand('extension.vscRenameFiles', (uri, uris) => {
-        renameFiles.rename(uri);
+        vsc.showMessage("" + uri);
+        if (!uri) {
+            vsc.showErrorMessage('vsc rename-files most be run by right-clicking a file or folder!');
+            return;
+        }
+        const selectedPath = vsc.pathAsUnix(uri.fsPath);
+        renameFiles.rename(selectedPath, context);
     });
     context.subscriptions.push(disposable);
 }

@@ -9,24 +9,24 @@ This extension add this functionality.
 ## Usage
 
 1. Right-click folder/file
-2. Select 'Rename with String' or 'Rename with RegExp'
-3. Select 'Only file in selected folder' or 'Files in selected folder and sub-folders'
-4. Write "from string" or "regexp"
-5. Write "to string" (Optional use \$index and captured groups from regexp \$1..)
+2. A web-view tab will popup in vscode
+3. Define settings, write replace text => See preview of replacement
+4. Click "Replace selected files (and folders)" when it look correct
 
 ## Features
 
 **No file overwrites:**
 
-If a renaming resolves in a name (path) that already exists, the it will not rename that fill,
-and prop you to ask if it should continue or stop the rest of the renaming.
+If a renaming resolves in a name (path) that already exists, this will be shown in the preview.
+Be default a settings is on, that will add index on the renamed will, when this happen.
+You can turn of the settings, it will then be ignored (That will will not be renamed)
 
 **RegExp:**
 You can use RgExp.
 
 The regexp is written without '/' in the start and end but you can add '/gimusy' for using javascript regexp flags.
 
-**Add \$index in name**
+**Add \$index in name Or in end of new name**
 
 In rare cases, file renaming can resolve in the same name (intended).
 You can use \$index (zero based) in the name to a the current number of renamed files.

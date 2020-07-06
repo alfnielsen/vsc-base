@@ -44,7 +44,7 @@ export type SortImportsOptions = {
    emptyLinesBetweenFilledGroups: number
    removeUnusedImports?: boolean
    removeUnusedImportsExcludeList?: string[]
-   groups: { groups: groupType[]; emptyLines: true; sortBy: string }[]
+   groups: { groups: groupType[]; emptyLines: true; sortBy: "none" | "path" | "name" }[]
 }
 
 export async function SortImports(
@@ -199,7 +199,7 @@ const organizeImports = async (
    const defaultMapping: {
       groups: (keyof typeof groups)[]
       emptyLines: boolean
-      sortBy: string
+      sortBy: "none" | "path" | "name"
    }[] = options.groups
    let newImportContent = ''
    defaultMapping.forEach((groupOptions, index) => {
@@ -214,7 +214,8 @@ const organizeImports = async (
          return
       }
       // sort
-      if (groupOptions.sortBy === 'path') {
+      if (groupOptions.sortBy === 'none') {
+      } else if (groupOptions.sortBy === 'path') {
          group.sort((a, b) => a.path.localeCompare(b.path))
       } else if (groupOptions.sortBy === 'name') {
          group.sort((a, b) => a.sortName.localeCompare(b.sortName))
@@ -314,7 +315,7 @@ const mapImports = (
          sortName = '___' + path
       }
       const pos = vsc.createVscodeRangeAndPosition(content, node.pos, node.end)
-      const used = true;// isUsed(sourceFile, alias, node.pos, node.end, program)
+      const used = true// isUsed(sourceFile, alias, node.pos, node.end, program)
       if (options.removeUnusedImports) {
          const exclude = options.removeUnusedImportsExcludeList || []
          const ex = exclude.some(ex => ex === alias)

@@ -1,0 +1,56 @@
+{
+  "standard": {
+    "vsc-organize-imports": {
+      "orderSpecifiers": true,
+      "orderSpecifiersAsSingleLine": true,
+      "baseUrl": "src",
+      "emptyLinesAfterImports": 1,
+      "emptyLinesBetweenFilledGroups": 1,
+      "groups": [
+        {
+          "groups": ["global"],
+          "sortBy": "path",
+          "emptyLines": true
+        },
+        {
+          "groups": ["absolute"],
+          "sortBy": "path",
+          "emptyLines": true
+        },
+        {
+          "groups": ["relative"],
+          "sortBy": "path",
+          "emptyLines": true
+        },
+        {
+          "groups": ["globalDirect", "absoluteDirect", "relativeDirect"],
+          "sortBy": "path",
+          "emptyLines": true
+        }
+      ]
+    }
+  },
+  "one-group-single-line-no-sort": {
+    "vsc-organize-imports": {
+      "orderSpecifiers": true,
+      "orderSpecifiersAsSingleLine": true,
+      "baseUrl": "src",
+      "emptyLinesAfterImports": 1,
+      "emptyLinesBetweenFilledGroups": 1,
+      "groups": [
+        {
+          "groups": [
+            "global",
+            "absolute",
+            "relative",
+            "globalDirect",
+            "absoluteDirect",
+            "relativeDirect"
+          ],
+          "sortBy": "none",
+          "emptyLines": true
+        }
+      ]
+    }
+  }
+}

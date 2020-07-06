@@ -147,7 +147,9 @@ const organizeImports = (fillDir, imports, options) => __awaiter(void 0, void 0,
             return;
         }
         // sort
-        if (groupOptions.sortBy === 'path') {
+        if (groupOptions.sortBy === 'none') {
+        }
+        else if (groupOptions.sortBy === 'path') {
             group.sort((a, b) => a.path.localeCompare(b.path));
         }
         else if (groupOptions.sortBy === 'name') {

@@ -34,6 +34,18 @@ You can use \$index (zero based) in the name to a the current number of renamed 
 Ex: Using a RegExp 'log\d+' on a folder with files: 'log345234.txt', 'log53332.txt'
 By adding making the name 'newLog\$index' the file will be renamed to: 'log0.txt', 'log1.txt'
 
+**Add [\u\U\l\L] like in vscode for changing casing in captured groups**
+
+\u \l: One letter upper or lower
+\U \L: rest of group
+
+Can be combined: \u\l\U => first upper, second lower, rest upper
+
+Ex: 
+ - pattern: /^([^\-]+)-(.*)$/ 
+ - replace: $1\u\L$2 
+Result: some-filePath.TS => soneFilepath.ts
+
 ## Links and related projects
 
 > vsc-rename-files: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-rename-files)

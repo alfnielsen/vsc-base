@@ -37,6 +37,7 @@ By adding making the name 'newLog\$index' the file will be renamed to: 'log0.txt
 **Add [\u\U\l\L] like in vscode for changing casing in captured groups**
 
 \u \l: One letter upper or lower
+
 \U \L: rest of group
 
 Can be combined: \u\l\U => first upper, second lower, rest upper
@@ -44,7 +45,7 @@ Can be combined: \u\l\U => first upper, second lower, rest upper
 Ex: 
  - pattern: /^([^\-]+)-(.*)$/ 
  - replace: $1\u\L$2 
-Result: some-filePath.TS => soneFilepath.ts
+ - Result: some-filePath.TS => soneFilepath.ts
 
 ## Links and related projects
 

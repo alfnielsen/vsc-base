@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1
+
+Update README (By @robertwayne)
+
 ## 2.1.0
 
 Add better interface 

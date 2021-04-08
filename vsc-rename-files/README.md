@@ -1,53 +1,51 @@
 # vsc-rename-files
 
-The is an vscode extension.
-
-The the moment Visual Studio Code don't have a Replace (all) file names in a folder.
-
-This extension add this functionality.
+This is a VS Code extension that adds support for mass find & replace file and directory names.
 
 ## Usage
 
-1. Right-click folder/file
-2. A web-view tab will popup in vscode
-3. Define settings, write replace text => See preview of replacement
-4. Click "Replace selected files (and folders)" when it look correct
+1. Right-click folder/file.
+2. Click 'Rename Files' on the Context Menu that appears.
+3. Choose your settings and enter the text you wish to replace. A preview will appear showing all files and directories affected.
+4. Click 'Replace Selected Files (and folders)' if everything looks correct.
 
 ## Features
 
-**No file overwrites:**
+**No File Overwrites**
 
-If a renaming resolves in a name (path) that already exists, this will be shown in the preview.
-Be default a settings is on, that will add index on the renamed will, when this happen.
-You can turn of the settings, it will then be ignored (That will will not be renamed)
+If a renaming results in a name (path) that already exists it will be shown in the preview. 
 
-**RegExp:**
-You can use RgExp.
+By default, this extension will append an incrementing index to the file. You can turn this off in the settings to ignore these situations, in which case the file will not be renamed.
 
-The regexp is written without '/' in the start and end but you can add '/gimusy' for using javascript regexp flags.
+**RegExp**
 
-**Add \$index in name Or in end of new name**
+This extension supports Regular Expressions.
 
-In rare cases, file renaming can resolve in the same name (intended).
-You can use \$index (zero based) in the name to a the current number of renamed files.
+All regular expressions are written without a '/' at the start or end, but you can add '/gimusy' for using Javascript RegExp flags.
 
-Ex: Using a RegExp 'log\d+' on a folder with files: 'log345234.txt', 'log53332.txt'
-By adding making the name 'newLog\$index' the file will be renamed to: 'log0.txt', 'log1.txt'
+**Add \$index in name or in end of new name**
 
-**Add [\u\U\l\L] like in vscode for changing casing in captured groups**
+In rare cases, file renaming can result in the file having the same name *(this is intended)*.
+You can use \$index in the name to add an incrementing index value to the file.
 
-\u \l: One letter upper or lower
+For example, let's say we are using the follow RegExp -- `log\d+` -- on a directory with the files: `['log345234.txt', 'log53332.txt']`
 
-\U \L: rest of group
+By using the following in our new name: `log$index`, the files will be renamed like so: `['log1.txt', 'log2.txt']`
 
-Can be combined: \u\l\U => first upper, second lower, rest upper
+**Add [\u\U\l\L] in the new name to change casing in captured groups**
 
-Ex: 
- - pattern: /^([^\-]+)-(.*)$/ 
- - replace: $1\u\L$2 
- - Result: some-filePath.TS => soneFilepath.ts
+`\u \l`: One letter; upper or lower
 
-## Links and related projects
+`\U \L`: the rest of the captured group
+
+These can be combined: `\u\l\U` => first upper, second lower, rest upper
+
+For example: 
+ - Pattern to match: `^([^\-]+)-(.*)$`
+ - Replacement: `$1\u\L$2`
+ - Result: some-filePath.TS => someFilepath.ts
+
+## Links and Related Projects
 
 > vsc-rename-files: [vscode-extension](https://marketplace.visualstudio.com/items?itemName=alfnielsen.vsc-rename-files)
 

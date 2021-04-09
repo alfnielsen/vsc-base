@@ -307,7 +307,7 @@ export const isDir = (path: string): boolean => {
  */
 export const makeDir = async (folderPath: string): Promise<void> => {
    try {
-      await fs.mkdir(folderPath)
+      await fs.mkdirs(folderPath)
    } catch (e) {
       throw e
    }

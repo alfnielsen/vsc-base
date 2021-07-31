@@ -1,13 +1,15 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.objectWalker = exports.escapeHtml = exports.keyValueReplacer = exports.maxDepthReplacer = exports.toJSONString = exports.getJSONCircularReplacer = exports.getTimestamp = exports.getErrorInfo = exports.trimLeadingDash = exports.trimDashes = exports.subtractPath = exports.splitPath = exports.sleep = exports.sharedPath = exports.getAbsolutePathFromRelativePath = exports.getRelativePath = exports.pathAsUnix = exports.joinPaths = exports.isSubPath = exports.insertBefore = exports.insertAfter = exports.isAbsolutePath = exports.getJsonParts = exports.cleanPath = exports.toTitleCase = exports.toPascalCase = exports.toCamelCase = exports.toSnakeCase = exports.toKebabCase = exports.addLeadingLocalDash = exports.getSubRelativePathFromAbsoluteRootPath = void 0;
 const vsc = require("./vsc-base");
 /** vsc-base method
  * @description
@@ -32,7 +34,7 @@ const vsc = require("./vsc-base");
 }
  * @returns string
  */
-exports.getSubRelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, rootPath) => {
+const getSubRelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, rootPath) => {
     const [sourceDirPath] = vsc.splitPath(path);
     let sourceDirPathFromRoot = vsc.subtractPath(sourceDirPath, rootPath);
     sourceDirPathFromRoot = sourceDirPathFromRoot + '/';
@@ -42,6 +44,7 @@ exports.getSubRelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
     }
     return absolutePathFromSourceDir;
 };
+exports.getSubRelativePathFromAbsoluteRootPath = getSubRelativePathFromAbsoluteRootPath;
 /** vsc-base method
  * @description
  * Add './' to start of path
@@ -60,9 +63,10 @@ exports.getSubRelativePathFromAbsoluteRootPath = (path, absolutePathFromRoot, ro
 }
  * @returns string
  */
-exports.addLeadingLocalDash = (path) => {
+const addLeadingLocalDash = (path) => {
     return './' + path;
 };
+exports.addLeadingLocalDash = addLeadingLocalDash;
 /** vsc-base method
  * @description
  * Format a string from camel-case to kebab-case \
@@ -83,10 +87,11 @@ exports.addLeadingLocalDash = (path) => {
  }
  * @returns string
  */
-exports.toKebabCase = (str) => str[0].toLowerCase() +
+const toKebabCase = (str) => str[0].toLowerCase() +
     str.substr(1)
         .replace(/([A-Z])/g, (_match, chr) => `-${chr.toLowerCase()}`)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => `-${chr.toLowerCase()}`);
+exports.toKebabCase = toKebabCase;
 /** vsc-base method
  * @description
  * Format a string from camel-case to snake-case \
@@ -108,7 +113,7 @@ exports.toKebabCase = (str) => str[0].toLowerCase() +
  }
  * @returns string
  */
-exports.toSnakeCase = (str, upperCase = false) => {
+const toSnakeCase = (str, upperCase = false) => {
     str = str[0].toLowerCase() +
         str.substr(1)
             .replace(/([A-Z])/g, (_match, chr) => `_${chr.toLowerCase()}`)
@@ -118,6 +123,7 @@ exports.toSnakeCase = (str, upperCase = false) => {
     }
     return str;
 };
+exports.toSnakeCase = toSnakeCase;
 /** vsc-base method
  * @description
  * Format a string to camel-case. \
@@ -139,9 +145,10 @@ exports.toSnakeCase = (str, upperCase = false) => {
 }
  * @returns string
  */
-exports.toCamelCase = (str) => str[0].toLowerCase() +
+const toCamelCase = (str) => str[0].toLowerCase() +
     str.substr(1)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
+exports.toCamelCase = toCamelCase;
 /** vsc-base method
  * @description
  * Format a string to camel-case. Commonly used to define js/ts variable names. \
@@ -162,8 +169,9 @@ exports.toCamelCase = (str) => str[0].toLowerCase() +
 }
  * @returns string
  */
-exports.toPascalCase = (str) => str[0].toUpperCase() +
+const toPascalCase = (str) => str[0].toUpperCase() +
     str.substr(1).replace(/[^a-zA-Z]+(.)/g, (_match, chr) => chr.toUpperCase());
+exports.toPascalCase = toPascalCase;
 /** vsc-base method
  * @description
  * Format a string to a title string  \
@@ -185,10 +193,11 @@ exports.toPascalCase = (str) => str[0].toUpperCase() +
 }
  * @returns string
  */
-exports.toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
+const toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
     str.substr(1)
         .replace(/([A-Z])/g, (_match, chr) => ` ${allWordUpperCase ? chr.toUpperCase() : chr.toLowerCase()}`)
         .replace(/[^a-zA-Z]+(.)/g, (_match, chr) => ` ${allWordUpperCase ? chr.toUpperCase() : chr.toLowerCase()}`);
+exports.toTitleCase = toTitleCase;
 /** vsc-base method
  * @description
  * Get clean path. \
@@ -208,7 +217,7 @@ exports.toTitleCase = (str, allWordUpperCase = true) => str[0].toUpperCase() +
 }
  * @returns string
  */
-exports.cleanPath = (path) => {
+const cleanPath = (path) => {
     path = path.replace(/\/.\//g, '/');
     const reg = /\b\w+\/\.\.\//;
     while (reg.test(path)) {
@@ -216,6 +225,7 @@ exports.cleanPath = (path) => {
     }
     return path;
 };
+exports.cleanPath = cleanPath;
 /** vsc-base method
  * @description
  * Get part of a json object.
@@ -242,7 +252,7 @@ exports.cleanPath = (path) => {
 }
  * @returns any
  */
-exports.getJsonParts = (json, keyPath) => {
+const getJsonParts = (json, keyPath) => {
     let current = json;
     const keySplit = keyPath.split(/\./);
     for (let i = 0; i < keySplit.length; i++) {
@@ -254,6 +264,7 @@ exports.getJsonParts = (json, keyPath) => {
     }
     return current;
 };
+exports.getJsonParts = getJsonParts;
 /** vsc-base method
  * @description
  * Does path start with character [a-zA-Z@] \
@@ -274,9 +285,10 @@ exports.getJsonParts = (json, keyPath) => {
 }
  * @returns boolean
  */
-exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
+const isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
     return startWithRegExp.test(path);
 };
+exports.isAbsolutePath = isAbsolutePath;
 /** vsc-base method
  * @description
  * Insert after the match of a string or regExp.
@@ -307,7 +319,7 @@ exports.isAbsolutePath = (path, startWithRegExp = /^[a-zA-Z@]/) => {
 }
  * @returns boolean
  */
-exports.insertAfter = (source, match, content) => {
+const insertAfter = (source, match, content) => {
     const stringMatch = source.match(match);
     if (stringMatch && stringMatch.index && stringMatch.index >= 0) {
         const index = stringMatch.index + stringMatch[0].length;
@@ -315,6 +327,7 @@ exports.insertAfter = (source, match, content) => {
     }
     return source;
 };
+exports.insertAfter = insertAfter;
 /** vsc-base method
  * @description
  * Insert before the match of a string or regExp.
@@ -345,13 +358,14 @@ exports.insertAfter = (source, match, content) => {
 }
  * @returns boolean
  */
-exports.insertBefore = (source, match, content) => {
+const insertBefore = (source, match, content) => {
     const index = source.search(match);
     if (index >= 0) {
         source = source.substring(0, index) + content + source.substring(index);
     }
     return source;
 };
+exports.insertBefore = insertBefore;
 /** vsc-base method
  * @description
  * Does sub-path start with parentPath
@@ -373,11 +387,12 @@ exports.insertBefore = (source, match, content) => {
 }
  * @returns boolean
  */
-exports.isSubPath = (subPath, parentPath) => {
+const isSubPath = (subPath, parentPath) => {
     parentPath = vsc.trimDashes(parentPath);
     const result = subPath.indexOf(parentPath + '/') === 0;
     return result;
 };
+exports.isSubPath = isSubPath;
 /** vsc-base method
  * @description
  * Joins to paths.
@@ -399,12 +414,13 @@ exports.isSubPath = (subPath, parentPath) => {
 }
  * @returns string
  */
-exports.joinPaths = (path1, path2) => {
+const joinPaths = (path1, path2) => {
     path1 = vsc.trimDashes(path1);
     path2 = vsc.trimDashes(path2);
     const result = path1 + '/' + path2;
     return result;
 };
+exports.joinPaths = joinPaths;
 /** vsc-base method
  * @description
  * Replace all '\\'  with '/' \
@@ -424,9 +440,10 @@ exports.joinPaths = (path1, path2) => {
 }
  * @returns string
  */
-exports.pathAsUnix = (path) => {
+const pathAsUnix = (path) => {
     return path.replace(/\\/g, '/');
 };
+exports.pathAsUnix = pathAsUnix;
 /** vsc-base method
  * @description
  * Generate relative path between two paths.
@@ -448,7 +465,7 @@ exports.pathAsUnix = (path) => {
  * @dependencyInternal sharedPath, splitPath, subtractPath
  * @returns string
  */
-exports.getRelativePath = (fromPath, toPath) => {
+const getRelativePath = (fromPath, toPath) => {
     const _sharedPath = vsc.sharedPath(fromPath, toPath);
     const [fromDir] = vsc.splitPath(fromPath);
     const [toDir] = vsc.splitPath(toPath);
@@ -461,6 +478,7 @@ exports.getRelativePath = (fromPath, toPath) => {
     const relativePath = backPath + toPathDownToShared;
     return relativePath;
 };
+exports.getRelativePath = getRelativePath;
 /** vsc-base method
  * @description
  * Transform a relative path to an absolute path.
@@ -485,7 +503,7 @@ exports.getRelativePath = (fromPath, toPath) => {
 }
  * @returns string
  */
-exports.getAbsolutePathFromRelativePath = (path, pathRelativeToPath, rootPath) => {
+const getAbsolutePathFromRelativePath = (path, pathRelativeToPath, rootPath) => {
     if (vsc.isAbsolutePath(pathRelativeToPath)) {
         return pathRelativeToPath;
     }
@@ -497,6 +515,7 @@ exports.getAbsolutePathFromRelativePath = (path, pathRelativeToPath, rootPath) =
     absolutePathToRelative = vsc.trimLeadingDash(absolutePathToRelative);
     return absolutePathToRelative;
 };
+exports.getAbsolutePathFromRelativePath = getAbsolutePathFromRelativePath;
 /** vsc-base method
  * @description
  * Return the path that are shared. \
@@ -518,7 +537,7 @@ exports.getAbsolutePathFromRelativePath = (path, pathRelativeToPath, rootPath) =
 }
  * @returns string
  */
-exports.sharedPath = (path1, path2) => {
+const sharedPath = (path1, path2) => {
     const path1Parts = path1.split(/\//);
     const path2Parts = path2.split(/\//);
     const shared = [];
@@ -531,6 +550,7 @@ exports.sharedPath = (path1, path2) => {
     const sharedPath = shared.join('/');
     return sharedPath;
 };
+exports.sharedPath = sharedPath;
 /** vsc-base method
  * @description
  * await wrap for setTimeout. \
@@ -554,9 +574,10 @@ exports.sharedPath = (path1, path2) => {
 }
  * @returns Promise<void>
  */
-exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
+const sleep = (ms) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise(resolve => setTimeout(resolve, ms));
 });
+exports.sleep = sleep;
 /** vsc-base method
  * @description
  * Split filePath into dir and file
@@ -576,13 +597,14 @@ exports.sleep = (ms) => __awaiter(this, void 0, void 0, function* () {
 }
  * @returns [string, string]
  */
-exports.splitPath = (path) => {
+const splitPath = (path) => {
     path = vsc.pathAsUnix(path);
     const splits = path.split('/');
     const name = splits.pop() || '';
     const dir = splits.join('/');
     return [dir, name];
 };
+exports.splitPath = splitPath;
 /** vsc-base method
  * @description
  * Remove parent-path from a path
@@ -606,7 +628,7 @@ exports.splitPath = (path) => {
 }
  * @returns string
  */
-exports.subtractPath = (path, parentPath, trimDashes = true) => {
+const subtractPath = (path, parentPath, trimDashes = true) => {
     const regexp = new RegExp(`^${parentPath}`);
     let newPath = path.replace(regexp, '');
     if (trimDashes) {
@@ -614,6 +636,7 @@ exports.subtractPath = (path, parentPath, trimDashes = true) => {
     }
     return newPath;
 };
+exports.subtractPath = subtractPath;
 /** vsc-base method
  * @description
  * Remove '/' from start and end of path
@@ -632,9 +655,10 @@ exports.subtractPath = (path, parentPath, trimDashes = true) => {
 }
  * @returns string
  */
-exports.trimDashes = (path) => {
+const trimDashes = (path) => {
     return path.replace(/(^\/|\/$)/g, '');
 };
+exports.trimDashes = trimDashes;
 /** vsc-base method
  * @description
  * Remove '/' from start of path
@@ -653,9 +677,10 @@ exports.trimDashes = (path) => {
 }
  * @returns string
  */
-exports.trimLeadingDash = (path) => {
+const trimLeadingDash = (path) => {
     return path.replace(/^\//, '');
 };
+exports.trimLeadingDash = trimLeadingDash;
 /** vsc-base method
  * @description
  * Test if it an error. \
@@ -667,7 +692,7 @@ exports.trimLeadingDash = (path) => {
  * const info = vsc.getErrorInfo(e)
  * @returns \{ isError: boolean; type: string; stack: string; message: string; \}
  */
-exports.getErrorInfo = (e) => {
+const getErrorInfo = (e) => {
     let info = { isError: false, type: '', stack: '', message: '' };
     if (e instanceof Error) {
         info.isError = true;
@@ -697,6 +722,7 @@ exports.getErrorInfo = (e) => {
     }
     return info;
 };
+exports.getErrorInfo = getErrorInfo;
 /** vsc-base method
  * @description
  * return ISO timestamp
@@ -714,9 +740,10 @@ exports.getErrorInfo = (e) => {
 }
  * @returns string
  */
-exports.getTimestamp = () => {
+const getTimestamp = () => {
     return new Date().toISOString();
 };
+exports.getTimestamp = getTimestamp;
 /** vsc-base method
  * @description
  * Provide a circular safe JSON.stringify replacer. \
@@ -728,7 +755,7 @@ exports.getTimestamp = () => {
  * const objString = JSON.stringify(someObject, vsc.getJSONCircularReplacer(), 2);
  * @returns (_key: string, value: unknown) => unknown
  */
-exports.getJSONCircularReplacer = () => {
+const getJSONCircularReplacer = () => {
     const seen = new WeakSet();
     return (_key, value) => {
         if (typeof value === "object" && value !== null) {
@@ -740,6 +767,7 @@ exports.getJSONCircularReplacer = () => {
         return value;
     };
 };
+exports.getJSONCircularReplacer = getJSONCircularReplacer;
 /** vsc-base method
  * @description
  * Stringify an object. \
@@ -754,13 +782,14 @@ exports.getJSONCircularReplacer = () => {
  * const objString = vsc.toJSONString(someObject);
  * @returns string
  */
-exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
+const toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2, maxDepth = -1) => {
     if (maxDepth >= 0) {
         let maxDepthObj = vsc.maxDepthReplacer(obj, maxDepth);
         return JSON.stringify(maxDepthObj, replacer, space);
     }
     return JSON.stringify(obj, replacer, space);
 };
+exports.toJSONString = toJSONString;
 /** vsc-base method
  * @description
  * Clone an JSON Object (any type) with max depth. \
@@ -791,7 +820,7 @@ exports.toJSONString = (obj, replacer = vsc.getJSONCircularReplacer(), space = 2
 }
  * @returns string
  */
-exports.maxDepthReplacer = (obj, maxDepth) => {
+const maxDepthReplacer = (obj, maxDepth) => {
     const walkedObj = vsc.objectWalker(obj, (state) => {
         if (state.depth >= maxDepth) {
             state.replace(Array.isArray(state.ancestors[0])
@@ -801,6 +830,7 @@ exports.maxDepthReplacer = (obj, maxDepth) => {
     });
     return walkedObj;
 };
+exports.maxDepthReplacer = maxDepthReplacer;
 /** vsc-base method
  * @description
  * Clone an JSON Object (any type) and replace all properties with the given name with a new value. \
@@ -831,7 +861,7 @@ exports.maxDepthReplacer = (obj, maxDepth) => {
 }
  * @returns string
  */
-exports.keyValueReplacer = (obj, key, newValue) => {
+const keyValueReplacer = (obj, key, newValue) => {
     const walkedObj = vsc.objectWalker(obj, (state) => {
         if (state.key === key) {
             state.replace(newValue);
@@ -839,6 +869,7 @@ exports.keyValueReplacer = (obj, key, newValue) => {
     });
     return walkedObj;
 };
+exports.keyValueReplacer = keyValueReplacer;
 /** vsc-base method
  * @description
  * Simple implementation of that escape: & < > " and ' \
@@ -862,7 +893,7 @@ exports.keyValueReplacer = (obj, key, newValue) => {
 }
  * @returns string
  */
-exports.escapeHtml = (unsafe, encodeCurlyBracket = true) => {
+const escapeHtml = (unsafe, encodeCurlyBracket = true) => {
     let save = unsafe
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -876,6 +907,7 @@ exports.escapeHtml = (unsafe, encodeCurlyBracket = true) => {
     }
     return save;
 };
+exports.escapeHtml = escapeHtml;
 /** vsc-base method
  * @description
  * Clone an JSON Object (any type) going through its entire tree structure. \
@@ -925,7 +957,7 @@ exports.escapeHtml = (unsafe, encodeCurlyBracket = true) => {
 }
  * @returns string
  */
-exports.objectWalker = (obj, callback) => {
+const objectWalker = (obj, callback) => {
     let stopFlag = false;
     const stop = () => {
         stopFlag = true;
@@ -981,4 +1013,5 @@ exports.objectWalker = (obj, callback) => {
     objectWalkerRecursive(obj, '', 0, [], []);
     return obj;
 };
+exports.objectWalker = objectWalker;
 //# sourceMappingURL=vsc-base-raw.js.map

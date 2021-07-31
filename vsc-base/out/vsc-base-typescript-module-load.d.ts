@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as ts from 'typescript';
 /** vsc-base method
  * @description

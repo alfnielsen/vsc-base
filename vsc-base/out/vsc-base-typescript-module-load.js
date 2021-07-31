@@ -1,13 +1,15 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.awaitResult = exports.verifyModuleMethods = exports.TSLoadModuleError = exports.tsLoadModule = exports.tsGetLocalModules = exports.tsRewriteTranspiledCodeWithVscBaseModules = exports.getVscDefaultModuleMap = exports.tsLoadModuleSourceCode = void 0;
 const cp = require("child-process-promise");
 const fs = require("fs-extra");
 const ts = require("typescript");
@@ -26,12 +28,13 @@ const vsc = require("./vsc-base");
  * const sourceJs = await vsc.tsLoadModuleSourceCode(path)
  * @returns Promise<string>
  */
-exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
+const tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(void 0, void 0, void 0, function* () {
     const scriptFileTs = yield vsc.getFileContent(path);
     let sourceJs = vsc.tsTranspile(scriptFileTs, compilerOptions);
     sourceJs = vsc.tsRewriteTranspiledCodeWithVscBaseModules(sourceJs);
     return sourceJs;
 });
+exports.tsLoadModuleSourceCode = tsLoadModuleSourceCode;
 /** vsc-base method
  * @description
  * Return the default module map of vsc-base \
@@ -43,7 +46,7 @@ exports.tsLoadModuleSourceCode = (path, compilerOptions = vsc.TsDefaultCompilerO
  * const moduleMap = vsc.getVscDefaultModuleMap()
  * @returns \{ [key: string]: \{ key: string, name: string, module: any \} \}
  */
-exports.getVscDefaultModuleMap = () => {
+const getVscDefaultModuleMap = () => {
     return [
         { key: 'vsc', name: 'vsc-base', module: vsc },
         { key: 'ts', name: 'typescript', module: ts },
@@ -52,6 +55,7 @@ exports.getVscDefaultModuleMap = () => {
         { key: 'cp', name: 'child-process-promise', module: cp }
     ];
 };
+exports.getVscDefaultModuleMap = getVscDefaultModuleMap;
 /** vsc-base method
  * @description
  * Replace ts transpiled code's require for vsc, ts, fs and vscode.
@@ -69,7 +73,7 @@ exports.getVscDefaultModuleMap = () => {
  * @param sourceJs
  * @returns string
  */
-exports.tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
+const tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
     const modulesMap = vsc.getVscDefaultModuleMap();
     modulesMap.forEach(obj => {
         const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"${obj.name}\\"\\)`, 'g');
@@ -77,6 +81,7 @@ exports.tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
     });
     return sourceJs;
 };
+exports.tsRewriteTranspiledCodeWithVscBaseModules = tsRewriteTranspiledCodeWithVscBaseModules;
 /** vsc-base method
  * @description
  * Replace ts transpiled code's require by loading each import with another tsLoadModule execution. \
@@ -92,7 +97,7 @@ exports.tsRewriteTranspiledCodeWithVscBaseModules = (sourceJs) => {
  * @param sourceJs
  * @returns string
  */
-exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awaiter(this, void 0, void 0, function* () {
+const tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awaiter(void 0, void 0, void 0, function* () {
     const reg = new RegExp(`\\bconst (\\w+) = require\\(\\"([^\\"]+)\\"\\)`, 'g');
     let match;
     const internalModules = [];
@@ -118,6 +123,7 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
     }
     return [sourceJs, internalModuleExports];
 });
+exports.tsGetLocalModules = tsGetLocalModules;
 /** vsc-base method
  * @description
  * Load a ts file. \
@@ -161,7 +167,7 @@ exports.tsGetLocalModules = (baseDir, sourceJs, renameRequireToObject) => __awai
  * }
  * @returns Promise<{ [key: string]: unknown; }>
  */
-exports.tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(this, void 0, void 0, function* () {
+const tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) => __awaiter(void 0, void 0, void 0, function* () {
     const sourceJs = yield vsc.tsLoadModuleSourceCode(path, compilerOptions);
     const renamedRequire = '__vsc__import__exports';
     const [baseDir] = vsc.splitPath(path);
@@ -180,6 +186,7 @@ exports.tsLoadModule = (path, compilerOptions = vsc.TsDefaultCompilerOptions) =>
     }
     return _exports;
 });
+exports.tsLoadModule = tsLoadModule;
 class TSLoadModuleError extends Error {
     constructor(message, transpiledCode) {
         super(message);
@@ -215,7 +222,7 @@ const loadTsModule_Eval = (sourceJs, importExports, renamedRequire) => {
  * const result = verifiedModule.run()
  * @returns { [key: string]: any } | undefined
  */
-exports.verifyModuleMethods = (_module, methods) => {
+const verifyModuleMethods = (_module, methods) => {
     const map = {};
     for (const key of methods) {
         if (_module.hasOwnProperty(key) && _module[key] instanceof Function) {
@@ -227,6 +234,7 @@ exports.verifyModuleMethods = (_module, methods) => {
     }
     return map;
 };
+exports.verifyModuleMethods = verifyModuleMethods;
 /** vsc-base method
  * @description
  * Ensure that a method result that optional can be a promise is awaited. \
@@ -244,7 +252,7 @@ exports.verifyModuleMethods = (_module, methods) => {
  * result = await vsc.awaitResult(result)
  * @returns Promise<any>
  */
-exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
+const awaitResult = (result) => __awaiter(void 0, void 0, void 0, function* () {
     if (result instanceof Promise) {
         return result;
     }
@@ -252,4 +260,5 @@ exports.awaitResult = (result) => __awaiter(this, void 0, void 0, function* () {
         return Promise.resolve(result);
     }
 });
+exports.awaitResult = awaitResult;
 //# sourceMappingURL=vsc-base-typescript-module-load.js.map

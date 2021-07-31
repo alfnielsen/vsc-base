@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tsMatchValueNode = exports.tsMatchNode = exports.tsIsValue = exports.tsIsNode = exports.tsIsEnumMember = exports.tsIsEnum = exports.tsIsTypeRef = exports.tsIsInterface = exports.tsIsIdentifier = exports.tsIsVariableList = exports.tsIsVariable = exports.tsIsFunction = exports.tsIsObjectProperty = exports.tsIsImport = exports.tsMatchImport = exports.tsIsCall = exports.tsMatchCall = exports.tsMatchEnumMember = exports.tsMatchEnum = exports.tsMatchTypeRef = exports.tsMatchInterface = exports.tsMatchIdentifier = exports.tsMatchVariableList = exports.tsMatchVariable = exports.tsMatchFunction = exports.tsMatchObjectProperty = exports.tsHasAncestors = exports.tsHasAncestor = exports.tsFindAncestor = exports.tsHasGrandChildren = exports.tsHasGrandChild = exports.tsFindGrandChild = exports.tsHasChildren = exports.tsHasChild = exports.tsFindChild = void 0;
 const ts = require("typescript");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -24,7 +25,7 @@ const vsc = require("./vsc-base");
  * )
  * @returns ts.Node | undefined
  */
-exports.tsFindChild = (node, callback) => {
+const tsFindChild = (node, callback) => {
     const children = vsc.tsGetParsedChildren(node);
     for (let index = 0; index < children.length; index++) {
         const child = children[index];
@@ -35,6 +36,7 @@ exports.tsFindChild = (node, callback) => {
     }
     return undefined;
 };
+exports.tsFindChild = tsFindChild;
 /** vsc-base method
  * @description
  * Test if direct parsedChild that matches conditions in a callback \
@@ -57,9 +59,10 @@ exports.tsFindChild = (node, callback) => {
  * )
  * @returns boolean
  */
-exports.tsHasChild = (node, callback) => {
+const tsHasChild = (node, callback) => {
     return !!vsc.tsFindChild(node, callback);
 };
+exports.tsHasChild = tsHasChild;
 /** vsc-base method
  * @description
  * Test if it has all children or grandChildren (child's child) that matches conditions in a callback \
@@ -89,7 +92,7 @@ exports.tsHasChild = (node, callback) => {
  * )
  * @returns ts.Node | undefined
  */
-exports.tsHasChildren = (node, callbacks) => {
+const tsHasChildren = (node, callbacks) => {
     for (let index = 0; index < callbacks.length; index++) {
         const callback = callbacks[index];
         if (!vsc.tsHasGrandChild(node, callback)) {
@@ -98,6 +101,7 @@ exports.tsHasChildren = (node, callbacks) => {
     }
     return true;
 };
+exports.tsHasChildren = tsHasChildren;
 /** vsc-base method
  * @description
  * Find a child or grandChild (child's child) that matches conditions in a callback\
@@ -119,7 +123,7 @@ exports.tsHasChildren = (node, callbacks) => {
  * )
  * @returns ts.Node | undefined
  */
-exports.tsFindGrandChild = (node, callback) => {
+const tsFindGrandChild = (node, callback) => {
     let found;
     const mathChild = (node, depth) => {
         if (found) {
@@ -140,6 +144,7 @@ exports.tsFindGrandChild = (node, callback) => {
     mathChild(node, 0);
     return found;
 };
+exports.tsFindGrandChild = tsFindGrandChild;
 /** vsc-base method
  * @description
  * Test if it has  a child or grandChild (child's child) that matches conditions in a callback \
@@ -162,9 +167,10 @@ exports.tsFindGrandChild = (node, callback) => {
  * )
  * @returns boolean
  */
-exports.tsHasGrandChild = (node, callback) => {
+const tsHasGrandChild = (node, callback) => {
     return !!vsc.tsFindGrandChild(node, callback);
 };
+exports.tsHasGrandChild = tsHasGrandChild;
 /** vsc-base method
  * @description
  * Test if it has all Children or grandChildren (child's child) that matches conditions in a callback \
@@ -191,7 +197,7 @@ exports.tsHasGrandChild = (node, callback) => {
  * })
  * @returns boolean
  */
-exports.tsHasGrandChildren = (node, callbacks) => {
+const tsHasGrandChildren = (node, callbacks) => {
     for (let index = 0; index < callbacks.length; index++) {
         const callback = callbacks[index];
         if (!vsc.tsHasGrandChild(node, callback)) {
@@ -200,6 +206,7 @@ exports.tsHasGrandChildren = (node, callbacks) => {
     }
     return true;
 };
+exports.tsHasGrandChildren = tsHasGrandChildren;
 /** vsc-base method
  * @description
  * Find a parent or ancestor (parent's parent) that matches conditions in a callback
@@ -220,7 +227,7 @@ exports.tsHasGrandChildren = (node, callbacks) => {
  * )
  * @returns ts.Node | undefined
  */
-exports.tsFindAncestor = (node, callback) => {
+const tsFindAncestor = (node, callback) => {
     let ancestor = node.parent, depth = 0;
     while (ancestor) {
         depth += 1;
@@ -232,6 +239,7 @@ exports.tsFindAncestor = (node, callback) => {
     }
     return undefined;
 };
+exports.tsFindAncestor = tsFindAncestor;
 /** vsc-base method
  * @description
  * Test if it has a parent or ancestor (parent's parent) that matches conditions in a callback \
@@ -253,9 +261,10 @@ exports.tsFindAncestor = (node, callback) => {
  * )
  * @returns boolean
  */
-exports.tsHasAncestor = (node, callback) => {
+const tsHasAncestor = (node, callback) => {
     return !!vsc.tsFindAncestor(node, callback);
 };
+exports.tsHasAncestor = tsHasAncestor;
 /** vsc-base method
  * @description
  * Test is it has all ancestors (parent's parent) that matches conditions in a callback \
@@ -277,7 +286,7 @@ exports.tsHasAncestor = (node, callback) => {
  * )
  * @returns boolean
  */
-exports.tsHasAncestors = (node, callbacks) => {
+const tsHasAncestors = (node, callbacks) => {
     for (let index = 0; index < callbacks.length; index++) {
         const callback = callbacks[index];
         if (!vsc.tsHasAncestor(node, callback)) {
@@ -286,6 +295,7 @@ exports.tsHasAncestors = (node, callbacks) => {
     }
     return true;
 };
+exports.tsHasAncestors = tsHasAncestors;
 /** vsc-base method
  * @description
  * Test is a node is a object property (node: ts.PropertyAssignment) \
@@ -307,7 +317,7 @@ exports.tsHasAncestors = (node, callbacks) => {
  * )
  * @returns ts.PropertyAssignment | undefined
  */
-exports.tsMatchObjectProperty = (node, options) => {
+const tsMatchObjectProperty = (node, options) => {
     if (!node || !ts.isPropertyAssignment(node)) {
         return;
     }
@@ -332,6 +342,7 @@ exports.tsMatchObjectProperty = (node, options) => {
     }
     return node;
 };
+exports.tsMatchObjectProperty = tsMatchObjectProperty;
 /** vsc-base method
  * @description
  * Test if a node is a function \
@@ -353,7 +364,7 @@ exports.tsMatchObjectProperty = (node, options) => {
  * )
  * @returns ts.ArrowFunction | ts.FunctionExpression | ts.FunctionDeclaration | undefined
  */
-exports.tsMatchFunction = (node, options) => {
+const tsMatchFunction = (node, options) => {
     if (!node || !(ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node))) {
         return;
     }
@@ -385,6 +396,7 @@ exports.tsMatchFunction = (node, options) => {
     }
     return node;
 };
+exports.tsMatchFunction = tsMatchFunction;
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
@@ -408,7 +420,7 @@ exports.tsMatchFunction = (node, options) => {
  * )
  * @returns ts.VariableDeclaration | undefined
  */
-exports.tsMatchVariable = (node, options) => {
+const tsMatchVariable = (node, options) => {
     if (!node || !ts.isVariableDeclaration(node)) {
         return;
     }
@@ -430,6 +442,7 @@ exports.tsMatchVariable = (node, options) => {
     }
     return node;
 };
+exports.tsMatchVariable = tsMatchVariable;
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclarationList) \
@@ -456,7 +469,7 @@ exports.tsMatchVariable = (node, options) => {
  * )
  * @returns ts.VariableDeclarationList | undefined
  */
-exports.tsMatchVariableList = (node, options) => {
+const tsMatchVariableList = (node, options) => {
     if (!node || !ts.isVariableDeclarationList(node)) {
         return;
     }
@@ -491,6 +504,7 @@ exports.tsMatchVariableList = (node, options) => {
     }
     return node;
 };
+exports.tsMatchVariableList = tsMatchVariableList;
 /** vsc-base method
  * @description
  * Test is a node is a identifier (node: ts.Identifier) \
@@ -510,7 +524,7 @@ exports.tsMatchVariableList = (node, options) => {
  * )
  * @returns ts.Identifier | undefined
  */
-exports.tsMatchIdentifier = (node, options) => {
+const tsMatchIdentifier = (node, options) => {
     if (!node || !ts.isIdentifier(node)) {
         return;
     }
@@ -532,6 +546,7 @@ exports.tsMatchIdentifier = (node, options) => {
     }
     return node;
 };
+exports.tsMatchIdentifier = tsMatchIdentifier;
 /** vsc-base method
  * @description
  * Test is a node is an interface (node: ts.InterfaceDeclaration) \
@@ -551,7 +566,7 @@ exports.tsMatchIdentifier = (node, options) => {
  * )
  * @returns ts.EnumDeclaration | undefined
  */
-exports.tsMatchInterface = (node, options) => {
+const tsMatchInterface = (node, options) => {
     if (!node || !ts.isInterfaceDeclaration(node)) {
         return;
     }
@@ -563,6 +578,7 @@ exports.tsMatchInterface = (node, options) => {
     }
     return node;
 };
+exports.tsMatchInterface = tsMatchInterface;
 /** vsc-base method
  * @description
  * Test is a node is an type reference (node: ts.TypeReferenceNode) \
@@ -582,7 +598,7 @@ exports.tsMatchInterface = (node, options) => {
  * )
  * @returns ts.TypeReferenceNode | undefined
  */
-exports.tsMatchTypeRef = (node, options) => {
+const tsMatchTypeRef = (node, options) => {
     if (!node || !ts.isTypeReferenceNode(node)) {
         return;
     }
@@ -602,6 +618,7 @@ exports.tsMatchTypeRef = (node, options) => {
     }
     return node;
 };
+exports.tsMatchTypeRef = tsMatchTypeRef;
 /** vsc-base method
  * @description
  * Test is a node is an enum  declaration (node: ts.EnumDeclaration) \
@@ -621,7 +638,7 @@ exports.tsMatchTypeRef = (node, options) => {
  * )
  * @returns ts.EnumDeclaration | undefined
  */
-exports.tsMatchEnum = (node, options) => {
+const tsMatchEnum = (node, options) => {
     if (!node || !ts.isEnumDeclaration(node)) {
         return;
     }
@@ -633,6 +650,7 @@ exports.tsMatchEnum = (node, options) => {
     }
     return node;
 };
+exports.tsMatchEnum = tsMatchEnum;
 /** vsc-base method
  * @description
  * Test is a node is a enum member (node: ts.EnumMember) \
@@ -652,7 +670,7 @@ exports.tsMatchEnum = (node, options) => {
  * )
  * @returns ts.EnumMember | undefined
  */
-exports.tsMatchEnumMember = (node, options) => {
+const tsMatchEnumMember = (node, options) => {
     if (!node || !ts.isEnumMember(node)) {
         return;
     }
@@ -674,6 +692,7 @@ exports.tsMatchEnumMember = (node, options) => {
     }
     return node;
 };
+exports.tsMatchEnumMember = tsMatchEnumMember;
 /** vsc-base method
  * @description
  * Test is a node is a call expression (node: ts.CallExpression) \
@@ -693,7 +712,7 @@ exports.tsMatchEnumMember = (node, options) => {
  * )
  * @returns ts.CallExpression | undefined
  */
-exports.tsMatchCall = (node, options) => {
+const tsMatchCall = (node, options) => {
     if (!node || !ts.isCallExpression(node)) {
         return;
     }
@@ -724,6 +743,7 @@ exports.tsMatchCall = (node, options) => {
     }
     return node;
 };
+exports.tsMatchCall = tsMatchCall;
 /** vsc-base method
  * @description
  * Test is a node is a call expression (node: ts.CallExpression) \
@@ -743,9 +763,10 @@ exports.tsMatchCall = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsCall = (node, options) => {
+const tsIsCall = (node, options) => {
     return !!vsc.tsMatchCall(node, options);
 };
+exports.tsIsCall = tsIsCall;
 /** vsc-base method
  * @description
  * Test is a node is an import declaration (node: ts.ImportDeclaration) \
@@ -768,7 +789,7 @@ exports.tsIsCall = (node, options) => {
  * )
  * @returns ts.ImportDeclaration | undefined
  */
-exports.tsMatchImport = (node, options) => {
+const tsMatchImport = (node, options) => {
     if (!node || !ts.isImportDeclaration(node)) {
         return;
     }
@@ -852,6 +873,7 @@ exports.tsMatchImport = (node, options) => {
     }
     return node;
 };
+exports.tsMatchImport = tsMatchImport;
 /** vsc-base method
  * @description
  * Test is a node is an import declaration (node: ts.ImportDeclaration) \
@@ -875,9 +897,10 @@ exports.tsMatchImport = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsImport = (node, options) => {
+const tsIsImport = (node, options) => {
     return !!vsc.tsMatchImport(node, options);
 };
+exports.tsIsImport = tsIsImport;
 /** vsc-base method
  * @description
  * Test is a node is a object property (node: ts.PropertyAssignment) \
@@ -895,9 +918,10 @@ exports.tsIsImport = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsObjectProperty = (node, options) => {
+const tsIsObjectProperty = (node, options) => {
     return !!vsc.tsMatchObjectProperty(node, options);
 };
+exports.tsIsObjectProperty = tsIsObjectProperty;
 /** vsc-base method
  * @description
  * Test if a node is a function \
@@ -916,9 +940,10 @@ exports.tsIsObjectProperty = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsFunction = (node, options) => {
+const tsIsFunction = (node, options) => {
     return !!exports.tsMatchFunction(node, options);
 };
+exports.tsIsFunction = tsIsFunction;
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
@@ -936,9 +961,10 @@ exports.tsIsFunction = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsVariable = (node, options) => {
+const tsIsVariable = (node, options) => {
     return !!vsc.tsMatchVariable(node, options);
 };
+exports.tsIsVariable = tsIsVariable;
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclarationList) \
@@ -957,9 +983,10 @@ exports.tsIsVariable = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsVariableList = (node, options) => {
+const tsIsVariableList = (node, options) => {
     return !!vsc.tsMatchVariableList(node, options);
 };
+exports.tsIsVariableList = tsIsVariableList;
 /** vsc-base method
  * @description
  * Test is a node is a variable declaration (node: ts.VariableDeclaration) \
@@ -977,9 +1004,10 @@ exports.tsIsVariableList = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsIdentifier = (node, options) => {
+const tsIsIdentifier = (node, options) => {
     return !!vsc.tsMatchIdentifier(node, options);
 };
+exports.tsIsIdentifier = tsIsIdentifier;
 /** vsc-base method
  * @description
  * Test is a node is an interface (node: ts.InterfaceDeclaration) \
@@ -997,9 +1025,10 @@ exports.tsIsIdentifier = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsInterface = (node, options) => {
+const tsIsInterface = (node, options) => {
     return !!vsc.tsMatchInterface(node, options);
 };
+exports.tsIsInterface = tsIsInterface;
 /** vsc-base method
  * @description
  * Test is a node is an type reference (node: ts.TypeReferenceNode) \
@@ -1017,9 +1046,10 @@ exports.tsIsInterface = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsTypeRef = (node, options) => {
+const tsIsTypeRef = (node, options) => {
     return !!vsc.tsMatchTypeRef(node, options);
 };
+exports.tsIsTypeRef = tsIsTypeRef;
 /** vsc-base method
  * @description
  * Test is a node is an enum  declaration (node: ts.EnumDeclaration) \
@@ -1037,9 +1067,10 @@ exports.tsIsTypeRef = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsEnum = (node, options) => {
+const tsIsEnum = (node, options) => {
     return !!vsc.tsMatchEnum(node, options);
 };
+exports.tsIsEnum = tsIsEnum;
 /** vsc-base method
  * @description
  * Test is a node is a enum member (node: ts.EnumMember) \
@@ -1057,9 +1088,10 @@ exports.tsIsEnum = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsEnumMember = (node, options) => {
+const tsIsEnumMember = (node, options) => {
     return !!vsc.tsMatchEnumMember(node, options);
 };
+exports.tsIsEnumMember = tsIsEnumMember;
 /** vsc-base method
  * @description
  * Base test for node properties. \
@@ -1083,7 +1115,7 @@ exports.tsIsEnumMember = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsNode = (node, options) => {
+const tsIsNode = (node, options) => {
     if (!node) {
         return false;
     }
@@ -1124,6 +1156,7 @@ exports.tsIsNode = (node, options) => {
     }
     return true;
 };
+exports.tsIsNode = tsIsNode;
 /** vsc-base method
  * @description
  * Test if node is an value: string expression, number expression or boolean (true or false) \
@@ -1153,7 +1186,7 @@ exports.tsIsNode = (node, options) => {
  * )
  * @returns boolean
  */
-exports.tsIsValue = (node, matchValue, options) => {
+const tsIsValue = (node, matchValue, options) => {
     if (node === undefined) {
         return false;
     }
@@ -1198,6 +1231,7 @@ exports.tsIsValue = (node, matchValue, options) => {
     }
     return true;
 };
+exports.tsIsValue = tsIsValue;
 /** vsc-base method
  * @description
  * Base test for node properties. \
@@ -1221,12 +1255,13 @@ exports.tsIsValue = (node, matchValue, options) => {
  * )
  * @returns s.Node | undefined
  */
-exports.tsMatchNode = (node, options) => {
+const tsMatchNode = (node, options) => {
     if (vsc.tsIsNode(node, options)) {
         return node;
     }
     return undefined;
 };
+exports.tsMatchNode = tsMatchNode;
 /** vsc-base method
  * @description
  * Test if node is an value: string expression, number expression or boolean (true or false) \
@@ -1256,9 +1291,10 @@ exports.tsMatchNode = (node, options) => {
  * )
  * @returns s.Node | undefined
  */
-exports.tsMatchValueNode = (node, matchValue, options) => {
+const tsMatchValueNode = (node, matchValue, options) => {
     if (vsc.tsIsValue(node, matchValue, options)) {
         return node;
     }
 };
+exports.tsMatchValueNode = tsMatchValueNode;
 //# sourceMappingURL=vsc-base-typescript-match.js.map

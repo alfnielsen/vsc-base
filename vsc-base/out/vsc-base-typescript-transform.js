@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tsReplaceAll = exports.tsReplace = exports.tsFindAllNodePositionsFromContent = exports.tsFindNodePositionFromContent = exports.tsCreateNodeVisitor = exports.tsCreateRemoveNodesTransformer = exports.tsCreateTransformer = exports.tsVisitWithTransformers = exports.tsTransform = exports.tsCreateProgram = void 0;
 const ts = require("typescript");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -17,7 +18,7 @@ const vsc = require("./vsc-base");
  * @example
  * const [program, sourceFile] = vsc.tsCreateProgram(code)
  */
-exports.tsCreateProgram = (code, sourceFileName = 'sourceFile.ts', compilerOptions = vsc.TsDefaultCompilerOptions, compilerHost = ts.createCompilerHost(compilerOptions)) => {
+const tsCreateProgram = (code, sourceFileName = 'sourceFile.ts', compilerOptions = vsc.TsDefaultCompilerOptions, compilerHost = ts.createCompilerHost(compilerOptions)) => {
     let innerSourceFile;
     compilerHost.getSourceFile = (fileName) => {
         innerSourceFile = innerSourceFile || ts.createSourceFile(fileName, code, ts.ScriptTarget.ES2015, true);
@@ -28,6 +29,7 @@ exports.tsCreateProgram = (code, sourceFileName = 'sourceFile.ts', compilerOptio
     const sourceFile = program.getSourceFile(sourceFileName);
     return [program, sourceFile];
 };
+exports.tsCreateProgram = tsCreateProgram;
 /** vsc-base method
  * @description
  * Transform source code using custom transformers \
@@ -45,7 +47,7 @@ exports.tsCreateProgram = (code, sourceFileName = 'sourceFile.ts', compilerOptio
  * @example
  * const updatedCode = vsc.tsTransform(code, [transformer1, transformer2])
  */
-exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultCompilerOptions, printer = ts.createPrinter()) => {
+const tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultCompilerOptions, printer = ts.createPrinter()) => {
     const sourceFile = vsc.tsCreateSourceFile(source);
     const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions);
     const transformedSourceFile = result.transformed[0];
@@ -56,6 +58,7 @@ exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultComp
     result.dispose();
     return print;
 };
+exports.tsTransform = tsTransform;
 /** vsc-base method
  * @description
  * This is like a [tsTransform](http://vsc-base.org/#tsTransform), but it doesn't transform or print content. \
@@ -72,10 +75,11 @@ exports.tsTransform = (source, transformers, compilerOptions = vsc.TsDefaultComp
  * @example
  * vsc.tsVisitWithTransformers(code, [visitor, transformer])
  */
-exports.tsVisitWithTransformers = (source, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
+const tsVisitWithTransformers = (source, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     const sourceFile = vsc.tsCreateSourceFile(source);
     vsc.tsTransformNode(sourceFile, transformers, compilerOptions);
 };
+exports.tsVisitWithTransformers = tsVisitWithTransformers;
 /** vsc-base method
  * @description
  * Create a Ts Transformer factory \
@@ -117,7 +121,7 @@ exports.tsVisitWithTransformers = (source, transformers, compilerOptions = vsc.T
  *
  * @returns ts.TransformerFactory<T>
  */
-exports.tsCreateTransformer = (callback, program) => {
+const tsCreateTransformer = (callback, program) => {
     let typeChecker;
     if (program) {
         typeChecker = program.getTypeChecker();
@@ -133,6 +137,7 @@ exports.tsCreateTransformer = (callback, program) => {
         return (node) => ts.visitNode(node, visit);
     };
 };
+exports.tsCreateTransformer = tsCreateTransformer;
 /** vsc-base method
  * @description
  * Create a Ts Transformer for removing nodes \
@@ -158,7 +163,7 @@ exports.tsCreateTransformer = (callback, program) => {
  *
  * @returns ts.TransformerFactory<T>
  */
-exports.tsCreateRemoveNodesTransformer = (callback, program) => {
+const tsCreateRemoveNodesTransformer = (callback, program) => {
     let typeChecker;
     if (program) {
         typeChecker = program.getTypeChecker();
@@ -174,6 +179,7 @@ exports.tsCreateRemoveNodesTransformer = (callback, program) => {
         return (node) => ts.visitNode(node, visit);
     };
 };
+exports.tsCreateRemoveNodesTransformer = tsCreateRemoveNodesTransformer;
 /** vsc-base method
  * @description
  * Create a Ts Visitor Transformer for collecting data (Will not remove or replace any nodes) \
@@ -240,7 +246,7 @@ exports.tsCreateRemoveNodesTransformer = (callback, program) => {
 
  * @returns ts.TransformerFactory<T>
  */
-exports.tsCreateNodeVisitor = (callback, program) => {
+const tsCreateNodeVisitor = (callback, program) => {
     let typeChecker;
     if (program) {
         typeChecker = program.getTypeChecker();
@@ -253,6 +259,7 @@ exports.tsCreateNodeVisitor = (callback, program) => {
         return (node) => ts.visitNode(node, visit);
     };
 };
+exports.tsCreateNodeVisitor = tsCreateNodeVisitor;
 /** vsc-base method
  * @description
  * Create a Ts Visitor Transformer for finding a node and it position.
@@ -292,7 +299,7 @@ exports.tsCreateNodeVisitor = (callback, program) => {
  * }
  * @returns [ts.Node | undefined, vsc.VscodePosition | undefined]
  */
-exports.tsFindNodePositionFromContent = (source, callback, program, fromPosition = 0, trimSpaces = true) => {
+const tsFindNodePositionFromContent = (source, callback, program, fromPosition = 0, trimSpaces = true) => {
     let position;
     let foundNode;
     let typeChecker;
@@ -320,6 +327,7 @@ exports.tsFindNodePositionFromContent = (source, callback, program, fromPosition
     vsc.tsVisitWithTransformers(source, [visitor]);
     return [foundNode, position];
 };
+exports.tsFindNodePositionFromContent = tsFindNodePositionFromContent;
 /** vsc-base method
  * @description
  * Create a Ts Visitor Transformer for finding a nodes and their position.
@@ -357,7 +365,7 @@ exports.tsFindNodePositionFromContent = (source, callback, program, fromPosition
  * })
  * @returns [ts.Node, vsc.VscodePosition][]
  */
-exports.tsFindAllNodePositionsFromContent = (source, callback, program, fromPosition = 0, trimSpaces = true) => {
+const tsFindAllNodePositionsFromContent = (source, callback, program, fromPosition = 0, trimSpaces = true) => {
     let positions = [];
     let typeChecker;
     if (program) {
@@ -384,6 +392,7 @@ exports.tsFindAllNodePositionsFromContent = (source, callback, program, fromPosi
     vsc.tsVisitWithTransformers(source, [visitor]);
     return positions;
 };
+exports.tsFindAllNodePositionsFromContent = tsFindAllNodePositionsFromContent;
 /** vsc-base method
  * @description
  * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \
@@ -410,7 +419,7 @@ exports.tsFindAllNodePositionsFromContent = (source, callback, program, fromPosi
  *
  * @returns string
  */
-exports.tsReplace = (source, replaceString, callback, program, fromPosition = 0, trimSpaces = true) => {
+const tsReplace = (source, replaceString, callback, program, fromPosition = 0, trimSpaces = true) => {
     const [node, position] = vsc.tsFindNodePositionFromContent(source, callback, program, fromPosition, trimSpaces);
     if (position) {
         //replace
@@ -418,6 +427,7 @@ exports.tsReplace = (source, replaceString, callback, program, fromPosition = 0,
     }
     return source;
 };
+exports.tsReplace = tsReplace;
 /** vsc-base method
  * @description
  * tsReplace is a smart search and replace that take the source, a replaceString and a callback for finding the node to replace. \
@@ -440,7 +450,7 @@ exports.tsReplace = (source, replaceString, callback, program, fromPosition = 0,
  *
  * @returns string
  */
-exports.tsReplaceAll = (source, replaceString, callback, program, fromPosition = 0, trimSpaces = true) => {
+const tsReplaceAll = (source, replaceString, callback, program, fromPosition = 0, trimSpaces = true) => {
     const positions = vsc.tsFindAllNodePositionsFromContent(source, callback, program, fromPosition, trimSpaces);
     positions.sort(([, positionA], [, positionB]) => positionA.start - positionB.start);
     let diff = 0;
@@ -453,4 +463,5 @@ exports.tsReplaceAll = (source, replaceString, callback, program, fromPosition =
     });
     return source;
 };
+exports.tsReplaceAll = tsReplaceAll;
 //# sourceMappingURL=vsc-base-typescript-transform.js.map

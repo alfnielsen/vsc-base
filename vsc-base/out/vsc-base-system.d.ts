@@ -1,6 +1,7 @@
 /// <reference types="node" />
-import * as cp from 'child-process-promise';
-import * as fs from 'fs-extra';
+import * as cp from "child-process-promise";
+import * as fs from "fs-extra";
+import * as vsc from "./vsc-base";
 /** vsc-base method
  * @description
  * Execute a bash command. \
@@ -44,7 +45,7 @@ export declare const execFromPath: (command: string, path: string) => Promise<cp
  * }
  * @returns () => AsyncIterableIterator<string>
  */
-export declare const getLineStreamReader: (readStream: fs.ReadStream, excludeNewLine?: boolean) => () => AsyncIterableIterator<string>;
+export declare const getLineStreamReader: (readStream: fs.ReadStream, excludeNewLine?: boolean) => () => AsyncGenerator<string, void, unknown>;
 /** vsc-base method
  * @description
  * Get a file ReadStream \
@@ -285,4 +286,9 @@ export declare const saveFileContent: (path: string, content: string, options?: 
  * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
-export declare const addFileContent: (path: string, content: string, options?: fs.WriteFileOptions | undefined) => Promise<void>;
+export declare const addFileContent: (path: string, content: string, options?: vsc.WriteFileOptions | undefined) => Promise<void>;
+export interface WriteFileOptions {
+    encoding?: string | undefined;
+    flag?: string | undefined;
+    mode?: number | undefined;
+}

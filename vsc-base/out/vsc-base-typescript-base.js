@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tsGetParsedChildren = exports.tsCreateSourceFile = exports.TsDefaultCompilerOptions = exports.tsTransformNode = exports.tsTranspile = void 0;
 const ts = require("typescript");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -13,11 +14,12 @@ const vsc = require("./vsc-base");
  * const sourceJs = vsc.tsTranspile(sourceTs)
  * @returns string
  */
-exports.tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions) => {
+const tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     const transpiledOutput = ts.transpileModule(sourceTs, { compilerOptions });
     let sourceJs = transpiledOutput.outputText;
     return sourceJs;
 };
+exports.tsTranspile = tsTranspile;
 /** vsc-base method
  * @description
  * Transform a ts.Node \
@@ -32,9 +34,10 @@ exports.tsTranspile = (sourceTs, compilerOptions = vsc.TsDefaultCompilerOptions)
  * @example
  * const result = vsc.tsTransformNode(sourceFile, transformers, compilerOptions)
  */
-exports.tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
+const tsTransformNode = (sourceFile, transformers, compilerOptions = vsc.TsDefaultCompilerOptions) => {
     return ts.transform(sourceFile, transformers, compilerOptions);
 };
+exports.tsTransformNode = tsTransformNode;
 /** vsc-base method
  * @description
  * vsc-base's internal default ts compiler options
@@ -62,11 +65,12 @@ exports.TsDefaultCompilerOptions = ({
  * @example
  * const sourceFile = vsc.tsCreateSourceFile(code)
  */
-exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date().getTime())}`) => {
+const tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date().getTime())}`) => {
     let sourceFile = ts.createSourceFile(sourceFileName, content, ts.ScriptTarget.ES2015, 
     /*setParentNodes */ true);
     return sourceFile;
 };
+exports.tsCreateSourceFile = tsCreateSourceFile;
 /** vsc-base method
  * @description
  * ts.Node's getChildren and getChildrenCount uses tokens not parsed nodes. \
@@ -79,9 +83,10 @@ exports.tsCreateSourceFile = (content, sourceFileName = `sourcefile_${(new Date(
  * @example
  * const children = vsc.tsGetParsedChildren(node)
  */
-exports.tsGetParsedChildren = (node) => {
+const tsGetParsedChildren = (node) => {
     let children = [];
     node.forEachChild(c => { children.push(c); });
     return children;
 };
+exports.tsGetParsedChildren = tsGetParsedChildren;
 //# sourceMappingURL=vsc-base-typescript-base.js.map

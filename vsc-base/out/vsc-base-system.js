@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -27,6 +28,7 @@ var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _ar
     function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.addFileContent = exports.saveFileContent = exports.emptyDir = exports.remove = exports.copy = exports.rename = exports.move = exports.makeDir = exports.isDir = exports.getPackageDependencies = exports.getRootPackageJson = exports.getPackageFilePaths = exports.getConfig = exports.getJsonContent = exports.getFileContent = exports.getDir = exports.doesExists = exports.getReadStream = exports.getLineStreamReader = exports.execFromPath = void 0;
 const cp = require("child-process-promise");
 const fs = require("fs-extra");
 const vscode = require("vscode");
@@ -52,9 +54,10 @@ const vsc = require("./vsc-base");
  const stringResult = result.stdout.toString()
  * @returns Promise<cp.PromiseResult<string>>
  */
-exports.execFromPath = (command, path) => __awaiter(this, void 0, void 0, function* () {
+const execFromPath = (command, path) => __awaiter(void 0, void 0, void 0, function* () {
     return yield cp.exec(`cd ${path} && ${command}`);
 });
+exports.execFromPath = execFromPath;
 /** vsc-base method
  * @description
  * Create a LineReader (generator method) for a ReadStream /
@@ -76,16 +79,16 @@ exports.execFromPath = (command, path) => __awaiter(this, void 0, void 0, functi
  * }
  * @returns () => AsyncIterableIterator<string>
  */
-exports.getLineStreamReader = (readStream, excludeNewLine = false) => function () {
+const getLineStreamReader = (readStream, excludeNewLine = false) => function () {
     return __asyncGenerator(this, arguments, function* () {
         var e_1, _a;
-        let read = '';
+        let read = "";
         try {
             for (var readStream_1 = __asyncValues(readStream), readStream_1_1; readStream_1_1 = yield __await(readStream_1.next()), !readStream_1_1.done;) {
                 const chunk = readStream_1_1.value;
                 read += chunk;
                 let lineLength;
-                while ((lineLength = read.indexOf('\n')) >= 0) {
+                while ((lineLength = read.indexOf("\n")) >= 0) {
                     let line;
                     if (excludeNewLine) {
                         line = read.slice(0, lineLength);
@@ -110,6 +113,7 @@ exports.getLineStreamReader = (readStream, excludeNewLine = false) => function (
         }
     });
 };
+exports.getLineStreamReader = getLineStreamReader;
 /** vsc-base method
  * @description
  * Get a file ReadStream \
@@ -127,17 +131,18 @@ exports.getLineStreamReader = (readStream, excludeNewLine = false) => function (
  * }
  * @returns fs.ReadStream
  */
-exports.getReadStream = (path, options = {
-    flags: 'r',
-    encoding: 'utf-8',
+const getReadStream = (path, options = {
+    flags: "r",
+    encoding: "utf-8",
     fd: undefined,
     mode: 438,
     autoClose: false,
-    highWaterMark: 64 * 1024
+    highWaterMark: 64 * 1024,
 }) => {
     const stream = fs.createReadStream(path, options);
     return stream;
 };
+exports.getReadStream = getReadStream;
 /** vsc-base method
  * @description
  * Does the folder/file exist
@@ -149,9 +154,10 @@ exports.getReadStream = (path, options = {
  * const exist = vsc.doesExists(path)
  * @returns boolean
  */
-exports.doesExists = (path) => {
+const doesExists = (path) => {
     return fs.existsSync(path);
 };
+exports.doesExists = doesExists;
 /** vsc-base method
  * @description
  * Get dir from path \
@@ -164,7 +170,7 @@ exports.doesExists = (path) => {
  * const dir = vsc.getDir(path)
  * @returns string
  */
-exports.getDir = (path) => {
+const getDir = (path) => {
     const _isDir = vsc.isDir(path);
     if (_isDir) {
         return path;
@@ -172,6 +178,7 @@ exports.getDir = (path) => {
     const [dir] = vsc.splitPath(path);
     return dir;
 };
+exports.getDir = getDir;
 /** vsc-base method
  * @description
  * Get file source
@@ -183,7 +190,8 @@ exports.getDir = (path) => {
  * const source = vsc.getFileContent(path)
  * @returns Promise<string>
  */
-exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, void 0, function* () { return yield fs.readFile(path, encoding); });
+const getFileContent = (path, encoding = "utf8") => __awaiter(void 0, void 0, void 0, function* () { return yield fs.readFile(path, encoding); });
+exports.getFileContent = getFileContent;
 /** vsc-base method
  * @description
  * Get file source as json \
@@ -196,7 +204,8 @@ exports.getFileContent = (path, encoding = 'utf8') => __awaiter(this, void 0, vo
  * const json = await vsc.getJsonContent(path)
  * @returns unknown
  */
-exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 0, function* () { return yield fs.readJson(path, { throws }); });
+const getJsonContent = (path, throws = false) => __awaiter(void 0, void 0, void 0, function* () { return yield fs.readJson(path, { throws }); });
+exports.getJsonContent = getJsonContent;
 /** vsc-base method
  * @description
  * Get vscode project config
@@ -209,11 +218,12 @@ exports.getJsonContent = (path, throws = false) => __awaiter(this, void 0, void 
  * const myOption = vsc.getConfig('myExtension', 'doThisThing', false)
  * @returns T
  */
-exports.getConfig = (projectName, property, defaultValue) => {
+const getConfig = (projectName, property, defaultValue) => {
     return vscode.workspace
         .getConfiguration(projectName)
         .get(property, defaultValue);
 };
+exports.getConfig = getConfig;
 /** vsc-base method
  * @description
  * Find package.json file paths in project. /
@@ -226,10 +236,11 @@ exports.getConfig = (projectName, property, defaultValue) => {
  * const packageFilePaths = await vsc.getPackageFilePaths()
  * @returns Promise<string[]>
  */
-exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
-    const packageFiles = yield vsc.findFilePaths('**/package.json', exclude);
+const getPackageFilePaths = (exclude = "**/{node_modules,.vscode-test}/**") => __awaiter(void 0, void 0, void 0, function* () {
+    const packageFiles = yield vsc.findFilePaths("**/package.json", exclude);
     return packageFiles;
 });
+exports.getPackageFilePaths = getPackageFilePaths;
 /** vsc-base method
  * @description
  * Get json from package.json in the project root.
@@ -240,11 +251,12 @@ exports.getPackageFilePaths = (exclude = '**/{node_modules,.vscode-test}/**') =>
  * const packageJson = await vsc.getRootPackageJson(rootPath)
  * @returns Promise<T = any>
  */
-exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, function* () {
-    const packageJsonPath = vsc.joinPaths(rootPath, 'package.json');
+const getRootPackageJson = (rootPath) => __awaiter(void 0, void 0, void 0, function* () {
+    const packageJsonPath = vsc.joinPaths(rootPath, "package.json");
     const packageJson = yield vsc.getJsonContent(packageJsonPath);
     return packageJson;
 });
+exports.getRootPackageJson = getRootPackageJson;
 /** vsc-base method
  * @description
  * Find package.json files and collect the dependencies and devDependencies.
@@ -258,7 +270,7 @@ exports.getRootPackageJson = (rootPath) => __awaiter(this, void 0, void 0, funct
  * @todo Use unknown guard check instead of any casting
  * @returns Promise<{ [key: string]: string }[]
  */
-exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**') => __awaiter(this, void 0, void 0, function* () {
+const getPackageDependencies = (exclude = "**/{node_modules,.vscode-test}/**") => __awaiter(void 0, void 0, void 0, function* () {
     let dependencies = {};
     let devDependencies = {};
     const packageFilePaths = yield vsc.getPackageFilePaths(exclude);
@@ -268,17 +280,18 @@ exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**')
         if (!packageJson) {
             continue;
         }
-        const packageDependencies = vsc.getJsonParts(packageJson, 'dependencies');
-        const packageDevDependencies = vsc.getJsonParts(packageJson, 'devDependencies');
+        const packageDependencies = vsc.getJsonParts(packageJson, "dependencies");
+        const packageDevDependencies = vsc.getJsonParts(packageJson, "devDependencies");
         if (packageDependencies) {
-            dependencies = Object.assign({}, dependencies, packageDependencies);
+            dependencies = Object.assign(Object.assign({}, dependencies), packageDependencies);
         }
         if (packageDevDependencies) {
-            devDependencies = Object.assign({}, devDependencies, packageDevDependencies);
+            devDependencies = Object.assign(Object.assign({}, devDependencies), packageDevDependencies);
         }
     }
     return [dependencies, devDependencies];
 });
+exports.getPackageDependencies = getPackageDependencies;
 /** vsc-base method
  * @description
  * Test is a path is directory
@@ -290,9 +303,10 @@ exports.getPackageDependencies = (exclude = '**/{node_modules,.vscode-test}/**')
  * @see [isDir](http://vsc-base.org/#isDir)
  * @returns boolean
  */
-exports.isDir = (path) => {
+const isDir = (path) => {
     return fs.statSync(path).isDirectory();
 };
+exports.isDir = isDir;
 /** vsc-base method
  * @description
  * Make a folder \
@@ -305,7 +319,7 @@ exports.isDir = (path) => {
  * await vsc.makeDir(path)
  * @returns Promise<void>
  */
-exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
+const makeDir = (folderPath) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield fs.mkdir(folderPath);
     }
@@ -313,6 +327,7 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
         throw e;
     }
 });
+exports.makeDir = makeDir;
 /** vsc-base method
  * @description
  * Move a file or folder \
@@ -324,7 +339,7 @@ exports.makeDir = (folderPath) => __awaiter(this, void 0, void 0, function* () {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+const move = (path, newPath, options) => __awaiter(void 0, void 0, void 0, function* () {
     if (options) {
         yield fs.move(path, newPath, options);
     }
@@ -332,6 +347,7 @@ exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, funct
         yield fs.move(path, newPath);
     }
 });
+exports.move = move;
 /** vsc-base method
  * @description
  * Rename a file or folder \
@@ -343,9 +359,10 @@ exports.move = (path, newPath, options) => __awaiter(this, void 0, void 0, funct
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.rename = (path, newPath) => __awaiter(this, void 0, void 0, function* () {
+const rename = (path, newPath) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.rename(path, newPath);
 });
+exports.rename = rename;
 /** vsc-base method
  * @description
  * Copy file/folder \
@@ -357,9 +374,10 @@ exports.rename = (path, newPath) => __awaiter(this, void 0, void 0, function* ()
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.copy = (path, newPath, options) => __awaiter(this, void 0, void 0, function* () {
+const copy = (path, newPath, options) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.copy(path, newPath, options);
 });
+exports.copy = copy;
 /** vsc-base method
  * @description
  * Remove file/folder \
@@ -371,9 +389,10 @@ exports.copy = (path, newPath, options) => __awaiter(this, void 0, void 0, funct
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.remove = (path) => __awaiter(this, void 0, void 0, function* () {
+const remove = (path) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.remove(path);
 });
+exports.remove = remove;
 /** vsc-base method
  * @description
  * emptyDir folder \
@@ -385,9 +404,10 @@ exports.remove = (path) => __awaiter(this, void 0, void 0, function* () {
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-exports.emptyDir = (path) => __awaiter(this, void 0, void 0, function* () {
+const emptyDir = (path) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.emptyDir(path);
 });
+exports.emptyDir = emptyDir;
 /** vsc-base method
  * @description
  * Save file \
@@ -401,9 +421,10 @@ exports.emptyDir = (path) => __awaiter(this, void 0, void 0, function* () {
  * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
-exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+const saveFileContent = (path, content, options) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.writeFile(path, content, options);
 });
+exports.saveFileContent = saveFileContent;
 /** vsc-base method
  * @description
  * Append content to a file \
@@ -417,7 +438,8 @@ exports.saveFileContent = (path, content, options) => __awaiter(this, void 0, vo
  * await vsc.saveFileContent(path, source)
  * @returns Promise<void>
  */
-exports.addFileContent = (path, content, options) => __awaiter(this, void 0, void 0, function* () {
+const addFileContent = (path, content, options) => __awaiter(void 0, void 0, void 0, function* () {
     yield fs.appendFile(path, content, options);
 });
+exports.addFileContent = addFileContent;
 //# sourceMappingURL=vsc-base-system.js.map

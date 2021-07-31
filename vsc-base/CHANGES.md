@@ -2,6 +2,11 @@
 
 See [release notes for details](https://github.com/alfnielsen/vsc-base/wiki/Release-notes)
 
+
+## 0.9.11
+
+Update dependencies
+
 ## 0.9.10
 
 New webview style template [WebviewStyleTemplate](http://vsc-base.org/#WebviewStyleTemplate)

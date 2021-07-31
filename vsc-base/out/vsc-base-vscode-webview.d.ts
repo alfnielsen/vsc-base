@@ -47,7 +47,7 @@ export declare const WebviewHTMLTemplate: WebviewHTMLTemplateMethod;
  * @example
  * const webviewPanel = vsc.initWebview(startOptions)
  */
-export declare const initWebview: ({ viewType, title, html, body, style, script, onMessage: onMessageCode, onCommand: onCommandCode, showOptions, options, htmlTemplateMethod }: vsc.IStartWebviewOptions) => vscode.WebviewPanel;
+export declare const initWebview: ({ viewType, title, html, body, style, script, onMessage: onMessageCode, onCommand: onCommandCode, showOptions, options, htmlTemplateMethod }: IStartWebviewOptions) => vscode.WebviewPanel;
 /** vsc-base method
  * @description
  * Setup message passing methods between a webview and the extension. \
@@ -66,7 +66,7 @@ export declare const initWebview: ({ viewType, title, html, body, style, script,
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
-export declare const setupWebviewConnection: (context: vscode.ExtensionContext, webviewPanel: vscode.WebviewPanel) => vsc.WebviewConnectionReturnType;
+export declare const setupWebviewConnection: (context: vscode.ExtensionContext, webviewPanel: vscode.WebviewPanel) => WebviewConnectionReturnType;
 /** vsc-base method
  * @description
  * Start up a webview with message passing between it and the extension. \

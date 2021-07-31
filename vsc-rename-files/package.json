@@ -50,9 +50,9 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5",
-    "vscode": "^1.1.34"
+    "tslint": "^6.1.3",
+    "typescript": "^4.3.5",
+    "vscode": "^1.1.37"
   },
   "dependencies": {
     "vsc-base": "^0.9.10"

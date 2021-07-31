@@ -1,13 +1,15 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.startWebview = exports.setupWebviewConnection = exports.initWebview = exports.WebviewHTMLTemplate = exports.WebviewStyleTemplate = void 0;
 const vscode = require("vscode");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -119,7 +121,7 @@ exports.WebviewStyleTemplate = `
  * @example
  * const WebviewHTMLTemplate = vsc.WebviewHTMLTemplate(body, script, style)
  */
-exports.WebviewHTMLTemplate = ({ body = '', onMessageScript = '', onCommandScript = '', style = '', script = '', includeBaseStyle = true }) => {
+const WebviewHTMLTemplate = ({ body = '', onMessageScript = '', onCommandScript = '', style = '', script = '', includeBaseStyle = true }) => {
     onMessageScript = onMessageScript || 'undefined;';
     onCommandScript = onCommandScript || 'undefined;';
     return (`<!DOCTYPE html>
@@ -167,6 +169,7 @@ exports.WebviewHTMLTemplate = ({ body = '', onMessageScript = '', onCommandScrip
 <body>${body}</body>
 </html>`);
 };
+exports.WebviewHTMLTemplate = WebviewHTMLTemplate;
 /** vsc-base method
  * @description
  * Creates an WebviewPanel. \
@@ -187,7 +190,7 @@ exports.WebviewHTMLTemplate = ({ body = '', onMessageScript = '', onCommandScrip
  * @example
  * const webviewPanel = vsc.initWebview(startOptions)
  */
-exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, style, script, onMessage: onMessageCode = '', onCommand: onCommandCode = '', showOptions = vscode.ViewColumn.One, options = { enableScripts: true }, htmlTemplateMethod = vsc.WebviewHTMLTemplate }) => {
+const initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, style, script, onMessage: onMessageCode = '', onCommand: onCommandCode = '', showOptions = vscode.ViewColumn.One, options = { enableScripts: true }, htmlTemplateMethod = vsc.WebviewHTMLTemplate }) => {
     const webviewPanel = vscode.window.createWebviewPanel(viewType, title, showOptions, options);
     if (html) {
         webviewPanel.webview.html = html;
@@ -219,6 +222,7 @@ exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, s
     }
     return webviewPanel;
 };
+exports.initWebview = initWebview;
 /** vsc-base method
  * @description
  * Setup message passing methods between a webview and the extension. \
@@ -237,23 +241,23 @@ exports.initWebview = ({ viewType = 'vscScript', title = 'Script', html, body, s
  * @example
  * const [postMessage, createdOnMessage] = vsc.setupWebviewConnection(context, webviewPanel)
  */
-exports.setupWebviewConnection = (context, webviewPanel) => {
+const setupWebviewConnection = (context, webviewPanel) => {
     if (!webviewPanel) {
         throw new Error("Failed to initialize Webview!");
     }
-    const postMessage = (message) => __awaiter(this, void 0, void 0, function* () {
+    const postMessage = (message) => __awaiter(void 0, void 0, void 0, function* () {
         if (webviewPanel) {
             return yield webviewPanel.webview.postMessage(message);
         }
         return false;
     });
-    const sendCommand = (command, value) => __awaiter(this, void 0, void 0, function* () {
+    const sendCommand = (command, value) => __awaiter(void 0, void 0, void 0, function* () {
         if (webviewPanel) {
             return yield webviewPanel.webview.postMessage({ command, value });
         }
         return false;
     });
-    const sendSetHTML = (querySelector, html) => __awaiter(this, void 0, void 0, function* () {
+    const sendSetHTML = (querySelector, html) => __awaiter(void 0, void 0, void 0, function* () {
         if (webviewPanel) {
             return yield webviewPanel.webview.postMessage({ __vscCommand__: 'setHTML', querySelector, html });
         }
@@ -275,7 +279,7 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
             webviewPanel.dispose();
         }
     };
-    const createdOnMessage = (onMessage) => __awaiter(this, void 0, void 0, function* () {
+    const createdOnMessage = (onMessage) => __awaiter(void 0, void 0, void 0, function* () {
         proxy.onMessage = onMessage;
         return new Promise((resolve) => {
             proxy.resolve = () => {
@@ -283,7 +287,7 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
             };
         });
     });
-    const createdOnCommand = (onCommand) => __awaiter(this, void 0, void 0, function* () {
+    const createdOnCommand = (onCommand) => __awaiter(void 0, void 0, void 0, function* () {
         proxy.onCommand = onCommand;
         return new Promise((resolve) => {
             proxy.resolve = () => {
@@ -301,6 +305,7 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
         onCommand: createdOnCommand
     };
 };
+exports.setupWebviewConnection = setupWebviewConnection;
 /** vsc-base method
  * @description
  * Start up a webview with message passing between it and the extension. \
@@ -354,10 +359,11 @@ exports.setupWebviewConnection = (context, webviewPanel) => {
  *  dispose();
  *  vsc.showMessage('Done!')
  */
-exports.startWebview = (context, startOptions) => {
+const startWebview = (context, startOptions) => {
     const webviewPanel = vsc.initWebview(startOptions);
     const options = vsc.setupWebviewConnection(context, webviewPanel);
     options.webviewPanel = webviewPanel;
     return options;
 };
+exports.startWebview = startWebview;
 //# sourceMappingURL=vsc-base-vscode-webview.js.map

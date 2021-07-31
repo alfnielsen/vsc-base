@@ -1,13 +1,15 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.showMessage = exports.showErrorMessage = exports.saveAll = exports.getRootPath = exports.addSelectionFromRange = exports.setSelectionsFromRanges = exports.setSelectionFromRange = exports.addSelection = exports.setSelections = exports.setSelection = exports.createSelection = exports.createVscodeRangeAndPosition = exports.saveDocument = exports.prependLineToDocument = exports.appendLineToDocument = exports.insertAt = exports.insertAtRange = exports.prependToDocument = exports.appendToDocument = exports.getFullDocumentRange = exports.setDocumentContent = exports.getDocumentContent = exports.getDocumentPath = exports.newDocument = exports.getActiveDocument = exports.getActiveEditor = exports.writeToTerminal = exports.getActiveTerminal = exports.findRelativeFilePaths = exports.findFilePathsFromBase = exports.findFilePaths = exports.pick = exports.open = exports.ask = void 0;
 const vscode = require("vscode");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -24,12 +26,13 @@ const vsc = require("./vsc-base");
  * const answer = await ask('Where to move file?', currentFilePath)
  * @returns Promise<string | undefined>
  */
-exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, function* () {
+const ask = (question, defaultValue) => __awaiter(void 0, void 0, void 0, function* () {
     return yield vscode.window.showInputBox({
         prompt: question,
         value: defaultValue
     });
 });
+exports.ask = ask;
 /** vsc-base method
  * @description
  * Open a file in vscode.
@@ -40,7 +43,7 @@ exports.ask = (question, defaultValue) => __awaiter(this, void 0, void 0, functi
  * const editor = await vc.open(path)
  * @returns Promise<vscode.TextEditor | undefined>
  */
-exports.open = (path, column, preserveFocus) => __awaiter(this, void 0, void 0, function* () {
+const open = (path, column, preserveFocus) => __awaiter(void 0, void 0, void 0, function* () {
     const uri = vscode.Uri.parse('file:' + path);
     try {
         const doc = yield vscode.workspace.openTextDocument(uri);
@@ -51,6 +54,7 @@ exports.open = (path, column, preserveFocus) => __awaiter(this, void 0, void 0, 
         return undefined;
     }
 });
+exports.open = open;
 /** vsc-base method
  * @description
  * Prompt user for a question with a list of answers
@@ -65,7 +69,8 @@ exports.open = (path, column, preserveFocus) => __awaiter(this, void 0, void 0, 
  * const answer = await vsc.pick(list)
  * @returns Promise<string | undefined>
  */
-exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
+const pick = (answerList) => __awaiter(void 0, void 0, void 0, function* () { return yield vscode.window.showQuickPick(answerList); });
+exports.pick = pick;
 /** vsc-base method
  * @description
  * Get a list off all filePaths in project the matches a glob pattern
@@ -86,11 +91,12 @@ exports.pick = (answerList) => __awaiter(this, void 0, void 0, function* () { re
  * }
  * @returns Promise<string[]>
  */
-exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+const findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     const uriFiles = yield vscode.workspace.findFiles(include, exclude, maxResults);
     const files = uriFiles.map((uri) => vsc.pathAsUnix(uri.fsPath));
     return files;
 });
+exports.findFilePaths = findFilePaths;
 /** vsc-base method
  * @description
  * Get a list off all filePaths from a basePath, in project the matches a glob pattern
@@ -111,12 +117,13 @@ exports.findFilePaths = (include = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_mo
  * }
  * @returns Promise<string[]>
  */
-exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+const findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     let baseDir = vsc.getDir(basePath);
     const include = new vscode.RelativePattern(baseDir, includePattern);
     const filePaths = yield vsc.findFilePaths(include, exclude, maxResults);
     return filePaths;
 });
+exports.findFilePathsFromBase = findFilePathsFromBase;
 /** vsc-base method
  * @description
  * Find files based from a relative to a path
@@ -145,7 +152,7 @@ exports.findFilePathsFromBase = (basePath, includePattern = '**/*.{js,jsx,ts,tsx
  * // Do something with modulePath..
  * @returns Promise<string[]>
  */
-exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(this, void 0, void 0, function* () {
+const findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,jsx,ts,tsx}', exclude = '**/node_modules/**', maxResults = 100000) => __awaiter(void 0, void 0, void 0, function* () {
     const dir = vsc.getDir(path);
     const joinPath = vsc.joinPaths(dir, relativePath);
     let base = vsc.cleanPath(joinPath + '/');
@@ -153,6 +160,7 @@ exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,
     const filePaths = yield exports.findFilePathsFromBase(base, includePattern, exclude, maxResults);
     return filePaths;
 });
+exports.findRelativeFilePaths = findRelativeFilePaths;
 /** vsc-base method
  * @description
  * Get vscode.window.activeTerminal
@@ -163,9 +171,10 @@ exports.findRelativeFilePaths = (path, relativePath, includePattern = '**/*.{js,
  * const editor = vsc.getActiveTerminal()
  * @returns vscode.TextEditor | undefined
  */
-exports.getActiveTerminal = () => {
+const getActiveTerminal = () => {
     return vscode.window.activeTerminal;
 };
+exports.getActiveTerminal = getActiveTerminal;
 /** vsc-base method
  * @description
  * Write text to a terminal \
@@ -183,7 +192,7 @@ exports.getActiveTerminal = () => {
  * const editor = vsc.writeToTerminal()
  * @returns vscode.TextEditor | undefined
  */
-exports.writeToTerminal = (content, showTerminal = true, addNewLine = true, terminal) => {
+const writeToTerminal = (content, showTerminal = true, addNewLine = true, terminal) => {
     if (!terminal) {
         terminal = vsc.getActiveTerminal();
     }
@@ -196,6 +205,7 @@ exports.writeToTerminal = (content, showTerminal = true, addNewLine = true, term
     }
     return true;
 };
+exports.writeToTerminal = writeToTerminal;
 /** vsc-base method
  * @description
  * Get vscode.window.activeTextEditor
@@ -206,9 +216,10 @@ exports.writeToTerminal = (content, showTerminal = true, addNewLine = true, term
  * const editor = vsc.getActiveEditor()
  * @returns vscode.TextEditor | undefined
  */
-exports.getActiveEditor = () => {
+const getActiveEditor = () => {
     return vscode.window.activeTextEditor;
 };
+exports.getActiveEditor = getActiveEditor;
 /** vsc-base method
  * @description
  * Get open vscode.TextDocument
@@ -219,13 +230,14 @@ exports.getActiveEditor = () => {
  * const document = vsc.getActiveDocument()
  * @returns vscode.TextDocument | undefined
  */
-exports.getActiveDocument = (editor) => {
+const getActiveDocument = (editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
     const document = editor && editor.document;
     return document;
 };
+exports.getActiveDocument = getActiveDocument;
 /** vsc-base method
  * @description
  * Open a new document (untitled and not saved).
@@ -236,11 +248,12 @@ exports.getActiveDocument = (editor) => {
  * @vscType Vscode
  * @returns Promise<vscode.TextDocument>
  */
-exports.newDocument = (content, language = 'typescript') => __awaiter(this, void 0, void 0, function* () {
+const newDocument = (content, language = 'typescript') => __awaiter(void 0, void 0, void 0, function* () {
     const document = yield vscode.workspace.openTextDocument({ language, content });
     yield vscode.window.showTextDocument(document);
     return document;
 });
+exports.newDocument = newDocument;
 /** vsc-base method
  * @description
  * Get current open file path or undefined if nothing is open.
@@ -251,12 +264,13 @@ exports.newDocument = (content, language = 'typescript') => __awaiter(this, void
  * @vscType Vscode
  * @returns string | undefined
  */
-exports.getDocumentPath = (document) => {
+const getDocumentPath = (document) => {
     if (!document) {
         document = vsc.getActiveDocument();
     }
     return (document && document.fileName) || undefined;
 };
+exports.getDocumentPath = getDocumentPath;
 /** vsc-base method
  * @description
  * Get current open file's content.
@@ -267,12 +281,13 @@ exports.getDocumentPath = (document) => {
  * const content = vsc.getDocumentContent()
  * @returns string | undefined
  */
-exports.getDocumentContent = (document) => {
+const getDocumentContent = (document) => {
     if (!document) {
         document = vsc.getActiveDocument();
     }
     return (document && document.getText()) || undefined;
 };
+exports.getDocumentContent = getDocumentContent;
 /** vsc-base method
  * @description
  * Set current open file's content. \
@@ -287,7 +302,7 @@ exports.getDocumentContent = (document) => {
  * const success = vsc.setDocumentContent(content)
  * @returns boolean
  */
-exports.setDocumentContent = (content, editor) => {
+const setDocumentContent = (content, editor) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
@@ -297,6 +312,7 @@ exports.setDocumentContent = (content, editor) => {
     const fullRange = vsc.getFullDocumentRange(editor.document);
     return exports.insertAtRange(content, fullRange, editor);
 };
+exports.setDocumentContent = setDocumentContent;
 /** vsc-base method
  * @description
  * Get a vscode.Range for the entire document
@@ -308,12 +324,13 @@ exports.setDocumentContent = (content, editor) => {
  * const fullRange = vsc.getFullDocumentRange(document)
  * @returns boolean
  */
-exports.getFullDocumentRange = (document) => {
+const getFullDocumentRange = (document) => {
     const startPosition = new vscode.Position(0, 0);
     const endPosition = new vscode.Position(document.lineCount, 0);
     const fullRange = new vscode.Range(startPosition, endPosition);
     return fullRange;
 };
+exports.getFullDocumentRange = getFullDocumentRange;
 /** vsc-base method
  * @description
  * Append new content in the end of the (open) document. \
@@ -328,7 +345,7 @@ exports.getFullDocumentRange = (document) => {
  * await vsc.appendToDocument(editor, document, content)
  * @returns boolean
  */
-exports.appendToDocument = (content, editor) => {
+const appendToDocument = (content, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -340,6 +357,7 @@ exports.appendToDocument = (content, editor) => {
     const fullRange = new vscode.Range(startPosition, endPosition);
     return exports.insertAtRange(content, fullRange, editor);
 };
+exports.appendToDocument = appendToDocument;
 /** vsc-base method
  * @description
  * Prepend new content in the end of the open document.
@@ -353,12 +371,13 @@ exports.appendToDocument = (content, editor) => {
  * vsc.prependToDocument(editor, document, content)
  * @returns boolean
  */
-exports.prependToDocument = (content, editor) => {
+const prependToDocument = (content, editor) => {
     const startPosition = new vscode.Position(0, 0);
     const endPosition = new vscode.Position(0, 0);
     const startRange = new vscode.Range(startPosition, endPosition);
     return exports.insertAtRange(content, startRange, editor);
 };
+exports.prependToDocument = prependToDocument;
 /** vsc-base method
  * @description
  * Insert content at vscode.Range
@@ -373,7 +392,7 @@ exports.prependToDocument = (content, editor) => {
  * const success = vsc.insertAtRange(content, range)
  * @returns boolean
  */
-exports.insertAtRange = (content, range, editor) => {
+const insertAtRange = (content, range, editor) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
@@ -388,6 +407,7 @@ exports.insertAtRange = (content, range, editor) => {
     vscode.workspace.applyEdit(workspaceEdit);
     return true;
 };
+exports.insertAtRange = insertAtRange;
 /** vsc-base method
  * @description
  * Insert content at position (start and optional end position)
@@ -402,7 +422,7 @@ exports.insertAtRange = (content, range, editor) => {
  * const success = vsc.insertAt(content, start, end)
  * @returns boolean
  */
-exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => {
+const insertAt = (content, start, end = start, editor, trimSpaces = false) => {
     if (editor === undefined) {
         editor = vsc.getActiveEditor();
     }
@@ -414,6 +434,7 @@ exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => 
     vsc.insertAtRange(content, pos.range, editor);
     return true;
 };
+exports.insertAt = insertAt;
 /** vsc-base method
  * @description
  * Append new line content in the end of the (open) document
@@ -426,9 +447,10 @@ exports.insertAt = (content, start, end = start, editor, trimSpaces = false) => 
  * const success = vsc.appendLineToDocument(content)
  * @returns boolean
  */
-exports.appendLineToDocument = (content, editor) => {
+const appendLineToDocument = (content, editor) => {
     return vsc.appendToDocument('\n' + content, editor);
 };
+exports.appendLineToDocument = appendLineToDocument;
 /** vsc-base method
  * @description
  * Prepend new line content in the start of the (open) document
@@ -441,9 +463,10 @@ exports.appendLineToDocument = (content, editor) => {
  * const success = vsc.prependLineToDocument(content)
  * @returns boolean
  */
-exports.prependLineToDocument = (content, editor) => {
+const prependLineToDocument = (content, editor) => {
     return vsc.prependToDocument(content + '\n', editor);
 };
+exports.prependLineToDocument = prependLineToDocument;
 /** vsc-base method
  * @description
  * Save active open file. \
@@ -455,7 +478,7 @@ exports.prependLineToDocument = (content, editor) => {
  * const success = await vsc.saveDocument(content)
  * @returns Promise<boolean>
  */
-exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* () {
+const saveDocument = (document) => __awaiter(void 0, void 0, void 0, function* () {
     if (!document) {
         document = vsc.getActiveDocument();
     }
@@ -465,6 +488,7 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
     }
     return Promise.resolve(false);
 });
+exports.saveDocument = saveDocument;
 /** vsc-base method
  * @description
  * Takes a start and end and return vscode positions and range objects. \
@@ -476,7 +500,7 @@ exports.saveDocument = (document) => __awaiter(this, void 0, void 0, function* (
  * const success = vsc.createVscodeRangeAndPosition(source, start, end)
  * @returns boolean
  */
-exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAndComments = true) => {
+const createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAndComments = true) => {
     const fullContent = source.substring(start, end);
     const orgStart = start;
     const orgEnd = end;
@@ -514,6 +538,7 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAn
         orgEnd
     };
 };
+exports.createVscodeRangeAndPosition = createVscodeRangeAndPosition;
 /** vsc-base method
  * @description
  * Create a vscode.Selection \
@@ -525,11 +550,12 @@ exports.createVscodeRangeAndPosition = (source, start, end = start, trimSpacesAn
  * const selection = vsc.createSelection(start, end)
  * @returns vscode.Selection
  */
-exports.createSelection = (source, start, end = start, trimSpaces = true) => {
+const createSelection = (source, start, end = start, trimSpaces = true) => {
     const complexRangeObject = vsc.createVscodeRangeAndPosition(source, start, end, trimSpaces);
     const selection = new vscode.Selection(complexRangeObject.startPosition, complexRangeObject.endPosition);
     return selection;
 };
+exports.createSelection = createSelection;
 /** vsc-base method
  * @description
  * Set Selection for an TextEditor (Current document) \
@@ -543,7 +569,7 @@ exports.createSelection = (source, start, end = start, trimSpaces = true) => {
  * const success = vsc.setSelection(start, end)
  * @returns boolean
  */
-exports.setSelection = (start, end = start, editor) => {
+const setSelection = (start, end = start, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -556,6 +582,7 @@ exports.setSelection = (start, end = start, editor) => {
     editor.selection = selection;
     return true;
 };
+exports.setSelection = setSelection;
 /** vsc-base method
  * @description
  * Set Selections for an TextEditor (Current document) \
@@ -570,7 +597,7 @@ exports.setSelection = (start, end = start, editor) => {
  * const success = vsc.setSelections(ranges)
  * @returns boolean
  */
-exports.setSelections = (ranges, editor) => {
+const setSelections = (ranges, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -581,6 +608,7 @@ exports.setSelections = (ranges, editor) => {
     editor.selections = ranges.map((range) => vsc.createSelection(source, range.start, range.end));
     return true;
 };
+exports.setSelections = setSelections;
 /** vsc-base method
  * @description
  * Add a Selection for an TextEditor (Current document) \
@@ -591,7 +619,7 @@ exports.setSelections = (ranges, editor) => {
  * const success = vsc.addSelection(range)
  * @returns boolean
  */
-exports.addSelection = (start, end = start, editor) => {
+const addSelection = (start, end = start, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -604,6 +632,7 @@ exports.addSelection = (start, end = start, editor) => {
     //editor.selections.push(selection)
     return true;
 };
+exports.addSelection = addSelection;
 /** vsc-base method
  * @description
  * Set Selection for an TextEditor (Current document) \
@@ -617,7 +646,7 @@ exports.addSelection = (start, end = start, editor) => {
  * const success = vsc.setSelectionFromRange(range)
  * @returns boolean
  */
-exports.setSelectionFromRange = (range, editor) => {
+const setSelectionFromRange = (range, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -628,6 +657,7 @@ exports.setSelectionFromRange = (range, editor) => {
     editor.selection = new vscode.Selection(range.start, range.end);
     return true;
 };
+exports.setSelectionFromRange = setSelectionFromRange;
 /** vsc-base method
  * @description
  * Set Selections for an TextEditor (Current document) \
@@ -641,7 +671,7 @@ exports.setSelectionFromRange = (range, editor) => {
  * const success = vsc.setSelectionsFromRanges(ranges)
  * @returns boolean
  */
-exports.setSelectionsFromRanges = (range, editor) => {
+const setSelectionsFromRanges = (range, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -651,6 +681,7 @@ exports.setSelectionsFromRanges = (range, editor) => {
     editor.selections = range.map(range => new vscode.Selection(range.start, range.end));
     return true;
 };
+exports.setSelectionsFromRanges = setSelectionsFromRanges;
 /** vsc-base method
  * @description
  * Add a Selection for an TextEditor (Current document) \
@@ -663,7 +694,7 @@ exports.setSelectionsFromRanges = (range, editor) => {
  * const success = vsc.addSelectionFromRange(range)
  * @returns boolean
  */
-exports.addSelectionFromRange = (range, editor) => {
+const addSelectionFromRange = (range, editor) => {
     if (!editor) {
         editor = vsc.getActiveEditor();
     }
@@ -673,6 +704,7 @@ exports.addSelectionFromRange = (range, editor) => {
     editor.selections = [new vscode.Selection(range.start, range.end), ...editor.selections];
     return true;
 };
+exports.addSelectionFromRange = addSelectionFromRange;
 /** vsc-base method
  * @description
  * Get project root for a path or undefined if no project was found.
@@ -685,7 +717,7 @@ exports.addSelectionFromRange = (range, editor) => {
  * const rootPath = vsc.getRootPath()
  * @returns string | undefined
  */
-exports.getRootPath = (path) => {
+const getRootPath = (path) => {
     const uri = vscode.Uri.file(path);
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(uri);
     if (!workspaceFolder) {
@@ -695,6 +727,7 @@ exports.getRootPath = (path) => {
     rootPath = vsc.pathAsUnix(rootPath);
     return rootPath;
 };
+exports.getRootPath = getRootPath;
 /** vsc-base method
  * @description
  * Save All files
@@ -705,9 +738,10 @@ exports.getRootPath = (path) => {
  * await vsc.saveAll()
  * @returns Promise<void>
  */
-exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
+const saveAll = () => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.workspace.saveAll(false);
 });
+exports.saveAll = saveAll;
 /** vsc-base method
  * @description
  * Show error message to user
@@ -719,9 +753,10 @@ exports.saveAll = () => __awaiter(this, void 0, void 0, function* () {
  * vsc.showErrorMessage(message)
  * @returns Promise<void>
  */
-exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function* () {
+const showErrorMessage = (message) => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.window.showErrorMessage(message);
 });
+exports.showErrorMessage = showErrorMessage;
 /** vsc-base method
  * @description
  * Show message to user
@@ -733,7 +768,8 @@ exports.showErrorMessage = (message) => __awaiter(this, void 0, void 0, function
  * vsc.showMessage(message)
  * @returns Promise<void>
  */
-exports.showMessage = (message) => __awaiter(this, void 0, void 0, function* () {
+const showMessage = (message) => __awaiter(void 0, void 0, void 0, function* () {
     yield vscode.window.showInformationMessage(message);
 });
+exports.showMessage = showMessage;
 //# sourceMappingURL=vsc-base-vscode.js.map

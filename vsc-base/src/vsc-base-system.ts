@@ -1,8 +1,8 @@
-import * as cp from 'child-process-promise'
-import * as fs from 'fs-extra'
-import * as vscode from 'vscode'
+import * as cp from "child-process-promise"
+import * as fs from "fs-extra"
+import * as vscode from "vscode"
 
-import * as vsc from './vsc-base'
+import * as vsc from "./vsc-base"
 
 /** vsc-base method
  * @description 
@@ -26,12 +26,15 @@ import * as vsc from './vsc-base'
  * @returns Promise<cp.PromiseResult<string>>
  */
 
-export const execFromPath = async (command: string, path: string): Promise<cp.PromiseResult<string>> => {
-   return await cp.exec(`cd ${path} && ${command}`);
+export const execFromPath = async (
+  command: string,
+  path: string
+): Promise<cp.PromiseResult<string>> => {
+  return await cp.exec(`cd ${path} && ${command}`)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Create a LineReader (generator method) for a ReadStream /
  * Optional params 'excludeNewLine' (default value false). /
  * If set to true it will omit the newline feed from the returned lines. /
@@ -51,30 +54,33 @@ export const execFromPath = async (command: string, path: string): Promise<cp.Pr
  * }
  * @returns () => AsyncIterableIterator<string>
  */
-export const getLineStreamReader = (readStream: fs.ReadStream, excludeNewLine = false) =>
-   async function* () {
-      let read = ''
-      for await (const chunk of readStream) {
-         read += chunk
-         let lineLength: number
-         while ((lineLength = read.indexOf('\n')) >= 0) {
-            let line: string
-            if (excludeNewLine) {
-               line = read.slice(0, lineLength)
-            } else {
-               line = read.slice(0, lineLength + 1)
-            }
-            yield line
-            read = read.slice(lineLength + 1)
-         }
+export const getLineStreamReader = (
+  readStream: fs.ReadStream,
+  excludeNewLine = false
+) =>
+  async function* () {
+    let read = ""
+    for await (const chunk of readStream) {
+      read += chunk
+      let lineLength: number
+      while ((lineLength = read.indexOf("\n")) >= 0) {
+        let line: string
+        if (excludeNewLine) {
+          line = read.slice(0, lineLength)
+        } else {
+          line = read.slice(0, lineLength + 1)
+        }
+        yield line
+        read = read.slice(lineLength + 1)
       }
-      if (read.length > 0) {
-         yield read
-      }
-   }
+    }
+    if (read.length > 0) {
+      yield read
+    }
+  }
 
 /** vsc-base method
- * @description 
+ * @description
  * Get a file ReadStream \
  * See [fs docs for createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
  * @see [getReadStream](http://vsc-base.org/#getReadStream)
@@ -91,22 +97,22 @@ export const getLineStreamReader = (readStream: fs.ReadStream, excludeNewLine = 
  * @returns fs.ReadStream
  */
 export const getReadStream = (
-   path: string,
-   options = {
-      flags: 'r',
-      encoding: 'utf-8',
-      fd: undefined,
-      mode: 438, // 0666 in Octal
-      autoClose: false,
-      highWaterMark: 64 * 1024
-   }
+  path: string,
+  options = {
+    flags: "r",
+    encoding: "utf-8",
+    fd: undefined,
+    mode: 438, // 0666 in Octal
+    autoClose: false,
+    highWaterMark: 64 * 1024,
+  }
 ) => {
-   const stream = fs.createReadStream(path, options)
-   return stream
+  const stream = fs.createReadStream(path, options)
+  return stream
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Does the folder/file exist
  * @see [doesExists](http://vsc-base.org/#doesExists)
  * @param path string
@@ -117,11 +123,11 @@ export const getReadStream = (
  * @returns boolean
  */
 export const doesExists = (path: string): boolean => {
-   return fs.existsSync(path)
+  return fs.existsSync(path)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Get dir from path \
  * (If path is a dir return it)
  * @see [getDir](http://vsc-base.org/#getDir)
@@ -133,16 +139,16 @@ export const doesExists = (path: string): boolean => {
  * @returns string
  */
 export const getDir = (path: string) => {
-   const _isDir = vsc.isDir(path)
-   if (_isDir) {
-      return path
-   }
-   const [dir] = vsc.splitPath(path)
-   return dir
+  const _isDir = vsc.isDir(path)
+  if (_isDir) {
+    return path
+  }
+  const [dir] = vsc.splitPath(path)
+  return dir
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Get file source
  * @see [getFileContent](http://vsc-base.org/#getFileContent)
  * @param path
@@ -153,13 +159,12 @@ export const getDir = (path: string) => {
  * @returns Promise<string>
  */
 export const getFileContent = async (
-   path: string,
-   encoding = 'utf8'
-): Promise<string> =>
-   await fs.readFile(path, encoding)
+  path: string,
+  encoding = "utf8"
+): Promise<string> => await fs.readFile(path, encoding)
 
 /** vsc-base method
- * @description 
+ * @description
  * Get file source as json \
  * (return null on invalid json)
  * @see [getJsonContent](http://vsc-base.org/#getJsonContent)
@@ -171,12 +176,12 @@ export const getFileContent = async (
  * @returns unknown
  */
 export const getJsonContent = async <TStructure = unknown>(
-   path: string,
-   throws = false
+  path: string,
+  throws = false
 ): Promise<TStructure> => await fs.readJson(path, { throws })
 
 /** vsc-base method
- * @description 
+ * @description
  * Get vscode project config
  * @see [getConfig](http://vsc-base.org/#getConfig)
  * @dependencyExternal vscode
@@ -188,17 +193,17 @@ export const getJsonContent = async <TStructure = unknown>(
  * @returns T
  */
 export const getConfig = <T>(
-   projectName: string,
-   property: string,
-   defaultValue: T
+  projectName: string,
+  property: string,
+  defaultValue: T
 ): T => {
-   return vscode.workspace
-      .getConfiguration(projectName)
-      .get<T>(property, defaultValue)
+  return vscode.workspace
+    .getConfiguration(projectName)
+    .get<T>(property, defaultValue)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Find package.json file paths in project. /
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) \
  * It can be used to control which package.json files should be included.
@@ -210,15 +215,14 @@ export const getConfig = <T>(
  * @returns Promise<string[]>
  */
 export const getPackageFilePaths = async (
-   exclude = '**/{node_modules,.vscode-test}/**'
+  exclude = "**/{node_modules,.vscode-test}/**"
 ): Promise<string[]> => {
-   const packageFiles = await vsc.findFilePaths('**/package.json', exclude)
-   return packageFiles
+  const packageFiles = await vsc.findFilePaths("**/package.json", exclude)
+  return packageFiles
 }
 
-
 /** vsc-base method
- * @description 
+ * @description
  * Get json from package.json in the project root.
  * @see [getRootPackageJson](http://vsc-base.org/#getRootPackageJson)
  * @dependencyInternal findFilePaths
@@ -228,16 +232,15 @@ export const getPackageFilePaths = async (
  * @returns Promise<T = any>
  */
 export const getRootPackageJson = async <T = any>(
-   rootPath: string
+  rootPath: string
 ): Promise<T> => {
-   const packageJsonPath = vsc.joinPaths(rootPath, 'package.json')
-   const packageJson = await vsc.getJsonContent<T>(packageJsonPath)
-   return packageJson
+  const packageJsonPath = vsc.joinPaths(rootPath, "package.json")
+  const packageJson = await vsc.getJsonContent<T>(packageJsonPath)
+  return packageJson
 }
 
-
 /** vsc-base method
- * @description 
+ * @description
  * Find package.json files and collect the dependencies and devDependencies.
  * Take an optional 'exclude' which is an exclude pattern for the underlying [findFilePaths](http://vsc-base.org/#findFilePaths) / [getPackageFilePaths](http://vsc-base.org/#getPackageFilePaths) \
  * It can be used to control which package.json files should be included.
@@ -250,36 +253,40 @@ export const getRootPackageJson = async <T = any>(
  * @returns Promise<{ [key: string]: string }[]
  */
 export const getPackageDependencies = async (
-   exclude = '**/{node_modules,.vscode-test}/**'
-): Promise<
-   { [key: string]: string }[]
-> => {
-   let dependencies: { [k: string]: string } = {}
-   let devDependencies: { [k: string]: string } = {}
-   const packageFilePaths = await vsc.getPackageFilePaths(exclude)
-   for (let i = 0; i < packageFilePaths.length; i++) {
-      const packageFile = packageFilePaths[i]
-      const packageJson = await vsc.getJsonContent<{
-         dependencies: { [key: string]: string },
-         devDependencies: { [key: string]: string }
-      }>(packageFile)
-      if (!packageJson) {
-         continue
-      }
-      const packageDependencies = vsc.getJsonParts<{ [k: string]: string }>(packageJson, 'dependencies')
-      const packageDevDependencies = vsc.getJsonParts<{ [k: string]: string }>(packageJson, 'devDependencies')
-      if (packageDependencies) {
-         dependencies = { ...dependencies, ...packageDependencies }
-      }
-      if (packageDevDependencies) {
-         devDependencies = { ...devDependencies, ...packageDevDependencies }
-      }
-   }
-   return [dependencies, devDependencies]
+  exclude = "**/{node_modules,.vscode-test}/**"
+): Promise<{ [key: string]: string }[]> => {
+  let dependencies: { [k: string]: string } = {}
+  let devDependencies: { [k: string]: string } = {}
+  const packageFilePaths = await vsc.getPackageFilePaths(exclude)
+  for (let i = 0; i < packageFilePaths.length; i++) {
+    const packageFile = packageFilePaths[i]
+    const packageJson = await vsc.getJsonContent<{
+      dependencies: { [key: string]: string }
+      devDependencies: { [key: string]: string }
+    }>(packageFile)
+    if (!packageJson) {
+      continue
+    }
+    const packageDependencies = vsc.getJsonParts<{ [k: string]: string }>(
+      packageJson,
+      "dependencies"
+    )
+    const packageDevDependencies = vsc.getJsonParts<{ [k: string]: string }>(
+      packageJson,
+      "devDependencies"
+    )
+    if (packageDependencies) {
+      dependencies = { ...dependencies, ...packageDependencies }
+    }
+    if (packageDevDependencies) {
+      devDependencies = { ...devDependencies, ...packageDevDependencies }
+    }
+  }
+  return [dependencies, devDependencies]
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Test is a path is directory
  * @param path
  * @dependencyExternal fs
@@ -290,11 +297,11 @@ export const getPackageDependencies = async (
  * @returns boolean
  */
 export const isDir = (path: string): boolean => {
-   return fs.statSync(path).isDirectory()
+  return fs.statSync(path).isDirectory()
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Make a folder \
  * See [fs docs for mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
  * @see [makeDir](http://vsc-base.org/#makeDir)
@@ -306,15 +313,15 @@ export const isDir = (path: string): boolean => {
  * @returns Promise<void>
  */
 export const makeDir = async (folderPath: string): Promise<void> => {
-   try {
-      await fs.mkdir(folderPath)
-   } catch (e) {
-      throw e
-   }
+  try {
+    await fs.mkdir(folderPath)
+  } catch (e) {
+    throw e
+  }
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Move a file or folder \
  * See [fs-extra docs for move](https://github.com/jprichardson/node-fs-extra/blob/master/docs/move.md)
  * @see [move](http://vsc-base.org/#move)
@@ -325,19 +332,19 @@ export const makeDir = async (folderPath: string): Promise<void> => {
  * @returns Promise<void>
  */
 export const move = async (
-   path: string,
-   newPath: string,
-   options?: fs.MoveOptions
+  path: string,
+  newPath: string,
+  options?: fs.MoveOptions
 ): Promise<void> => {
-   if (options) {
-      await fs.move(path, newPath, options)
-   } else {
-      await fs.move(path, newPath)
-   }
+  if (options) {
+    await fs.move(path, newPath, options)
+  } else {
+    await fs.move(path, newPath)
+  }
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Rename a file or folder \
  * See [fs docs for rename](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
  * @see [move](http://vsc-base.org/#move)
@@ -347,16 +354,12 @@ export const move = async (
  * @dependencyExternal fs
  * @returns Promise<void>
  */
-export const rename = async (
-   path: string,
-   newPath: string,
-): Promise<void> => {
-   await fs.rename(path, newPath)
+export const rename = async (path: string, newPath: string): Promise<void> => {
+  await fs.rename(path, newPath)
 }
 
-
 /** vsc-base method
- * @description 
+ * @description
  * Copy file/folder \
  * See [fs-extra docs for copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md)
  * @see [copy](http://vsc-base.org/#copy)
@@ -367,15 +370,15 @@ export const rename = async (
  * @returns Promise<void>
  */
 export const copy = async (
-   path: string,
-   newPath: string,
-   options?: fs.CopyOptions
+  path: string,
+  newPath: string,
+  options?: fs.CopyOptions
 ): Promise<void> => {
-   await fs.copy(path, newPath, options)
+  await fs.copy(path, newPath, options)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Remove file/folder \
  * See [fs-extra docs for remove](https://github.com/jprichardson/node-fs-extra/blob/master/docs/remove.md)
  * @see [remove](http://vsc-base.org/#remove)
@@ -386,11 +389,11 @@ export const copy = async (
  * @returns Promise<void>
  */
 export const remove = async (path: string): Promise<void> => {
-   await fs.remove(path)
+  await fs.remove(path)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * emptyDir folder \
  * See [fs-extra docs for emptyDir](https://github.com/jprichardson/node-fs-extra/blob/master/docs/emptyDir.md)
  * @see [emptyDir](http://vsc-base.org/#emptyDir)
@@ -401,11 +404,11 @@ export const remove = async (path: string): Promise<void> => {
  * @returns Promise<void>
  */
 export const emptyDir = async (path: string): Promise<void> => {
-   await fs.emptyDir(path)
+  await fs.emptyDir(path)
 }
 
 /** vsc-base method
- * @description 
+ * @description
  * Save file \
  * See [fs docs for writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
  * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
@@ -418,16 +421,15 @@ export const emptyDir = async (path: string): Promise<void> => {
  * @returns Promise<void>
  */
 export const saveFileContent = async (
-   path: string,
-   content: string,
-   options?: fs.WriteFileOptions
+  path: string,
+  content: string,
+  options?: fs.WriteFileOptions
 ): Promise<void> => {
-   await fs.writeFile(path, content, options)
+  await fs.writeFile(path, content, options)
 }
 
-
 /** vsc-base method
- * @description 
+ * @description
  * Append content to a file \
  * See [fs docs for appendFile](https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback)
  * @see [saveFileContent](http://vsc-base.org/#saveFileContent)
@@ -440,10 +442,16 @@ export const saveFileContent = async (
  * @returns Promise<void>
  */
 export const addFileContent = async (
-   path: string,
-   content: string,
-   options?: fs.WriteFileOptions
+  path: string,
+  content: string,
+  options?: WriteFileOptions
 ): Promise<void> => {
-   await fs.appendFile(path, content, options)
+  await fs.appendFile(path, content, options)
 }
 
+// Custom fix for ts interface (fs.WriteFileOptions.encoding allow null, but fs.appendFile dont!)
+export interface WriteFileOptions {
+  encoding?: string | undefined
+  flag?: string | undefined
+  mode?: number | undefined
+}

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tsInsertVariableObjectProperty = exports.tsInsertInterfaceMember = exports.tsInsertEnumMember = exports.tsInsertImport = void 0;
 const ts = require("typescript");
 const vsc = require("./vsc-base");
 /** vsc-base method
@@ -12,7 +13,7 @@ const vsc = require("./vsc-base");
  * source = vsc.tsInsertImport(source, 'useCallback', 'react')
  * @returns string
  */
-exports.tsInsertImport = (source, importName, importPath, options) => {
+const tsInsertImport = (source, importName, importPath, options) => {
     const { isDefault = false, useDoubleQuotation = false, addSemicolon = false } = options || {};
     const [matchImport] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchImport(node, {
         nameSpace: importName
@@ -60,6 +61,7 @@ exports.tsInsertImport = (source, importName, importPath, options) => {
     source = source.substring(0, importPos) + importContent + source.substring(importPos);
     return source;
 };
+exports.tsInsertImport = tsInsertImport;
 /** vsc-base method
  * @description
  * Insert/add a member in an enum. \
@@ -82,7 +84,7 @@ exports.tsInsertImport = (source, importName, importPath, options) => {
  * source = vsc.tsInsertEnumMember(source, 'numberOptions', 'Tree', 'One * 3', { addQuotes: false })
  * @returns string
  */
-exports.tsInsertEnumMember = (source, enumName, memberName, value, options) => {
+const tsInsertEnumMember = (source, enumName, memberName, value, options) => {
     const { newIntention = 3, addNewLeadingComma = false, addQuotes = true, useDoubleQuotation = false } = options || {};
     // Find variable list 
     const [_enum] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchEnum(node, {
@@ -156,6 +158,7 @@ exports.tsInsertEnumMember = (source, enumName, memberName, value, options) => {
     // return 
     return source;
 };
+exports.tsInsertEnumMember = tsInsertEnumMember;
 /** vsc-base method
  * @description
  * Insert/add a member in an interface. \
@@ -176,7 +179,7 @@ exports.tsInsertEnumMember = (source, enumName, memberName, value, options) => {
  * source = vsc.tsAddInterfaceMember(source, 'IFood', 'type', 'FooType')
  * @returns string
  */
-exports.tsInsertInterfaceMember = (source, interfaceName, memberName, type, options) => {
+const tsInsertInterfaceMember = (source, interfaceName, memberName, type, options) => {
     const { newIntention = 3, addNewLeadingSemiColon = false } = options || {};
     // Find variable list 
     const [_interface] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchInterface(node, {
@@ -232,6 +235,7 @@ exports.tsInsertInterfaceMember = (source, interfaceName, memberName, type, opti
     // return 
     return source;
 };
+exports.tsInsertInterfaceMember = tsInsertInterfaceMember;
 /** vsc-base method
  * @description
  * Insert/add a key-value pair in an variable object. \
@@ -252,7 +256,7 @@ exports.tsInsertInterfaceMember = (source, interfaceName, memberName, type, opti
  * source = vsc.tsAddVariableObjectProperty(source, 'IFood', 'type', 'FooType')
  * @returns string
  */
-exports.tsInsertVariableObjectProperty = (source, variableName, key, value, options) => {
+const tsInsertVariableObjectProperty = (source, variableName, key, value, options) => {
     const { newIntention = 3, addNewTrailingComma = false } = options || {};
     // Find variable list 
     const [variableList, variableListPos] = vsc.tsFindNodePositionFromContent(source, node => vsc.tsMatchVariableList(node, {
@@ -345,4 +349,5 @@ exports.tsInsertVariableObjectProperty = (source, variableName, key, value, opti
     // return 
     return source;
 };
+exports.tsInsertVariableObjectProperty = tsInsertVariableObjectProperty;
 //# sourceMappingURL=vsc-base-typescript-top-level-transform.js.map

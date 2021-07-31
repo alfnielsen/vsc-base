@@ -718,7 +718,7 @@ export declare const escapeHtml: (unsafe: string, encodeCurlyBracket?: boolean) 
 }
  * @returns string
  */
-export declare const objectWalker: (obj: any, callback: vsc.ObjectWalkerCallback) => any;
+export declare const objectWalker: (obj: any, callback: ObjectWalkerCallback) => any;
 interface ObjectWalkerCallbackState {
     /**
      * The current child. (Any type)
